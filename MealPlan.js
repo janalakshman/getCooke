@@ -4,6 +4,7 @@ import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-nati
 import Title from './components/Title';
 import Header from './components/Header';
 import CalendarCard from './components/CalendarCard'
+import NutritionCard from './components/NutritionCard'
 import FloatingButton from './components/FloatingButtonList'
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -17,6 +18,7 @@ export default function MealPlan({navigation}) {
           <CalendarCard />
           <CalendarCard />
           <CalendarCard />
+          <NutritionCard count={1}/>
         </ScrollView> 
 
         <View style={styles.position}>

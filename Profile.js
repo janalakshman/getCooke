@@ -75,11 +75,19 @@ const styles = StyleSheet.create({
         marginLeft : '10%',
         flexDirection : 'row',
         width : '90%',
-        backgroundColor : '#E5F9D2',
+        backgroundColor : '#fff',
         padding : 8,
         margin : 8,
         borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8
+        borderBottomLeftRadius : 8,
+        shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3
     },
 }
 

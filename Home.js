@@ -73,7 +73,7 @@ export default function Home( {navigation} ) {
             keyExtractor={item => item.id}
             />
 
-        <NutritionCard />
+        <NutritionCard count={1} />
 
         <Title name="Popular recipes" />
 

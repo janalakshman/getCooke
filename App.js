@@ -99,9 +99,9 @@ export default function App() {
                   component={Profile}
                   options={{
                     headerTitle : props => <LogoTitle {...props} />,
-                  headerTintColor : '#fa9332',
+                  headerTintColor : '#ffffff',
                     headerStyle : {
-                      backgroundColor : '#fff',
+                      backgroundColor : '#fa9332',
                       height : 84
                     },
                    }}
