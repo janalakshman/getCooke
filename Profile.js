@@ -1,6 +1,5 @@
 import React from 'react'
 import {View, Text, StyleSheet, Image} from 'react-native'
-import RecipeDescription from './components/RecipeDescription'
 import UserCard from './components/UserCard'
 import Title from './components/Title'
 import DefaultProfilePic from './assets/DefaultProfilePic.png'

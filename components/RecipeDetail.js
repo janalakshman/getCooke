@@ -18,13 +18,7 @@ export default function RecipeDetail(props){
 
                 <View style={styles.line}>
                         <MaterialIcons name="access-time" style={styles.icon} />
-                        <Text style={styles.smalltext}>25 mins</Text>
-                        
-                        <View style={{marginLeft : 16, flexDirection : 'row'}}>
-                            <MaterialIcons name="thumb-up-off-alt" style={styles.icon} />
-                            <Text style={styles.smalltext}>1085</Text>
-                        </View>
-                        
+                        <Text style={styles.smalltext}>25 mins</Text>       
                 </View>  
              
                 <Image source={RecipeCardPic} 
