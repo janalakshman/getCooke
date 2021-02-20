@@ -1,16 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function DatePicker() {
+export default function DatePicker(props) {
     return(
         <View style={styles.container}>
             
             <View style={styles.line} >  
                 <Text style={styles.smallText}>Start date</Text>
-                <TouchableHighlight  style={styles.button}>
+                <TouchableOpacity  style={styles.button} onPress={props.onPressIn}>
                     <Text style={styles.buttonText}>15 Sep</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <Text style={styles.smallText}>Wednesday</Text>
             </View> 
 
@@ -18,9 +19,9 @@ export default function DatePicker() {
 
             <View style={styles.line}>  
                 <Text style={styles.smallText}>End date</Text>
-                <TouchableHighlight  style={styles.button}>
+                <TouchableOpacity  style={styles.button} onPress={props.onPressIn}>
                     <Text style={styles.buttonText}>17 Sep</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <Text style={styles.smallText}>Friday</Text>
           </View> 
 

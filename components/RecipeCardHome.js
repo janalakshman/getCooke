@@ -3,10 +3,12 @@ import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import RecipeCardPic from '../assets/RecipeCardPic.png';
 import veg from '../assets/veg.png'
+import { Pressable } from 'react-native';
 
 export default function Header(props){
     return(
-        <ScrollView style={styles.card}>
+        <Pressable onPress={props.onPress}>
+            <View style={styles.card}>
                 <Image 
                     source={RecipeCardPic}
                     style={styles.image} />
@@ -14,7 +16,8 @@ export default function Header(props){
                     source={veg}
                     style={styles.icon} /> 
                 <Text style={styles.text}>Paneer Butter Masala</Text>       
-        </ScrollView>
+        </View>
+        </Pressable>
         
     )
 }
@@ -42,6 +45,6 @@ const styles = StyleSheet.create({
       fontSize : 14,
       color : '#3b3b3b',
       fontWeight : '400',
-      margin : 4
+      margin : 4,
   },
   });

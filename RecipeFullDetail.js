@@ -1,38 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import Title from './components/Title';
-import * as Font from 'expo-font';
 import HeaderBack from './components/HeaderBack';
-import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
-import RecipeCardHome from './components/RecipeCardHome'
-import TertiaryButton from './components/TertiaryButton'
-import FilterSelected from './components/FilterSelected'
-import FilterUnselected from './components/FilterUnselected'
-import RecipeCard from './components/RecipeCard'
 import RecipeDetail from './components/RecipeDetail'
 import RecipeDescription from './components/RecipeDescription'
 import IngredientCard from './components/IngredientCard'
 import PrepStep from './components/PrepStep'
 import Tags from './components/Tags'
 import FloatingButton from './components/FloatingButtonCalendar'
+import CalendarModal from './components/CalendarModal'
 
-export default function App() {
+export default function RecipeFullDetail() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [count, setCount] = useState(1)
+    
+  function increment(){
+    setCount(count+1)
+    }
+  
+    function decrement(){
+        count === 1 ? setCount(count) :  setCount(count-1); 
+    }
+
   return (
     <View style={{flex : 1}}>
-          <View style={styles.header}>
-            <HeaderBack />
-          </View>
-          
+      
         <ScrollView style={styles.container}>
           
           <RecipeDetail />
           <RecipeDescription />
           <Title name="Ingredients" />
-          <IngredientCard />
+          <IngredientCard count={count} increment={increment} decrement={decrement}/>
           <Title name="Nutrition" />
-          <NutritionCard />
+          <NutritionCard count={count}/>
           <Title name="Prepration" />
           <PrepStep />
           <Title name="Tags" />
@@ -41,8 +43,11 @@ export default function App() {
         </ScrollView> 
 
         <View style={styles.position}>
-          <FloatingButton />
+          <FloatingButton onPressIn ={() => setModalVisible(true)}/>
         </View>
+
+        <CalendarModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+
     </View>
         
   );

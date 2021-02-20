@@ -3,14 +3,14 @@ import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 
 
-export default function Heading() {
+export default function TertiaryButton(props) {
     return(
-          <View> 
-            <TouchableOpacity  style={styles.button}>
-                <MaterialIcons name="add" style={styles.icon} />
-                <Text style={styles.buttonText}>Filters</Text>
-            </TouchableOpacity>
-          </View> 
+        <TouchableOpacity onPress={() => props.setModalVisible(true)}>
+          <View style={styles.button}>
+              <MaterialIcons name="add" style={styles.icon} />
+              <Text style={styles.buttonText}>Filters</Text>
+          </View>   
+        </TouchableOpacity>
     )
 }
   
@@ -19,7 +19,7 @@ export default function Heading() {
       color : '#A13E00',
       fontSize : 17,
       fontWeight : '400',
-      margin : 12,
+      margin : 10,
     },
 
     button: {
@@ -35,8 +35,8 @@ export default function Heading() {
     icon : {
         fontSize : 20,
         color : '#a13e00',
-        paddingTop : 12,
-        paddingBottom : 12,
-        paddingLeft : 12,
+        paddingTop : 10,
+        paddingBottom : 10,
+        paddingLeft : 10,
     }
   });

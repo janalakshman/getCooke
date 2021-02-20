@@ -1,17 +1,25 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Image, Text, View, ScrollView, Pressable } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import CalendarCardIcon from '../assets/calendarCardIcon.png';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+
 
 export default function Header(props){
+
+    const navigation = useNavigation(); 
+
     return(
         <ScrollView style={styles.breakfastcard}>
+            <Pressable onPressIn ={() => navigation.navigate('RecipeFullDetail')}>
             <View style={styles.line}>
                 <Image 
                     source={CalendarCardIcon}
                     style={styles.imageIcon} />
-                <Text style={styles.text}>Paneer Butter Masala</Text>     
+                <Text style={styles.text}>Paneer Butter Masala</Text>  
             </View>
+            </Pressable>   
+
 
             <View style={styles.line}>
                 <MaterialIcons name="nights-stay" style={styles.icon} />

@@ -4,25 +4,29 @@ import { MaterialIcons } from '@expo/vector-icons';
 import CalendarCardIcon from '../assets/calendarCardIcon.png';
 
 export default function Header(props){
+    let calroies = 420
+    let carbs = 12
+    let protein = 24
+    let fat = 10
     return(
         <View style={styles.card}>
             <View style={styles.line}>
-                <Text style={styles.text}>458</Text>
+                <Text style={styles.text}>{calroies*props.count}</Text>
                 <Text style={styles.smalltext}>Calories</Text>     
             </View>
 
             <View style={styles.line}>
-                <Text style={styles.text}>12g</Text>
+                <Text style={styles.text}>{carbs*props.count}g</Text>
                 <Text style={styles.smalltext}>Carbs</Text>     
             </View>
 
             <View style={styles.line}>
-                <Text style={styles.text}>20g</Text>
+                <Text style={styles.text}>{protein*props.count}g</Text>
                 <Text style={styles.smalltext}>Protein</Text>     
             </View>
 
             <View style={styles.line}>
-                <Text style={styles.text}>25g</Text>
+                <Text style={styles.text}>{fat*props.count}g</Text>
                 <Text style={styles.smalltext}>Fat</Text>     
             </View>
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import DefaultProfilePic from '../assets/DefaultProfilePic.png'
-import Title from './Title'
 
 export default function RecipeDescription(){
     return(

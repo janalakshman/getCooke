@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
-import FilterSelected from './FilterSelected'
 
 
 export default function Filter(props) {
@@ -17,13 +16,21 @@ export default function Filter(props) {
           <View>
             {
             isPress === false ?
-            <TouchableOpacity  style={styles.button} onPress={() => handleClick(props.name)}>
+            <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
               <Text style={styles.buttonText}>{props.name}</Text>
+              <View style={styles.line}>
+                <MaterialIcons name="access-time" style={styles.icon} />
+                <Text style={styles.timeText}>{props.time}</Text>
+              </View>
+
             </TouchableOpacity> :
              <View> 
-              <TouchableOpacity  style={styles.buttonP} onPress={() => handleClick(props.name)}>
-                  <Text style={styles.buttonTextP}>{props.name}</Text>
-                  <MaterialIcons name="close" style={styles.icon} />
+              <TouchableOpacity  style={styles.buttonP} onPress={() => handleClick()}>
+                  <Text style={styles.buttonText}>{props.name}</Text>
+                    <View style={styles.line}>
+                        <MaterialIcons name="access-time" style={styles.icon} />
+                        <Text style={styles.timeText}>{props.time}</Text>
+                    </View>
               </TouchableOpacity>
             </View> 
             } 
@@ -35,21 +42,25 @@ export default function Filter(props) {
   const styles = StyleSheet.create({
     buttonText : {
       color : '#3b3b3b',
-      fontSize : 16,
+      fontSize : 14,
       fontWeight : '400',
-      margin : 12,
-      padding : 4,
+      margin : 8,
       textAlign : 'center',
-      flexGrow : 0.5
+    },
+    timeText : {
+        color : '#3b3b3b',
+      fontSize : 11,
+      fontWeight : '400',
+      margin : 8,
+      textAlign : 'center',
     },
     button: {
-        borderRadius : 32,
+        borderRadius : 8,
         borderWidth : 1,
         borderColor : '#cfcfcf',
         backgroundColor : '#fff',
-        alignSelf : 'flex-start',
         margin : 16,
-        flexDirection : 'row',
+        flexDirection : 'column',
         justifyContent : 'center',
         alignContent : 'center',
         alignSelf : 'center'
@@ -57,27 +68,31 @@ export default function Filter(props) {
            
            buttonTextP : {
             color : '#3b3b3b',
-            fontSize : 16,
+            fontSize : 14,
             fontWeight : '400',
             margin : 12,
             padding : 4,
           },
       
           buttonP : {
-              borderRadius : 32,
+              borderRadius : 8,
               backgroundColor : '#ffc885',
-              alignSelf : 'flex-start',
+              alignSelf : 'center',
               margin : 16,
-              flexDirection : 'row',
+              flexDirection : 'column',
               justifyContent : 'center'
                  },
       
           icon : {
-              fontSize : 20,
+              fontSize : 16,
               color : '#3b3b3b',
-              padding : 12,
               paddingLeft : 0,
               alignSelf : 'center'
-          }
+          },
+          line : {
+              flexDirection : 'row',
+              marginHorizontal : 8
+            
+          },
 
   });

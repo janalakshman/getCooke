@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function Heading() {
+export default function Heading(props) {
     return(
           <View style={styles.position}>  
-            <TouchableOpacity  style={styles.button}>
+            <TouchableOpacity  style={styles.button} onPress={props.onPress}>
                 <FontAwesome name="calendar-check-o" style={styles.icon} />
                 <Text style={styles.buttonText}>Meal plan</Text>
             </TouchableOpacity>

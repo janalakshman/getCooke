@@ -3,12 +3,18 @@ import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import RecipeCardPic from '../assets/RecipeCardPic.png';
 import veg from '../assets/veg.png'
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import RecipeFullDetail from '../RecipeFullDetail'
+import { Pressable } from 'react-native';
 
 export default function Header(props){
 let array = ['200 g Onion', '2 Tomatoes', '1 cup Panner', '1 tsp Rasam powder', '1 cup Butter']
 
+const navigation = useNavigation(); 
+
     return(
-        <ScrollView style={styles.card}>
+        <View style={styles.card} >
                 <Image 
                     source={RecipeCardPic}
                     style={styles.image} />
@@ -16,6 +22,8 @@ let array = ['200 g Onion', '2 Tomatoes', '1 cup Panner', '1 tsp Rasam powder', 
                     source={veg}
                     style={styles.icon} /> 
                 <Text style={styles.text}>Paneer Butter Masala</Text>
+        
+        <Pressable onPressIn ={() => navigation.navigate('RecipeFullDetail')}>
 
                 <View style={styles.line}>
                     <MaterialIcons name="nights-stay" style={styles.smallIcon} />
@@ -32,7 +40,8 @@ let array = ['200 g Onion', '2 Tomatoes', '1 cup Panner', '1 tsp Rasam powder', 
                     <Text style={styles.body}>{ingredient}</Text>
                     )
                 }
-        </ScrollView>
+        </Pressable>
+        </View>
         
     )
 }

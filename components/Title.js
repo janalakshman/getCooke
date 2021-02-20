@@ -15,7 +15,7 @@ export default function Title(props) {
   const styles = StyleSheet.create({
     heading : {
       color : '#3b3b3b',
-      fontSize : 24,
+      fontSize : 21,
       fontWeight : '600'
     },
     border : {

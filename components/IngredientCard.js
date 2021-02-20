@@ -17,25 +17,17 @@ const ingredient = [{name : 'Onion',
                         fraction : '',
                         unit : 'g'},];
 
-export default function Header(){   
-    const [count, setCount] = useState(1)
-    
-    function increment(){
-    setCount(count+1)
-    }
-
-    function decrement(){
-        count === 1 ? setCount(count) :  setCount(count-1); 
-    }
-
+export default function Header(props){   
+ 
+      
     return(
         <SafeAreaView style={styles.card} >
             <View style={styles.line}>
                 <Text style={styles.text}>Servings</Text>
                 <View style={styles.line}>
-                    <MaterialIcons name="remove-circle-outline" style={styles.icon} onPress={decrement}/>
-                    <Text style={styles.text}>{count}</Text>
-                    <MaterialIcons name="add-circle-outline" style={styles.icon} onPress={increment}/>
+                    <MaterialIcons name="remove-circle-outline" style={styles.icon} onPress={props.decrement}/>
+                    <Text style={styles.text}>{props.count}</Text>
+                    <MaterialIcons name="add-circle-outline" style={styles.icon} onPress={props.increment}/>
                 </View>
             </View>
 
@@ -43,7 +35,7 @@ export default function Header(){
                 <View style={styles.container}>
                     {ingredient.map(ingredient =>
                         <View> 
-                            <Text style={styles.smalltext}>{ingredient.amount*count} {ingredient.unit} {ingredient.name}</Text>
+                            <Text style={styles.smalltext}>{ingredient.amount*props.count} {ingredient.unit} {ingredient.name}</Text>
                             <Divider />
                         </View>         
                         )}

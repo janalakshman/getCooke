@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 
 
-export default function Heading(props) {
-
+export default function PrimaryButton(props) {
     return(
           <View> 
             <TouchableOpacity  style={styles.button}>
                 <Text style={styles.buttonText}>{props.name}</Text>
-                <MaterialIcons name="close" style={styles.icon} />
             </TouchableOpacity>
           </View> 
     )
@@ -17,25 +15,28 @@ export default function Heading(props) {
   
   const styles = StyleSheet.create({
     buttonText : {
-      color : '#3b3b3b',
-      fontSize : 14,
-      fontWeight : '400',
-      margin : 12,
+      color : '#A13E00',
+      fontSize : 19,
+      fontWeight : '500',
+      margin : 16,
+      flexGrow : 1,
+      textAlign : 'center'
     },
-
     button: {
-        borderRadius : 32,
+        borderRadius : 8,
         backgroundColor : '#ffc885',
         alignSelf : 'flex-start',
         margin : 16,
         flexDirection : 'row',
-        justifyContent : 'center'
+        alignSelf : 'center'
            },
-
-    icon : {
-        fontSize : 18,
-        color : '#3b3b3b',
-        padding : 12,
-        paddingLeft : 0
-    }
+        icon : {
+            fontSize : 24,
+            color : '#a13e00',
+            paddingTop : 12,
+            paddingBottom : 12,
+            paddingLeft : 12,
+            alignSelf : 'center'
+        },
+     
   });
