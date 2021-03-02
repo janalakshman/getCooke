@@ -7,6 +7,7 @@ import Home from './Home'
 import Discover from './Discover'
 import MealPlan from './MealPlan'
 import GroceryList from './GroceryList'
+import CreateRecipe from './CreateRecipe'
 import RecipeFullDetail from './RecipeFullDetail'
 import LogoTitle from './components/LogoTitle'
 import { MaterialIcons } from '@expo/vector-icons';
@@ -22,9 +23,11 @@ export default function App() {
               name="Home" 
               component={Home}
               options={({ navigation }) => ({
-                headerTitle : props => <LogoTitle {...props} />,
+                headerTitle : () => (
+                  <Text style={styles.text}>Cooke</Text>
+                ),
                 headerLeft : () => (
-                  <Text style={styles.text}>Home</Text>
+                  <MaterialIcons name="add-circle" style={styles.icon} onPress={() => navigation.navigate('CreateRecipe')}/>
                 ),
                 headerRight : () => (
                   <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
@@ -38,9 +41,11 @@ export default function App() {
                 name="Discover" 
                 component={Discover}
                 options={({ navigation }) => ({
-                  headerTitle : props => <LogoTitle {...props} />,
-                  headerLeft : () => (
+                  headerTitle : () => (
                     <Text style={styles.text}>Discover</Text>
+                  ),
+                  headerLeft : () => (
+                    <MaterialIcons name="add-circle" style={styles.icon} onPress={() => navigation.navigate('CreateRecipe')} />
                   ),
                   headerRight : () => (
                     <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
@@ -54,9 +59,11 @@ export default function App() {
                 name="MealPlan" 
                 component={MealPlan}
                 options={({ navigation }) => ({
-                  headerTitle : props => <LogoTitle {...props} />,
-                  headerLeft : () => (
+                  headerTitle : () => (
                     <Text style={styles.text}>Meal plan</Text>
+                  ),
+                  headerLeft : () => (
+                    <MaterialIcons name="add-circle" style={styles.icon} onPress={() => navigation.navigate('CreateRecipe')}/>
                   ),
                   headerRight : () => (
                     <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
@@ -70,9 +77,11 @@ export default function App() {
                   name="GroceryList" 
                   component={GroceryList}
                   options={({ navigation }) => ({
-                    headerTitle : props => <LogoTitle {...props} />,
-                    headerLeft : () => (
+                    headerTitle :  () => (
                       <Text style={styles.text}>Grocery list</Text>
+                    ),
+                    headerLeft : () => (
+                      <MaterialIcons name="add-circle" style={styles.icon} onPress={() => navigation.navigate('CreateRecipe')}/>
                     ),
                     headerRight : () => (
                       <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
@@ -87,11 +96,24 @@ export default function App() {
                   component={RecipeFullDetail}
                   options={{
                     headerTitle : props => <LogoTitle {...props} />,
-                  headerTintColor : '#fff',
+                    headerTintColor : '#fff',
                     headerStyle : {
                       backgroundColor : '#fa9332',
                       height : 84
                     },
+                   }}
+              />
+          <Stack.Screen 
+                  name="CreateRecipe" 
+                  component={CreateRecipe}
+                  options={{
+                    headerTitle : props => <LogoTitle {...props} />,
+                    headerTintColor : '#fff',
+                    headerStyle : {
+                      backgroundColor : '#fa9332',
+                      height : 84
+                    },
+                    gestureDirection : 'horizontal-inverted'
                    }}
               />
           <Stack.Screen 

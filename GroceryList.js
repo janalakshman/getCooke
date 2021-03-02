@@ -41,8 +41,6 @@ export default function GroceryList({navigation}) {
 
         <SetStartDateModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
 
-        <SetEndDate  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-
         <AddIngredientModal modalVisible={ingModalVisible} setModalVisible={setIngModalVisible}/>
 
         <View style={styles.position}>

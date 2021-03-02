@@ -41,7 +41,7 @@ export default function CalendarModal( props ) {
                         onPress={() => props.setModalVisible(!props.modalVisible)}
                         >
                       <View style={styles.header}>
-                        <Text style={styles.heading}>Set start date</Text>
+                        <Text style={styles.heading}>Set date</Text>
                         <AntDesign name="closecircle" size={24} color="#3b3b3b" style={{margin : 16}}/>
                       </View>
                     </Pressable>

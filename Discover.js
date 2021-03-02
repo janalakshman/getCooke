@@ -8,6 +8,8 @@ import FilterModal from './components/FilterModal'
 import BottomNav from './components/BottomNav'
 import RecipeCard from './components/RecipeCard'
 import { MaterialIcons } from '@expo/vector-icons';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useLinkProps } from '@react-navigation/native';
 
 
 const DATA = [
@@ -38,6 +40,12 @@ export default function Discover( {navigation} ) {
     <RecipeCard  />
   );
 
+  const showIngredients = ({ item }) => (
+    <TouchableOpacity onPress={()=> onChangeText('')}>
+          <Text style={styles.text1}>{item.title}</Text>
+    </TouchableOpacity>
+  );
+
 
   return (
     <View style={{flex : 1}}>
@@ -47,32 +55,41 @@ export default function Discover( {navigation} ) {
 
           <Text style={{marginLeft : 16, margin : 8}}>Enter up to 3 ingredients</Text>
 
-          <Pressable onPressIn ={() => setModalVisible(true)}>
               <TextInput
                 style={styles.textInput}
                 placeholder = "Add Ingredient"
                 onChangeText={text => {
-                  setModalVisible(true)
                   onChangeText(text)}}
                 value={value}
               />
-          </Pressable>
+
+              {
+              value === '' ?
+              <View>
+                <TertiaryButton modalVisible={filterVisible} setModalVisible={setFilterVisible} /> 
+                <Text style={styles.heading}>Recipes</Text>
+                <FlatList
+                  numColumns={2} 
+                  data={DATA}
+                  renderItem={renderItem}
+                  keyExtractor={item => item.id}
+                  />
+                </View> :
+              <ScrollView> 
+                  <Text style={styles.heading}>Ingredients</Text>
+                  <FlatList
+                    data={DATA}
+                    renderItem={showIngredients}
+                    keyExtractor={item => item.id}
+                    />
+              </ScrollView>
+              }
 
           <SearchModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-          
-          <TertiaryButton modalVisible={filterVisible} setModalVisible={setFilterVisible} />
-           
+                     
           <FilterModal modalVisible={filterVisible} setModalVisible={setFilterVisible} />
 
-          <Text style={styles.heading}>Recipes</Text>
-
-          <FlatList
-              numColumns={2} 
-              data={DATA}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-              />
-            
+ 
           <View style={{height : 64}}>
           </View>      
           
@@ -137,7 +154,7 @@ const styles = StyleSheet.create({
     bottom : 0,
     margin : 'auto'
   },
-  text : {
+  text1 : {
     fontSize : 17,
     color : '#3b3b3b',
     fontWeight : '400',

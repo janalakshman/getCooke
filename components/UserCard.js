@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         padding : 8,
         margin : 32,
         borderRadius : 8,
-        borderWidth : 2,
+        borderWidth : 1,
         borderColor : '#cfcfcf'
     },
     line : {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   smalltext : {
       fontSize : 14,
       color : '#3b3b3b',
-      margin : 4,
+      margin : 8,
   },
   
   });
