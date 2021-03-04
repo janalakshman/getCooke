@@ -1,18 +1,24 @@
 import React ,{ useState }from 'react';
-import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import Title from './Title'
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import moment from 'moment'
-import SecondaryButton from './SecondaryButton'
 import { TextInput } from 'react-native-gesture-handler';
+import { useDispatch, useSelector} from 'react-redux'
+import { addIngredientName, addIngredientQuantity, newIngredientList } from '../redux/counterSlice';
 
 
+export default function AddIngredientModal(props) {
+    const [name, onChangeName] = useState('');
+    const [quantity, onChangeQuantity] = useState('');
+    const ingredient= useSelector(state => state.counter.ingredient)
 
-export default function CalendarModal( props ) {
-    const [name, onChangeName] = React.useState('');
-    const [quantity, onChangeQuantity] = React.useState('');
+    const dispatch = useDispatch();
 
+    const handleClick = () => {
+      props.setModalVisible(!props.modalVisible)
+      dispatch(addIngredientName(name))
+      dispatch(addIngredientQuantity(quantity))
+      dispatch(newIngredientList(ingredient))
+    }
 
     
     return (
@@ -30,7 +36,6 @@ export default function CalendarModal( props ) {
               >
                   <View style={styles.modalView}>
                     <Pressable
-                        style={[styles.button, styles.buttonClose]}
                         onPress={() => props.setModalVisible(!props.modalVisible)}
                         >
                       <View style={styles.header}>
@@ -54,9 +59,10 @@ export default function CalendarModal( props ) {
                                  value={quantity}
                                  autoFocus/>
 
-
-
-                    <SecondaryButton name="Done" />
+                    
+                  <TouchableOpacity  style={styles.button} onPress={() => handleClick(props)}>
+                      <Text style={styles.buttonText}>Done</Text>
+                  </TouchableOpacity>
 
                                                 
                   </View>
@@ -127,6 +133,30 @@ export default function CalendarModal( props ) {
       alignSelf : 'center',
       paddingLeft : 16,
       margin : 16
-  }
+  },
+  buttonText : {
+    color : '#A13E00',
+    fontSize : 19,
+    fontWeight : '500',
+    margin : 16,
+    flexGrow : 1,
+    textAlign : 'center'
+  },
+  button: {
+      borderRadius : 8,
+      backgroundColor : '#ffc885',
+      alignSelf : 'flex-start',
+      margin : 16,
+      flexDirection : 'row',
+      alignSelf : 'center'
+         },
+      icon : {
+          fontSize : 24,
+          color : '#a13e00',
+          paddingTop : 12,
+          paddingBottom : 12,
+          paddingLeft : 12,
+          alignSelf : 'center'
+      },
   });
   

@@ -1,10 +1,11 @@
 import React ,{ useState }from 'react';
-import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import AddTime from './AddTime'
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import {Calendar} from 'react-native-calendars';
 import moment from 'moment'
-import SecondaryButton from './SecondaryButton'
+import { useSelector, useDispatch } from 'react-redux';
+import { addDate, resetData } from '../redux/counterSlice'
 
 const DATA = [
   {
@@ -14,22 +15,22 @@ const DATA = [
   },
   {
     title: "Brunch",
-    time : '9:00 AM',
+    time : '11:00 AM',
     index : 2,
   },
   {
     title: "Lunch",
-    time : '9:00 AM',
+    time : '2:00 PM',
     index : 3,
   },
   {
     title: "Snacks",
-    time : '9:00 AM',
+    time : '5:00 PM',
     index : 4,
   },
   {
     title: "Dinner",
-    time : '9:00 PM',
+    time : '8:00 PM',
     index : 5,
   },
 ];
@@ -43,16 +44,25 @@ const Item = ({item}) => (
 export default function CalendarModal( props ) {
     const [dates, setDates ] = useState([])
     const [markedDates, setMarkedDates] = useState({});
+    const dispatch = useDispatch();
+    const recipe = useSelector(state => state.counter.recipe)
 
     const getSelectedDates = (date) => {
       if (date in markedDates) { 
-      markedDates[date] = { selected : false, color :'#ffc885', textColor : '#3b3b3b'}
+        delete markedDates[date] 
      } else { 
-      markedDates[date] = { selected : true, color :'#ffc885', textColor : '#3b3b3b'}
+        markedDates[date] = { selected : true, color :'#ffc885', textColor : '#3b3b3b'}
+
      } 
       let serviceData = moment(date);
       setDates([...dates, serviceData])
       setMarkedDates({...markedDates})
+    }
+
+    const handleClick = () => {
+      props.setModalVisible(!props.modalVisible)
+      dispatch(addDate(Object.keys(markedDates)))
+      setMarkedDates({})
     }
     
     var minDate = moment().format('YYYY-MM-DD');
@@ -72,7 +82,6 @@ export default function CalendarModal( props ) {
                 <View style={styles.centeredView}>
                   <View style={styles.modalView}>
                     <Pressable
-                        style={[styles.button, styles.buttonClose]}
                         onPress={() => props.setModalVisible(!props.modalVisible)}
                         >
                       <View style={styles.header}>
@@ -107,7 +116,10 @@ export default function CalendarModal( props ) {
                         style={{alignSelf : 'center'}}
                         />
 
-                      <SecondaryButton name="Schedule" />
+            <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
+                <Text style={styles.buttonText}>Schedule</Text>
+            </TouchableOpacity>
+
                   </ScrollView>
                                                 
                   </View>
@@ -170,6 +182,31 @@ export default function CalendarModal( props ) {
   },
   row : {
     width : '100%'
-  }
+  },
+  buttonText : {
+    color : '#A13E00',
+    fontSize : 19,
+    fontWeight : '500',
+    margin : 16,
+    flexGrow : 1,
+    textAlign : 'center'
+  },
+  button: {
+      borderRadius : 8,
+      backgroundColor : '#ffc885',
+      alignSelf : 'flex-start',
+      margin : 16,
+      flexDirection : 'row',
+      alignSelf : 'center'
+         },
+      icon : {
+          fontSize : 24,
+          color : '#a13e00',
+          paddingTop : 12,
+          paddingBottom : 12,
+          paddingLeft : 12,
+          alignSelf : 'center'
+      },
+   
   });
   

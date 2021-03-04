@@ -15,15 +15,17 @@ const navigation = useNavigation();
 
     return(
         <View style={styles.card} >
+
                 <Image 
                     source={RecipeCardPic}
                     style={styles.image} />
+        <Pressable onPressIn ={() => navigation.navigate('RecipeFullDetail')}>
                  <Image 
                     source={veg}
                     style={styles.icon} /> 
+
                 <Text style={styles.text}>Paneer Butter Masala</Text>
         
-        <Pressable onPressIn ={() => navigation.navigate('RecipeFullDetail')}>
 
                 <View style={styles.line}>
                     <MaterialIcons name="nights-stay" style={styles.smallIcon} />
@@ -33,14 +35,15 @@ const navigation = useNavigation();
                 <View style={styles.line}>
                     <MaterialIcons name="access-time" style={styles.smallIcon} />
                     <Text style={styles.smalltext}>25 mins</Text>
-                </View>  
+                </View> 
+            </Pressable>
+ 
 
                 <Text style={styles.subtitle}>Ingredients</Text>
                 {array.map(ingredient =>
                     <Text style={styles.body}>{ingredient}</Text>
                     )
                 }
-        </Pressable>
         </View>
         
     )
@@ -48,9 +51,9 @@ const navigation = useNavigation();
 
 const styles = StyleSheet.create({
     card : {
-        width : '44%',
+        width : '45%',
         padding : 8,
-        margin : 8,
+        margin : '2.5%',
         borderRadius : 8,
         borderColor : '#cfcfcf',
         borderWidth : 1,

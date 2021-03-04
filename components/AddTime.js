@@ -1,14 +1,20 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
+import { useSelector, useDispatch } from 'react-redux';
+import { addTime } from '../redux/counterSlice'
 
 
 export default function Filter(props) {
-  var [ isPress, setIsPress ] = React.useState(false);
-  var [ selected, setSelected ] = React.useState([]);
+  var [ isPress, setIsPress ] = useState(false);
+  const dispatch = useDispatch()
 
   const handleClick = (props) => {
-    setIsPress(!isPress)
+    isPress = !isPress
+    setIsPress(isPress)
+    if(isPress){
+      dispatch(addTime(props))
+    } 
   }
 
 
@@ -16,7 +22,7 @@ export default function Filter(props) {
           <View>
             {
             isPress === false ?
-            <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
+            <TouchableOpacity  style={styles.button} onPress={() => handleClick(props.time)}>
               <Text style={styles.buttonText}>{props.name}</Text>
               <View style={styles.line}>
                 <MaterialIcons name="access-time" style={styles.icon} />
@@ -25,7 +31,7 @@ export default function Filter(props) {
 
             </TouchableOpacity> :
              <View> 
-              <TouchableOpacity  style={styles.buttonP} onPress={() => handleClick()}>
+              <TouchableOpacity  style={styles.buttonP} onPress={() => handleClick(props.time)}>
                   <Text style={styles.buttonText}>{props.name}</Text>
                     <View style={styles.line}>
                         <MaterialIcons name="access-time" style={styles.icon} />

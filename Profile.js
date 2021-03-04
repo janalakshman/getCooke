@@ -1,12 +1,38 @@
 import React from 'react'
-import {View, Text, StyleSheet, Image} from 'react-native'
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native'
 import UserCard from './components/UserCard'
 import Title from './components/Title'
 import DefaultProfilePic from './assets/DefaultProfilePic.png'
+import RecipeDescription from './components/RecipeDescription'
+import { FlatList } from 'react-native-gesture-handler'
+
+
+const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'First Item',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      title: 'Second Item',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      title: 'Third Item',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d58',
+      title: 'Third Item',
+    },
+  ];
 
 export default function Profile(){
+    const renderItem = ({ item }) => (
+        <RecipeDescription  />
+      );
+
     return(
-        <View style={styles.container1}>
+        <ScrollView style={styles.container1}>
             <View style={styles.container}>
                 <Image source={DefaultProfilePic}
                         style={styles.image}/>
@@ -16,6 +42,14 @@ export default function Profile(){
                 </View>   
             </View>
             <UserCard />
+
+            <Title name="Following" />
+            <FlatList
+                data={DATA}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+                />
+
 
             <Title name="Contact"/>
             <View style={styles.card}>
@@ -31,7 +65,7 @@ export default function Profile(){
             <View style={{flexGrow : 1}}>
             </View>
 
-        </View>
+        </ScrollView>
     )
 }
 

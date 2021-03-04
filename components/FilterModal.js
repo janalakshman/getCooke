@@ -5,6 +5,7 @@ import FilterUnselected from './FilterUnselected'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionList } from 'react-native';
 
+
 const DATA = [
   {
     title: "Main dishes",
@@ -31,11 +32,12 @@ const DATA = [
   }
 ];
 
-const Item = ({ title }) => (
-  <View>
-    <FilterUnselected name={title}/>
-  </View>
-);
+const Item = ({ title }) => {
+  return(
+    <View>
+      <FilterUnselected name={title}/>
+    </View>)
+};
 
 export default function FilterModal( props ) {
 

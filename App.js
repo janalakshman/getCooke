@@ -12,12 +12,16 @@ import RecipeFullDetail from './RecipeFullDetail'
 import LogoTitle from './components/LogoTitle'
 import { MaterialIcons } from '@expo/vector-icons';
 import Profile from './Profile'
+import KitchenMaster from './KitchenMaster'
+import store from './redux/store'
+import { Provider } from 'react-redux'
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
+      <Provider store={store}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen 
               name="Home" 
@@ -104,6 +108,18 @@ export default function App() {
                    }}
               />
           <Stack.Screen 
+                  name="KitchenMaster" 
+                  component={KitchenMaster}
+                  options={{
+                    headerTitle : props => <LogoTitle {...props} />,
+                    headerTintColor : '#fff',
+                    headerStyle : {
+                      backgroundColor : '#fa9332',
+                      height : 84
+                    },
+                   }}
+              />
+          <Stack.Screen 
                   name="CreateRecipe" 
                   component={CreateRecipe}
                   options={{
@@ -129,6 +145,7 @@ export default function App() {
                    }}
               />
       </Stack.Navigator>
+      </Provider>
     </NavigationContainer>
   );
 }

@@ -1,7 +1,7 @@
 import React ,{ useState }from 'react';
 import { StyleSheet, ScrollView, Text, View, TextInput , TouchableOpacity, Pressable, FlatList } from 'react-native';
 import Title from './components/Title';
-import Tags from './components/Tags';
+import Header from './components/Header';
 import TertiaryButton from './components/TertiaryButton'
 import SearchModal from './components/SearchModal'
 import FilterModal from './components/FilterModal'
@@ -10,8 +10,8 @@ import RecipeCard from './components/RecipeCard'
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useLinkProps } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
-
+import RecipeDescription from './components/RecipeDescription';
+import { addKitchenMaster, removeKitchenMaster } from './redux/counterSlice';
 
 
 const DATA = [
@@ -34,47 +34,47 @@ const DATA = [
 ];
 
 export default function Discover( {navigation} ) {
-  const [value, onChangeText] = React.useState('');
-  const [modalVisible, setModalVisible] = useState(false);
-  const [filterVisible, setFilterVisible] = useState(false);
-  const filters = useSelector(state => state.counter.filters)
-  console.log(filters)
+
+  var [ isPress, setIsPress ] = React.useState(false);
+
+  const handleClick = (props) => {
+    isPress = !isPress
+    setIsPress(isPress)
+    if(isPress){
+      dispatch(addKitchenMaster(props))
+    } else {
+      dispatch(removeKitchenMaster(props))
+    }
+  }
 
 
   const renderItem = ({ item }) => (
     <RecipeCard  />
   );
 
-  const showIngredients = ({ item }) => (
-    <TouchableOpacity onPress={()=> onChangeText('')}>
-          <Text style={styles.text1}>{item.title}</Text>
-    </TouchableOpacity>
-  );
-
+  
 
   return (
     <View style={{flex : 1}}>
           
         <ScrollView style={styles.container}>
-          <Title name="Search with ingredients" />
 
-          <Text style={{marginLeft : 16, margin : 8}}>Enter up to 3 ingredients</Text>
+            <RecipeDescription />
 
-              <TextInput
-                style={styles.textInput}
-                placeholder = "Add Ingredient"
-                onChangeText={text => {
-                  onChangeText(text)}}
-                value={value}
-              />
+            {
+            isPress === false ?
+            <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
+              <Text style={styles.buttonText}>Follow</Text>
+            </TouchableOpacity> :
+             <View> 
+              <TouchableOpacity  style={styles.buttonP} onPress={() => handleClick()}>
+                  <Text style={styles.buttonTextP}>Following</Text>
+              </TouchableOpacity>
+            </View> 
+            } 
 
-              {
-              value === '' ?
-              <View>
-                <TertiaryButton modalVisible={filterVisible} setModalVisible={setFilterVisible} />
-                <View style={styles.line}>
-                 {filters.map(filter => <Tags name={filter}/>)}
-                </View>
+  
+              <View style={styles.recipeContainer}>
                 <Text style={styles.heading}>Recipes</Text>
                 <FlatList
                   numColumns={2} 
@@ -82,20 +82,8 @@ export default function Discover( {navigation} ) {
                   renderItem={renderItem}
                   keyExtractor={item => item.id}
                   />
-                </View> :
-              <ScrollView> 
-                  <Text style={styles.heading}>Ingredients</Text>
-                  <FlatList
-                    data={DATA}
-                    renderItem={showIngredients}
-                    keyExtractor={item => item.id}
-                    />
-              </ScrollView>
-              }
+                </View> 
 
-          <SearchModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-                     
-          <FilterModal modalVisible={filterVisible} setModalVisible={setFilterVisible} />
 
  
           <View style={{height : 64}}>
@@ -133,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   recipeContainer : {
-    alignItems : 'center'
+    alignContent : 'center',
   },
   textInput : {
     borderRadius : 10,
@@ -153,17 +141,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     width : '100%',
     height : '75%'
-  },
-  modalView: {
-    backgroundColor: "#fff",
-    borderRadius: 0,
-    alignItems: "flex-start",
-    justifyContent : 'flex-start',
-    width : '100%',
-    height : '60%',
-    position : 'absolute',
-    bottom : 0,
-    margin : 'auto'
   },
   text1 : {
     fontSize : 17,
@@ -212,9 +189,42 @@ icon : {
   fontSize : 24,
   paddingBottom : 4,
 },
-line : {
-  flexDirection : 'row',
-  marginVertical : 8,
-  flexWrap : 'wrap'
-}
+buttonText : {
+  color : '#3b3b3b',
+  fontSize : 14,
+  fontWeight : '400',
+  margin : 8,
+  padding : 4,
+},
+button: {
+    borderRadius : 32,
+    borderWidth : 1,
+    borderColor : '#cfcfcf',
+    backgroundColor : '#fff',
+    alignSelf : 'flex-start',
+    marginLeft : 24,
+    margin : 4,
+    flexDirection : 'row',
+    justifyContent : 'center',
+    alignContent : 'flex-start',
+       },
+       
+       buttonTextP : {
+        color : '#3b3b3b',
+        fontSize : 14,
+        fontWeight : '400',
+        margin : 8,
+        padding : 4,
+      },
+  
+      buttonP : {
+          borderRadius : 32,
+          backgroundColor : '#ffc885',
+          alignSelf : 'flex-start',
+          margin : 4,
+          marginLeft : 24,
+          flexDirection : 'row',
+          justifyContent : 'center'
+             },
+
 });

@@ -30,6 +30,7 @@ export default function Title(props) {
             <Divider style={{margin : 4}} /> 
           </View>  
           }
+          <View style={{margin : 8}}></View>
             
         </View>
        
@@ -41,13 +42,13 @@ export default function Title(props) {
       color : '#3b3b3b',
       fontSize : 17,
       fontWeight : '400',
-      margin : 12
+      margin : 4
     },
     heading2 : {
       color : '#3b3b3b',
       fontSize : 17,
       fontWeight : '400',
-      margin : 12,
+      margin : 4,
       textDecorationLine : 'line-through'
     },
     container : {

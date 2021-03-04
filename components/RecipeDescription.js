@@ -1,8 +1,15 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Image, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import DefaultProfilePic from '../assets/DefaultProfilePic.png'
+import { useNavigation } from '@react-navigation/native';
+import { Pressable } from 'react-native';
+
 
 export default function RecipeDescription(){
+    const navigation = useNavigation();
+    
+ 
+
     return(
         <ScrollView>
 
@@ -10,10 +17,15 @@ export default function RecipeDescription(){
                 <Image source={DefaultProfilePic}
                         style={styles.image}/>
                 <View style={styles.line}>
+                <Pressable onPress={() => navigation.navigate('KitchenMaster')}>
                     <Text style={styles.text}>Jana Lakshman</Text>
                     <Text style={styles.smalltext}>Kitchen Master @ Cooke</Text>
-                </View>   
+                </Pressable>   
+                </View>
             </View>
+
+          
+
 
             <View style={styles.container}>
                 <Text style={styles.smalltext}>
@@ -21,6 +33,8 @@ export default function RecipeDescription(){
                 Phasellus sed commodo nisl, nec imperdiet mauris.
                 </Text>
             </View>
+
+  
 
         </ScrollView>
         
@@ -39,7 +53,7 @@ const styles = StyleSheet.create({
     },
     text : {
         fontSize : 17,
-        color : '#3b3b3b',
+        color : '#a13e00',
         fontWeight : '600',
         marginLeft : 16,
     },
@@ -51,7 +65,8 @@ const styles = StyleSheet.create({
     },
     line : {
         flexDirection : "column",
-        marginLeft : 16,
+        marginLeft : 8,
         justifyContent : 'center'
-    }
+    },
+ 
     });

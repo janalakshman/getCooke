@@ -39,7 +39,7 @@ export default function GroceryList({navigation}) {
 
         </ScrollView> 
 
-        <SetStartDateModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+        {/*<SetStartDateModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>*/}
 
         <AddIngredientModal modalVisible={ingModalVisible} setModalVisible={setIngModalVisible}/>
 

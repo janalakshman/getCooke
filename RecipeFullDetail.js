@@ -37,8 +37,7 @@ export default function RecipeFullDetail() {
           <NutritionCard count={count}/>
           <Title name="Prepration" />
           <PrepStep />
-          <Title name="Tags" />
-          <Tags/>
+
          
         </ScrollView> 
 
