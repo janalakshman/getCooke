@@ -16,6 +16,33 @@ const DATA = [
   },
 ];
 
+const CARDS = [
+  {
+    title: "November 10",
+    data: ["Pizza", "Burger", "Risotto"],
+    index : 1,
+  },
+  {
+    title: "November 11",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+    index : 2,
+
+  },
+  {
+    title: "November 12",
+    data: ["Water", "Coke", "Beer"],
+    index : 3,
+
+  },
+  {
+    title: "November 13",
+    data: ["Cheese Cake", "Ice Cream"],
+    index : 4,
+
+  }
+];
+
+
 const cards = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -30,15 +57,7 @@ const cards = [
     title: 'Third Item',
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f6',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d7',
+    id: '58694a0f-3da1-471f-bd96-145571e29d58',
     title: 'Third Item',
   },
 ];
@@ -53,16 +72,14 @@ export default function Home( {navigation} ) {
   };
 
   const renderCard = ({ item }) => (
-    <RecipeCardHome onPress={() => navigation.navigate('RecipeFullDetail')} />
-  );
+    <RecipeCardHome onPress={() => navigation.navigate('RecipeFullDetail')}/> );
+
 
 
   return (
     <View>
           
         <ScrollView style={styles.container}>
-
-        
                     <SectionList
                         sections={DATA}
                         keyExtractor={(item, index) => item + index}
@@ -183,7 +200,7 @@ position : {
   bottom : 0,
  },
  recipe : {
-   marginLeft : 32
+   marginLeft : 32,
  },
  containerNav : {
   flex : 1,

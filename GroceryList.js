@@ -13,26 +13,26 @@ import { Pressable } from 'react-native';
 import SetStartDateModal from './components/SetStartDateModal'
 import SetEndDate from './components/SetEndDate'
 import AddIngredientModal from './components/AddIngredientModal'
+import SignUp from './SignUpScreen';
+
 
 
 export default function GroceryList({navigation}) {
-  const [isSigned, setIsSigned] = useState(false)
+  const [isSigned, setIsSigned] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
   const [ingModalVisible, setIngModalVisible] = useState(false);
 
 
   return (
-    
-
-      <View style={{flex : 1}}>
-      <ScrollView style={styles.container}>
+    <View>
+      { isSigned ?  
+      <View>
+        <ScrollView style={styles.container}>
           <Title name="Dates" />
-
             <DatePicker onPressIn={() => setModalVisible(true)} />
 
           <Title name= "List" /> 
-
-          <ToBuy />
+            <ToBuy />
 
           <PrimaryButton name="Add ingredient" onPressIn={() => setIngModalVisible(true)} />
 
@@ -47,7 +47,13 @@ export default function GroceryList({navigation}) {
 
         <View style={styles.position}>
           <FloatingButton onPress={() => navigation.navigate('MealPlan')}/>
-        </View>
+        </View> 
+      </View>
+        : 
+        <SignUp />
+      }
+    
+
 
         <View style={styles.positionNav}>
           <View style={styles.containerNav}>
@@ -68,6 +74,8 @@ export default function GroceryList({navigation}) {
           </View>
         </View>
       </View>
+
+
       
     
                     

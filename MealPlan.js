@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList } from 'react-native';
 import Title from './components/Title';
 import Header from './components/Header';
@@ -7,6 +7,7 @@ import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
 import FloatingButton from './components/FloatingButtonList'
 import { MaterialIcons } from '@expo/vector-icons';
+import SignUp from './SignUpScreen';
 
 const DATA = [
   {
@@ -43,27 +44,34 @@ const Item = ({ title }) => {
 
 
 export default function MealPlan({navigation}) {
-  return (
-    <View style={{flex : 1}}>
-          
-        <ScrollView style={styles.container}>
-          <SectionList
-                        sections={DATA}
-                        keyExtractor={(item, index) => item + index}
-                        renderItem={({ item }) => <Item title={item} />}
-                        renderSectionHeader={({ section: { title } }) => (
-                          <Title name={title}/>
-                        )}
-                        renderSectionFooter={({ section : {nutrition}}) => (
-                          <NutritionCard nutrition={nutrition} />
-                        )}
-                      />
-                <View style={{margin : 64}}></View>
-        </ScrollView> 
+  const [isSigned, setIsSigned] = useState(true)
 
-        <View style={styles.position}>
-          <FloatingButton onPress={() => navigation.navigate('GroceryList')} />
-        </View>
+  return (
+    <View>
+    {isSigned ? 
+      <View>
+          
+      <ScrollView style={styles.container}>
+        <SectionList
+                      sections={DATA}
+                      keyExtractor={(item, index) => item + index}
+                      renderItem={({ item }) => <Item title={item} />}
+                      renderSectionHeader={({ section: { title } }) => (
+                        <Title name={title}/>
+                      )}
+                      renderSectionFooter={({ section : {nutrition}}) => (
+                        <NutritionCard nutrition={nutrition} />
+                      )}
+                    />
+              <View style={{margin : 64}}></View>
+      </ScrollView> 
+
+      <View style={styles.position}>
+        <FloatingButton onPress={() => navigation.navigate('GroceryList')} />
+      </View> 
+      </View> : 
+      <SignUp /> }
+    
 
         <View style={styles.positionNav}>
           <View style={styles.containerNav}>
@@ -84,7 +92,6 @@ export default function MealPlan({navigation}) {
           </View>
         </View>
     </View>
-        
   );
 }
 

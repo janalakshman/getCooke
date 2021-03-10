@@ -7,6 +7,7 @@ import RecipeDescription from './components/RecipeDescription'
 import { FlatList } from 'react-native-gesture-handler'
 import Logo from './assets/Logo.png'
 import SecondaryButton from './components/SecondaryButton'
+import SignUp from './SignUpScreen'
 
 
 const DATA = [
@@ -37,22 +38,8 @@ export default function Profile(){
     return(
         <View>
             {isSigned === false ? 
-            <View style={styles.container1}>
-                <View style={styles.logo}>
-                    <Image source={Logo}
-                            style={   {height : 150,
-                                width : 150, marginVertical : 16}}/>
-                    <Text style={styles.text2}>We're psyched you decided to give us a chance.</Text>
-
-                    <Text style={styles.text2}>Sign up to start using all our features!!</Text>
-
-                    <TouchableOpacity  style={styles.button} onPress={setIsSigned(true)}>
-                        <Text style={styles.buttonText}>Sign Up</Text>
-                    </TouchableOpacity>
-
-                    <View style={{ flexGrow : 1}}></View>
-                </View>
-            </View> : 
+                <SignUp />
+                : 
 
             <ScrollView style={styles.container1}>
                 <View style={styles.container}>
