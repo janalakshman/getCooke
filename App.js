@@ -37,7 +37,7 @@ export default function App() {
                   <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
                 ),
                 headerStyle : {
-                  backgroundColor : '#fa9332',
+                  backgroundColor : '#f7f7f7',
                   height : 84
                 },
               })} />
@@ -55,7 +55,7 @@ export default function App() {
                     <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
                   ),
                   headerStyle : {
-                    backgroundColor : '#fa9332',
+                    backgroundColor : '#f7f7f7',
                     height : 84
                   },
                  })} />
@@ -73,7 +73,7 @@ export default function App() {
                     <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
                   ),
                   headerStyle : {
-                    backgroundColor : '#fa9332',
+                    backgroundColor : '#f7f7f7',
                     height : 84
                   },
                  })}  />
@@ -91,7 +91,7 @@ export default function App() {
                       <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
                     ),
                     headerStyle : {
-                      backgroundColor : '#fa9332',
+                      backgroundColor : '#f7f7f7',
                       height : 84
                     },
                    })}  />
@@ -100,9 +100,9 @@ export default function App() {
                   component={RecipeFullDetail}
                   options={{
                     headerTitle : props => <LogoTitle {...props} />,
-                    headerTintColor : '#fff',
+                    headerTintColor : '#a13e00',
                     headerStyle : {
-                      backgroundColor : '#fa9332',
+                      backgroundColor : '#f7f7f7',
                       height : 84
                     },
                    }}
@@ -112,9 +112,9 @@ export default function App() {
                   component={KitchenMaster}
                   options={{
                     headerTitle : props => <LogoTitle {...props} />,
-                    headerTintColor : '#fff',
+                    headerTintColor : '#a13e00',
                     headerStyle : {
-                      backgroundColor : '#fa9332',
+                      backgroundColor : '#f7f7f7',
                       height : 84
                     },
                    }}
@@ -124,9 +124,9 @@ export default function App() {
                   component={CreateRecipe}
                   options={{
                     headerTitle : props => <LogoTitle {...props} />,
-                    headerTintColor : '#fff',
+                    headerTintColor : '#a13e00',
                     headerStyle : {
-                      backgroundColor : '#fa9332',
+                      backgroundColor : '#f7f7f7',
                       height : 84
                     },
                     gestureDirection : 'horizontal-inverted'
@@ -137,9 +137,9 @@ export default function App() {
                   component={Profile}
                   options={{
                     headerTitle : props => <LogoTitle {...props} />,
-                  headerTintColor : '#ffffff',
+                  headerTintColor : '#a13e00',
                     headerStyle : {
-                      backgroundColor : '#fa9332',
+                      backgroundColor : '#f7f7f7',
                       height : 84
                     },
                    }}
@@ -164,14 +164,14 @@ const styles = StyleSheet.create({
   },
   text : {
     flex : 1,
-    color : '#fff',
+    color : '#a13e00',
     fontWeight : 'bold',
     fontSize : 24,
     padding : 20
 },
 icon : {
   padding : 16,
-  color : '#fff',
+  color : '#a13e00',
   fontSize : 24,
   paddingTop : 24
 },

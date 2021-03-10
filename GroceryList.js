@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React , {useState }from 'react';
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, Image} from 'react-native';
 import Title from './components/Title';
-import Header from './components/Header';
+import Logo from './assets/Logo.png';
 import DatePicker from './components/DatePicker'
 import FloatingButton from './components/FloatingButtonPlan'
 import ToBuy from './components/ToBuy'
@@ -16,14 +16,16 @@ import AddIngredientModal from './components/AddIngredientModal'
 
 
 export default function GroceryList({navigation}) {
+  const [isSigned, setIsSigned] = useState(false)
   const [modalVisible, setModalVisible] = useState(false);
   const [ingModalVisible, setIngModalVisible] = useState(false);
 
 
   return (
-    <View style={{flex : 1}}>
-          
-        <ScrollView style={styles.container}>
+    
+
+      <View style={{flex : 1}}>
+      <ScrollView style={styles.container}>
           <Title name="Dates" />
 
             <DatePicker onPressIn={() => setModalVisible(true)} />
@@ -65,12 +67,11 @@ export default function GroceryList({navigation}) {
                   </TouchableOpacity> 
           </View>
         </View>
-
-       
-
-    </View>
-        
-  );
+      </View>
+      
+    
+                    
+  )        
 }
 
 const styles = StyleSheet.create({
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
    containerNav : {
     flex : 1,
     height : 56,
-    backgroundColor : '#fff',
+    backgroundColor : '#f7f7f7',
     flexDirection : 'row',
     justifyContent : 'center',
     alignItems : 'center',
@@ -118,5 +119,30 @@ const styles = StyleSheet.create({
     color : '#a13e00',
     fontSize : 24,
     paddingBottom : 4,
-  }
+  },
+  container1 : {
+    backgroundColor : '#fff',
+    flexGrow : 1
+},
+text2 : {
+    margin : 16,
+    fontSize : 17,
+    textAlign : 'center'
+},
+buttonText : {
+  color : '#A13E00',
+  fontSize : 19,
+  fontWeight : '500',
+  margin : 16,
+  flexGrow : 1,
+  textAlign : 'center'
+},
+button: {
+    borderRadius : 8,
+    backgroundColor : '#ffc885',
+    alignSelf : 'flex-start',
+    margin : 16,
+    flexDirection : 'row',
+    alignSelf : 'center'
+       },
 });

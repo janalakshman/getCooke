@@ -1,5 +1,5 @@
 import React ,{ useState }from 'react';
-import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import AddTime from './AddTime'
 import {Calendar} from 'react-native-calendars';
@@ -60,9 +60,18 @@ export default function CalendarModal( props ) {
     }
 
     const handleClick = () => {
-      props.setModalVisible(!props.modalVisible)
+      setTimeout(handleModal, 2000)
       dispatch(addDate(Object.keys(markedDates)))
       setMarkedDates({})
+      Alert.alert(
+        "Recipe added",
+        "Wow! Look at you being organized. Way to go!",
+        {text : "OK"}
+        )
+    }
+
+    const handleModal = () => {
+      props.setModalVisible(false)
     }
     
     var minDate = moment().format('YYYY-MM-DD');

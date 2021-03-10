@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList } from 'react-native';
 import Title from './components/Title';
 import Header from './components/Header';
 import CalendarCard from './components/CalendarCard'
@@ -8,17 +8,57 @@ import NutritionCard from './components/NutritionCard'
 import FloatingButton from './components/FloatingButtonList'
 import { MaterialIcons } from '@expo/vector-icons';
 
+const DATA = [
+  {
+    title: "November 10",
+    data: ["Pizza", "Burger", "Risotto"],
+    index : 1,
+  },
+  {
+    title: "November 11",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+    index : 2,
+
+  },
+  {
+    title: "November 12",
+    data: ["Water", "Coke", "Beer"],
+    index : 3,
+
+  },
+  {
+    title: "November 13",
+    data: ["Cheese Cake", "Ice Cream"],
+    index : 4,
+
+  }
+];
+
+const Item = ({ title }) => {
+  return(
+    <View>
+      <CalendarCard name={title}/>
+    </View>)
+};
+
 
 export default function MealPlan({navigation}) {
   return (
     <View style={{flex : 1}}>
           
         <ScrollView style={styles.container}>
-          <Title name="November 10" />
-          <CalendarCard />
-          <CalendarCard />
-          <CalendarCard />
-          <NutritionCard count={1}/>
+          <SectionList
+                        sections={DATA}
+                        keyExtractor={(item, index) => item + index}
+                        renderItem={({ item }) => <Item title={item} />}
+                        renderSectionHeader={({ section: { title } }) => (
+                          <Title name={title}/>
+                        )}
+                        renderSectionFooter={({ section : {nutrition}}) => (
+                          <NutritionCard nutrition={nutrition} />
+                        )}
+                      />
+                <View style={{margin : 64}}></View>
         </ScrollView> 
 
         <View style={styles.position}>
@@ -67,7 +107,7 @@ const styles = StyleSheet.create({
    containerNav : {
     flex : 1,
     height : 56,
-    backgroundColor : '#fff',
+    backgroundColor : '#f7f7f7',
     flexDirection : 'row',
     justifyContent : 'center',
     alignItems : 'center',

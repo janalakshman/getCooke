@@ -84,12 +84,18 @@ export const counterSlice = createSlice({
       newIngredientList : (state, action) => {
           let newArray = [...state.ingredientList, action.payload]
           state.ingredientList = newArray
+      },
+      resetIngredient : (state) => {
+          state.ingredient = {
+              name : '',
+              quantity : ''
+          }
       }
   }
 })
 
 export const { addFilter, removeFilter, addKitchenMaster, removeKitchenMaster,
                 addDate, addTime, resetData, addIngredientName, addIngredientQuantity,
-                newIngredientList} = counterSlice.actions
+                newIngredientList, resetIngredient} = counterSlice.actions
 
 export default counterSlice.reducer

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React ,{ useState }from 'react';
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity , Modal, Pressable, FlatList} from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity , Modal, Pressable, SectionList, FlatList} from 'react-native';
 import Title from './components/Title';
 import { MaterialIcons } from '@expo/vector-icons';
 import BottomNav from './components/BottomNav'
@@ -10,16 +10,9 @@ import RecipeCardHome from './components/RecipeCardHome'
 
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    title: "November 10",
+    data: ["Pizza", "Burger", "Risotto"],
+    index : 1,
   },
 ];
 
@@ -52,9 +45,12 @@ const cards = [
 
 export default function Home( {navigation} ) {
 
-  const renderItem = ({ item }) => (
-    <CalendarCard  />
-  );
+  const Item = ({ title }) => {
+    return(
+      <View>
+        <CalendarCard name={title}/>
+      </View>)
+  };
 
   const renderCard = ({ item }) => (
     <RecipeCardHome onPress={() => navigation.navigate('RecipeFullDetail')} />
@@ -65,15 +61,20 @@ export default function Home( {navigation} ) {
     <View>
           
         <ScrollView style={styles.container}>
-          <Title name="November 10" />
 
-        <FlatList 
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            />
+        
+                    <SectionList
+                        sections={DATA}
+                        keyExtractor={(item, index) => item + index}
+                        renderItem={({ item }) => <Item title={item} />}
+                        renderSectionHeader={({ section: { title } }) => (
+                          <Title name={title}/>
+                        )}
+                        renderSectionFooter={({ section : {nutrition}}) => (
+                          <NutritionCard nutrition={nutrition} />
+                        )}
+                      />
 
-        <NutritionCard count={1} />
 
         <Title name="Popular recipes" />
 
@@ -187,7 +188,7 @@ position : {
  containerNav : {
   flex : 1,
   height : 56,
-  backgroundColor : '#fff',
+  backgroundColor : '#f7f7f7',
   flexDirection : 'row',
   justifyContent : 'center',
   alignItems : 'center',

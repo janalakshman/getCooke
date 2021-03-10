@@ -1,10 +1,12 @@
-import React from 'react'
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native'
+import React, { useState } from 'react'
+import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native'
 import UserCard from './components/UserCard'
 import Title from './components/Title'
 import DefaultProfilePic from './assets/DefaultProfilePic.png'
 import RecipeDescription from './components/RecipeDescription'
 import { FlatList } from 'react-native-gesture-handler'
+import Logo from './assets/Logo.png'
+import SecondaryButton from './components/SecondaryButton'
 
 
 const DATA = [
@@ -27,60 +29,93 @@ const DATA = [
   ];
 
 export default function Profile(){
+    const [isSigned, setIsSigned] = useState(false)
     const renderItem = ({ item }) => (
         <RecipeDescription  />
       );
 
     return(
-        <ScrollView style={styles.container1}>
-            <View style={styles.container}>
-                <Image source={DefaultProfilePic}
-                        style={styles.image}/>
-                <View style={styles.line}>
-                    <Text style={styles.text}>Jana Lakshman</Text>
-                    <Text style={styles.smalltext}>Member since 12/12/2020</Text>
-                </View>   
-            </View>
-            <UserCard />
+        <View>
+            {isSigned === false ? 
+            <View style={styles.container1}>
+                <View style={styles.logo}>
+                    <Image source={Logo}
+                            style={   {height : 150,
+                                width : 150, marginVertical : 16}}/>
+                    <Text style={styles.text2}>We're psyched you decided to give us a chance.</Text>
 
-            <Title name="Following" />
-            <FlatList
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-                />
+                    <Text style={styles.text2}>Sign up to start using all our features!!</Text>
+
+                    <TouchableOpacity  style={styles.button} onPress={setIsSigned(true)}>
+                        <Text style={styles.buttonText}>Sign Up</Text>
+                    </TouchableOpacity>
+
+                    <View style={{ flexGrow : 1}}></View>
+                </View>
+            </View> : 
+
+            <ScrollView style={styles.container1}>
+                <View style={styles.container}>
+                    <Image source={DefaultProfilePic}
+                            style={styles.image}/>
+                    <View style={styles.line}>
+                        <Text style={styles.text}>Jana Lakshman</Text>
+                        <Text style={styles.smalltext}>Member since 12/12/2020</Text>
+                    </View>   
+                </View>
+                <UserCard />
+
+                <Title name="Following" />
+                <FlatList
+                    data={DATA}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                    />
 
 
-            <Title name="Contact"/>
-            <View style={styles.card}>
-                <Text style={styles.text2}>
-                    Compliments are nice, but 
-                    criticisms are better! </Text>
-            </View>
+                <Title name="Contact"/>
+                <View style={styles.card}>
+                    <Text style={styles.text2}>
+                        Compliments are nice, but 
+                        criticisms are better! </Text>
+                </View>
 
-            <View style={styles.card}>
-                <Text style={styles.text2}>Drop a message to jana@getcooke.com</Text>
-            </View>
+                <View style={styles.card}>
+                    <Text style={styles.text2}>Drop a mail to jana@getcooke.com</Text>
+                </View>
 
-            <View style={{flexGrow : 1}}>
-            </View>
+                <View style={{flexGrow : 1}}>
+                </View>
 
-        </ScrollView>
+            </ScrollView>
+            }
+        
+
+        
+    </View>
     )
 }
 
 const styles = StyleSheet.create({
     container1 : {
         backgroundColor : '#fff',
-        flex : 1
+        flexGrow : 1
     },
     text2 : {
         margin : 16,
-        fontSize : 17
+        fontSize : 17,
+        textAlign : 'center'
     },
     container : {
         flexDirection : 'row',
         margin : 16,
+    },
+    logo : {
+     
+        alignSelf : 'center',
+        justifyContent : 'center',
+        alignItems : 'center',
+        alignContent : 'center'
     },
     image : {
         height : 56,
@@ -115,6 +150,22 @@ const styles = StyleSheet.create({
         borderColor : '#cfcfcf'
 
     },
+    buttonText : {
+        color : '#A13E00',
+        fontSize : 19,
+        fontWeight : '500',
+        margin : 16,
+        flexGrow : 1,
+        textAlign : 'center'
+      },
+      button: {
+          borderRadius : 8,
+          backgroundColor : '#ffc885',
+          alignSelf : 'flex-start',
+          margin : 16,
+          flexDirection : 'row',
+          alignSelf : 'center'
+             },
 }
 
 )

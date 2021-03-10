@@ -1,9 +1,9 @@
 import React ,{ useState }from 'react';
-import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Modal, Pressable, Alert, ScrollView, TouchableOpacity} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector} from 'react-redux'
-import { addIngredientName, addIngredientQuantity, newIngredientList } from '../redux/counterSlice';
+import { addIngredientName, addIngredientQuantity, newIngredientList, resetIngredient } from '../redux/counterSlice';
 
 
 export default function AddIngredientModal(props) {
@@ -14,10 +14,22 @@ export default function AddIngredientModal(props) {
     const dispatch = useDispatch();
 
     const handleClick = () => {
-      props.setModalVisible(!props.modalVisible)
+      setTimeout(handleModal, 2000)
       dispatch(addIngredientName(name))
       dispatch(addIngredientQuantity(quantity))
       dispatch(newIngredientList(ingredient))
+      dispatch(resetIngredient)
+      onChangeName('')
+      onChangeQuantity('')
+      Alert.alert(
+        "Ingredient added",
+        "Good job remembering this one!",
+        {text : "OK"}
+        )
+    }
+
+    const handleModal = () => {
+      props.setModalVisible(false)
     }
 
     

@@ -185,7 +185,7 @@ position : {
  containerNav : {
   flex : 1,
   height : 56,
-  backgroundColor : '#fff',
+  backgroundColor : '#f7f7f7',
   flexDirection : 'row',
   justifyContent : 'center',
   alignItems : 'center',
