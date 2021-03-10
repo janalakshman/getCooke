@@ -18,8 +18,10 @@ export const counterSlice = createSlice({
           quantity : ''
       }, 
       ingredientList : [],
-      startDate : [],
-      endDate : []
+      user : {
+          userID : '',
+          password : ''
+      }
   },
   reducers: {
       addFilter : (state, action) => {
@@ -90,12 +92,24 @@ export const counterSlice = createSlice({
               name : '',
               quantity : ''
           }
-      }
+      },
+      addUserID : (state, action) => {
+        state.user = {
+            ...state.user,
+            userID : action.payload
+        }
+    },
+    addUserPassword : (state, action) => {
+        state.userID = {
+            ...state.user,
+            password : action.payload
+        }
+    },
   }
 })
 
 export const { addFilter, removeFilter, addKitchenMaster, removeKitchenMaster,
                 addDate, addTime, resetData, addIngredientName, addIngredientQuantity,
-                newIngredientList, resetIngredient} = counterSlice.actions
+                newIngredientList, resetIngredient, addUserID, addUserPassword} = counterSlice.actions
 
 export default counterSlice.reducer

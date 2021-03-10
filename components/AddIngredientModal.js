@@ -1,5 +1,5 @@
 import React ,{ useState }from 'react';
-import { StyleSheet, Text, View, Modal, Pressable, Alert, ScrollView, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Modal, Pressable, Alert, ScrollView, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector} from 'react-redux'
@@ -56,6 +56,7 @@ export default function AddIngredientModal(props) {
                       </View>
                     </Pressable>
 
+                
                     <Text style={styles.text} > Ingredient</Text>
 
                     <TextInput style={styles.textInput}
@@ -169,6 +170,8 @@ export default function AddIngredientModal(props) {
           paddingBottom : 12,
           paddingLeft : 12,
           alignSelf : 'center'
+      }, container: {
+        flex: 1
       },
   });
   
