@@ -17,10 +17,10 @@ const ingredient = [{name : 'Onion',
                         fraction : '',
                         unit : 'g'},];
 
-export default function Header(props){   
- 
-      
+export default function Header(props){ 
     return(
+        <div>
+        { props.ingredients  ? 
         <SafeAreaView style={styles.card} >
             <View style={styles.line}>
                 <Text style={styles.text}>Servings</Text>
@@ -33,15 +33,15 @@ export default function Header(props){
 
             <Divider />
                 <View style={styles.container}>
-                    {ingredient.map(ingredient =>
+                    {props.ingredients.map(ingredient =>
                         <View> 
-                            <Text style={styles.smalltext}>{ingredient.amount*props.count} {ingredient.unit} {ingredient.name}</Text>
+                            <Text style={styles.smalltext}>{ingredient.qty*props.count} {ingredient.unit_name} {ingredient.ingredient.name}</Text>
                             <Divider />
                         </View>         
                         )}
                 </View>
-        </SafeAreaView>
-     
+        </SafeAreaView> : <SafeAreaView style={styles.card} > </SafeAreaView>}
+     </div>
     )
 }
 

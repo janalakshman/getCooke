@@ -8,29 +8,33 @@ export default function Header(props){
     let carbs = 12
     let protein = 24
     let fat = 10
+    const recipe = props.recipe
     return(
+      <div>
+      {recipe ? (
         <View style={styles.card}>
             <View style={styles.line}>
-                <Text style={styles.text}>{calroies*props.count}</Text>
+                <Text style={styles.text}>{recipe.calories*props.count}</Text>
                 <Text style={styles.smalltext}>Calories</Text>     
             </View>
 
             <View style={styles.line}>
-                <Text style={styles.text}>{carbs*props.count}g</Text>
+                <Text style={styles.text}>{recipe.carbohydrate*props.count}g</Text>
                 <Text style={styles.smalltext}>Carbs</Text>     
             </View>
 
             <View style={styles.line}>
-                <Text style={styles.text}>{protein*props.count}g</Text>
+                <Text style={styles.text}>{recipe.proteins*props.count}g</Text>
                 <Text style={styles.smalltext}>Protein</Text>     
             </View>
 
             <View style={styles.line}>
-                <Text style={styles.text}>{fat*props.count}g</Text>
+                <Text style={styles.text}>{recipe.fat*props.count}g</Text>
                 <Text style={styles.smalltext}>Fat</Text>     
             </View>
-
         </View>
+        ): <View></View>}
+        </div>
         
     )
 }

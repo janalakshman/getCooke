@@ -5,9 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
 
 
-export default function RecipeDescription(){
+export default function RecipeDescription(props){
     const navigation = useNavigation();
-    
+    const recipe = props.recipe
  
 
     return(
@@ -18,19 +18,20 @@ export default function RecipeDescription(){
                         style={styles.image}/>
                 <View style={styles.line}>
                 <Pressable onPress={() => navigation.navigate('KitchenMaster')}>
-                    <Text style={styles.text}>Jana Lakshman</Text>
-                    <Text style={styles.smalltext}>Kitchen Master @ Cooke</Text>
+                    {recipe.user ? 
+                    <Text style={styles.text}>{recipe.user.username}</Text>
+                    : <Text style={styles.text}>Cooke</Text>
+                    }
+                    <Text style={styles.smalltext}>Kitchen Master @ 
+                        {recipe.user ? ' ' +recipe.user.username : ' Cooke'}
+
+                    </Text>
                 </Pressable>   
                 </View>
             </View>
-
-          
-
-
             <View style={styles.container}>
                 <Text style={styles.smalltext}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus sed commodo nisl, nec imperdiet mauris.
+                {recipe.note}
                 </Text>
             </View>
 

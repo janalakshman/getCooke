@@ -1,5 +1,5 @@
+import React, { useState, useEffect} from "react";
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import Title from './components/Title';
 import HeaderBack from './components/HeaderBack';
@@ -11,32 +11,51 @@ import PrepStep from './components/PrepStep'
 import Tags from './components/Tags'
 import FloatingButton from './components/FloatingButtonCalendar'
 import CalendarModal from './components/CalendarModal'
+import config from './config';
 
 export default function RecipeFullDetail() {
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(1)
+  const [recipe, setRecipe] = useState({});
     
   function increment(){
     setCount(count+1)
     }
   
-    function decrement(){
-        count === 1 ? setCount(count) :  setCount(count-1); 
-    }
+  function decrement(){
+      count === 1 ? setCount(count) :  setCount(count-1); 
+  }
+  useEffect(() => {
+    fetch(
+      config.api + `/v1/recipe/`+ 33,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+      }
+    )
+      .then(res => res.json())
+      .then(response => {
+        setRecipe(response);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
   return (
     <View style={{flex : 1}}>
       
         <ScrollView style={styles.container}>
           
-          <RecipeDetail />
-          <RecipeDescription />
+          <RecipeDetail recipe = {recipe} />
+          <RecipeDescription recipe = {recipe}/>
           <Title name="Ingredients" />
-          <IngredientCard count={count} increment={increment} decrement={decrement}/>
+          <IngredientCard ingredients = {recipe.ingredients} count={count} increment={increment} decrement={decrement}/>
           <Title name="Nutrition" />
-          <NutritionCard count={count}/>
+          <NutritionCard recipe={recipe} count={count}/>
           <Title name="Prepration" />
-          <PrepStep />
+          <PrepStep steps={recipe.steps} />
 
          
         </ScrollView> 

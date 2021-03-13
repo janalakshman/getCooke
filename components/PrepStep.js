@@ -2,18 +2,23 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import DefaultPrepStep from '../assets/DefaultPrepStep.png'
 
-export default function Title() {
+export default function Title(props) {
+  let count = 0;
     return(
-      <View style={styles.container}>
-          <Text style={styles.title}>1</Text>
-          <View style={styles.line}>
-            <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </Text>
-            <Image source={DefaultPrepStep} 
-                    style={styles.image}/>
-          </View>
-            
-      </View>
-        
+      <div>
+        {props.steps ? 
+          <View>
+              {props.steps.map(step => 
+                <View style={styles.container}>
+                  <Text style={styles.title}>{++count}</Text>
+                  <View style={styles.line}>
+                    <Text style={styles.text}>{step.step}</Text>
+                    <Image source={DefaultPrepStep} style={styles.image}/>
+                  </View>
+                </View>
+                )}
+          </View>: <View></View>}
+      </div>       
     )
 }
   
