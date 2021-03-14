@@ -13,11 +13,10 @@ import FloatingButton from './components/FloatingButtonCalendar'
 import CalendarModal from './components/CalendarModal'
 import config from './config';
 
-export default function RecipeFullDetail() {
+export default function RecipeFullDetail(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(1)
   const [recipe, setRecipe] = useState({});
-    
   function increment(){
     setCount(count+1)
     }
@@ -27,7 +26,7 @@ export default function RecipeFullDetail() {
   }
   useEffect(() => {
     fetch(
-      config.api + `/v1/recipe/`+ 33,
+      config.api + `/v1/recipe/`+ props.route.params.recipeId,
       {
         method: "GET",
         headers: {

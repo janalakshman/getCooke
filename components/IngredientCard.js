@@ -4,19 +4,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Divider } from 'react-native-elements';
 
-const ingredient = [{name : 'Onion',
-                        amount : '200',
-                        fraction : '',
-                        unit : 'g'},
-                        {name : 'Onion',
-                        amount : '200',
-                        fraction : '',
-                        unit : 'g'},
-                        {name : 'Onion',
-                        amount : '200',
-                        fraction : '',
-                        unit : 'g'},];
-
 export default function Header(props){ 
     return(
         <div>

@@ -1,5 +1,5 @@
+import React, { useState, useEffect} from "react";
 import { StatusBar } from 'expo-status-bar';
-import React ,{ useState }from 'react';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity , Modal, Pressable, SectionList, FlatList} from 'react-native';
 import Title from './components/Title';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import BottomNav from './components/BottomNav'
 import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
 import RecipeCardHome from './components/RecipeCardHome'
+import config from './config';
 
 const DATA = [
   {
@@ -63,6 +64,25 @@ const cards = [
 ];
 
 export default function Home( {navigation} ) {
+  const [recipes, setRecipes] = useState({});
+  let panels = []
+  useEffect(() => {
+    fetch(
+      config.api + `/v1/dashboard`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+      }
+    )
+      .then(res => res.json())
+      .then(response => {
+        setRecipes(response);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
   const Item = ({ title }) => {
     return(
@@ -71,11 +91,27 @@ export default function Home( {navigation} ) {
       </View>)
   };
 
-  const renderCard = ({ item }) => (
-    <RecipeCardHome onPress={() => navigation.navigate('RecipeFullDetail')}/> );
+  const renderCard = ({ item }) => {
+    return (<RecipeCardHome recipe={item} onPress={() => navigation.navigate('RecipeFullDetail', {recipeId: item.id})}/> )
+  }
 
+  if(recipes) {
+    panels = Object.keys(recipes).map((recipe, key) => {
+        return (
+          <ScrollView style={styles.recipe}>
+            <Title name={recipe} />
+            <FlatList 
+              data={recipes[recipe]}
+              renderItem={renderCard}
+              keyExtractor={item => item.id}
+              horizontal
+              />
+          </ScrollView>
+        )
+    })
+}
 
-
+  
   return (
     <View>
           
@@ -92,73 +128,9 @@ export default function Home( {navigation} ) {
                         )}
                       />
 
+            {panels}
 
-        <Title name="Popular recipes" />
-
-        <ScrollView style={styles.recipe}>
-          <FlatList 
-            data={cards}
-            renderItem={renderCard}
-            keyExtractor={item => item.id}
-            horizontal
-            />
-        </ScrollView>
-
-        <Title name="Breakfast" />
-
-        <ScrollView style={styles.recipe}>
-          <FlatList 
-            data={cards}
-            renderItem={renderCard}
-            keyExtractor={item => item.id}
-            horizontal
-            />
-        </ScrollView>
-
-        <Title name="Main course" />
-
-        <ScrollView style={styles.recipe}>
-          <FlatList 
-            data={cards}
-            renderItem={renderCard}
-            keyExtractor={item => item.id}
-            horizontal
-            />
-        </ScrollView>
-
-        <Title name="Desserts" />
-
-        <ScrollView style={styles.recipe}>
-          <FlatList 
-            data={cards}
-            renderItem={renderCard}
-            keyExtractor={item => item.id}
-            horizontal
-            />
-        </ScrollView>
-
-        <Title name="Appetizers" />
-
-        <ScrollView style={styles.recipe}>
-          <FlatList 
-            data={cards}
-            renderItem={renderCard}
-            keyExtractor={item => item.id}
-            horizontal
-            />
-        </ScrollView>
-
-        <Title name="Drinks" />
-
-        <ScrollView style={styles.recipe}>
-          <FlatList 
-            data={cards}
-            renderItem={renderCard}
-            keyExtractor={item => item.id}
-            horizontal
-            />
-        </ScrollView>
-        
+       
           <View style={{height : 64}}>
           </View>      
           

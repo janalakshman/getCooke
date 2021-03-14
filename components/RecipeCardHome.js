@@ -3,19 +3,18 @@ import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import RecipeCardPic from '../assets/RecipeCardPic.png';
 import veg from '../assets/veg.png'
+import nonVeg from '../assets/nonVeg.png'
 import { Pressable } from 'react-native';
+import config from '../config';
 
 export default function Header(props){
     return(
         <Pressable onPress={props.onPress}>
             <View style={styles.card}>
-                <Image 
-                    source={RecipeCardPic}
-                    style={styles.image} />
-                 <Image 
-                    source={veg}
-                    style={styles.icon} /> 
-                <Text style={styles.text}>Paneer Butter Masala</Text>       
+                {props.recipe.image ? <Image source={ config.api+props.recipe.image} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
+                {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> } 
+                 
+                <Text style={styles.text}>{props.recipe.name}</Text>       
         </View>
         </Pressable>
         
