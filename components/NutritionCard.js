@@ -10,7 +10,7 @@ export default function Header(props){
     let fat = 10
     const recipe = props.recipe
     return(
-      <div>
+      <View>
       {recipe ? (
         <View style={styles.card}>
             <View style={styles.line}>
@@ -34,7 +34,7 @@ export default function Header(props){
             </View>
         </View>
         ): <View></View>}
-        </div>
+        </View>
         
     )
 }

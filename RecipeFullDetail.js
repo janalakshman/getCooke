@@ -26,7 +26,7 @@ export default function RecipeFullDetail(props) {
   }
   useEffect(() => {
     fetch(
-      config.api + `/v1/recipe/`+ props.route.params.recipeId,
+      config.api + `/v1/recipe/`+ `102`,
       {
         method: "GET",
         headers: {

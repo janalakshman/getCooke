@@ -6,7 +6,7 @@ import { Divider } from 'react-native-elements';
 
 export default function Header(props){ 
     return(
-        <div>
+        <View>
         { props.ingredients  ? 
         <SafeAreaView style={styles.card} >
             <View style={styles.line}>
@@ -27,8 +27,8 @@ export default function Header(props){
                         </View>         
                         )}
                 </View>
-        </SafeAreaView> : <SafeAreaView style={styles.card} > </SafeAreaView>}
-     </div>
+        </SafeAreaView> : <View style={styles.card}></View>}
+     </View>
     )
 }
 

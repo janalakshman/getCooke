@@ -5,7 +5,7 @@ import DefaultPrepStep from '../assets/DefaultPrepStep.png'
 export default function Title(props) {
   let count = 0;
     return(
-      <div>
+      <View>
         {props.steps ? 
           <View>
               {props.steps.map(step => 
@@ -18,7 +18,7 @@ export default function Title(props) {
                 </View>
                 )}
           </View>: <View></View>}
-      </div>       
+      </View>       
     )
 }
   
