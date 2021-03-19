@@ -8,28 +8,22 @@ import { SectionList } from 'react-native';
 
 const DATA = [
   {
-    title: "Main dishes",
-    data: ["Pizza", "Burger", "Risotto"],
+    title: "Meal type",
+    data: ["Breakfast", "Sides", "Main course", "Drinks", "Desserts"],
     index : 1,
   },
   {
-    title: "Sides",
-    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+    title: "Cuisine",
+    data: ["Indian" , "American", "Chinese", "European"],
     index : 2,
 
   },
   {
-    title: "Drinks",
-    data: ["Water", "Coke", "Beer"],
+    title: "Cooking appliances",
+    data: ["Mixer", "Blender", "Stovetop", "Oven", "Food Processor"],
     index : 3,
 
   },
-  {
-    title: "Desserts",
-    data: ["Cheese Cake", "Ice Cream"],
-    index : 4,
-
-  }
 ];
 
 const Item = ({ title }) => {
