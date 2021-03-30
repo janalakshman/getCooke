@@ -38,7 +38,6 @@ export default function Discover( {navigation} ) {
   const [modalVisible, setModalVisible] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
   const filters = useSelector(state => state.counter.filters);
-  console.log(filters)
 
   const dispatch = useDispatch();
 
@@ -84,7 +83,7 @@ export default function Discover( {navigation} ) {
               {
               value === '' ?
               <View>
-                <TertiaryButton modalVisible={filterVisible} setModalVisible={setFilterVisible} />
+                <TertiaryButton name="Filters" modalVisible={filterVisible} setModalVisible={setFilterVisible} />
 
                   <View style={styles.line}>
                     {filters.map(filter => <Tags name={filter}/>)}

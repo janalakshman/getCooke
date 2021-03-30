@@ -2,10 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList } from 'react-native';
 import Title from './components/Title';
-import Header from './components/Header';
 import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
-import FloatingButton from './components/FloatingButtonList'
 import { MaterialIcons } from '@expo/vector-icons';
 import SignUp from './SignUpScreen';
 
@@ -14,6 +12,7 @@ const DATA = [
     title: "November 10",
     data: ["Pizza", "Burger", "Risotto"],
     index : 1,
+    nutrition : 5,
   },
   {
     title: "November 11",
@@ -47,11 +46,10 @@ export default function MealPlan({navigation}) {
   const [isSigned, setIsSigned] = useState(true)
 
   return (
-    <View>
+    <View style={{flex : 1}}>
     {isSigned ? 
-      <View>
           
-      <ScrollView style={styles.container}>
+      <ScrollView style={{backgroundColor : '#ffffff'}}>
         <SectionList
                       sections={DATA}
                       keyExtractor={(item, index) => item + index}
@@ -63,19 +61,14 @@ export default function MealPlan({navigation}) {
                         <NutritionCard nutrition={nutrition} />
                       )}
                     />
-              <View style={{margin : 64}}></View>
       </ScrollView> 
-
-      <View style={styles.position}>
-        <FloatingButton onPress={() => navigation.navigate('GroceryList')} />
-      </View> 
-      </View> : 
+      : 
       <SignUp /> }
     
 
-    <View style={styles.containerNav}>
+            <View style={styles.navigation}>
                   <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
-                    <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
+                    <MaterialIcons name="home-filled" style={styles.icon}/>
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
@@ -83,11 +76,15 @@ export default function MealPlan({navigation}) {
                   </TouchableOpacity> 
 
                   <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('MealPlan')} > 
-                      <MaterialIcons name="event-note" style={styles.icon}/>
+                      <MaterialIcons name="event-note" style={styles.selectedIcon}/>
                   </TouchableOpacity> 
                   
-                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} > 
-                    <MaterialIcons name="add-box" style={styles.icon}/>
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('GroceryList')} >
+                      <MaterialIcons name="list-alt" style={styles.icon} />
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
+                    <MaterialIcons name="account-box" style={styles.icon}/>
                   </TouchableOpacity> 
           </View>
     </View>
@@ -95,25 +92,8 @@ export default function MealPlan({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
-  position : {
-    position : 'absolute',
-    bottom : 64,
-    right : 8
-  },
-  header : {
-    top : 0
-  },
-  positionNav : {
-    position : 'absolute',
-    bottom : 0,
-   },
-   containerNav : {
-    flex : 1,
-    height : 56,
-    backgroundColor : '#f7f7f7',
+   navigation : {
+    backgroundColor : '#ffffff',
     flexDirection : 'row',
     justifyContent : 'center',
     alignItems : 'center',
@@ -124,21 +104,20 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
-  },
-  text : {
-    fontSize : 11,
-    color : '#a13e00',
-    fontWeight : '600'    
+    elevation: 3
   },
   tab : {
     alignItems : 'center',
-    width : '33.33%'
+    width : '20%',
   },
   icon : {
-    color : '#a13e00',
-    fontSize : 24,
-    paddingBottom : 4,
-  }
-
+    color : 'rgba(207, 207, 207, 0.99)',
+    fontSize : 32,
+    margin : 16
+  },
+  selectedIcon : {
+    color : '#3b3b3b',
+    fontSize : 32,
+    margin : 16
+  },
 });

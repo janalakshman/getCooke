@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Divider } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 export default function Title(props) {
-  var [ isPress, setIsPress ] = React.useState(false);
+  var [ isPress, setIsPress ] = useState(false);
 
-  const handleClick = () => {
-    setIsPress(!isPress)
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+  });
+
+  if (!fontsLoaded) {
+    return (<LoadingScreen />);
   }
+
 
     return(
         <View>
@@ -16,18 +22,18 @@ export default function Title(props) {
           isPress ? 
           <View>
             <View style={styles.container}>
-                <Feather name="check-circle" size={20} color="#3b3b3b" onPress={() => handleClick()} />
-                <Text style={styles.heading2}>{props.item.amount} {props.item.unit} {props.item.name} </Text>
+                <Feather name="check-circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
+                <Text style={styles.clicked}>{props.item.name} </Text>
+                <Text style={styles.clicked}>{props.item.amount} {props.item.unit} </Text>
             </View> 
-            <Divider style={{margin : 4}} /> 
           </View>
           :
           <View>
             <View style={styles.container}>
-                <Feather name="circle" size={20} color="#3b3b3b" onPress={() => handleClick()} />
-                <Text style={styles.heading}>{props.item.amount} {props.item.unit} {props.item.name} </Text>
+                <Feather name="circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
+                <Text style={styles.unclicked}>{props.item.name}</Text>
+                <Text style={styles.unclicked}>{props.item.amount} {props.item.unit}</Text>
             </View> 
-            <Divider style={{margin : 4}} /> 
           </View>  
           }
           <View style={{margin : 8}}></View>
@@ -38,22 +44,22 @@ export default function Title(props) {
 }
   
   const styles = StyleSheet.create({
-    heading : {
+    unclicked : {
       color : '#3b3b3b',
       fontSize : 17,
-      fontWeight : '400',
-      margin : 4
+      marginHorizontal : 16,
+      fontFamily : 'Poppins_400Regular'
     },
-    heading2 : {
+    clicked : {
       color : '#3b3b3b',
       fontSize : 17,
-      fontWeight : '400',
-      margin : 4,
+      fontFamily : 'Poppins_400Regular',
+      marginHorizontal : 16,
       textDecorationLine : 'line-through'
     },
     container : {
         margin : 8,
         flexDirection : 'row',
-        alignItems : 'center'
-    }
+        justifyContent : 'flex-start'
+    },
   });

@@ -102,16 +102,29 @@ export default function App() {
                 component={MealPlan}
                 options={({ navigation }) => ({
                   headerTitle : () => (
-                    <Text style={styles.text}>Meal plan</Text>
+                    <View>
+                    </View>
                   ),
                   headerLeft : () => (
-                    <MaterialIcons name="add-circle" style={styles.icon} onPress={() => navigation.navigate('CreateRecipe')}/>
+                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                      <Image source={Logo} alt="Logo"
+                        style={{ width: 50, height: 50, marginLeft : 16 }}
+                      />
+                      <Text style={styles.text}>Meal plan</Text>
+                    </View>
                   ),
                   headerRight : () => (
-                    <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
+                    <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
+                      <Text style={styles.buttonText}>CREATE</Text>
+                    </TouchableOpacity>
                   ),
                   headerStyle : {
-                    backgroundColor : '#f7f7f7',
+                    backgroundColor : '#ffffff',
+                    elevation : 5,
+                    shadowOpacity : 3,
+                    shadowColor : 'rgba(0, 0, 0, 0.10)',
+                    shadowRadius : 2,
+                    shadowOffset : {width : 0, height : 4},
                     height : 84
                   },
                  })}  />
@@ -120,16 +133,28 @@ export default function App() {
                   component={GroceryList}
                   options={({ navigation }) => ({
                     headerTitle :  () => (
-                      <Text style={styles.text}>Grocery list</Text>
+                      <View></View>
                     ),
                     headerLeft : () => (
-                      <MaterialIcons name="add-circle" style={styles.icon} onPress={() => navigation.navigate('CreateRecipe')}/>
+                      <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                        <Image source={Logo} alt="Logo"
+                          style={{ width: 50, height: 50, marginLeft : 16 }}
+                        />
+                        <Text style={styles.text}>Grocery list</Text>
+                      </View>
                     ),
                     headerRight : () => (
-                      <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
+                      <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
+                        <Text style={styles.buttonText}>CREATE</Text>
+                      </TouchableOpacity>
                     ),
                     headerStyle : {
-                      backgroundColor : '#f7f7f7',
+                      backgroundColor : '#ffffff',
+                      elevation : 5,
+                      shadowOpacity : 3,
+                      shadowColor : 'rgba(0, 0, 0, 0.10)',
+                      shadowRadius : 2,
+                      shadowOffset : {width : 0, height : 4},
                       height : 84
                     },
                    })}  />

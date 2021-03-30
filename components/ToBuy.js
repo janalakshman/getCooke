@@ -8,7 +8,7 @@ import BoughtItem from './BoughtItem'
 export default function Header(){   
     const [count, setCount] = useState(1)
     const [tobuy, setTobuy] = useState([
-        {name : 'Onion', amount : '200', fraction : '', unit : 'g', key : '1'},
+        {name : 'Onionpotatot', amount : '200', fraction : '', unit : 'g', key : '1'},
         {name : 'Onion', amount : '200', fraction : '', unit : 'g', key : '2'},
         {name : 'Onion', amount : '200', fraction : '', unit : 'g', key : '3'},
         ]);
@@ -30,13 +30,20 @@ export default function Header(){
 const styles = StyleSheet.create({
     card : {
         width : '88%',
-        padding : 8,
-        margin : 16,
+        paddingHorizontal : 32, 
+        margin : 32,
         paddingBottom : 8,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
         borderRadius : 4,
-        alignSelf : 'center'
+        alignSelf : 'center',
+        backgroundColor : '#ffffff',
+        flexGrow : 1,
+        borderTopLeftRadius : 0,
+        borderRadius : 20,
+        elevation : 3,
+        shadowRadius : 2,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
     container : {
         width : '90%',

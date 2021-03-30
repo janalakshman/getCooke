@@ -2,62 +2,44 @@ import { StatusBar } from 'expo-status-bar';
 import React , {useState }from 'react';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, Image} from 'react-native';
 import Title from './components/Title';
-import Logo from './assets/Logo.png';
 import DatePicker from './components/DatePicker'
-import FloatingButton from './components/FloatingButtonPlan'
 import ToBuy from './components/ToBuy'
-import AddToBuy from './components/AddTobuy'
 import PrimaryButton from './components/PrimaryButton'
 import { MaterialIcons } from '@expo/vector-icons';
-import { Pressable } from 'react-native';
-import SetStartDateModal from './components/SetStartDateModal'
-import SetEndDate from './components/SetEndDate'
 import AddIngredientModal from './components/AddIngredientModal'
 import SignUp from './SignUpScreen';
-
+import TertiaryButton from './components/TertiaryButton'
 
 
 export default function GroceryList({navigation}) {
   const [isSigned, setIsSigned] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
-  const [ingModalVisible, setIngModalVisible] = useState(false);
 
 
   return (
-    <View>
+    <View style={{flex : 1}}>
       { isSigned ?  
-      <View>
-        <ScrollView style={styles.container}>
+        <ScrollView style={{backgroundColor : '#ffffff'}}>
           <Title name="Dates" />
-            <DatePicker onPressIn={() => setModalVisible(true)} />
+            <DatePicker/>
+          
+          <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} />
 
-          <Title name= "List" /> 
-            <ToBuy />
-
-          <PrimaryButton name="Add ingredient" onPressIn={() => setIngModalVisible(true)} />
-
-          <View style={{height : 128}}>
-          </View>  
+          <Title name= "List" />
+            <View style={{backgroundColor : '#fff5e6', flex : 1}}>
+              <ToBuy/>
+            </View> 
+          
+          <AddIngredientModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
 
         </ScrollView> 
-
-        {/*<SetStartDateModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>*/}
-
-        <AddIngredientModal modalVisible={ingModalVisible} setModalVisible={setIngModalVisible}/>
-
-        <View style={styles.position}>
-          <FloatingButton onPress={() => navigation.navigate('MealPlan')}/>
-        </View> 
-      </View>
         : 
         <SignUp />
       }
     
-
-
-    <View style={styles.containerNav}>
+          <View style={styles.navigation}>
                   <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
-                    <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
+                    <MaterialIcons name="home-filled" style={styles.icon}/>
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
@@ -68,8 +50,12 @@ export default function GroceryList({navigation}) {
                       <MaterialIcons name="event-note" style={styles.icon}/>
                   </TouchableOpacity> 
                   
-                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} > 
-                    <MaterialIcons name="add-box" style={styles.icon}/>
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('GroceryList')} >
+                      <MaterialIcons name="list-alt" style={styles.selectedIcon} />
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
+                    <MaterialIcons name="account-box" style={styles.icon}/>
                   </TouchableOpacity> 
           </View>
       </View>
@@ -82,25 +68,8 @@ export default function GroceryList({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
-  position : {
-    position : 'absolute',
-    bottom : 64,
-    right : 8
-  },
-  header : {
-    top : 0
-  },
-  positionNav : {
-    position : 'absolute',
-    bottom : 0,
-   },
-   containerNav : {
-    flex : 1,
-    height : 56,
-    backgroundColor : '#f7f7f7',
+  navigation : {
+    backgroundColor : '#ffffff',
     flexDirection : 'row',
     justifyContent : 'center',
     alignItems : 'center',
@@ -111,45 +80,20 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
-  },
-  text : {
-    fontSize : 11,
-    color : '#a13e00',
-    fontWeight : '600'    
+    elevation: 3
   },
   tab : {
     alignItems : 'center',
-    width : '33.33%'
+    width : '20%',
   },
   icon : {
-    color : '#a13e00',
-    fontSize : 24,
-    paddingBottom : 4,
+    color : 'rgba(207, 207, 207, 0.99)',
+    fontSize : 32,
+    margin : 16
   },
-  container1 : {
-    backgroundColor : '#fff',
-    flexGrow : 1
-},
-text2 : {
-    margin : 16,
-    fontSize : 17,
-    textAlign : 'center'
-},
-buttonText : {
-  color : '#A13E00',
-  fontSize : 19,
-  fontWeight : '500',
-  margin : 16,
-  flexGrow : 1,
-  textAlign : 'center'
-},
-button: {
-    borderRadius : 8,
-    backgroundColor : '#ffc885',
-    alignSelf : 'flex-start',
-    margin : 16,
-    flexDirection : 'row',
-    alignSelf : 'center'
-       },
+  selectedIcon : {
+    color : '#3b3b3b',
+    fontSize : 32,
+    margin : 16
+  },
 });

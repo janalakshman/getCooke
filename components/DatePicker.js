@@ -1,27 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight} from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View} from 'react-native';
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
+
 
 export default function DatePicker(props) {
+    let [fontsLoaded] = useFonts({
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+      });
+    
+      if (!fontsLoaded) {
+        return (<LoadingScreen />);
+      }
+
     return(
         <View style={styles.container}>
             
             <View style={styles.line} >  
-                <Text style={styles.smallText}>Start date</Text>
-                <TouchableWithoutFeedback  style={styles.button} onPress={props.onPressIn}>
-                    <Text style={styles.buttonText}>15 Sep</Text>
-                </TouchableWithoutFeedback>
-                <Text style={styles.smallText}>Wednesday</Text>
+                <Text style={styles.text}>15 Sep</Text>
+                <Text style={styles.body}>Wednesday</Text>
             </View> 
 
-            <Text style={styles.smallText}>to</Text>
+            <Text style={styles.body}>to</Text>
 
             <View style={styles.line}>  
-                <Text style={styles.smallText}>End date</Text>
-                <TouchableWithoutFeedback  style={styles.button} onPress={props.onPressIn}>
-                    <Text style={styles.buttonText}>17 Sep</Text>
-                </TouchableWithoutFeedback>
-                <Text style={styles.smallText}>Friday</Text>
+                <Text style={styles.text}>17 Sep</Text>
+                <Text style={styles.body}>Friday</Text>
           </View> 
 
         </View>
@@ -30,45 +34,30 @@ export default function DatePicker(props) {
 }
   
   const styles = StyleSheet.create({
-    buttonText : {
-      color : '#A13E00',
-      fontSize : 19 ,
-      fontWeight : '400',
-      margin : 12,
+    text : {
+      color : '#3b3b3b',
+      fontSize : 19,
+      fontFamily : 'Poppins_500Medium',
     },
-    smallText : {
+    body : {
         color : '#3b3b3b',
         fontSize : 14,
-        fontWeight : '400',
-    },
-    button: {
-        borderRadius : 8,
-        borderColor : '#a13e00',
-        borderWidth : 1,
-        backgroundColor : '#fff5e6',
-        alignContent : 'center',
-        margin : 16,
-        flexDirection : 'row',
-        },
-
-    icon : {
-        fontSize : 20,
-        color : '#a13e00',
-        paddingTop : 12,
-        paddingBottom : 12,
-        paddingLeft : 12,
+        fontFamily : 'Poppins_400Regular'
     },
     line : {
         flexDirection : 'column',
         alignItems : 'center',
-        width : '40%',
-        margin : '2%'
+        width : '30%',
+        marginVertical : '5%',
+        marginHorizontal : '8%',
+        padding : '3%',
+        backgroundColor : '#f1f1f1',
+        borderRadius : 20,
+        borderTopLeftRadius : 0
     },
     container : {
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
-        padding : '2%'
     }
-
   }); 

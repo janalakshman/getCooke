@@ -17,7 +17,7 @@ export default function TertiaryButton(props) {
     return(
         <TouchableOpacity onPress={() => props.setModalVisible(true)}>
           <View style={styles.button}>
-              <Text style={styles.buttonText}>Filters</Text>
+              <Text style={styles.buttonText}>{props.name}</Text>
           </View>   
         </TouchableOpacity>
     )
@@ -33,7 +33,7 @@ export default function TertiaryButton(props) {
     },
     button: {
         alignSelf : 'flex-end',
-        margin : 16,
+        marginRight : 16,
         marginTop : 0
       },
     icon : {
