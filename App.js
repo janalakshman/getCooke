@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './Home'
@@ -9,16 +9,28 @@ import MealPlan from './MealPlan'
 import GroceryList from './GroceryList'
 import CreateRecipe from './CreateRecipe'
 import RecipeFullDetail from './RecipeFullDetail'
-import LogoTitle from './components/LogoTitle'
 import { MaterialIcons } from '@expo/vector-icons';
 import Profile from './Profile'
 import KitchenMaster from './KitchenMaster'
 import store from './redux/store'
 import { Provider } from 'react-redux'
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import LoadingScreen from './LoadingScreen'
+import Logo from './assets/CookeLogo.png'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold
+  });
+
+  if (!fontsLoaded) {
+    return (<LoadingScreen />);
+  }
+
+
   return (
     <NavigationContainer>
       <Provider store={store}>
@@ -28,16 +40,29 @@ export default function App() {
               component={Home}
               options={({ navigation }) => ({
                 headerTitle : () => (
-                  <Text style={styles.text}>Cooke</Text>
+                  <View>
+                  </View>
                 ),
                 headerLeft : () => (
-                  <MaterialIcons name="add-circle" style={styles.icon} onPress={() => navigation.navigate('CreateRecipe')}/>
+                  <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                    <Image source={Logo} alt="Logo"
+                      style={{ width: 50, height: 50, marginLeft : 16 }}
+                    />
+                    <Text style={styles.text}>Cook-e</Text>
+                  </View>
                 ),
                 headerRight : () => (
-                  <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
+                  <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
+                    <Text style={styles.buttonText}>CREATE</Text>
+                  </TouchableOpacity>
                 ),
                 headerStyle : {
-                  backgroundColor : '#f7f7f7',
+                  backgroundColor : '#ffffff',
+                  elevation : 5,
+                  shadowOpacity : 3,
+                  shadowColor : 'rgba(0, 0, 0, 0.10)',
+                  shadowRadius : 2,
+                  shadowOffset : {width : 0, height : 4},
                   height : 84
                 },
               })} />
@@ -46,16 +71,29 @@ export default function App() {
                 component={Discover}
                 options={({ navigation }) => ({
                   headerTitle : () => (
-                    <Text style={styles.text}>Discover</Text>
+                    <View>
+                    </View>
                   ),
                   headerLeft : () => (
-                    <MaterialIcons name="add-circle" style={styles.icon} onPress={() => navigation.navigate('CreateRecipe')} />
+                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                      <Image source={Logo} alt="Logo"
+                        style={{ width: 50, height: 50, marginLeft : 16 }}
+                      />
+                      <Text style={styles.text}>Discover</Text>
+                    </View>
                   ),
                   headerRight : () => (
-                    <MaterialIcons name="account-circle" style={styles.icon} onPress={() => navigation.navigate('Profile')}/>
+                    <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
+                      <Text style={styles.buttonText}>CREATE</Text>
+                    </TouchableOpacity>
                   ),
                   headerStyle : {
-                    backgroundColor : '#f7f7f7',
+                    backgroundColor : '#ffffff',
+                    elevation : 5,
+                    shadowOpacity : 3,
+                    shadowColor : 'rgba(0, 0, 0, 0.10)',
+                    shadowRadius : 2,
+                    shadowOffset : {width : 0, height : 4},
                     height : 84
                   },
                  })} />
@@ -99,7 +137,6 @@ export default function App() {
                   name="RecipeFullDetail" 
                   component={RecipeFullDetail}
                   options={{
-                    headerTitle : props => <LogoTitle {...props} />,
                     headerTintColor : '#a13e00',
                     headerStyle : {
                       backgroundColor : '#f7f7f7',
@@ -111,7 +148,6 @@ export default function App() {
                   name="KitchenMaster" 
                   component={KitchenMaster}
                   options={{
-                    headerTitle : props => <LogoTitle {...props} />,
                     headerTintColor : '#a13e00',
                     headerStyle : {
                       backgroundColor : '#f7f7f7',
@@ -123,7 +159,6 @@ export default function App() {
                   name="CreateRecipe" 
                   component={CreateRecipe}
                   options={{
-                    headerTitle : props => <LogoTitle {...props} />,
                     headerTintColor : '#a13e00',
                     headerStyle : {
                       backgroundColor : '#f7f7f7',
@@ -136,7 +171,6 @@ export default function App() {
                   name="Profile" 
                   component={Profile}
                   options={{
-                    headerTitle : props => <LogoTitle {...props} />,
                   headerTintColor : '#a13e00',
                     headerStyle : {
                       backgroundColor : '#f7f7f7',
@@ -151,33 +185,25 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
-  position : {
-    position : 'absolute',
-    bottom : 64,
-    right : 8
-  },
-  header : {
-    top : 0
-  },
   text : {
-    flex : 1,
-    color : '#a13e00',
-    fontWeight : 'bold',
-    fontSize : 24,
-    padding : 20
+    color : '#3b3b3b',
+    fontSize : 19,
+    fontFamily : 'Poppins_700Bold',
+    marginLeft : 8,
+    marginTop : 8
 },
 icon : {
   padding : 16,
-  color : '#a13e00',
-  fontSize : 24,
-  paddingTop : 24
+  color : '#fa9332',
+  fontSize : 32,
+  paddingTop : 16
 },
-line : {
-  flexDirection : 'row',
-  marginRight : 8
-}
+buttonText : {
+  margin : 16,
+  marginTop : 24,
+  fontFamily : 'Poppins_600SemiBold',
+  fontSize : 14,
+  color : '#3b3b3b',
+},
 });
 

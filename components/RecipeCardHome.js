@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import RecipeCardPic from '../assets/RecipeCardPic.png';
-import veg from '../assets/veg.png'
-import nonVeg from '../assets/nonVeg.png'
+import RecipeCardPic from '../assets/RecipeCard.svg';
+import veg from '../assets/Veg.svg'
+import nonVeg from '../assets/nonVeg.svg'
 import { Pressable } from 'react-native';
 import config from '../config';
 

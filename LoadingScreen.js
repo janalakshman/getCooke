@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, ActivityIndicator, Text, Image} from 'react-native'
+import {View, ActivityIndicator, Text, Image, StyleSheet} from 'react-native'
 import LoadingScreenLogo from './assets/LoadingIcon.png'
 
 export default function LoadingScreen(){

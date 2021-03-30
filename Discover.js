@@ -1,16 +1,16 @@
 import React ,{ useState }from 'react';
-import { StyleSheet, ScrollView, Text, View, TextInput , TouchableOpacity, Pressable, FlatList } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TextInput , TouchableOpacity, FlatList } from 'react-native';
 import Title from './components/Title';
 import Tags from './components/Tags';
 import TertiaryButton from './components/TertiaryButton'
 import SearchModal from './components/SearchModal'
 import FilterModal from './components/FilterModal'
-import BottomNav from './components/BottomNav'
 import RecipeCard from './components/RecipeCard'
 import { MaterialIcons } from '@expo/vector-icons';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { useLinkProps } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from './LoadingScreen'
+import { addFilter } from './redux/counterSlice';
 
 
 
@@ -37,8 +37,18 @@ export default function Discover( {navigation} ) {
   const [value, onChangeText] = React.useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
-  const filters = useSelector(state => state.counter.filters)
+  const filters = useSelector(state => state.counter.filters);
   console.log(filters)
+
+  const dispatch = useDispatch();
+
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+  });
+
+  if (!fontsLoaded) {
+    return (<LoadingScreen />);
+  }
 
 
   const renderItem = ({ item }) => (
@@ -46,7 +56,9 @@ export default function Discover( {navigation} ) {
   );
 
   const showIngredients = ({ item }) => (
-    <TouchableOpacity onPress={()=> onChangeText('')}>
+    <TouchableOpacity onPress={() => {  dispatch(addFilter(item.title))
+                                        onChangeText('')
+                                    }}>
           <Text style={styles.text1}>{item.title}</Text>
     </TouchableOpacity>
   );
@@ -55,10 +67,11 @@ export default function Discover( {navigation} ) {
   return (
     <View style={{flex : 1}}>
           
-        <ScrollView style={styles.container}>
+        <ScrollView style={{backgroundColor : '#ffffff'}}>
+
           <Title name="Search with ingredients" />
 
-          <Text style={{marginLeft : 16, margin : 8}}>Enter up to 3 ingredients</Text>
+          <Text style={{marginLeft : 16, fontFamily : 'Poppins_400Regular'}}>Enter up to 3 ingredients</Text>
 
               <TextInput
                 style={styles.textInput}
@@ -72,17 +85,26 @@ export default function Discover( {navigation} ) {
               value === '' ?
               <View>
                 <TertiaryButton modalVisible={filterVisible} setModalVisible={setFilterVisible} />
-                <View style={styles.line}>
-                 {filters.map(filter => <Tags name={filter}/>)}
-                </View>
+
+                  <View style={styles.line}>
+                    {filters.map(filter => <Tags name={filter}/>)}
+                  </View>
+
                 <Text style={styles.heading}>Recipes</Text>
-                <FlatList
-                  numColumns={2} 
-                  data={DATA}
-                  renderItem={renderItem}
-                  keyExtractor={item => item.id}
-                  />
-                </View> :
+
+                  <View style={{backgroundColor : '#fff5e6', paddingTop : 16}}>
+                    <FlatList
+                      numColumns={2} 
+                      data={DATA}
+                      renderItem={renderItem}
+                      keyExtractor={item => item.id}
+                      />
+                  </View>
+                </View> 
+                
+                :
+
+
               <ScrollView> 
                   <Text style={styles.heading}>Ingredients</Text>
                   <FlatList
@@ -98,29 +120,32 @@ export default function Discover( {navigation} ) {
           <FilterModal modalVisible={filterVisible} setModalVisible={setFilterVisible} />
 
  
-          <View style={{height : 64}}>
+          <View style={{flexGrow : 1, backgroundColor : '#fff5e6'}}>
           </View>      
           
         </ScrollView> 
 
-        <View style={styles.position}>
-          <View style={styles.containerNav}>
+        <View style={styles.navigation}>
                   <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
-                      <MaterialIcons name="home" style={styles.icon} />
-                      <Text style={styles.text}>HOME</Text>
+                    <MaterialIcons name="home-filled" style={styles.icon}/>
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
-                      <MaterialIcons name="search" style={styles.icon} />
-                      <Text style={styles.text}>DISCOVER</Text>
+                      <MaterialIcons name="search" style={styles.selectedIcon}/>
                   </TouchableOpacity> 
 
                   <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('MealPlan')} > 
-                      <MaterialIcons name="calendar-today" style={styles.icon} fontSize={22}/>
-                      <Text style={styles.text}>MEAL PLAN</Text>
+                      <MaterialIcons name="event-note" style={styles.icon}/>
+                  </TouchableOpacity> 
+                  
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('GroceryList')} >
+                      <MaterialIcons name="list-alt" style={styles.icon} />
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
+                    <MaterialIcons name="account-box" style={styles.icon}/>
                   </TouchableOpacity> 
           </View>
-        </View>
 
     
     </View>
@@ -129,24 +154,20 @@ export default function Discover( {navigation} ) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
   recipeContainer : {
     alignItems : 'center'
   },
   textInput : {
-    borderRadius : 10,
+    borderRadius : 20,
+    borderTopLeftRadius : 0,
     backgroundColor :  '#f1f1f1',
-    height : 48,
+    height : 56,
     width : '90%',
-    alignSelf : 'center',
-    padding : 10,
-    margin : 16
+    alignSelf : 'flex-start',
+    padding : 16,
+    margin : 16,
+    fontFamily : 'Poppins_500Medium'
   },  
-  header : {
-    top : 0
-  },
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -168,24 +189,18 @@ const styles = StyleSheet.create({
   text1 : {
     fontSize : 17,
     color : '#3b3b3b',
-    fontWeight : '400',
     margin : 16,
-    marginLeft : 32
+    marginLeft : 32,
+    fontFamily : 'Poppins_400Regular'
 },
 heading : {
   color : '#3b3b3b',
   fontSize : 21,
-  fontWeight : '600',
+  fontFamily : 'Poppins_600SemiBold',
   margin : 16
 },
-position : {
-  position : 'absolute',
-  bottom : 0,
- },
- containerNav : {
-  flex : 1,
-  height : 56,
-  backgroundColor : '#f7f7f7',
+ navigation : {
+  backgroundColor : '#ffffff',
   flexDirection : 'row',
   justifyContent : 'center',
   alignItems : 'center',
@@ -196,25 +211,24 @@ position : {
   },
   shadowOpacity: 0.25,
   shadowRadius: 4,
-  elevation: 5
-},
-text : {
-  fontSize : 11,
-  color : '#a13e00',
-  fontWeight : '600'    
+  elevation: 3
 },
 tab : {
   alignItems : 'center',
-  width : '33.33%'
+  width : '20%',
 },
 icon : {
-  color : '#a13e00',
-  fontSize : 24,
-  paddingBottom : 4,
+  color : 'rgba(207, 207, 207, 0.99)',
+  fontSize : 32,
+  margin : 16
+},
+selectedIcon : {
+  color : '#3b3b3b',
+  fontSize : 32,
+  margin : 16
 },
 line : {
   flexDirection : 'row',
-  marginVertical : 8,
-  flexWrap : 'wrap'
+  flexWrap : 'wrap',
 }
 });

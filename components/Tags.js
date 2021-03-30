@@ -3,11 +3,20 @@ import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFilter } from '../redux/counterSlice'
-
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 export default function Tags(props) {
   const dispatch = useDispatch();
   const name = props.name
+
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+  });
+
+  if (!fontsLoaded) {
+    return (<LoadingScreen />);
+  }
 
   const handleClick = () => (
     dispatch(removeFilter(name))
@@ -26,13 +35,14 @@ export default function Tags(props) {
     buttonText: {
       color : '#3b3b3b',
       fontSize : 14,
-      fontWeight : '400',
+      fontFamily : 'Poppins_400Regular',
       margin : 8,
       padding : 4,
     },
 
     button : {
-        borderRadius : 32,
+        borderRadius : 20,
+        borderTopLeftRadius : 0,
         backgroundColor : '#ffc885',
         alignSelf : 'flex-start',
         margin : 4,

@@ -1,13 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
-
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 export default function TertiaryButton(props) {
+  
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold
+  });
+
+  if (!fontsLoaded) {
+    return (<LoadingScreen />);
+  
+  }
     return(
         <TouchableOpacity onPress={() => props.setModalVisible(true)}>
           <View style={styles.button}>
-              <MaterialIcons name="add" style={styles.icon} />
               <Text style={styles.buttonText}>Filters</Text>
           </View>   
         </TouchableOpacity>
@@ -18,20 +27,15 @@ export default function TertiaryButton(props) {
     buttonText : {
       color : '#A13E00',
       fontSize : 17,
-      fontWeight : '400',
-      margin : 10,
+      fontFamily : 'Poppins_400Regular',
+      margin : 8,
+      marginHorizontal : 16
     },
-
     button: {
-        borderRadius : 8,
-        borderColor : '#a13e00',
-        borderWidth : 1,
-        backgroundColor : '#fff5e6',
-        alignSelf : 'flex-start',
+        alignSelf : 'flex-end',
         margin : 16,
-        flexDirection : 'row'
-           },
-
+        marginTop : 0
+      },
     icon : {
         fontSize : 20,
         color : '#a13e00',

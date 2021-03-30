@@ -55,24 +55,23 @@ export default function GroceryList({navigation}) {
     
 
 
-        <View style={styles.positionNav}>
-          <View style={styles.containerNav}>
+    <View style={styles.containerNav}>
                   <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
-                      <MaterialIcons name="home" style={styles.icon} />
-                      <Text style={styles.text}>HOME</Text>
+                    <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
-                      <MaterialIcons name="search" style={styles.icon} />
-                      <Text style={styles.text}>DISCOVER</Text>
+                      <MaterialIcons name="search" style={styles.icon}/>
                   </TouchableOpacity> 
 
                   <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('MealPlan')} > 
-                      <MaterialIcons name="calendar-today" style={styles.icon} fontSize={22}/>
-                      <Text style={styles.text}>MEAL PLAN</Text>
+                      <MaterialIcons name="event-note" style={styles.icon}/>
+                  </TouchableOpacity> 
+                  
+                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} > 
+                    <MaterialIcons name="add-box" style={styles.icon}/>
                   </TouchableOpacity> 
           </View>
-        </View>
       </View>
 
 

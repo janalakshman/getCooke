@@ -2,34 +2,45 @@ import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView, Pressable } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import CalendarCardIcon from '../assets/calendarCardIcon.png';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-
+import { useNavigation } from '@react-navigation/native';
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 export default function Header(props){
+    let [fontsLoaded] = useFonts({
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+      });
+    
+      if (!fontsLoaded) {
+        return (<LoadingScreen />);
+      }
 
     const navigation = useNavigation(); 
 
     return(
-        <ScrollView style={styles.breakfastcard}>
+            <View style={styles.lunchcard}>
+                
             <Pressable onPressIn ={() => navigation.navigate('RecipeFullDetail')}>
-            <View style={styles.line}>
-                <Image 
-                    source={CalendarCardIcon}
-                    style={styles.imageIcon} />
+            <View>
                 <Text style={styles.text}>Paneer Butter Masala</Text>  
             </View>
             </Pressable>   
 
 
-            <View style={styles.line}>
-                <MaterialIcons name="nights-stay" style={styles.icon} />
-                <Text style={styles.smalltext}>Overnight prep</Text> 
-
-                <MaterialIcons name="access-time" style={styles.icon} />
-                <Text style={styles.smalltext}>7:30 PM</Text>
+            <View style={{flexDirection : 'row', marginVertical : 4}}>
+                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                    <MaterialIcons name="nights-stay" style={styles.icon} />
+                    <Text style={styles.smalltext}>Overnight prep</Text> 
+                </View>
+            
+                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
+                    <MaterialIcons name="access-time" style={styles.icon} />
+                    <Text style={styles.smalltext}>7:30 PM</Text>
+                </View>
             </View>
  
-        </ScrollView>
+        </View>
+        
         
     )
 }
@@ -40,20 +51,30 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         width : '90%',
         backgroundColor : '#fbfbb6',
-        padding : 8,
+        padding : 16,
         margin : 8,
         borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8
+        borderBottomLeftRadius : 8,
+        elevation : 3,
+        shadowRadius : 2,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
     lunchcard : {
-        marginLeft : '10%',
-        flexDirection : 'row',
+        marginLeft : '15%',
+        flexDirection : 'column',
         width : '90%',
         backgroundColor : '#b6d2fb',
-        padding : 8,
+        padding : 12,
         margin : 8,
         borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8
+        borderBottomLeftRadius : 8,
+        elevation : 3,
+        shadowRadius : 2,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
     brunchcard : {
         marginLeft : '10%',
@@ -63,7 +84,12 @@ const styles = StyleSheet.create({
         padding : 8,
         margin : 8,
         borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8
+        borderBottomLeftRadius : 8,
+        elevation : 3,
+        shadowRadius : 2,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
     snackscard : {
         marginLeft : '10%',
@@ -73,7 +99,12 @@ const styles = StyleSheet.create({
         padding : 8,
         margin : 8,
         borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8
+        borderBottomLeftRadius : 8,
+        elevation : 3,
+        shadowRadius : 2,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
     dinnercard : {
         marginLeft : '10%',
@@ -83,7 +114,12 @@ const styles = StyleSheet.create({
         padding : 8,
         margin : 8,
         borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8
+        borderBottomLeftRadius : 8,
+        elevation : 3,
+        shadowRadius : 2,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
   imageIcon : {
       height : 16,
@@ -92,20 +128,16 @@ const styles = StyleSheet.create({
   icon : {
       fontSize : 16,
       color : '#3b3b3b',
-      margin : 4,
   },
   text : {
       fontSize : 17,
       color : '#3b3b3b',
-      marginLeft : 16
+      fontFamily : 'Poppins_500Medium'
   },
   smalltext : {
       fontSize : 14,
       color : '#3b3b3b',
-      margin : 4
+      margin : 4,
+      fontFamily : 'Poppins_400Regular'
   },
-  line : {
-      flexDirection : "row",
-      margin : 4
-  }
   });

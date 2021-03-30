@@ -1,9 +1,7 @@
 import React, { useState, useEffect} from "react";
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity , Modal, Pressable, SectionList, FlatList} from 'react-native';
 import Title from './components/Title';
 import { MaterialIcons } from '@expo/vector-icons';
-import BottomNav from './components/BottomNav'
 import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
 import RecipeCardHome from './components/RecipeCardHome'
@@ -11,7 +9,7 @@ import config from './config';
 
 const DATA = [
   {
-    title: "November 10",
+    title: "10th November",
     data: ["Pizza", "Burger", "Risotto"],
     index : 1,
   },
@@ -19,12 +17,12 @@ const DATA = [
 
 const CARDS = [
   {
-    title: "November 10",
+    title: "10 November",
     data: ["Pizza", "Burger", "Risotto"],
     index : 1,
   },
   {
-    title: "November 11",
+    title: "11 November",
     data: ["French Fries", "Onion Rings", "Fried Shrimps"],
     index : 2,
 
@@ -98,7 +96,7 @@ export default function Home( {navigation} ) {
   if(recipes) {
     panels = Object.keys(recipes).map((recipe, key) => {
         return (
-          <ScrollView style={styles.recipe}>
+          <ScrollView style={{marginLeft : 32}}>
             <Title name={recipe} />
             <FlatList 
               data={recipes[recipe]}
@@ -113,9 +111,9 @@ export default function Home( {navigation} ) {
 
   
   return (
-    <View>
+    <View style={{flex : 1}}>
           
-        <ScrollView style={styles.container}>
+        <ScrollView style={{backgroundColor : '#ffffff'}}>
                     <SectionList
                         sections={DATA}
                         keyExtractor={(item, index) => item + index}
@@ -136,24 +134,27 @@ export default function Home( {navigation} ) {
           
         </ScrollView> 
 
-        <View style={styles.position}>
-          <View style={styles.containerNav}>
+          <View style={styles.navigation}>
                   <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
-                      <MaterialIcons name="home" style={styles.icon} />
-                      <Text style={styles.text}>HOME</Text>
+                    <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
-                      <MaterialIcons name="search" style={styles.icon} />
-                      <Text style={styles.text}>DISCOVER</Text>
+                      <MaterialIcons name="search" style={styles.icon}/>
                   </TouchableOpacity> 
 
                   <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('MealPlan')} > 
-                      <MaterialIcons name="calendar-today" style={styles.icon} fontSize={22}/>
-                      <Text style={styles.text}>MEAL PLAN</Text>
+                      <MaterialIcons name="event-note" style={styles.icon}/>
+                  </TouchableOpacity> 
+                  
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('GroceryList')} >
+                      <MaterialIcons name="list-alt" style={styles.icon} />
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
+                    <MaterialIcons name="account-box" style={styles.icon}/>
                   </TouchableOpacity> 
           </View>
-        </View>
 
     </View>
         
@@ -161,23 +162,8 @@ export default function Home( {navigation} ) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
-  header : {
-    top : 0,
-  },
-position : {
-  position : 'absolute',
-  bottom : 0,
- },
- recipe : {
-   marginLeft : 32,
- },
- containerNav : {
-  flex : 1,
-  height : 56,
-  backgroundColor : '#f7f7f7',
+ navigation : {
+  backgroundColor : '#ffffff',
   flexDirection : 'row',
   justifyContent : 'center',
   alignItems : 'center',
@@ -188,21 +174,21 @@ position : {
   },
   shadowOpacity: 0.25,
   shadowRadius: 4,
-  elevation: 5
-},
-text : {
-  fontSize : 11,
-  color : '#a13e00',
-  fontWeight : '600'    
+  elevation: 3
 },
 tab : {
   alignItems : 'center',
-  width : '33.33%'
+  width : '20%',
 },
 icon : {
-  color : '#a13e00',
-  fontSize : 24,
-  paddingBottom : 4,
+  color : 'rgba(207, 207, 207, 0.99)',
+  fontSize : 30,
+  margin : 16
+},
+selectedIcon : {
+  color : '#3b3b3b',
+  fontSize : 30,
+  margin : 16
 }
 
 });
