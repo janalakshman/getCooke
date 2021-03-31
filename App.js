@@ -202,6 +202,11 @@ export default function App() {
                         <Text style={styles.text}>Profile</Text>
                       </View>
                     ),
+                    headerRight : () => (
+                      <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
+                        <Text style={styles.buttonText}>CREATE</Text>
+                      </TouchableOpacity>
+                    ),
                     headerStyle : {
                       backgroundColor : '#ffffff',
                       elevation : 5,
