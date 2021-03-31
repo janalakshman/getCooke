@@ -2,92 +2,67 @@ import React from 'react'
 import { View } from 'react-native'
 import { Text, StyleSheet, Image, Button, TouchableOpacity} from 'react-native'
 import * as WebBrowser from 'expo-web-browser';
-import Constants from 'expo-constants';
-import SecondaryButton from './components/SecondaryButton'
-import Title from './components/Title'
-import Icon from './assets/LoadingIcon.png'
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from './LoadingScreen'
+import Icon from './assets/Chef.png'
 
+export default function CreateRecipe({navigation}) {
+    let [fontsLoaded] = useFonts({
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+      });
+    
+      if (!fontsLoaded) {
+        return (<LoadingScreen />);
+      }
 
-
-
-export default function CreateRecipe() {
     _handleOpenWithWebBrowser = () => {
-        WebBrowser.openBrowserAsync('http://getcooke.com/KitchenMaster');
+        WebBrowser.openBrowserAsync('http://getcooke.com/login');
       };
 
     return(
-        <View style={styles.container}>
+        <View style={{backgroundColor : '#ffffff'}}>
                        
-         <Title name="Become a Kitchen Master" />
+            <Text style={styles.text}>Upload recipes and start earning in minutes</Text>
 
-         <Image style={styles.image} source={Icon} alt="Icon"/>
+            <Text style={styles.body}>Create a profile, upload your recipes and earn whenever someone cooks your recipe</Text>
 
-
-            <View style={{margin : 16}}>
-
-                    <Text style={styles.text}>
-                        We can't wait to see your recipes! </Text>
-                    
-            <View style={{marginTop : 32}}>
-                <Text style={styles.text2}>
-                        Create your free food blog and start earning in mins!
-                </Text>
-            </View>
-
-            </View>
-
-            <View> 
-                <TouchableOpacity  style={styles.button}           
-                onPress={_handleOpenWithWebBrowser}
-                    >
-                    <Text style={styles.buttonText}>Click here</Text>
-                </TouchableOpacity>
-            </View> 
+            <Image style={styles.image} source={Icon} alt="Icon"/>
 
             <View style={{flexGrow : 1}}>
             </View>
 
-    </View>
+            <TouchableOpacity  style={styles.button}  onPress={_handleOpenWithWebBrowser} >
+                <Text style={styles.buttonText}>Sign In</Text>
+            </TouchableOpacity>
+
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container : {
-        backgroundColor : '#fff',
-        justifyContent : 'center',
-        alignContent : 'center',
-        flex : 1
-    },
     image : {
-        height : 200,
-        width : 200,
+        height : 300,
+        width : 300,
         resizeMode : 'contain',
         alignSelf : 'center'
     },
-    text2 : {
+    body : {
         fontSize : 17,
         color : '#3b3b3b',
-        fontWeight : '400',
+        fontFamily : 'Poppins_400Regular',
+        margin : 16
     },
     text : {
-        fontSize : 19,
+        fontSize : 24,
         color : '#3b3b3b',
-        fontWeight : '400',
-    },
-    card : {
-        flexDirection : 'row',
-        width : '90%',
-        backgroundColor : '#fff',
-        padding : 8,
-        margin : 8,
-        borderRadius : 8,
-        borderWidth : 1,
-        borderColor : '#fff'
+        fontFamily : 'Poppins_600SemiBold',
+        marginTop : 32,
+        marginHorizontal : 16
     },
     buttonText : {
         color : '#A13E00',
         fontSize : 19,
-        fontWeight : '500',
+        fontFamily : 'Poppins_500Medium',
         margin : 16,
         flexGrow : 1,
         textAlign : 'center'

@@ -4,7 +4,6 @@ import { StyleSheet, ScrollView, Text, View, TouchableOpacity, Image} from 'reac
 import Title from './components/Title';
 import DatePicker from './components/DatePicker'
 import ToBuy from './components/ToBuy'
-import PrimaryButton from './components/PrimaryButton'
 import { MaterialIcons } from '@expo/vector-icons';
 import AddIngredientModal from './components/AddIngredientModal'
 import SignUp from './SignUpScreen';
@@ -46,11 +45,11 @@ export default function GroceryList({navigation}) {
                       <MaterialIcons name="search" style={styles.icon}/>
                   </TouchableOpacity> 
 
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('MealPlan')} > 
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} > 
                       <MaterialIcons name="event-note" style={styles.icon}/>
                   </TouchableOpacity> 
                   
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('GroceryList')} >
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
                       <MaterialIcons name="list-alt" style={styles.selectedIcon} />
                   </TouchableOpacity>
                   

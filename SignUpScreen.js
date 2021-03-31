@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, KeyboardAvoidingView} from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
-import Logo from './assets/Logo.png'
+import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { addUserID, addUserPassword } from './redux/counterSlice';
 

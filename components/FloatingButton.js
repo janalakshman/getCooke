@@ -1,10 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
-export default function Heading(props) {
+export default function FloatingButton(props) {
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+  });
+
+  if (!fontsLoaded) {
+    return (<LoadingScreen />);
+  }
+
     return(
-          <View style={styles.position}>  
+          <View>  
             <TouchableOpacity  style={styles.button} onPress={props.onPressIn}>
                 <FontAwesome name="calendar-plus-o" style={styles.icon} />
                 <Text style={styles.buttonText}>Calendar</Text>

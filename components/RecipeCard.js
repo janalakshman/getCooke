@@ -27,8 +27,8 @@ const navigation = useNavigation();
         <View style={styles.shadow}>
                 <View style={styles.card} >
 
-                        <Image source={RecipeCard} style={styles.image} />
-                        <Image source={veg} style={styles.icon}/>
+                        <Image source={RecipeCard} alt="Card" style={styles.image} />
+                        <Image source={veg} alt="icon"style={styles.icon}/>
 
                         <Pressable onPressIn ={() => navigation.navigate('RecipeFullDetail')}>
                             <Text style={styles.text}>Paneer Butter Masala</Text>

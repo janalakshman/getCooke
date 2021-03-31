@@ -2,10 +2,8 @@ import React, {useState} from 'react';
 import { StyleSheet, FlatList, Text, View, ScrollView, VirtualizedList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ToBuyItem from './ToBuyItem'
-import BoughtItem from './BoughtItem'
 
-
-export default function Header(){   
+export default function ToBuy(){   
     const [count, setCount] = useState(1)
     const [tobuy, setTobuy] = useState([
         {name : 'Onionpotatot', amount : '200', fraction : '', unit : 'g', key : '1'},
@@ -45,30 +43,22 @@ const styles = StyleSheet.create({
         shadowColor : 'rgba(0, 0, 0, 0.25)',
         shadowOffset : {width : 0, height : 4},
     },
-    container : {
-        width : '90%',
-        alignSelf : 'center',
-        marginBottom : 16
-    },
-    icon : {
-        fontSize : 24,
-        margin : 16,
-    },
-    text : {
-        fontSize : 19,
+    unclicked : {
         color : '#3b3b3b',
-        fontWeight : '600',
-        margin : 16,
-        alignSelf : 'center',
-    },
-    smalltext : {
         fontSize : 17,
+        marginHorizontal : 16,
+        fontFamily : 'Poppins_400Regular'
+      },
+      clicked : {
         color : '#3b3b3b',
-        margin: 16,
-    },
-    line : {
-        flexDirection : "row",
-        alignItems : 'center',
-        justifyContent : 'center',
-    },
+        fontSize : 17,
+        fontFamily : 'Poppins_400Regular',
+        marginHorizontal : 16,
+        textDecorationLine : 'line-through'
+      },
+      container : {
+          margin : 8,
+          flexDirection : 'row',
+          justifyContent : 'flex-start'
+      },
   });

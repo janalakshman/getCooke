@@ -11,7 +11,6 @@ import CreateRecipe from './CreateRecipe'
 import RecipeFullDetail from './RecipeFullDetail'
 import { MaterialIcons } from '@expo/vector-icons';
 import Profile from './Profile'
-import KitchenMaster from './KitchenMaster'
 import store from './redux/store'
 import { Provider } from 'react-redux'
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
@@ -98,7 +97,7 @@ export default function App() {
                   },
                  })} />
         <Stack.Screen 
-                name="MealPlan" 
+                name="Meal plan" 
                 component={MealPlan}
                 options={({ navigation }) => ({
                   headerTitle : () => (
@@ -129,7 +128,7 @@ export default function App() {
                   },
                  })}  />
         <Stack.Screen 
-                  name="GroceryList" 
+                  name="Grocery list" 
                   component={GroceryList}
                   options={({ navigation }) => ({
                     headerTitle :  () => (
@@ -159,50 +158,79 @@ export default function App() {
                     },
                    })}  />
           <Stack.Screen 
-                  name="RecipeFullDetail" 
-                  component={RecipeFullDetail}
-                  options={{
-                    headerTintColor : '#a13e00',
-                    headerStyle : {
-                      backgroundColor : '#f7f7f7',
-                      height : 84
-                    },
-                   }}
-              />
-          <Stack.Screen 
-                  name="KitchenMaster" 
-                  component={KitchenMaster}
-                  options={{
-                    headerTintColor : '#a13e00',
-                    headerStyle : {
-                      backgroundColor : '#f7f7f7',
-                      height : 84
-                    },
-                   }}
-              />
-          <Stack.Screen 
                   name="CreateRecipe" 
                   component={CreateRecipe}
-                  options={{
-                    headerTintColor : '#a13e00',
+                  options={({ navigation }) => ({
+                    headerTitle :  () => (
+                      <View></View>
+                    ),
+                    headerLeft : () => (
+                      <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                        <Image source={Logo} alt="Logo"
+                          style={{ width: 50, height: 50, marginLeft : 16 }}
+                        />
+                        <Text style={styles.text}>Create</Text>
+                      </View>
+                    ),
+                    headerRight : () => (
+                      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                        <Text style={styles.buttonText}>HOME</Text>
+                      </TouchableOpacity>
+                    ),
                     headerStyle : {
-                      backgroundColor : '#f7f7f7',
+                      backgroundColor : '#ffffff',
+                      elevation : 5,
+                      shadowOpacity : 3,
+                      shadowColor : 'rgba(0, 0, 0, 0.10)',
+                      shadowRadius : 2,
+                      shadowOffset : {width : 0, height : 4},
                       height : 84
                     },
-                    gestureDirection : 'horizontal-inverted'
-                   }}
-              />
+                   })}  />
           <Stack.Screen 
                   name="Profile" 
                   component={Profile}
-                  options={{
-                  headerTintColor : '#a13e00',
+                  options={({ navigation }) => ({
+                    headerTitle :  () => (
+                      <View></View>
+                    ),
+                    headerLeft : () => (
+                      <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                        <Image source={Logo} alt="Logo"
+                          style={{ width: 50, height: 50, marginLeft : 16 }}
+                        />
+                        <Text style={styles.text}>Profile</Text>
+                      </View>
+                    ),
                     headerStyle : {
-                      backgroundColor : '#f7f7f7',
+                      backgroundColor : '#ffffff',
+                      elevation : 5,
+                      shadowOpacity : 3,
+                      shadowColor : 'rgba(0, 0, 0, 0.10)',
+                      shadowRadius : 2,
+                      shadowOffset : {width : 0, height : 4},
                       height : 84
                     },
-                   }}
-              />
+                   })}  />
+            <Stack.Screen 
+                  name="RecipeFullDetail" 
+                  component={RecipeFullDetail}
+                  options={({ navigation }) => ({
+                    headerTitle :  () => (
+                      <View></View>
+                    ),
+                    headerTintColor : '#3b3b3b',
+                    headerBackTitle : ' ',
+                    headerStyle : {
+                      backgroundColor : '#ffffff',
+                      elevation : 5,
+                      shadowOpacity : 3,
+                      shadowColor : 'rgba(0, 0, 0, 0.10)',
+                      shadowRadius : 2,
+                      shadowOffset : {width : 0, height : 4},
+                      height : 84,
+                    },
+                   })}  />
       </Stack.Navigator>
       </Provider>
     </NavigationContainer>

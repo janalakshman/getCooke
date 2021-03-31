@@ -75,11 +75,11 @@ export default function MealPlan({navigation}) {
                       <MaterialIcons name="search" style={styles.icon}/>
                   </TouchableOpacity> 
 
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('MealPlan')} > 
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} > 
                       <MaterialIcons name="event-note" style={styles.selectedIcon}/>
                   </TouchableOpacity> 
                   
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('GroceryList')} >
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
                       <MaterialIcons name="list-alt" style={styles.icon} />
                   </TouchableOpacity>
                   
