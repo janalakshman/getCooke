@@ -18,8 +18,9 @@ export default function Header(props){
       }
 
     return(
-        <View style={{backgroundColor : '#fff5e6'}}>
-        { props.ingredients  ? 
+        <View>
+        { props.ingredients  ?
+        <View style={{backgroundColor : '#fff5e6'}}> 
         <SafeAreaView style={styles.card} >
             <View style={styles.line}>
                 <Text style={styles.heading}>Servings</Text>
@@ -29,20 +30,21 @@ export default function Header(props){
                     <MaterialIcons name="add-circle-outline" style={styles.icon} onPress={props.increment}/>
                 </View>
             </View>
-
+            
             <View style={{margin : 8}} />
 
-                <View style={styles.container}>
-                    {props.ingredients.map(ingredient =>
-                            <View style={styles.box}>
-                                <Text style={styles.text}>{ingredient.ingredient.name} </Text>
-                                <View style={{flexGrow : 1}}></View>
-                                <Text style={styles.text}>{ingredient.qty*props.count} {ingredient.unit_name} </Text>
-                            </View>
-                        )}
-                </View>
-        </SafeAreaView> : 
-        <View style={styles.card}>
+            <View style={styles.container}>
+                {props.ingredients.map(ingredient =>
+                        <View style={styles.box}>
+                            <Text style={styles.text}>{ingredient.ingredient.name} </Text>
+                            <View style={{flexGrow : 1}}></View>
+                            <Text style={styles.text}>{ingredient.qty*props.count} {ingredient.unit_name} </Text>
+                        </View>
+                    )}
+            </View>
+        </SafeAreaView>
+        </View> : 
+        <View style={{margin : 32}}>
         </View>}
      </View>
     )

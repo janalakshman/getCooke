@@ -14,9 +14,9 @@ export default function PrepStep(props) {
 
   let count = 0;
     return(
-      <View style={{backgroundColor : 'fff5e6', margin : 32}}>
+      <View>
         {props.steps ? 
-          <View>
+          <View style={{backgroundColor : 'fff5e6', paddingBottom : 128}}>
               {props.steps.map(step => 
                 <View style={styles.container}>
                   <Text style={styles.title}>{++count}</Text>
@@ -24,9 +24,12 @@ export default function PrepStep(props) {
                   <View style={{margin : 16}}>
                     <Text style={styles.text}>{step.step}</Text>
                   </View>
+
                 </View>
                 )}
-          </View>: <View style={{margin : 32, backgroundColor : '#fff5e6'}}></View>}
+          </View>: 
+          <View style={{paddingBottom : 128}}>
+          </View>}
       </View>       
     )
 }
@@ -35,18 +38,30 @@ export default function PrepStep(props) {
     text : {
       color : '#3b3b3b',
       fontSize : 17,
-      fontFamily : 'Poppins_400Regular'
+      fontFamily : 'Poppins_400Regular',
+      margin : 4
       },
     title : {
         color : '#3b3b3b',
-        fontSize : 24,
+        fontSize : 19,
         margin : 16,
-        fontFamily : 'Poppins_600SemiBold'
+        fontFamily : 'Poppins_600SemiBold',
     },
     container: {
-      flexDirection : 'row',
-      margin : 16,
-      marginBottom : 8,
-      width : '90%'
+        width : '88%',
+        paddingHorizontal : 16, 
+        margin : 16,
+        borderRadius : 4,
+        alignSelf : 'center',
+        backgroundColor : '#ffffff',
+        flexGrow : 1,
+        borderTopLeftRadius : 0,
+        borderRadius : 20,
+        elevation : 3,
+        shadowRadius : 2,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
+        flexDirection : 'row'
     },
   });
