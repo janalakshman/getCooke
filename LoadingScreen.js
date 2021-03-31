@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       margin : 8
   },
   container : {
-      height : '100vh',
+      height : '100%',
       flexDirection : 'column',
       justifyContent : 'center',
       alignItems : 'center'
