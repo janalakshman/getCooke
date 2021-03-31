@@ -3,24 +3,18 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import Title from './components/Title';
 import NutritionCard from './components/NutritionCard'
-import RecipeDetail from './components/RecipeDetail'
+import RecipeData from './components/RecipeData'
 import RecipeDescription from './components/RecipeDescription'
 import IngredientCard from './components/IngredientCard'
 import PrepStep from './components/PrepStep'
+import FloatingButton from './components/FloatingButton'
 import Tags from './components/Tags'
 import CalendarModal from './components/CalendarModal'
 import config from './config';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import LoadingScreen from './LoadingScreen'
+
 
 export default function RecipeFullDetail(props) {
-  let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
-  });
-
-  if (!fontsLoaded) {
-    return (<LoadingScreen />);
-  }
+ 
 
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(1)
@@ -55,7 +49,7 @@ export default function RecipeFullDetail(props) {
       
         <ScrollView style={styles.container}>
           
-          <RecipeDetail recipe = {recipe} />
+          <RecipeData recipe = {recipe} />
 
           <RecipeDescription recipe = {recipe}/>
 
@@ -65,19 +59,18 @@ export default function RecipeFullDetail(props) {
           <Title name="Nutrition" />
             <NutritionCard recipe={recipe} count={count}/>
 
-          <Title name="Prepration" />
+          <Title name="Preparation" />
             <PrepStep steps={recipe.steps} />
 
          
         </ScrollView> 
 
         <View style={styles.position}>
-          <TouchableOpacity  style={styles.button} onPress={() => setModalVisible(true)}>
-                <Text style={styles.buttonText}>Calendar</Text>
-            </TouchableOpacity>
+          <FloatingButton modalVisible={modalVisible} setModalVisible={setModalVisible}/>
         </View>
 
         <CalendarModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+
 
     </View>
         
@@ -91,7 +84,7 @@ const styles = StyleSheet.create({
   position : {
     position : 'absolute',
     bottom : 64,
-    right : 8
+    right : 8,
   },
   header : {
     top : 0
@@ -102,7 +95,6 @@ const styles = StyleSheet.create({
     fontWeight : '400',
     margin : 12,
   },
-
   button: {
       borderRadius : 8,
       backgroundColor : '#ffc885',

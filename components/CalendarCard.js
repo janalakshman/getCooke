@@ -20,7 +20,7 @@ export default function Header(props){
     return(
             <View style={styles.lunchcard}>
                 
-            <Pressable onPressIn ={() => navigation.navigate('RecipeFullDetail')}>
+            <Pressable onPressIn ={() => navigation.navigate('RecipeDetail')}>
             <View>
                 <Text style={styles.text}>Paneer Butter Masala</Text>  
             </View>
@@ -62,14 +62,16 @@ const styles = StyleSheet.create({
         shadowOffset : {width : 0, height : 4},
     },
     lunchcard : {
-        marginLeft : '15%',
         flexDirection : 'column',
-        width : '90%',
-        backgroundColor : '#b6d2fb',
-        padding : 12,
+        width : '88%',
+        padding : 16, 
         margin : 8,
-        borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8,
+        borderRadius : 4,
+        alignSelf : 'center',
+        backgroundColor : '#b6d2fb',
+        flexGrow : 1,
+        borderTopLeftRadius : 0,
+        borderRadius : 20,
         elevation : 3,
         shadowRadius : 2,
         shadowOpacity : 0.5,

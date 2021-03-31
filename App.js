@@ -8,7 +8,7 @@ import Discover from './Discover'
 import MealPlan from './MealPlan'
 import GroceryList from './GroceryList'
 import CreateRecipe from './CreateRecipe'
-import RecipeFullDetail from './RecipeFullDetail'
+import RecipeDetail from './RecipeDetail'
 import { MaterialIcons } from '@expo/vector-icons';
 import Profile from './Profile'
 import store from './redux/store'
@@ -213,8 +213,8 @@ export default function App() {
                     },
                    })}  />
             <Stack.Screen 
-                  name="RecipeFullDetail" 
-                  component={RecipeFullDetail}
+                  name="RecipeDetail" 
+                  component={RecipeDetail}
                   options={({ navigation }) => ({
                     headerTitle :  () => (
                       <View></View>

@@ -30,7 +30,7 @@ const navigation = useNavigation();
                         <Image source={RecipeCard} alt="Card" style={styles.image} />
                         <Image source={veg} alt="icon"style={styles.icon}/>
 
-                        <Pressable onPressIn ={() => navigation.navigate('RecipeFullDetail')}>
+                        <Pressable onPressIn ={() => navigation.navigate('RecipeDetail')}>
                             <Text style={styles.text}>Paneer Butter Masala</Text>
                             
                         </Pressable>

@@ -90,7 +90,7 @@ export default function Home( {navigation} ) {
   };
 
   const renderCard = ({ item }) => {
-    return (<RecipeCardHome recipe={item} onPress={() => navigation.navigate('RecipeFullDetail', {recipeId: item.id})}/> )
+    return (<RecipeCardHome recipe={item} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}/> )
   }
 
   if(recipes) {
@@ -122,7 +122,9 @@ export default function Home( {navigation} ) {
                           <Title name={title}/>
                         )}
                         renderSectionFooter={({ section : {nutrition}}) => (
-                          <NutritionCard nutrition={nutrition} />
+                          <View style={{marginTop : 16}}>
+                              <NutritionCard nutrition={nutrition} />
+                          </View>
                         )}
                       />
 

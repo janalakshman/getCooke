@@ -58,7 +58,9 @@ export default function MealPlan({navigation}) {
                         <Title name={title}/>
                       )}
                       renderSectionFooter={({ section : {nutrition}}) => (
-                        <NutritionCard nutrition={nutrition} />
+                        <View style={{marginTop : 16}}>
+                          <NutritionCard nutrition={nutrition} />
+                        </View>
                       )}
                     />
       </ScrollView> 

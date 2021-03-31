@@ -34,7 +34,7 @@ const DATA = [
 ];
 
 export default function Discover( {navigation} ) {
-  const [value, onChangeText] = React.useState('');
+  const [value, onChangeText] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
   const filters = useSelector(state => state.counter.filters);

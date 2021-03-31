@@ -3,42 +3,42 @@ import { StyleSheet, Image, Text, View, ScrollView, TouchableOpacity } from 'rea
 import DefaultProfilePic from '../assets/DefaultProfilePic.png'
 import { useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
-
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 export default function RecipeDescription(props){
+    let [fontsLoaded] = useFonts({
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+      });
+    
+      if (!fontsLoaded) {
+        return (<LoadingScreen />);
+      }
+
     const navigation = useNavigation();
     const recipe = props.recipe
  
 
     return(
-        <ScrollView>
-
+        <View>
             <View style={styles.container}>
-                <Image source={DefaultProfilePic}
-                        style={styles.image}/>
-                <View style={styles.line}>
-                <Pressable onPress={() => navigation.navigate('KitchenMaster')}>
-                    {recipe.user ? 
-                    <Text style={styles.text}>{recipe.user.username}</Text>
-                    : <Text style={styles.text}>Cooke</Text>
-                    }
-                    <Text style={styles.smalltext}>Kitchen Master @ 
-                        {recipe.user ? ' ' +recipe.user.username : ' Cooke'}
+                <Image source={DefaultProfilePic} style={styles.image}/>
 
-                    </Text>
-                </Pressable>   
+                <View style={styles.line}>
+                        {recipe.user ? 
+                        <Text style={styles.text}>{recipe.user.username}</Text>
+                        : <Text style={styles.text}>Cooke</Text>
+                        }
+                        <Text style={styles.body}>Kitchen Master @ Cook-e</Text>
                 </View>
             </View>
+
             <View style={styles.container}>
                 <Text style={styles.smalltext}>
-                {recipe.note}
+                    {recipe.note}
                 </Text>
             </View>
-
-  
-
-        </ScrollView>
-        
+        </View>      
     )
 }
 
@@ -53,16 +53,16 @@ const styles = StyleSheet.create({
         resizeMode : 'contain',
     },
     text : {
-        fontSize : 17,
-        color : '#a13e00',
-        fontWeight : '600',
+        fontSize : 19,
+        color : '#3b3b3b',
+        fontFamily : 'Poppins_600SemiBold',
         marginLeft : 16,
     },
-    smalltext : {
+    body : {
       fontSize : 14,
       color : '#3b3b3b',
       marginLeft : 16,
-      marginTop : 4
+      fontFamily : 'Poppins_400Regular'
     },
     line : {
         flexDirection : "column",

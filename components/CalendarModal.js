@@ -63,18 +63,11 @@ export default function CalendarModal( props ) {
     const handleClick = () => {
       dispatch(addDate(Object.keys(markedDates)))
       setMarkedDates({})
-      {isSigned === true ? 
         Alert.alert(
           "Recipe added",
           "Wow! Look at you being organized. Way to go!",
           {text : "OK"}
-          ) : 
-          Alert.alert(
-            "Sign In",
-            "Sign up from the profile page to access your Cooke calendar.",
-            {text : "OK"}
-            ) 
-       }
+          ) 
       
     }
 
