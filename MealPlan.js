@@ -24,13 +24,11 @@ const DATA = [
     title: "November 12",
     data: ["Water", "Coke", "Beer"],
     index : 3,
-
   },
   {
     title: "November 13",
     data: ["Cheese Cake", "Ice Cream"],
     index : 4,
-
   }
 ];
 
