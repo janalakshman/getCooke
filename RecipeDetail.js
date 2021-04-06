@@ -13,12 +13,14 @@ import CalendarModal from './components/CalendarModal'
 import config from './config';
 
 
-export default function RecipeFullDetail(props) {
+export default function RecipeFullDetail({navigation, route, props}) {
  
 
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(1)
   const [recipe, setRecipe] = useState({});
+  const { recipeId } = route.params;
+
   function increment(){
     setCount(count+1)
     }
@@ -26,9 +28,10 @@ export default function RecipeFullDetail(props) {
   function decrement(){
       count === 1 ? setCount(count) :  setCount(count-1); 
   }
+
   useEffect(() => {
     fetch(
-      config.api + `/v1/recipe/`+ `102`,
+      config.api + `/v1/recipe/`+recipeId,
       {
         method: "GET",
         headers: {

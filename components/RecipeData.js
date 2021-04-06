@@ -35,7 +35,7 @@ export default function RecipeData(props){
                         <Text style={styles.body}>{recipe.cooking_time} mins</Text>       
                 </View>  
                 
-                { recipe.image ? <Image source={config.api + recipe.image}  style={styles.image}/> : <Image source={RecipeCardPic} style={styles.image}/>
+                { recipe.image ? <Image source={{uri:config.api + recipe.image}}  style={styles.image}/> : <Image source={RecipeCardPic} style={styles.image}/>
                       } 
         </ScrollView>
         
