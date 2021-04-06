@@ -62,6 +62,7 @@ const cards = [
 
 export default function Home( {navigation} ) {
   const [recipes, setRecipes] = useState({});
+  const [events, setEvents] = useState({});
   let panels = []
   useEffect(() => {
     fetch(
@@ -76,7 +77,8 @@ export default function Home( {navigation} ) {
     )
       .then(res => res.json())
       .then(response => {
-        setRecipes(response);
+        setRecipes(response['recipes']);
+        setEvents(response['events'])
       })
       .catch(error => console.log(error));
   }, []);
