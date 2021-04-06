@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         shadowOpacity : 0.5,
         shadowColor : 'rgba(0, 0, 0, 0.25)',
         shadowOffset : {width : 0, height : 4},
+        backgroundColor : '#fff5e6'
     },
   image : {
       height : 100,
