@@ -12,7 +12,7 @@ export default function Header(props){
         <Pressable onPress={props.onPress}>
             <View style={styles.card}>
                 <View>
-                {props.recipe.image ? <Image source={config.api+props.recipe.image} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
+                {props.recipe.image ? <Image source={{uri:config.api+props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
                 {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> } 
 
                 <Text style={styles.text}>{props.recipe.name}</Text>

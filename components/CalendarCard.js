@@ -15,6 +15,8 @@ export default function Header(props){
         return (<LoadingScreen />);
       }
 
+    const events = props.events
+
     const navigation = useNavigation(); 
 
     return(
