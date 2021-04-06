@@ -76,7 +76,7 @@ export default function Home( {navigation} ) {
     )
       .then(res => res.json())
       .then(response => {
-        setRecipes(response);
+        setRecipes(response[recipe]);
       })
       .catch(error => console.log(error));
   }, []);
