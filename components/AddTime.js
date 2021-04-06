@@ -3,9 +3,14 @@ import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useSelector, useDispatch } from 'react-redux';
 import { addTime } from '../redux/counterSlice'
-
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 export default function Filter(props) {
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+  });
+
   var [ isPress, setIsPress ] = useState(false);
   const dispatch = useDispatch()
 
@@ -20,85 +25,59 @@ export default function Filter(props) {
 
     return(
           <View>
-            {
-            isPress === false ?
-            <TouchableOpacity  style={styles.button} onPress={() => handleClick(props.time)}>
-              <Text style={styles.buttonText}>{props.name}</Text>
-              <View style={styles.line}>
-                <MaterialIcons name="access-time" style={styles.icon} />
-                <Text style={styles.timeText}>{props.time}</Text>
-              </View>
+            {!fontsLoaded ? <LoadingScreen /> :
+            (
+              <View>
+              {
+                !isPress ?
+                <TouchableOpacity  style={styles.button} onPress={() => handleClick(props.time)}>
+                  <Text style={styles.text}>{props.name}</Text>
+                  <Text style={styles.text}>{props.time}</Text>
+                </TouchableOpacity> 
+                :
+                 <View> 
+                  <TouchableOpacity  style={styles.pressedButton} onPress={() => handleClick(props.time)}>
+                      <Text style={styles.pressedText}>{props.name}</Text>
+                      <Text style={styles.pressedText}>{props.time}</Text>
+                  </TouchableOpacity>
+                </View> 
+                }
+              </View> 
+            )}
 
-            </TouchableOpacity> :
-             <View> 
-              <TouchableOpacity  style={styles.buttonP} onPress={() => handleClick(props.time)}>
-                  <Text style={styles.buttonText}>{props.name}</Text>
-                    <View style={styles.line}>
-                        <MaterialIcons name="access-time" style={styles.icon} />
-                        <Text style={styles.timeText}>{props.time}</Text>
-                    </View>
-              </TouchableOpacity>
-            </View> 
-            } 
-            
           </View> 
     )
 }
   
   const styles = StyleSheet.create({
-    buttonText : {
+    text : {
       color : '#3b3b3b',
-      fontSize : 14,
-      fontWeight : '400',
-      margin : 8,
+      fontSize : 17,
+      fontFamily : 'Poppins_500Medium',
+      margin : 16,
       textAlign : 'center',
-    },
-    timeText : {
-        color : '#3b3b3b',
-      fontSize : 11,
-      fontWeight : '400',
-      margin : 8,
-      textAlign : 'center',
+      flexGrow : 1
     },
     button: {
-        borderRadius : 8,
-        borderWidth : 1,
-        borderColor : '#cfcfcf',
-        backgroundColor : '#fff',
-        margin : 16,
-        flexDirection : 'column',
-        justifyContent : 'center',
-        alignContent : 'center',
-        alignSelf : 'center'
-           },
-           
-           buttonTextP : {
-            color : '#3b3b3b',
-            fontSize : 14,
-            fontWeight : '400',
-            margin : 12,
-            padding : 4,
-          },
-      
-          buttonP : {
-              borderRadius : 8,
-              backgroundColor : '#ffc885',
-              alignSelf : 'center',
-              margin : 16,
-              flexDirection : 'column',
-              justifyContent : 'center'
-                 },
-      
-          icon : {
-              fontSize : 16,
-              color : '#3b3b3b',
-              paddingLeft : 0,
-              alignSelf : 'center'
-          },
-          line : {
-              flexDirection : 'row',
-              marginHorizontal : 8
-            
-          },
-
+      borderRadius : 4,
+      borderWidth : 1,
+      borderColor : '#3b3b3b',
+      backgroundColor : '#ffffff',
+      margin : 16,
+      flexDirection : 'row',
+    },
+    pressedText : {
+      color : '#fff',
+      fontSize : 17,
+      margin : 16,
+      textAlign : 'center',
+      flexGrow : 1,
+      fontFamily : 'Poppins_500Medium'
+    },
+    pressedButton : {
+      borderRadius : 4,
+      backgroundColor : '#54b8ec',
+      margin : 16,
+      flexDirection : 'row',
+    },
   });

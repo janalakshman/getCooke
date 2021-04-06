@@ -1,10 +1,11 @@
 import React ,{ useState }from 'react';
 import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import FilterUnselected from './FilterUnselected'
+import FilterChips from './FilterChips'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionList } from 'react-native';
-
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 const DATA = [
   {
@@ -16,25 +17,30 @@ const DATA = [
     title: "Cuisine",
     data: ["Indian" , "American", "Chinese", "European"],
     index : 2,
-
   },
   {
     title: "Cooking appliances",
     data: ["Mixer", "Blender", "Stovetop", "Oven", "Food Processor"],
     index : 3,
-
   },
 ];
 
 const Item = ({ title }) => {
   return(
-    <View>
-      <FilterUnselected name={title}/>
+    <View style={{flexDirection : 'row', flexWrap : 'wrap'}}>
+      <FilterChips name={title}/>
     </View>)
 };
 
 export default function FilterModal( props ) {
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+  });
 
+  
+  if (!fontsLoaded) {
+    return (<LoadingScreen />);
+  }
 
     return (
       <View style={styles.centeredView}>
@@ -56,11 +62,14 @@ export default function FilterModal( props ) {
                         >
                       <View style={styles.header}>
                         <Text style={styles.heading}>Add filters</Text>
-                        <AntDesign name="closecircle" size={24} color="#3b3b3b" style={{margin : 16}}/>
+                        <AntDesign name="closecircle" size={24} color="#3b3b3b" style={{margin : 16, marginTop : 32}}/>
                       </View>
                     </Pressable>
 
-                  <ScrollView style={styles.row}>
+                  <ScrollView style={{width : '100%'}}>
+                  {DATA.map(tag => {
+                    <Text style={styles.subtitle}>{tag.title}</Text>
+                  })}
                   <SectionList
                         sections={DATA}
                         keyExtractor={(item, index) => item + index}
@@ -85,28 +94,15 @@ export default function FilterModal( props ) {
       flex: 1,
       justifyContent: "center",
       alignItems: "flex-end",
-      width : '100%',
-      height : '60%'
     },
     modalView: {
       backgroundColor: "#fff",
-      borderTopRightRadius: 20,
-      borderTopLeftRadius : 20,
       alignItems: "flex-start",
       justifyContent : 'flex-start',
       width : '100%',
-      height : '90 %',
+      height : '100%',
       position : 'absolute',
       bottom : 0,
-      margin : 'auto',
-      shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
     },
     text : {
       fontSize : 19,
@@ -117,20 +113,16 @@ export default function FilterModal( props ) {
   heading : {
     color : '#3b3b3b',
     fontSize : 21,
-    fontWeight : '600',
     margin : 16,
-    flexGrow : 1
+    marginTop : 32,
+    flexGrow : 1,
+    fontFamily : 'Poppins_600SemiBold'
   },
   header : {
       backgroundColor : '#fff5e6',
       flexDirection : 'row',
-      borderTopLeftRadius : 20,
-      borderTopRightRadius : 20,
       width : '100%',
       alignItems : 'center'
   },
-  row : {
-    width : '100%'
-  }
   });
   

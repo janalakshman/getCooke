@@ -37,7 +37,6 @@ const CARDS = [
     title: "November 13",
     data: ["Cheese Cake", "Ice Cream"],
     index : 4,
-
   }
 ];
 
@@ -102,7 +101,6 @@ export default function Home( {navigation} ) {
               data={recipes[recipe]}
               renderItem={renderCard}
               keyExtractor={item => item.id}
-              horizontal
               />
           </ScrollView>
         )

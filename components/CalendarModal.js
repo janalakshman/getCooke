@@ -6,6 +6,8 @@ import {Calendar} from 'react-native-calendars';
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
 import { addDate, resetData } from '../redux/counterSlice'
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 const DATA = [
   {
@@ -42,7 +44,10 @@ const Item = ({item}) => (
 );
 
 export default function CalendarModal( props ) {
-    const [isSigned, setIsSigned] = useState(false)
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+  });
+
     const [dates, setDates ] = useState([])
     const [markedDates, setMarkedDates] = useState({});
     const dispatch = useDispatch();
@@ -65,7 +70,7 @@ export default function CalendarModal( props ) {
       setMarkedDates({})
         Alert.alert(
           "Recipe added",
-          "Wow! Look at you being organized. Way to go!",
+          "Grocery list updated.",
           {text : "OK"}
           ) 
       
@@ -78,65 +83,69 @@ export default function CalendarModal( props ) {
     var minDate = moment().format('YYYY-MM-DD');
 
     return (
-      <View style={styles.centeredView}>
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={props.modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                  props.setModalVisible(!props.modalVisible);
-                }}
-              >
-  
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
-                    <Pressable
-                        onPress={() => props.setModalVisible(!props.modalVisible)}
-                        >
-                      <View style={styles.header}>
-                        <Text style={styles.heading}>Calendar</Text>
-                        <AntDesign name="closecircle" size={24} color="#3b3b3b" style={{margin : 16}}/>
-                      </View>
-                    </Pressable>
+      <View>
+      { !fontsLoaded ? (<LoadingScreen />) : 
+        (<View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={props.modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              props.setModalVisible(!props.modalVisible);
+            }}
+          >
 
-
-                  <ScrollView style={styles.row}>
-
-                 <Calendar 
-                      theme={{
-                        indicatorColor : '#ffc885',
-                        textMonthFontWeight : '600',
-                        arrowColor : '#3b3b3b',
-                      }}
-                      minDate={minDate}
-                      markedDates={markedDates}
-                      disableMonthChange={true}
-                      monthFormat={"MMMM yyyy "}
-                      onDayPress={day => {
-                        getSelectedDates(day.dateString);
-                      }}
-                      />
-
-                    <FlatList 
-                        data={DATA}
-                        renderItem={Item}
-                        keyExtractor={item => item.index}
-                        numColumns={3}
-                        style={{alignSelf : 'center'}}
-                        />
-
-            <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
-                <Text style={styles.buttonText}>Schedule</Text>
-            </TouchableOpacity>
-
-                  </ScrollView>
-                                                
+              <View style={styles.modalView}>
+                <Pressable
+                    onPress={() => props.setModalVisible(!props.modalVisible)}
+                    >
+                  <View style={styles.header}>
+                    <Text style={styles.heading}>Calendar</Text>
+                    <AntDesign name="closecircle" size={24} color="#3b3b3b" style={{margin : 16, marginTop : 32}}/>
                   </View>
-                </View>
-              </Modal>
-                  
-      </View>
+                </Pressable>
+
+
+            <ScrollView style={{width : '100%'}}>
+
+             <Calendar 
+                  theme={{
+                    indicatorColor : '#ffc885',
+                    textMonthFontWeight : '600',
+                    arrowColor : '#3b3b3b',
+                    textDayFontFamily : 'Poppins_400Regular',
+                    textDayHeaderFontFamily : 'Poppins_500Medium',
+                    textMonthFontFamily : 'Poppins_600SemiBold'
+                  }}
+                  minDate={minDate}
+                  markedDates={markedDates}
+                  disableMonthChange={true}
+                  monthFormat={"MMMM yyyy "}
+                  onDayPress={day => {
+                    getSelectedDates(day.dateString);
+                  }}
+                  />
+
+                <FlatList 
+                    data={DATA}
+                    renderItem={Item}
+                    keyExtractor={item => item.index}
+                    numColumns={1}
+                    />
+
+                <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
+                    <Text style={styles.buttonText}>Schedule</Text>
+                </TouchableOpacity>
+
+              </ScrollView>
+                                            
+              </View>
+          </Modal>
+              
+  </View>)
+      }
+     </View> 
           
     );
   }
@@ -147,7 +156,8 @@ export default function CalendarModal( props ) {
       justifyContent: "center",
       alignItems: "flex-end",
       width : '100%',
-      height : '60%'
+      height : '100%',
+      paddingBottom : 64
     },
     modalView: {
       backgroundColor: "#fff",
@@ -156,7 +166,7 @@ export default function CalendarModal( props ) {
       alignItems: "flex-start",
       justifyContent : 'flex-start',
       width : '100%',
-      height : '95 %',
+      height : '100%',
       position : 'absolute',
       bottom : 0,
       margin : 'auto',
@@ -178,45 +188,31 @@ export default function CalendarModal( props ) {
   heading : {
     color : '#3b3b3b',
     fontSize : 21,
-    fontWeight : '600',
     margin : 16,
-    flexGrow : 1
+    marginTop : 32,
+    flexGrow : 1,
+    fontFamily : 'Poppins_600SemiBold'
   },
   header : {
       backgroundColor : '#fff5e6',
       flexDirection : 'row',
-      borderTopLeftRadius : 20,
-      borderTopRightRadius : 20,
       width : '100%',
       alignItems : 'center'
-  },
-  row : {
-    width : '100%'
   },
   buttonText : {
     color : '#A13E00',
     fontSize : 19,
-    fontWeight : '500',
+    fontFamily : 'Poppins_600SemiBold',
     margin : 16,
     flexGrow : 1,
     textAlign : 'center'
   },
   button: {
-      borderRadius : 8,
+      borderRadius : 4,
       backgroundColor : '#ffc885',
-      alignSelf : 'flex-start',
       margin : 16,
       flexDirection : 'row',
       alignSelf : 'center'
-         },
-      icon : {
-          fontSize : 24,
-          color : '#a13e00',
-          paddingTop : 12,
-          paddingBottom : 12,
-          paddingLeft : 12,
-          alignSelf : 'center'
-      },
-   
+         }   
   });
   
