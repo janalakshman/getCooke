@@ -6,7 +6,7 @@ export default function LoadingScreen(){
     return(
         <View style={styles.container}>
             <ActivityIndicator size="small" color="#a13e00" />
-            <Image src={LoadingScreenLogo} alt="loading" style={styles.image}/>
+            <Image source={LoadingScreenLogo} alt="loading" style={styles.image}/>
             <Text>Get ready to cook some amazing food!</Text>
         </View>
     )

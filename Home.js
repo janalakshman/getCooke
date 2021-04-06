@@ -86,7 +86,7 @@ export default function Home( {navigation} ) {
   const Item = ({ title }) => {
     return(
       <View>
-        <CalendarCard name={title}/>
+        <CalendarCard events={events} name={title}/>
       </View>)
   };
 
