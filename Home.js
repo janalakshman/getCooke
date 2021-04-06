@@ -97,13 +97,17 @@ export default function Home( {navigation} ) {
   if(recipes) {
     panels = Object.keys(recipes).map((recipe, key) => {
         return (
-          <ScrollView style={{marginLeft : 32}}>
+          <ScrollView>
             <Title name={recipe} />
+            <View style={{marginLeft : 64}}>
             <FlatList
               data={recipes[recipe]}
               renderItem={renderCard}
               keyExtractor={item => item.id}
+              horizontal={true}
               />
+            </View>
+            
           </ScrollView>
         )
     })
