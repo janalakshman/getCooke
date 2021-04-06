@@ -97,22 +97,26 @@ export default function Home( {navigation} ) {
   if(recipes) {
     panels = Object.keys(recipes).map((recipe, key) => {
         return (
-          <ScrollView style={{marginLeft : 32}}>
+          <ScrollView>
             <Title name={recipe} />
-            <FlatList 
+            <View style={{marginLeft : 64}}>
+            <FlatList
               data={recipes[recipe]}
               renderItem={renderCard}
               keyExtractor={item => item.id}
+              horizontal={true}
               />
+            </View>
+            
           </ScrollView>
         )
     })
 }
 
-  
+
   return (
     <View style={{flex : 1}}>
-          
+
         <ScrollView style={{backgroundColor : '#ffffff'}}>
                     <SectionList
                         sections={DATA}
@@ -130,36 +134,36 @@ export default function Home( {navigation} ) {
 
             {panels}
 
-       
+
           <View style={{height : 64}}>
-          </View>      
-          
-        </ScrollView> 
+          </View>
+
+        </ScrollView>
 
           <View style={styles.navigation}>
-                  <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
+                  <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
                     <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
                   </TouchableOpacity>
 
-                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
+                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
                       <MaterialIcons name="search" style={styles.icon}/>
-                  </TouchableOpacity> 
+                  </TouchableOpacity>
 
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} > 
+                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
                       <MaterialIcons name="event-note" style={styles.icon}/>
-                  </TouchableOpacity> 
-                  
+                  </TouchableOpacity>
+
                   <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
                       <MaterialIcons name="list-alt" style={styles.icon} />
                   </TouchableOpacity>
-                  
-                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
+
+                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
                     <MaterialIcons name="account-box" style={styles.icon}/>
-                  </TouchableOpacity> 
+                  </TouchableOpacity>
           </View>
 
     </View>
-        
+
   );
 }
 
