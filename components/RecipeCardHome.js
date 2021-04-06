@@ -11,10 +11,12 @@ export default function Header(props){
     return(
         <Pressable onPress={props.onPress}>
             <View style={styles.card}>
+                <View>
                 {props.recipe.image ? <Image source={{uri:config.api+props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
                 {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> } 
-                 
-                <Text style={styles.text}>{props.recipe.name}</Text>       
+
+                <Text style={styles.text}>{props.recipe.name}</Text>
+                </View>       
         </View>
         </Pressable>
         
@@ -26,9 +28,14 @@ const styles = StyleSheet.create({
         width : 116,
         padding : 8,
         margin : 8,
-        borderRadius : 4,
-        borderWidth : 1,
-        borderColor : '#cfcfcf'
+        borderRadius : 20,
+        borderTopLeftRadius : 0,
+        backgroundColor : '#fff',
+        elevation : 3,
+        shadowRadius : 3,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
   image : {
       height : 100,
