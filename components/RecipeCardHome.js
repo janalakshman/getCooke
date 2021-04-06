@@ -40,7 +40,9 @@ const styles = StyleSheet.create({
   image : {
       height : 100,
       width : 100,
-      marginBottom : 4
+      marginBottom : 4,
+      borderTopLeftRadius : 0,
+      borderRadius : 20
   },
   icon : {
       height : 16,
