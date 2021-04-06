@@ -21,14 +21,14 @@ export default function PrepStep(props) {
                 <View style={styles.container}>
                   <Text style={styles.title}>{++count}</Text>
 
-                  <View style={{margin : 16}}>
+                  <View style={{paddingLeft : 8, paddingRight : 40}}>
                     <Text style={styles.text}>{step.step}</Text>
                   </View>
 
                 </View>
                 )}
           </View>: 
-          <View style={{paddingBottom : 128}}>
+          <View style={{paddingBottom : 32}}>
           </View>}
       </View>       
     )
@@ -44,24 +44,18 @@ export default function PrepStep(props) {
     title : {
         color : '#3b3b3b',
         fontSize : 19,
-        margin : 16,
+        marginHorizontal : 16,
+        marginVertical : 4,
         fontFamily : 'Poppins_600SemiBold',
     },
     container: {
-        width : '88%',
-        paddingHorizontal : 16, 
+        padding : 16, 
         margin : 16,
-        borderRadius : 4,
-        alignSelf : 'center',
         backgroundColor : '#ffffff',
         flexGrow : 1,
         borderTopLeftRadius : 0,
         borderRadius : 20,
-        elevation : 3,
-        shadowRadius : 2,
-        shadowOpacity : 0.5,
-        shadowColor : 'rgba(0, 0, 0, 0.25)',
-        shadowOffset : {width : 0, height : 4},
-        flexDirection : 'row'
+        borderWidth : 1,
+        borderColor : '#cfcfcf'
     },
   });

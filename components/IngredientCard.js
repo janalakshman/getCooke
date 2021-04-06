@@ -6,8 +6,7 @@ import { Divider } from 'react-native-elements';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
-export default function Header(props){ 
-    var [ isPress, setIsPress ] = useState(false);
+export default function Header(props){
 
     let [fontsLoaded] = useFonts({
       Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
@@ -19,14 +18,14 @@ export default function Header(props){
 
     return(
         <View>
-        { props.ingredients  ?
+        {props.ingredients  ?
         <View style={{backgroundColor : '#fff5e6'}}> 
         <SafeAreaView style={styles.card} >
             <View style={styles.line}>
                 <Text style={styles.heading}>Servings</Text>
                 <View style={styles.line}>
                     <MaterialIcons name="remove-circle-outline" style={styles.icon} onPress={props.decrement}/>
-                    <Text style={styles.heading}>{props.count}</Text>
+                    <Text style={styles.heading}>{props.servings}</Text>
                     <MaterialIcons name="add-circle-outline" style={styles.icon} onPress={props.increment}/>
                 </View>
             </View>
@@ -36,9 +35,9 @@ export default function Header(props){
             <View style={styles.container}>
                 {props.ingredients.map(ingredient =>
                         <View style={styles.box}>
-                            <Text style={styles.text}>{ingredient.ingredient.name} </Text>
+                            <Text style={styles.text}>{ingredient.ingredient.name.charAt(0).toUpperCase() + ingredient.ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.text}>{ingredient.qty*props.count} {ingredient.unit_name} </Text>
+                            <Text style={styles.text}>{ingredient.qty == 0 ? '' : ingredient.qty*props.servings} {ingredient.fraction} {ingredient.unit_name} </Text>
                         </View>
                     )}
             </View>
@@ -53,7 +52,6 @@ export default function Header(props){
 const styles = StyleSheet.create({
     card : {
         width : '88%',
-        paddingRight : 32, 
         margin : 32,
         borderRadius : 4,
         alignSelf : 'center',
@@ -81,7 +79,7 @@ const styles = StyleSheet.create({
         color : '#3b3b3b',
         fontFamily : 'Poppins_600SemiBold',
         margin : 16,
-        alignSelf : 'center',
+        textAlign : 'left'
     },
     line : {
         flexDirection : "row",
@@ -93,7 +91,8 @@ const styles = StyleSheet.create({
         fontSize : 17,
         fontFamily : 'Poppins_400Regular',
         marginHorizontal : 16,
-        maxWidth : '50%',
+        textAlign : 'left',
+        maxWidth : '55%'
       },
       box : {
           margin : 8,

@@ -4,9 +4,15 @@ import { AntDesign } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector} from 'react-redux'
 import { addIngredientName, addIngredientQuantity, newIngredientList, resetIngredient } from '../redux/counterSlice';
-
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 export default function AddIngredientModal(props) {
+  let [fontsLoaded] = useFonts({
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+  });
+
+  
     const [name, onChangeName] = useState('');
     const [quantity, onChangeQuantity] = useState('');
     const ingredient= useSelector(state => state.counter.ingredient)
@@ -34,55 +40,61 @@ export default function AddIngredientModal(props) {
 
     
     return (
-        <ScrollView>
+      <View>
+        { !fontsLoaded ? (<LoadingScreen />) :
+        (
+          <ScrollView>
 
-      <View style={styles.centeredView}>
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={props.modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                  props.setModalVisible(!props.modalVisible);
-                }}
-              >
-                  <View style={styles.modalView}>
-                    <Pressable
-                        onPress={() => props.setModalVisible(!props.modalVisible)}
-                        >
-                      <View style={styles.header}>
-                        <Text style={styles.heading}>Add Ingredient</Text>
-                        <AntDesign name="closecircle" size={24} color="#3b3b3b" style={{margin : 16}}/>
-                      </View>
-                    </Pressable>
-
-                
-                    <Text style={styles.text} > Ingredient</Text>
-
-                    <TextInput style={styles.textInput}
-                                placeholder = "Ingredient name"
-                                 onChangeText={text => onChangeName(text)}
-                                 value={name}/>
-
-                    <Text style={styles.text} > Quantity</Text>
-
-                    <TextInput style={styles.textInput}
-                                placeholder = "Quantity"
-                                 onChangeText={text => onChangeQuantity(text)}
-                                 value={quantity}
-                                 autoFocus/>
-
+          <View style={styles.centeredView}>
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={props.modalVisible}
+                    onRequestClose={() => {
+                      Alert.alert("Modal has been closed.");
+                      props.setModalVisible(!props.modalVisible);
+                    }}
+                  >
+                      <View style={styles.modalView}>
+                        <Pressable
+                            onPress={() => props.setModalVisible(!props.modalVisible)}
+                            >
+                          <View style={styles.header}>
+                            <Text style={styles.heading}>Add Ingredient</Text>
+                            <AntDesign name="closecircle" size={24} color="#3b3b3b" style={{margin : 16, marginTop : 32}}/>
+                          </View>
+                        </Pressable>
+    
                     
-                  <TouchableOpacity  style={styles.button} onPress={() => handleClick(props)}>
-                      <Text style={styles.buttonText}>Done</Text>
-                  </TouchableOpacity>
-
-                                                
-                  </View>
-              </Modal>
-                  
+                        <Text style={styles.text} > Ingredient</Text>
+    
+                        <TextInput style={styles.textInput}
+                                    placeholder = "Ingredient name"
+                                     onChangeText={text => onChangeName(text)}
+                                     value={name}/>
+    
+                        <Text style={styles.text} > Quantity</Text>
+    
+                        <TextInput style={styles.textInput}
+                                    placeholder = "Quantity"
+                                     onChangeText={text => onChangeQuantity(text)}
+                                     value={quantity}
+                                     autoFocus/>
+    
+                        
+                      <TouchableOpacity  style={styles.button} onPress={() => handleClick(props)}>
+                          <Text style={styles.buttonText}>Done</Text>
+                      </TouchableOpacity>
+    
+                                                    
+                      </View>
+                  </Modal>
+                      
+          </View>
+          </ScrollView>
+        )}
       </View>
-      </ScrollView>
+       
           
     );
   }
@@ -90,18 +102,13 @@ export default function AddIngredientModal(props) {
   const styles = StyleSheet.create({
     centeredView: {
       justifyContent: "center",
-      alignItems: "flex-end",
-      width : '100%',
-      height : '60%'
     },
     modalView: {
       backgroundColor: "#fff",
-      borderTopRightRadius: 20,
-      borderTopLeftRadius : 20,
       alignItems: "flex-start",
       justifyContent : 'flex-start',
       width : '100%',
-      height : '95 %',
+      height : '100%',
       position : 'absolute',
       bottom : 0,
       margin : 'auto',
@@ -117,43 +124,43 @@ export default function AddIngredientModal(props) {
     text : {
       fontSize : 19,
       color : '#3b3b3b',
-      fontWeight : '500',
       margin : 16,
+      fontFamily : 'Poppins_500Medium'
   },
   heading : {
     color : '#3b3b3b',
     fontSize : 21,
-    fontWeight : '600',
     margin : 16,
-    flexGrow : 1
+    marginTop : 32,
+    flexGrow : 1,
+    fontFamily : 'Poppins_600SemiBold'
   },
   header : {
       backgroundColor : '#fff5e6',
       flexDirection : 'row',
-      borderTopLeftRadius : 20,
-      borderTopRightRadius : 20,
       width : '100%',
-      alignItems : 'center'
   },
   row : {
     width : '100%'
   },
   textInput : {
-      width : '80%',
-      backgroundColor : "#f1f1f1",
-      borderRadius : 10,
-      height : 38,
-      alignSelf : 'center',
-      paddingLeft : 16,
-      margin : 16
+    borderRadius : 20,
+    borderTopLeftRadius : 0,
+    backgroundColor :  '#f1f1f1',
+    height : 56,
+    width : '90%',
+    alignSelf : 'flex-start',
+    padding : 16,
+    margin : 16,
+    fontFamily : 'Poppins_500Medium'
   },
   buttonText : {
     color : '#A13E00',
     fontSize : 19,
-    fontWeight : '500',
     margin : 16,
     flexGrow : 1,
-    textAlign : 'center'
+    textAlign : 'center',
+    fontFamily : 'Poppins_600SemiBold'
   },
   button: {
       borderRadius : 8,

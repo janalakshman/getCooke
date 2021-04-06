@@ -6,8 +6,18 @@ import veg from '../assets/veg.png'
 import nonVeg from '../assets/nonVeg.png'
 import { Pressable } from 'react-native';
 import config from '../config';
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
+import LoadingScreen from '../LoadingScreen'
 
 export default function Header(props){
+    let [fontsLoaded] = useFonts({
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+      });
+    
+      if (!fontsLoaded) {
+        return (<LoadingScreen />);
+      }
+
     return(
         <Pressable onPress={props.onPress}>
             <View style={styles.card}>
@@ -36,7 +46,6 @@ const styles = StyleSheet.create({
         shadowOpacity : 0.5,
         shadowColor : 'rgba(0, 0, 0, 0.25)',
         shadowOffset : {width : 0, height : 4},
-        backgroundColor : '#fff5e6'
     },
   image : {
       height : 100,
@@ -53,7 +62,7 @@ const styles = StyleSheet.create({
   text : {
       fontSize : 14,
       color : '#3b3b3b',
-      fontWeight : '400',
       margin : 4,
+      fontFamily : 'Poppins_500Medium'
   },
   });

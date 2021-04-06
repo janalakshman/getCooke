@@ -21,7 +21,8 @@ export default function RecipeData(props){
     return(
         <ScrollView>
                 
-                <Title name={recipe.name} />
+                <Text style={{fontFamily : 'Poppins_600SemiBold', fontSize : 24, margin : 16}}>{recipe.name}</Text>
+
                 { recipe.over_night_prep ? ( 
                 <View style={styles.line}>
                     <MaterialIcons name="nights-stay" style={styles.icon} />

@@ -1,13 +1,12 @@
 import React from 'react'
 import {View, ActivityIndicator, Text, Image, StyleSheet} from 'react-native'
-import LoadingScreenLogo from './assets/LoadingIcon.png'
+import CookeLogo from './assets/CookeLogo.png'
 
 export default function LoadingScreen(){
     return(
         <View style={styles.container}>
+            <Image source={CookeLogo} alt="loading" style={styles.image}/>
             <ActivityIndicator size="small" color="#a13e00" />
-            <Image source={LoadingScreenLogo} alt="loading" style={styles.image}/>
-            <Text>Get ready to cook some amazing food!</Text>
         </View>
     )
 }
@@ -15,22 +14,12 @@ export default function LoadingScreen(){
 const styles = StyleSheet.create({
   image : {
       maxHeight : 275,
-      maxWidth : 90,
-      height : '40%',
-      width : '100%',
+      maxWidth : 275,
       margin : 4,
       alignSelf : 'center'
   },
-  subtitle : {
-      fontSize : 14,
-      fontWeight : '500',
-      color : '#fa9332',
-      margin : 8
-  },
   container : {
-      height : '100%',
-      flexDirection : 'column',
-      justifyContent : 'center',
-      alignItems : 'center'
+    flex : 1,
+    backgroundColor : '#fff'
   }
   });

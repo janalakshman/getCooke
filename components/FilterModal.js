@@ -27,7 +27,7 @@ const DATA = [
 
 const Item = ({ title }) => {
   return(
-    <View style={{flexDirection : 'row', flexWrap : 'wrap'}}>
+    <View>
       <FilterChips name={title}/>
     </View>)
 };
@@ -66,19 +66,16 @@ export default function FilterModal( props ) {
                       </View>
                     </Pressable>
 
-                  <ScrollView style={{width : '100%'}}>
                   {DATA.map(tag => {
-                    <Text style={styles.subtitle}>{tag.title}</Text>
+                    <ScrollView>
+                      <Text style={styles.subtitle}>{tag.title}</Text>
+                      <FlatList 
+                            data={tag.data}
+                            renderItem={({ data }) => <Item title={data}/>}
+                            keyExtractor={tag => tag.index}
+                            />
+                    </ScrollView>
                   })}
-                  <SectionList
-                        sections={DATA}
-                        keyExtractor={(item, index) => item + index}
-                        renderItem={({ item }) => <Item title={item} />}
-                        renderSectionHeader={({ section: { title } }) => (
-                          <Text style={styles.text}>{title}</Text>
-                        )}
-                      />
-                  </ScrollView>
                                                 
                   </View>
                 </View>
@@ -107,8 +104,8 @@ export default function FilterModal( props ) {
     text : {
       fontSize : 19,
       color : '#3b3b3b',
-      fontWeight : '500',
       margin : 16,
+      fontFamily : 'Poppins_500Medium'
   },
   heading : {
     color : '#3b3b3b',

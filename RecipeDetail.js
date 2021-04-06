@@ -11,11 +11,12 @@ import FloatingButton from './components/FloatingButton'
 import Tags from './components/Tags'
 import CalendarModal from './components/CalendarModal'
 import config from './config';
+import LoadingScreen from "./LoadingScreen";
 
 
 export default function RecipeFullDetail({navigation, route, props}) {
  
-
+  const [loading, setLoading] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(1)
   const [recipe, setRecipe] = useState({});
@@ -31,7 +32,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
 
   useEffect(() => {
     fetch(
-      config.api + `/v1/recipe/`+recipeId,
+      config.api + `/v1/recipe/`+ recipeId,
       {
         method: "GET",
         headers: {
@@ -43,75 +44,59 @@ export default function RecipeFullDetail({navigation, route, props}) {
       .then(res => res.json())
       .then(response => {
         setRecipe(response);
+        setLoading(false)
       })
       .catch(error => console.log(error));
   }, []);
 
   return (
-    <View style={{flex : 1}}>
-      
-        <ScrollView style={styles.container}>
-          
-          <RecipeData recipe = {recipe} />
+    <View style={{backgroundColor : '#fff', flex : 1}}>
+      {loading ? (<LoadingScreen/>) : 
+        (
+            <View style={{backgroundColor : '#fff'}}>
+              
+                <ScrollView>
+                  <RecipeData recipe = {recipe} />
 
-          <RecipeDescription recipe = {recipe}/>
+                  <RecipeDescription recipe = {recipe}/>
 
-          <Title name="Ingredients" />
-            <IngredientCard ingredients = {recipe.ingredients} count={count} increment={increment} decrement={decrement}/>
-          
-          <Title name="Nutrition" />
-            <NutritionCard recipe={recipe} count={count}/>
+                  <Title name="Ingredients" />
+                    <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings} increment={increment} decrement={decrement}/>
+                  
+                  {recipe.calories ? 
+                  <View>
+                    <Title name="Nutrition" />
+                    <NutritionCard recipe={recipe} count={count}/>
+                  </View> : <View></View>}
+                  
 
-          <Title name="Preparation" />
-            <PrepStep steps={recipe.steps} />
+                  <Title name="Preparation" />
+                    <PrepStep steps={recipe.steps} />
 
-         
-        </ScrollView> 
+                
+                </ScrollView> 
 
-        <View style={styles.position}>
-          <FloatingButton modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-        </View>
+                <View style={styles.position}>
+                  <FloatingButton modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+                </View>
 
-        <CalendarModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+                <CalendarModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
 
 
+            </View>
+    
+    )}
     </View>
+    
         
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
   position : {
     position : 'absolute',
-    bottom : 64,
+    bottom : 120,
     right : 8,
-  },
-  header : {
-    top : 0
-  },
-  buttonText : {
-    color : '#A13E00',
-    fontSize : 17,
-    fontWeight : '400',
-    margin : 12,
-  },
-  button: {
-      borderRadius : 8,
-      backgroundColor : '#ffc885',
-      alignSelf : 'flex-start',
-      margin : 16,
-      flexDirection : 'row',
-      },
-
-  icon : {
-      fontSize : 20,
-      color : '#a13e00',
-      paddingTop : 12,
-      paddingBottom : 12,
-      paddingLeft : 12,
   },
 });
 

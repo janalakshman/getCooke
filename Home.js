@@ -6,61 +6,18 @@ import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
 import RecipeCardHome from './components/RecipeCardHome'
 import config from './config';
+import LoadingScreen from "./LoadingScreen";
 
 const DATA = [
   {
     title: "10th November",
-    data: ["Pizza", "Burger", "Risotto"],
-    index : 1,
+    data: ["Pizza", "Burger", "Risotto","Truth"],
   },
 ];
 
-const CARDS = [
-  {
-    title: "10 November",
-    data: ["Pizza", "Burger", "Risotto"],
-    index : 1,
-  },
-  {
-    title: "11 November",
-    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
-    index : 2,
-
-  },
-  {
-    title: "November 12",
-    data: ["Water", "Coke", "Beer"],
-    index : 3,
-
-  },
-  {
-    title: "November 13",
-    data: ["Cheese Cake", "Ice Cream"],
-    index : 4,
-  }
-];
-
-
-const cards = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d58',
-    title: 'Third Item',
-  },
-];
 
 export default function Home( {navigation} ) {
+  const [loading, setLoading] = useState(true)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState({});
   let panels = []
@@ -79,6 +36,7 @@ export default function Home( {navigation} ) {
       .then(response => {
         setRecipes(response['recipes']);
         setEvents(response['events'])
+        setLoading(false)
       })
       .catch(error => console.log(error));
   }, []);
@@ -100,12 +58,12 @@ export default function Home( {navigation} ) {
           <ScrollView>
             <Title name={recipe} />
             <View style={{paddingLeft : 16, paddingVertical : 8, marginTop:8}}>
-            <FlatList
-              data={recipes[recipe]}
-              renderItem={renderCard}
-              keyExtractor={item => item.id}
-              horizontal={true}
-              />
+              <FlatList
+                data={recipes[recipe]}
+                renderItem={renderCard}
+                keyExtractor={item => item.id}
+                horizontal={true}
+                />
             </View>
             
           </ScrollView>
@@ -116,50 +74,55 @@ export default function Home( {navigation} ) {
 
   return (
     <View style={{flex : 1}}>
+      {loading ? (<LoadingScreen/>) : (
+          <View style={{flex : 1}}>
 
-        <ScrollView style={{backgroundColor : '#ffffff'}}>
-                    <SectionList
-                        sections={DATA}
-                        keyExtractor={(item, index) => item + index}
-                        renderItem={({ item }) => <Item title={item} />}
-                        renderSectionHeader={({ section: { title } }) => (
-                          <Title name={title}/>
-                        )}
-                        renderSectionFooter={({ section : {nutrition}}) => (
-                          <View style={{marginTop : 16}}>
-                              <NutritionCard nutrition={nutrition} />
-                          </View>
-                        )}
-                      />
-
-            {panels}
-
-        </ScrollView>
-
-          <View style={styles.navigation}>
-                  <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
-                    <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
-                      <MaterialIcons name="search" style={styles.icon}/>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
-                      <MaterialIcons name="event-note" style={styles.icon}/>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
-                      <MaterialIcons name="list-alt" style={styles.icon} />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
-                    <MaterialIcons name="account-box" style={styles.icon}/>
-                  </TouchableOpacity>
-          </View>
-
+          <ScrollView style={{backgroundColor : '#ffffff'}}>
+                      <SectionList
+                          sections={DATA}
+                          keyExtractor={(item, index) => item + index}
+                          renderItem={({ item }) => <Item title={item} />}
+                          renderSectionHeader={({ section: { title } }) => (
+                            <Title name={title}/>
+                          )}
+                          renderSectionFooter={({ section : {nutrition}}) => (
+                            <View style={{marginTop : 16}}>
+                                <NutritionCard nutrition={nutrition} />
+                            </View>
+                          )}
+                        />
+  
+              {panels}
+  
+          </ScrollView>
+  
+            <View style={styles.navigation}>
+                    <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
+                      <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
+                    </TouchableOpacity>
+  
+                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
+                        <MaterialIcons name="search" style={styles.icon}/>
+                    </TouchableOpacity>
+  
+                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
+                        <MaterialIcons name="event-note" style={styles.icon}/>
+                    </TouchableOpacity>
+  
+                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
+                        <MaterialIcons name="list-alt" style={styles.icon} />
+                    </TouchableOpacity>
+  
+                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
+                      <MaterialIcons name="account-box" style={styles.icon}/>
+                    </TouchableOpacity>
+            </View>
+  
+      </View>
+  
+      )}
     </View>
-
+    
   );
 }
 
