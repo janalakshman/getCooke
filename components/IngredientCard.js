@@ -19,7 +19,7 @@ export default function Header(props){
     return(
         <View>
         {props.ingredients  ?
-        <View style={{backgroundColor : '#fff5e6'}}> 
+        <View> 
         <SafeAreaView style={styles.card} >
             <View style={styles.line}>
                 <Text style={styles.heading}>Servings</Text>
@@ -59,11 +59,8 @@ const styles = StyleSheet.create({
         flexGrow : 1,
         borderTopLeftRadius : 0,
         borderRadius : 20,
-        elevation : 3,
-        shadowRadius : 2,
-        shadowOpacity : 0.5,
-        shadowColor : 'rgba(0, 0, 0, 0.25)',
-        shadowOffset : {width : 0, height : 4},
+        borderWidth : 1,
+        borderColor : '#cfcfcf'
     },
     container : {
         width : '100%',
@@ -92,7 +89,8 @@ const styles = StyleSheet.create({
         fontFamily : 'Poppins_400Regular',
         marginHorizontal : 16,
         textAlign : 'left',
-        maxWidth : '55%'
+        maxWidth : '55%',
+        marginVertical : 8
       },
       box : {
           margin : 8,
