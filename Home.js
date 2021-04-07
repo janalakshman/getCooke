@@ -28,7 +28,7 @@ export default function Home( {navigation} ) {
       .then(res => res.json())
       .then(response => {
         setRecipes(response['recipes']);
-        setEvents([{title: moment().format('Do MMMM') , data:response['events'], index:1}])
+        setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
         setLoading(false)
       })
       .catch(error => console.log(error));
@@ -48,17 +48,16 @@ export default function Home( {navigation} ) {
   if(recipes) {
     panels = Object.keys(recipes).map((recipe, key) => {
         return (
-          <ScrollView>
+          <ScrollView key={key.toString()}>
             <Title name={recipe} />
             <View style={{paddingLeft : 16, paddingVertical : 8, marginTop:8}}>
               <FlatList
                 data={recipes[recipe]}
                 renderItem={renderCard}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id.toString()}
                 horizontal={true}
                 />
             </View>
-            
           </ScrollView>
         )
     })
@@ -67,11 +66,11 @@ export default function Home( {navigation} ) {
     <View style={{flex : 1}}>
       {loading ? (<LoadingScreen/>) : (
           <View style={{flex : 1}}>
-                (<ScrollView style={{backgroundColor : '#ffffff'}}>
+                <ScrollView style={{backgroundColor : '#ffffff'}}>
                      { events ?
                       <SectionList
                           sections={events}
-                          keyExtractor={(item, index) => item + index}
+                          keyExtractor={(item, index) =>index.toString()}
                           renderItem={({ item }) => <Item title={item} />}
                           renderSectionHeader={({ section: { title } }) => (
                             <Title name={title}/>
@@ -81,7 +80,7 @@ export default function Home( {navigation} ) {
                                 <NutritionCard nutrition={nutrition} />
                             </View>
                           )}
-                        /> : <View></View>}
+                        /> : ''}
   
               {panels}
   

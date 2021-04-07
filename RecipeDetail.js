@@ -55,7 +55,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
         (
             <View style={{backgroundColor : '#fff'}}>
               
-                <ScrollView>
+                <ScrollView key={recipe.id.toString()}>
                   <RecipeData recipe = {recipe} />
 
                   <RecipeDescription recipe = {recipe}/>

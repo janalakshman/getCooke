@@ -7,14 +7,14 @@ import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Popp
 import LoadingScreen from '../LoadingScreen'
 
 export default function Header(props){
+    const navigation = useNavigation();
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
     
       if (!fontsLoaded) {
         return (<LoadingScreen />);
-      }
-    const navigation = useNavigation(); 
+      } 
     return(
        <View style={styles.lunchcard}>  
             <Pressable onPressIn ={() => navigation.navigate('RecipeDetail')}>
