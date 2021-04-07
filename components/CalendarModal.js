@@ -134,10 +134,11 @@ export default function CalendarModal( props ) {
 
     const handleClick = () => {
       dispatch(addDate(Object.keys(markedDates)))
+      console.debug(dates)
       setMarkedDates({})
         Alert.alert(
           "Recipe added",
-          "Grocery list updated.",
+          "Grocery list updated. newly",
           {text : "OK"}
           ) 
       
