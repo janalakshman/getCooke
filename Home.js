@@ -66,8 +66,9 @@ export default function Home( {navigation} ) {
  return (
     <View style={{flex : 1}}>
       {loading ? (<LoadingScreen/>) : (
-          <View style={{flex : 1}}>
-                (<ScrollView style={{backgroundColor : '#ffffff'}}>
+          <View>
+                (
+                  <ScrollView style={{backgroundColor : '#ffffff'}}>
                      { events ?
                       <SectionList
                           sections={events}
@@ -81,12 +82,14 @@ export default function Home( {navigation} ) {
                                 <NutritionCard nutrition={nutrition} />
                             </View>
                           )}
-                        /> : <View></View>}
-  
-              {panels}
-  
-          </ScrollView>
-  
+                        /> : 
+                        <View>
+                        </View>}
+            
+                        {panels}
+            
+                    </ScrollView>
+            
             <View style={styles.navigation}>
                     <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
                       <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
