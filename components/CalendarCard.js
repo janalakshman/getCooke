@@ -14,36 +14,26 @@ export default function Header(props){
       if (!fontsLoaded) {
         return (<LoadingScreen />);
       }
-
-    const events = props.events
-
     const navigation = useNavigation(); 
-
     return(
-            <View style={styles.lunchcard}>
-                
+       <View style={styles.lunchcard}>  
             <Pressable onPressIn ={() => navigation.navigate('RecipeDetail')}>
             <View>
-                <Text style={styles.text}>Paneer Butter Masala</Text>  
+                <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
             </View>
-            </Pressable>   
-
-
+            </Pressable> 
             <View style={{flexDirection : 'row', marginVertical : 4}}>
                 <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
                     <MaterialIcons name="nights-stay" style={styles.icon} />
-                    <Text style={styles.smalltext}>Overnight prep</Text> 
+                    <Text style={styles.smalltext}>{props.event.title.recipe.over_night_prep ? 'Overnight prep': props.event.title.recipe.cooking_time + ' mins'}</Text> 
                 </View>
             
                 <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
                     <MaterialIcons name="access-time" style={styles.icon} />
-                    <Text style={styles.smalltext}>7:30 PM</Text>
+                    <Text style={styles.smalltext}>{props.event.title.course}</Text>
                 </View>
             </View>
- 
         </View>
-        
-        
     )
 }
 

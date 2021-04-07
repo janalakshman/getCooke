@@ -7,19 +7,12 @@ import NutritionCard from './components/NutritionCard'
 import RecipeCardHome from './components/RecipeCardHome'
 import config from './config';
 import LoadingScreen from "./LoadingScreen";
-
-const DATA = [
-  {
-    title: "10th November",
-    data: ["Pizza", "Burger", "Risotto","Truth"],
-  },
-];
-
+import moment from 'moment'
 
 export default function Home( {navigation} ) {
   const [loading, setLoading] = useState(true)
   const [recipes, setRecipes] = useState({});
-  const [events, setEvents] = useState({});
+  const [events, setEvents] = useState([]);
   let panels = []
   useEffect(() => {
     fetch(
@@ -35,16 +28,16 @@ export default function Home( {navigation} ) {
       .then(res => res.json())
       .then(response => {
         setRecipes(response['recipes']);
-        setEvents(response['events'])
+        setEvents([{title: moment().format('Do MMMM') , data:response['events'], index:1}])
         setLoading(false)
       })
       .catch(error => console.log(error));
   }, []);
 
-  const Item = ({ title }) => {
+  const Item = (event) => {
     return(
       <View>
-        <CalendarCard events={events} name={title}/>
+        <CalendarCard event={event}/>
       </View>)
   };
 
@@ -70,16 +63,14 @@ export default function Home( {navigation} ) {
         )
     })
 }
-
-
-  return (
+ return (
     <View style={{flex : 1}}>
       {loading ? (<LoadingScreen/>) : (
           <View style={{flex : 1}}>
-
-          <ScrollView style={{backgroundColor : '#ffffff'}}>
+                (<ScrollView style={{backgroundColor : '#ffffff'}}>
+                     { events ?
                       <SectionList
-                          sections={DATA}
+                          sections={events}
                           keyExtractor={(item, index) => item + index}
                           renderItem={({ item }) => <Item title={item} />}
                           renderSectionHeader={({ section: { title } }) => (
@@ -90,7 +81,7 @@ export default function Home( {navigation} ) {
                                 <NutritionCard nutrition={nutrition} />
                             </View>
                           )}
-                        />
+                        /> : <View></View>}
   
               {panels}
   
