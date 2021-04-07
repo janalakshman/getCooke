@@ -72,7 +72,8 @@ export default function FilterModal( props ) {
                       <FlatList 
                             data={tag.data}
                             renderItem={({ data }) => <Item title={data}/>}
-                            keyExtractor={tag => tag.index}
+                            keyExtractor={data => data.index}
+                            horizontal={true}
                             />
                     </ScrollView>
                   })}

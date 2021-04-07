@@ -61,8 +61,10 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   <RecipeDescription recipe = {recipe}/>
 
                   <Title name="Ingredients" />
+                  <View style={{backgroundColor : '#fff5e6'}}>
                     <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings} increment={increment} decrement={decrement}/>
-                  
+                  </View>
+
                   {recipe.calories ? 
                   <View>
                     <Title name="Nutrition" />
@@ -71,7 +73,9 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   
 
                   <Title name="Preparation" />
-                    <PrepStep steps={recipe.steps} />
+                  <View style={{backgroundColor : '#fff5e6'}}>
+                      <PrepStep steps={recipe.steps} />
+                  </View>
 
                 
                 </ScrollView> 
