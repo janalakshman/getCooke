@@ -28,7 +28,7 @@ export default function Home( {navigation} ) {
       .then(res => res.json())
       .then(response => {
         setRecipes(response['recipes']);
-        setEvents([{title: moment().format('Do MMMM') , data:response['events'], index:1}])
+        setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
         setLoading(false)
       })
       .catch(error => console.log(error));
@@ -48,17 +48,16 @@ export default function Home( {navigation} ) {
   if(recipes) {
     panels = Object.keys(recipes).map((recipe, key) => {
         return (
-          <ScrollView>
+          <ScrollView key={key.toString()}>
             <Title name={recipe} />
             <View style={{paddingLeft : 16, paddingVertical : 8, marginTop:8}}>
               <FlatList
                 data={recipes[recipe]}
                 renderItem={renderCard}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id.toString()}
                 horizontal={true}
                 />
             </View>
-            
           </ScrollView>
         )
     })
@@ -66,13 +65,12 @@ export default function Home( {navigation} ) {
  return (
     <View style={{flex : 1}}>
       {loading ? (<LoadingScreen/>) : (
-          <View>
-                (
-                  <ScrollView style={{backgroundColor : '#ffffff'}}>
+          <View style={{flex : 1}}>
+                <ScrollView style={{backgroundColor : '#ffffff'}}>
                      { events ?
                       <SectionList
                           sections={events}
-                          keyExtractor={(item, index) => item + index}
+                          keyExtractor={(item, index) =>index.toString()}
                           renderItem={({ item }) => <Item title={item} />}
                           renderSectionHeader={({ section: { title } }) => (
                             <Title name={title}/>
@@ -82,19 +80,17 @@ export default function Home( {navigation} ) {
                                 <NutritionCard nutrition={nutrition} />
                             </View>
                           )}
-                        /> : 
-                        <View>
-                        </View>}
-            
-                        {panels}
-            
-                    </ScrollView>
-            
+                        /> : ''}
+
+              {panels}
+
+          </ScrollView>
+
             <View style={styles.navigation}>
                     <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
                       <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
                     </TouchableOpacity>
-  
+
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
                         <MaterialIcons name="search" style={styles.icon}/>
                     </TouchableOpacity>
@@ -102,21 +98,21 @@ export default function Home( {navigation} ) {
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
                         <MaterialIcons name="event-note" style={styles.icon}/>
                     </TouchableOpacity>
-  
+
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
                         <MaterialIcons name="list-alt" style={styles.icon} />
                     </TouchableOpacity>
-  
+
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
                       <MaterialIcons name="account-box" style={styles.icon}/>
                     </TouchableOpacity>
             </View>
-  
+
       </View>
-  
+
       )}
     </View>
-    
+
   );
 }
 

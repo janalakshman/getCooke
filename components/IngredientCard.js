@@ -34,7 +34,7 @@ export default function Header(props){
 
             <View style={styles.container}>
                 {props.ingredients.map(ingredient =>
-                        <View style={styles.box}>
+                        <View key={ingredient.id.toString()} style={styles.box}>
                             <Text style={styles.text}>{ingredient.ingredient.name.charAt(0).toUpperCase() + ingredient.ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
                             <Text style={styles.text}>{ingredient.qty == 0 ? '' : ingredient.qty*props.servings} {ingredient.fraction} {ingredient.unit_name} </Text>
