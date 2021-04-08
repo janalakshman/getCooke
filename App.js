@@ -33,7 +33,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Provider store={store}>
-      <Stack.Navigator initialRouteName="Discover">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen 
               name="Home" 
               component={Home}

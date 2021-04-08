@@ -7,7 +7,7 @@ export const counterSlice = createSlice({
       recipe : {
           name : '',
           dates : [],
-          time : '',
+          time : [],
           isOvernight : false,
           km : '',
           serving : null
@@ -56,16 +56,18 @@ export const counterSlice = createSlice({
           }
       },
       addTime : (state, action) => {
+          let newArray
+          newArray = [...state.recipe.time, action.payload]
           state.recipe = {
               ...state.recipe,
-              time : action.payload
+              time : newArray
           }
       },
       resetData : (state) => {
           state.recipe = {
             name : '',
             dates : [],
-            time : '',
+            time : [],
             isOvernight : false,
             km : '',
             serving : null
