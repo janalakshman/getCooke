@@ -81,16 +81,16 @@ export default function Home( {navigation} ) {
                             </View>
                           )}
                         /> : ''}
-  
+
               {panels}
-  
+
           </ScrollView>
-  
+
             <View style={styles.navigation}>
                     <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
                       <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
                     </TouchableOpacity>
-  
+
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
                         <MaterialIcons name="search" style={styles.icon}/>
                     </TouchableOpacity>
@@ -98,21 +98,21 @@ export default function Home( {navigation} ) {
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
                         <MaterialIcons name="event-note" style={styles.icon}/>
                     </TouchableOpacity>
-  
+
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
                         <MaterialIcons name="list-alt" style={styles.icon} />
                     </TouchableOpacity>
-  
+
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
                       <MaterialIcons name="account-box" style={styles.icon}/>
                     </TouchableOpacity>
             </View>
-  
+
       </View>
-  
+
       )}
     </View>
-    
+
   );
 }
 

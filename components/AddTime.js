@@ -12,14 +12,11 @@ export default function Filter(props) {
   });
 
   var [ isPress, setIsPress ] = useState(false);
-  const dispatch = useDispatch()
+  const setCourses = props.setCourses
 
   const handleClick = (props) => {
-    isPress = !isPress
-    setIsPress(isPress)
-    if(isPress){
-      dispatch(addTime(props))
-    } 
+    setCourses(courses => [...courses, props])
+    setIsPress(!isPress)
   }
 
 
@@ -30,13 +27,13 @@ export default function Filter(props) {
               <View>
               {
                 !isPress ?
-                <TouchableOpacity  style={styles.button} onPress={() => handleClick(props.time)}>
-                  <Text style={styles.text}>{props.name}</Text>
-                  <Text style={styles.text}>{props.time}</Text>
+                <TouchableOpacity  style={styles.time} onPress={() => handleClick(props.name)}>
+                  <Text style={styles.unpressedText}>{props.name}</Text>
+                  <Text style={styles.unpressedText}>{props.time}</Text>
                 </TouchableOpacity> 
                 :
                  <View> 
-                  <TouchableOpacity  style={styles.pressedButton} onPress={() => handleClick(props.time)}>
+                  <TouchableOpacity  style={styles.pressedTime} onPress={() => handleClick(props.name)}>
                       <Text style={styles.pressedText}>{props.name}</Text>
                       <Text style={styles.pressedText}>{props.time}</Text>
                   </TouchableOpacity>
@@ -50,7 +47,7 @@ export default function Filter(props) {
 }
   
   const styles = StyleSheet.create({
-    text : {
+    unpressedText : {
       color : '#3b3b3b',
       fontSize : 17,
       fontFamily : 'Poppins_500Medium',
@@ -58,7 +55,7 @@ export default function Filter(props) {
       textAlign : 'center',
       flexGrow : 1
     },
-    button: {
+    time: {
       borderRadius : 4,
       borderWidth : 1,
       borderColor : '#3b3b3b',
@@ -74,7 +71,7 @@ export default function Filter(props) {
       flexGrow : 1,
       fontFamily : 'Poppins_500Medium'
     },
-    pressedButton : {
+    pressedTime : {
       borderRadius : 4,
       backgroundColor : '#54b8ec',
       margin : 16,
