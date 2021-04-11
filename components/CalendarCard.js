@@ -11,10 +11,10 @@ export default function Header(props){
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
-    
       if (!fontsLoaded) {
         return (<LoadingScreen />);
       } 
+       
     return(
         <View>
             {props.event ? (
