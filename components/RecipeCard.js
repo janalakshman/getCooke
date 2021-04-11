@@ -48,7 +48,7 @@ const navigation = useNavigation();
 
                         <Text style={styles.subtitle}>Ingredients</Text>
                         {array.map(ingredient =>
-                            <Text style={styles.body}>{ingredient}</Text>
+                            <Text key={ingredient.id} style={styles.body}>{ingredient}</Text>
                             )
                         }
 

@@ -84,7 +84,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   <FloatingButton modalVisible={modalVisible} setModalVisible={setModalVisible}/>
                 </View>
 
-                <CalendarModal  modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+                <CalendarModal recipe={recipe.id} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
 
 
             </View>

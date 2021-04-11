@@ -9,6 +9,7 @@ import SignUp from './SignUpScreen';
 import config from './config';
 import moment from 'moment';
 import LoadingScreen from "./LoadingScreen";
+
 const DATA = [
   {
     title: "November 10",
@@ -61,7 +62,6 @@ export default function MealPlan({navigation}) {
               .then(res => res.json())
               .then(response => {
                 setEvents(response)
-                setLoading(false)
               })
               .catch(error => console.log(error));
           }, []);

@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addDate, resetData, addTime } from '../redux/counterSlice'
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
+import config from '../config';
 
 const DATA = [
   {
@@ -68,18 +69,33 @@ export default function CalendarModal( props ) {
         <AddTime name={item.title} time={item.time} setCourses={setCourses}/>
       </View>
     );
-    
 
     const handleClick = () => {
-      setTimeout(handleModal, 2000)
-      dispatch(addDate(Object.keys(markedDates)))
-      setMarkedDates({})
-      setCourses([])
-        Alert.alert(
-          "Recipe added",
-          "Grocery list updated.",
-          {text : "OK"}
-          ) 
+      const payload = {'event_date':Object.keys(markedDates), 'course':Array.from(new Set(courses)), 
+      recipe_id: props.recipe }
+      console.debug(payload)
+      fetch(config.api + `/v1/events`,
+         {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload),
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            handleModal()
+            Alert.alert(
+                "Recipe added to your meal plan",
+                "success",
+                {text : "OK"}
+                ) 
+              setMarkedDates({})
+              setCourses([])    
+          })
+          .catch((err) => {
+            console.log('error')
+        })
       
     }
 
