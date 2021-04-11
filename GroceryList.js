@@ -6,7 +6,7 @@ import DatePicker from './components/DatePicker'
 import ToBuy from './components/ToBuy'
 import { MaterialIcons } from '@expo/vector-icons';
 import AddIngredientModal from './components/AddIngredientModal'
-import SignUp from './SignUpScreen';
+import SignUp from './SignUp';
 import TertiaryButton from './components/TertiaryButton'
 
 
@@ -17,7 +17,6 @@ export default function GroceryList({navigation}) {
 
   return (
     <View style={{flex : 1}}>
-      { isSigned ?  
         <ScrollView style={{backgroundColor : '#ffffff'}}>
           <Title name="Dates" />
             <DatePicker/>
@@ -32,9 +31,6 @@ export default function GroceryList({navigation}) {
           <AddIngredientModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
 
         </ScrollView> 
-        : 
-        <SignUp />
-      }
     
           <View style={styles.navigation}>
                   <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 

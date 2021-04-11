@@ -37,8 +37,11 @@ const styles = StyleSheet.create({
         flexGrow : 1,
         borderTopLeftRadius : 0,
         borderRadius : 20,
-        borderWidth : 1,
-        borderColor : '#cfcfcf'
+        elevation : 3,
+        shadowRadius : 3,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
     unclicked : {
         color : '#3b3b3b',

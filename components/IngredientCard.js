@@ -7,6 +7,15 @@ import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Popp
 import LoadingScreen from '../LoadingScreen'
 
 export default function Header(props){
+    const [count, setCount] = useState(props.servings)
+
+    const increment = () => {
+        setCount(count + 1)
+    }
+
+    const decrement = () => {
+       {count === 1 ? setCount(1) : setCount(count - 1) } 
+    }
 
     let [fontsLoaded] = useFonts({
       Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
@@ -24,9 +33,9 @@ export default function Header(props){
             <View style={styles.line}>
                 <Text style={styles.heading}>Servings</Text>
                 <View style={styles.line}>
-                    <MaterialIcons name="remove-circle-outline" style={styles.icon} onPress={props.decrement}/>
-                    <Text style={styles.heading}>{props.servings}</Text>
-                    <MaterialIcons name="add-circle-outline" style={styles.icon} onPress={props.increment}/>
+                    <MaterialIcons name="remove-circle-outline" style={styles.icon} onPress={decrement}/>
+                    <Text style={styles.heading}>{count}</Text>
+                    <MaterialIcons name="add-circle-outline" style={styles.icon} onPress={increment}/>
                 </View>
             </View>
             
@@ -37,7 +46,7 @@ export default function Header(props){
                         <View key={ingredient.id.toString()} style={styles.box}>
                             <Text style={styles.text}>{ingredient.ingredient.name.charAt(0).toUpperCase() + ingredient.ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.text}>{ingredient.qty == 0 ? '' : ingredient.qty*props.servings} {ingredient.fraction} {ingredient.unit_name} </Text>
+                            <Text style={styles.text}>{ingredient.qty == 0 ? '' : Math.round(ingredient.qty)} {ingredient.fraction} {ingredient.unit_name} </Text>
                         </View>
                     )}
             </View>
@@ -59,8 +68,11 @@ const styles = StyleSheet.create({
         flexGrow : 1,
         borderTopLeftRadius : 0,
         borderRadius : 20,
-        borderWidth : 1,
-        borderColor : '#cfcfcf'
+        elevation : 3,
+        shadowRadius : 3,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
     container : {
         width : '100%',

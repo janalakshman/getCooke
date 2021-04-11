@@ -16,24 +16,35 @@ export default function Header(props){
         return (<LoadingScreen />);
       } 
     return(
-       <View style={styles.lunchcard}>  
-            <Pressable onPressIn ={() => navigation.navigate('RecipeDetail')}>
-            <View>
-                <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
-            </View>
-            </Pressable> 
-            <View style={{flexDirection : 'row', marginVertical : 4}}>
-                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
-                    <MaterialIcons name="nights-stay" style={styles.icon} />
-                    <Text style={styles.smalltext}>{props.event.title.recipe.over_night_prep ? 'Overnight prep': props.event.title.recipe.cooking_time + ' mins'}</Text> 
+        <View>
+            {props.event ? (
+                <View style={styles.lunchcard}>  
+                <Pressable onPressIn ={() => navigation.navigate('RecipeDetail')}>
+                <View>
+                    <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
                 </View>
-            
-                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
-                    <MaterialIcons name="access-time" style={styles.icon} />
-                    <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                </Pressable> 
+                <View style={{flexDirection : 'row', marginVertical : 4}}>
+                    <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                        <MaterialIcons name="nights-stay" style={styles.icon} />
+                        <Text style={styles.smalltext}>{props.event.title.recipe.over_night_prep ? 'Overnight prep': props.event.title.recipe.cooking_time + ' mins'}</Text> 
+                    </View>
+                
+                    <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
+                        <MaterialIcons name="access-time" style={styles.icon} />
+                        <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                    </View>
                 </View>
             </View>
+            ): (
+                <View style={styles.lunchcard}>  
+                    <View>
+                        <Text style={styles.text}>Add recipes to your calendar to see them here!</Text>  
+                    </View>
+                </View>
+            )}
         </View>
+       
     )
 }
 

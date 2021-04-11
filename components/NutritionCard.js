@@ -61,8 +61,11 @@ const styles = StyleSheet.create({
         borderTopLeftRadius : 0,
         borderRadius : 20,
         flexDirection : 'row',
-        borderColor : '#cfcfcf',
-        borderWidth : 1
+        elevation : 3,
+        shadowRadius : 3,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
     },
     line : {
         flexDirection : "column",

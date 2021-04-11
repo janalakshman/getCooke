@@ -18,17 +18,9 @@ export default function RecipeFullDetail({navigation, route, props}) {
  
   const [loading, setLoading] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
-  const [count, setCount] = useState(1)
   const [recipe, setRecipe] = useState({});
   const { recipeId } = route.params;
 
-  function increment(){
-    setCount(count+1)
-    }
-  
-  function decrement(){
-      count === 1 ? setCount(count) :  setCount(count-1); 
-  }
 
   useEffect(() => {
     fetch(
@@ -62,13 +54,13 @@ export default function RecipeFullDetail({navigation, route, props}) {
 
                   <Title name="Ingredients" />
                   <View style={{backgroundColor : '#fff5e6'}}>
-                    <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings} increment={increment} decrement={decrement}/>
+                    <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings}/>
                   </View>
 
                   {recipe.calories ? 
                   <View>
                     <Title name="Nutrition" />
-                    <NutritionCard recipe={recipe} count={count}/>
+                    <NutritionCard recipe={recipe} count={count}/> 
                   </View> : <View></View>}
                   
 

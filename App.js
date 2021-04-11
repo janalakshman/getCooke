@@ -11,6 +11,8 @@ import CreateRecipe from './CreateRecipe'
 import RecipeDetail from './RecipeDetail'
 import { MaterialIcons } from '@expo/vector-icons';
 import Profile from './Profile'
+import SignUp from './SignUp'
+import SignIn from './SignIn'
 import store from './redux/store'
 import { Provider } from 'react-redux'
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
@@ -33,7 +35,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Provider store={store}>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="SignUp">
         <Stack.Screen 
               name="Home" 
               component={Home}
@@ -236,6 +238,58 @@ export default function App() {
                       height : 84,
                     },
                    })}  />
+            <Stack.Screen 
+                name="SignUp" 
+                component={SignUp}
+                options={({ navigation }) => ({
+                  headerTitle : () => (
+                    <View>
+                    </View>
+                  ),
+                  headerLeft : () => (
+                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                      <Image source={Logo} alt="Logo"
+                        style={{ width: 50, height: 50, marginLeft : 16 }}
+                      />
+                      <Text style={styles.text}>Sign Up</Text>
+                    </View>
+                  ),
+                  headerStyle : {
+                    backgroundColor : '#ffffff',
+                    elevation : 5,
+                    shadowOpacity : 3,
+                    shadowColor : 'rgba(0, 0, 0, 0.10)',
+                    shadowRadius : 2,
+                    shadowOffset : {width : 0, height : 4},
+                    height : 84
+                  },
+                 })}  />
+            <Stack.Screen 
+                name="SignIn" 
+                component={SignIn}
+                options={({ navigation }) => ({
+                  headerTitle : () => (
+                    <View>
+                    </View>
+                  ),
+                  headerLeft : () => (
+                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                      <Image source={Logo} alt="Logo"
+                        style={{ width: 50, height: 50, marginLeft : 16 }}
+                      />
+                      <Text style={styles.text}>Sign In</Text>
+                    </View>
+                  ),
+                  headerStyle : {
+                    backgroundColor : '#ffffff',
+                    elevation : 5,
+                    shadowOpacity : 3,
+                    shadowColor : 'rgba(0, 0, 0, 0.10)',
+                    shadowRadius : 2,
+                    shadowOffset : {width : 0, height : 4},
+                    height : 84
+                  },
+                 })}  />
       </Stack.Navigator>
       </Provider>
     </NavigationContainer>

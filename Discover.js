@@ -85,20 +85,25 @@ export default function Discover( {navigation} ) {
               <View>
                 <TertiaryButton name="Filters" modalVisible={filterVisible} setModalVisible={setFilterVisible} />
 
-                  <View style={styles.line}>
-                    {filters.map(filter => <Tags name={filter}/>)}
-                  </View>
+                {filters ? (
+                      <View>
+                           <View style={styles.line}>
+                              {filters.map(filter => <Tags name={filter}/>)}
+                            </View>
 
-                <Text style={styles.heading}>Recipes</Text>
+                          <Text style={styles.heading}>Recipes</Text>
 
-                  <View style={{backgroundColor : '#fff5e6', paddingTop : 16}}>
-                    <FlatList
-                      numColumns={2} 
-                      data={DATA}
-                      renderItem={renderItem}
-                      keyExtractor={item => item.id}
-                      />
-                  </View>
+                            <View style={{backgroundColor : '#fff5e6', paddingTop : 16}}>
+                              <FlatList
+                                numColumns={2} 
+                                data={DATA}
+                                renderItem={renderItem}
+                                keyExtractor={item => item.id}
+                                />
+                            </View>
+                      </View>) : 
+                      <View></View>}
+                 
                 </View> 
                 
                 :

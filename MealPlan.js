@@ -5,7 +5,7 @@ import Title from './components/Title';
 import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
 import { MaterialIcons } from '@expo/vector-icons';
-import SignUp from './SignUpScreen';
+import SignUp from './SignUp';
 
 const DATA = [
   {
