@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
+import React, { useState, useEffect} from "react";
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList } from 'react-native';
 import Title from './components/Title';
 import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
 import { MaterialIcons } from '@expo/vector-icons';
 import SignUp from './SignUpScreen';
-
+import config from './config';
+import moment from 'moment';
+import LoadingScreen from "./LoadingScreen";
 const DATA = [
   {
     title: "November 10",
@@ -32,35 +34,57 @@ const DATA = [
   }
 ];
 
-const Item = ({ title }) => {
-  return(
-    <View>
-      <CalendarCard name={title}/>
-    </View>)
-};
+const Item = (event) => {
+    return(
+      <View>
+        <CalendarCard event={event}/>
+      </View>)
+  };
 
 
 export default function MealPlan({navigation}) {
+  const [events, setEvents] = useState([])
+
   const [isSigned, setIsSigned] = useState(true)
+
+   useEffect(() => {
+            fetch(
+              config.api + `/v1/events`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                mode: "cors",
+              }
+            )
+              .then(res => res.json())
+              .then(response => {
+                setEvents(response)
+                setLoading(false)
+              })
+              .catch(error => console.log(error));
+          }, []);
 
   return (
     <View style={{flex : 1}}>
     {isSigned ? 
           
       <ScrollView style={{backgroundColor : '#ffffff'}}>
-        <SectionList
-                      sections={DATA}
-                      keyExtractor={(item, index) => item + index}
-                      renderItem={({ item }) => <Item title={item} />}
-                      renderSectionHeader={({ section: { title } }) => (
-                        <Title name={title}/>
-                      )}
-                      renderSectionFooter={({ section : {nutrition}}) => (
-                        <View style={{marginTop : 16}}>
-                          <NutritionCard nutrition={nutrition} />
-                        </View>
-                      )}
-                    />
+        { events ?
+                      <SectionList
+                          sections={events}
+                          keyExtractor={(item, index) =>index.toString()}
+                          renderItem={({ item }) => <Item title={item} />}
+                          renderSectionHeader={({ section: { title } }) => (
+                            <Title name={title}/>
+                          )}
+                          renderSectionFooter={({ section : {nutrition}}) => (
+                            <View style={{marginTop : 16}}>
+                                <NutritionCard nutrition={nutrition} />
+                            </View>
+                          )}
+                        /> : ''}
       </ScrollView> 
       : 
       <SignUp /> }
