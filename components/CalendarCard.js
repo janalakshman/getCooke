@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, ScrollView, Pressable } from 'react-native';
+import { StyleSheet, Image, Text, View, ScrollView, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import CalendarCardIcon from '../assets/calendarCardIcon.png';
 import { useNavigation } from '@react-navigation/native';
@@ -13,51 +13,212 @@ export default function Header(props){
       });
       if (!fontsLoaded) {
         return (<LoadingScreen />);
-      } 
-       
-    return(
-        <View>
-            {props.event ? (
-                <View style={styles.lunchcard}>  
-                <Pressable onPressIn ={() => navigation.navigate('RecipeDetail')}>
-                <View>
-                    <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
-                </View>
-                </Pressable> 
-                <View style={{flexDirection : 'row', marginVertical : 4}}>
-                    <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
-                        <MaterialIcons name="nights-stay" style={styles.icon} />
-                        <Text style={styles.smalltext}>{props.event.title.recipe.over_night_prep ? 'Overnight prep': props.event.title.recipe.cooking_time + ' mins'}</Text> 
-                    </View>
-                
-                    <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
-                        <MaterialIcons name="access-time" style={styles.icon} />
-                        <Text style={styles.smalltext}>{props.event.title.course}</Text>
-                    </View>
-                </View>
-            </View>
-            ): (
-                <View style={styles.lunchcard}>  
+      }
+
+      const handleDelete = () => {
+        Alert.alert(
+            "Delete recipe",
+            "Are you sure you want to delete this recipe from your calendar?",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+      }
+
+      const course = (props.event.title.course).split(",")[0]
+
+            {switch (course){
+                case 'Breakfast' : return (
                     <View>
-                        <Text style={styles.text}>Add recipes to your calendar to see them here!</Text>  
+                    <View style={styles.breakfastcard}>  
+                            <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
+                                <View>
+                                    <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
+                                </View>
+                            </Pressable> 
+                        <View style={{flexDirection : 'row', marginVertical : 4}}>{
+                            props.event.title.recipe.over_night_prep ? (
+                                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="nights-stay" style={styles.icon} />
+                                    <Text style={styles.smalltext}>Overnight prep</Text> 
+                                </View>
+                            ) : (
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="timelapse" style={styles.icon} />
+                                    <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
+                            </View>)
+                        }
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
+                                <MaterialIcons name="access-time" style={styles.icon} />
+                                <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                            </View>
+                        </View>
+
                     </View>
-                </View>
-            )}
-        </View>
-       
-    )
+                    
+                        <TouchableOpacity style={styles.delete} onPress={handleDelete}> 
+                            <MaterialIcons name="delete" style={styles.icon} />
+                            <Text style={styles.smalltext}>Delete</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                )
+                case 'Brunch' : return (
+                    <View>
+                    <View style={styles.brunchcard}>  
+                        <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
+                        <View>
+                            <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
+                        </View>
+                        </Pressable> 
+                        <View style={{flexDirection : 'row', marginVertical : 4}}>{
+                            props.event.title.recipe.over_night_prep ? (
+                                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="nights-stay" style={styles.icon} />
+                                    <Text style={styles.smalltext}>Overnight prep</Text> 
+                                </View>
+                            ) : (
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="timelapse" style={styles.icon} />
+                                    <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
+                            </View>)
+                        }
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
+                                <MaterialIcons name="access-time" style={styles.icon} />
+                                <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                            </View>
+                        </View>
+                    </View>
+                        <TouchableOpacity style={styles.delete} onPress={handleDelete}> 
+                            <MaterialIcons name="delete" style={styles.icon} />
+                            <Text style={styles.smalltext}>Delete</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
+                case 'Lunch' : return (
+                    <View>
+                    <View style={styles.lunchcard}>  
+                          <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
+                        <View>
+                            <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
+                        </View>
+                        </Pressable> 
+                        <View style={{flexDirection : 'row', marginVertical : 4}}>{
+                            props.event.title.recipe.over_night_prep ? (
+                                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="nights-stay" style={styles.icon} />
+                                    <Text style={styles.smalltext}>Overnight prep</Text> 
+                                </View>
+                            ) : (
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="timelapse" style={styles.icon} />
+                                    <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
+                            </View>)
+                        }
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
+                                <MaterialIcons name="access-time" style={styles.icon} />
+                                <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                            </View>
+                        </View>
+                    </View>
+                        <TouchableOpacity style={styles.delete} onPress={handleDelete}> 
+                            <MaterialIcons name="delete" style={styles.icon} />
+                            <Text style={styles.smalltext}>Delete</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
+                case 'Snacks' : return (
+                    <View>
+                    <View style={styles.snackscard}>  
+                         <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
+                        <View>
+                            <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
+                        </View>
+                        </Pressable> 
+                        <View style={{flexDirection : 'row', marginVertical : 4}}>{
+                            props.event.title.recipe.over_night_prep ? (
+                                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="nights-stay" style={styles.icon} />
+                                    <Text style={styles.smalltext}>Overnight prep</Text> 
+                                </View>
+                            ) : (
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="timelapse" style={styles.icon} />
+                                    <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
+                            </View>)
+                        }
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
+                                <MaterialIcons name="access-time" style={styles.icon} />
+                                <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                            </View>
+                        </View>
+                    </View>
+                        <TouchableOpacity style={styles.delete} onPress={handleDelete}> 
+                            <MaterialIcons name="delete" style={styles.icon} />
+                            <Text style={styles.smalltext}>Delete</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
+                case 'Dinner' : return (
+                    <View>
+                    <View style={styles.dinnercard}>  
+                        <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
+                        <View>
+                            <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
+                        </View>
+                        </Pressable> 
+                        <View style={{flexDirection : 'row', marginVertical : 4}}>{
+                            props.event.title.recipe.over_night_prep ? (
+                                <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="nights-stay" style={styles.icon} />
+                                    <Text style={styles.smalltext}>Overnight prep</Text> 
+                                </View>
+                            ) : (
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="timelapse" style={styles.icon} />
+                                    <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
+                            </View>)
+                        }
+                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
+                                <MaterialIcons name="access-time" style={styles.icon} />
+                                <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                            </View>
+                        </View>
+                    </View>
+                        <TouchableOpacity style={styles.delete} onPress={handleDelete}> 
+                            <MaterialIcons name="delete" style={styles.icon} />
+                            <Text style={styles.smalltext}>Delete</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
+                default : return (
+                    <View style={styles.lunchcard}>  
+                        <View>
+                            <Text style={styles.text}>Add recipes to your calendar to see them here!</Text>  
+                        </View>
+                    </View>
+                )
+            }}
+    
 }
 
 const styles = StyleSheet.create({
     breakfastcard : {
-        marginLeft : '10%',
-        flexDirection : 'row',
-        width : '90%',
-        backgroundColor : '#fbfbb6',
-        padding : 16,
+        backgroundColor : '#ffe484',
+        flexDirection : 'column',
+        width : '88%',
+        padding : 16, 
         margin : 8,
-        borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8,
+        borderRadius : 4,
+        alignSelf : 'center',
+        flexGrow : 1,
+        borderTopLeftRadius : 0,
+        borderRadius : 20,
         elevation : 3,
         shadowRadius : 2,
         shadowOpacity : 0.5,
@@ -82,14 +243,16 @@ const styles = StyleSheet.create({
         shadowOffset : {width : 0, height : 4},
     },
     brunchcard : {
-        marginLeft : '10%',
-        flexDirection : 'row',
-        width : '90%',
-        backgroundColor : '#e5f9d2',
-        padding : 8,
+        backgroundColor : '#e0fdcd',
+        flexDirection : 'column',
+        width : '88%',
+        padding : 16, 
         margin : 8,
-        borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8,
+        borderRadius : 4,
+        alignSelf : 'center',
+        flexGrow : 1,
+        borderTopLeftRadius : 0,
+        borderRadius : 20,
         elevation : 3,
         shadowRadius : 2,
         shadowOpacity : 0.5,
@@ -97,14 +260,16 @@ const styles = StyleSheet.create({
         shadowOffset : {width : 0, height : 4},
     },
     snackscard : {
-        marginLeft : '10%',
-        flexDirection : 'row',
-        width : '90%',
-        backgroundColor : '#edb6fb',
-        padding : 8,
+        backgroundColor : '#9ed2ea',
+        flexDirection : 'column',
+        width : '88%',
+        padding : 16, 
         margin : 8,
-        borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8,
+        borderRadius : 4,
+        alignSelf : 'center',
+        flexGrow : 1,
+        borderTopLeftRadius : 0,
+        borderRadius : 20,
         elevation : 3,
         shadowRadius : 2,
         shadowOpacity : 0.5,
@@ -112,14 +277,16 @@ const styles = StyleSheet.create({
         shadowOffset : {width : 0, height : 4},
     },
     dinnercard : {
-        marginLeft : '10%',
-        flexDirection : 'row',
-        width : '90%',
         backgroundColor : '#fbb6b6',
-        padding : 8,
+        flexDirection : 'column',
+        width : '88%',
+        padding : 16, 
         margin : 8,
-        borderTopLeftRadius : 8,
-        borderBottomLeftRadius : 8,
+        borderRadius : 4,
+        alignSelf : 'center',
+        flexGrow : 1,
+        borderTopLeftRadius : 0,
+        borderRadius : 20,
         elevation : 3,
         shadowRadius : 2,
         shadowOpacity : 0.5,
@@ -144,5 +311,12 @@ const styles = StyleSheet.create({
       color : '#3b3b3b',
       margin : 4,
       fontFamily : 'Poppins_400Regular'
+  },
+  delete : {
+    flexDirection : 'row', 
+    alignItems : 'center', 
+    justifyContent : 'flex-start', 
+    marginBottom : 8,
+    marginHorizontal : 32
   },
   });
