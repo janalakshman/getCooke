@@ -37,7 +37,7 @@ export default function Home( {navigation} ) {
   const Item = (event) => {
     return(
       <View>
-        <CalendarCard event={event}/>
+        <CalendarCard point={0} event={event}/>
       </View>)
   };
 

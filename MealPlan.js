@@ -9,62 +9,41 @@ import config from './config';
 import moment from 'moment';
 import LoadingScreen from "./LoadingScreen";
 
-const DATA = [
-  {
-    title: "November 10",
-    data: ["Pizza", "Burger", "Risotto"],
-    index : 1,
-    nutrition : 5,
-  },
-  {
-    title: "November 11",
-    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
-    index : 2,
-
-  },
-  {
-    title: "November 12",
-    data: ["Water", "Coke", "Beer"],
-    index : 3,
-  },
-  {
-    title: "November 13",
-    data: ["Cheese Cake", "Ice Cream"],
-    index : 4,
-  }
-];
-
-const Item = (event) => {
-    return(
-      <View>
-        <CalendarCard event={event}/>
-      </View>)
-  };
-
 
 export default function MealPlan({navigation}) {
   const [events, setEvents] = useState([])
 
   const [loading, setLoading] = useState(true)
 
+  const getEvents = () => {
+    fetch(
+          config.api + `/v1/events`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            mode: "cors",
+          }
+        )
+          .then(res => res.json())
+          .then(response => {
+            setEvents(response)
+            setLoading(false)
+          })
+          .catch(error => console.log(error));
+  }
+
    useEffect(() => {
-            fetch(
-              config.api + `/v1/events`,
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                mode: "cors",
-              }
-            )
-              .then(res => res.json())
-              .then(response => {
-                setEvents(response)
-                setLoading(false)
-              })
-              .catch(error => console.log(error));
+            getEvents();
           }, []);
+
+   const Item = (event) => {
+    return(
+      <View>
+        <CalendarCard point={1} event={event}/>
+      </View>)
+  };
 
   return (
     <View style={{flex : 1}}>
