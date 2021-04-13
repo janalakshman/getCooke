@@ -48,9 +48,9 @@ export default function Home( {navigation} ) {
   if(recipes) {
     panels = Object.keys(recipes).map((recipe, key) => {
         return (
-          <ScrollView key={key.toString()}>
+          <ScrollView key={key.toString()} style={{backgroundColor : '#fff'}}>
             <Title name={recipe} />
-            <View style={{paddingLeft : 16, paddingVertical : 8, marginTop:8}}>
+            <View style={{paddingLeft : 16, paddingVertical : 8, marginTop:8, backgroundColor : '#fff'}}>
               <FlatList
                 data={recipes[recipe]}
                 renderItem={renderCard}
@@ -91,9 +91,9 @@ export default function Home( {navigation} ) {
                       <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
+                    {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
                         <MaterialIcons name="search" style={styles.icon}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
   
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
                         <MaterialIcons name="event-note" style={styles.icon}/>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
 },
 tab : {
   alignItems : 'center',
-  width : '20%',
+  width : '25%',
 },
 icon : {
   color : 'rgba(207, 207, 207, 0.99)',

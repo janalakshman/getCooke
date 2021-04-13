@@ -27,19 +27,18 @@ export default function Title(props) {
     heading : {
       color : '#3b3b3b',
       fontSize : 21,
-      fontFamily : 'Poppins_600SemiBold'
+      fontFamily : 'Poppins_600SemiBold',
     },
     border : {
         borderBottomColor : '#ffcd4c',
         borderBottomWidth : 8,
-        borderRadius : 8
+        borderRadius : 8,
+        margin : 16
     },
     container: {
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'flex-start',
       justifyContent: 'center',
-      margin : 16,
-      marginBottom : 8
     },
   });

@@ -50,9 +50,9 @@ export default function Profile({navigation}){
                     <MaterialIcons name="home-filled" style={styles.icon}/>
                   </TouchableOpacity>
 
-                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
+                  {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
                       <MaterialIcons name="search" style={styles.icon}/>
-                  </TouchableOpacity> 
+                  </TouchableOpacity>  */}
 
                   <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} > 
                       <MaterialIcons name="event-note" style={styles.icon}/>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
       },
       tab : {
         alignItems : 'center',
-        width : '20%',
+        width : '25%',
       },
       icon : {
         color : 'rgba(207, 207, 207, 0.99)',

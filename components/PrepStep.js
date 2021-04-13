@@ -16,7 +16,7 @@ export default function PrepStep(props) {
     return(
       <View>
         {props.steps ? 
-          <View style={{backgroundColor : 'fff5e6', paddingBottom : 128}}>
+          <View style={{backgroundColor : 'fff5e6', paddingBottom : 80}}>
               {props.steps.map(step => 
                 <View key={step.id.toString()} style={styles.container}>
                   <Text style={styles.title}>{++count}</Text>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, Alert} from 'react-native';
 import Title from './components/Title';
 import NutritionCard from './components/NutritionCard'
 import RecipeData from './components/RecipeData'
@@ -12,6 +12,7 @@ import Tags from './components/Tags'
 import CalendarModal from './components/CalendarModal'
 import config from './config';
 import LoadingScreen from "./LoadingScreen";
+import ReportButton from './components/ReportButton'
 
 
 export default function RecipeFullDetail({navigation, route, props}) {
@@ -41,6 +42,8 @@ export default function RecipeFullDetail({navigation, route, props}) {
       .catch(error => console.log(error));
   }, []);
 
+  
+
   return (
     <View style={{backgroundColor : '#fff', flex : 1}}>
       {loading ? (<LoadingScreen/>) : 
@@ -69,7 +72,11 @@ export default function RecipeFullDetail({navigation, route, props}) {
                       <PrepStep steps={recipe.steps} />
                   </View>
 
-                
+                  <View style={{backgroundColor : '#fff5e6'}}>
+                    <ReportButton/>
+                  </View>
+
+
                 </ScrollView> 
 
                 <View style={styles.position}>

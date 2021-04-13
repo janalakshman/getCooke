@@ -5,7 +5,6 @@ import Title from './components/Title';
 import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
 import { MaterialIcons } from '@expo/vector-icons';
-import SignUp from './SignUp';
 import config from './config';
 import moment from 'moment';
 import LoadingScreen from "./LoadingScreen";
@@ -94,9 +93,9 @@ export default function MealPlan({navigation}) {
                         <MaterialIcons name="home-filled" style={styles.icon}/>
                       </TouchableOpacity>
     
-                      <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
+                      {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
                           <MaterialIcons name="search" style={styles.icon}/>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
     
                       <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
                           <MaterialIcons name="event-note" style={styles.selectedIcon}/>
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
   },
   tab : {
     alignItems : 'center',
-    width : '20%',
+    width : '25%',
   },
   icon : {
     color : 'rgba(207, 207, 207, 0.99)',

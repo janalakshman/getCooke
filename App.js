@@ -67,7 +67,7 @@ export default function App() {
                   height : 84
                 },
               })} />
-        <Stack.Screen 
+        {/* <Stack.Screen 
                 name="Discover" 
                 component={Discover}
                 options={({ navigation }) => ({
@@ -97,7 +97,7 @@ export default function App() {
                     shadowOffset : {width : 0, height : 4},
                     height : 84
                   },
-                 })} />
+                 })} /> */}
         <Stack.Screen 
                 name="Meal plan" 
                 component={MealPlan}
