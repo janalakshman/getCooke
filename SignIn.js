@@ -41,12 +41,11 @@ export default function SignUp() {
     
 
     return(
-        <View>
+        <View style={{flex : 1, backgroundColor : '#fff'}}>
             {!fontsLoaded ? (<LoadingScreen />) :
             (
                 <ScrollView style={styles.container}>
 
-                            <Text style={styles.subtitle}>Welcome back!</Text>
 
                             <KeyboardAvoidingView
                                 behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -69,6 +68,9 @@ export default function SignUp() {
                                         onChangeText={text => onChangePassword(text)}
                                         value={password}
                                         autoFocus={true}/>
+
+                            <View style={{flexGrow : 1}}>
+                            </View>
 
 
                                 <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>

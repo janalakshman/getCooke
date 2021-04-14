@@ -41,12 +41,11 @@ export default function SignUp() {
     
 
     return(
-        <View>
+        <View style={{flex : 1}}> 
             {!fontsLoaded ? (<LoadingScreen />) :
             (
                 <ScrollView style={styles.container}>
 
-                            <Text style={styles.subtitle}>Hire a personal kitchen assistant!</Text>
 
                             <KeyboardAvoidingView
                                 behavior={Platform.OS === "ios" ? "padding" : "height"}

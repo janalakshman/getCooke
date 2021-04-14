@@ -6,8 +6,10 @@ import { useNavigation } from '@react-navigation/native';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 import config from '../config';
+
 export default function Header(props){
     const navigation = useNavigation();
+
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
@@ -16,21 +18,35 @@ export default function Header(props){
       }
 
       const handleDelete = () => {
-        fetch(
-              config.api + `/v1/event/`+props.event.title.id,
-              {
-                method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                mode: "cors",
-              }
-            )
-              .then(res => res.json())
-              .then(response => {
-                 navigation.navigate('Meal plan')
-              })
-              .catch(error => console.log(error));
+        Alert.alert(
+            "Delete recipe",
+            "Are you sure you want to delete the recipe from your meal plan?",
+            [ {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "Delete", onPress: () => {
+                fetch(
+                    config.api + `/v1/event/`+props.event.title.id,
+                    {
+                      method: "DELETE",
+                      headers: {
+                        "Content-Type": "application/json"
+                      },
+                      mode: "cors",
+      
+                    }
+                  )
+                    .then(res => res.json())
+                    .then(response => {
+                        navigation.navigate('Home')
+                    })
+                    .catch(error => console.log(error));
+              } }
+            ]
+          );
+        
       }
 
       const course = (props.event.title.course).split(",")[0]
@@ -67,7 +83,7 @@ export default function Header(props){
                     <MaterialIcons name="delete" style={styles.icon} />
                     <Text style={styles.smalltext}>Delete</Text>
                 </TouchableOpacity>
-                : '' }
+                : <View></View> }
             </View>
 
         )

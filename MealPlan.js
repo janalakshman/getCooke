@@ -38,6 +38,7 @@ export default function MealPlan({navigation}) {
             getEvents();
           }, []);
 
+          
    const Item = (event) => {
     return(
       <View>
