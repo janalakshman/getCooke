@@ -3,19 +3,19 @@ import { StyleSheet, FlatList, Text, View, ScrollView, VirtualizedList } from 'r
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ToBuyItem from './ToBuyItem'
 
-export default function ToBuy(){   
+export default function ToBuy(props){   
     const [count, setCount] = useState(1)
     const [tobuy, setTobuy] = useState([
         {name : 'Onionpotatot', amount : '200', fraction : '', unit : 'g', key : '1'},
         {name : 'Onion', amount : '200', fraction : '', unit : 'g', key : '2'},
         {name : 'Onion', amount : '200', fraction : '', unit : 'g', key : '3'},
         ]);
-
-
+    console.log(props.ingredients)
     return(
         <SafeAreaView style={styles.card} >
             <FlatList 
-                data={tobuy}
+                data={props.ingredients}
+                keyExtractor={item => item.key}
                 renderItem={( {item} ) => (
                     <ToBuyItem item={item}/>
                 )

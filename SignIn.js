@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addUserID, addUserPassword } from './redux/counterSlice';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from './LoadingScreen'
-import RadioButtonRN from 'radio-buttons-react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 

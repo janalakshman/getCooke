@@ -6,9 +6,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addUserID, addUserPassword } from './redux/counterSlice';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from './LoadingScreen'
-import RadioButtonRN from 'radio-buttons-react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+ 
+ var radio_props = [
+  {label: 'Male', value: 0 },
+  {label: 'Female', value: 1 }
+];
 
 const data = [
     {
@@ -28,6 +32,7 @@ export default function SignUp() {
     const [userID, onChangeUserID] = useState('');
     const [password, onChangePassword] = useState('');
     const [gender, setGender ] = useState('Male');
+    const [radioGender, setRadioGender ] = useState(0);
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -48,7 +53,7 @@ export default function SignUp() {
 
 
                             <KeyboardAvoidingView
-                                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                                // behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}
                                 >
                             
@@ -70,14 +75,11 @@ export default function SignUp() {
                                         autoFocus={true}/>
 
                             <Text style={styles.text}>Gender</Text>
-                            
-                            <RadioButtonRN 
-                                data={data}  
-                                selectedBtn={(e) => setGender(e)}
-                                textStyle={{fontFamily : 'Poppins_400Regular'}}
-                                box = {false}
-                                animationType={['pulse']}
-                                 />
+                                <RadioForm
+                                  radio_props={radio_props}
+                                  initial={radioGender}
+                                  onPress={(value) => {setRadioGender(value)}}
+                                />
 
                                 <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
                                     <Text style={styles.buttonText}>Sign Up</Text>

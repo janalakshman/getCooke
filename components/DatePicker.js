@@ -17,15 +17,13 @@ export default function DatePicker(props) {
         <View style={styles.container}>
             
             <View style={styles.line} >  
-                <Text style={styles.text}>15 Sep</Text>
-                <Text style={styles.body}>Wednesday</Text>
+                <Text style={styles.text}>{props.from}</Text>
             </View> 
 
             <Text style={styles.body}>to</Text>
 
             <View style={styles.line}>  
-                <Text style={styles.text}>17 Sep</Text>
-                <Text style={styles.body}>Friday</Text>
+                <Text style={styles.text}>{props.to}</Text>
           </View> 
 
         </View>

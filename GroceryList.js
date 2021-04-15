@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React , {useState }from 'react';
+import React , {useState, useEffect }from 'react';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, Image} from 'react-native';
 import Title from './components/Title';
 import DatePicker from './components/DatePicker'
@@ -8,24 +8,55 @@ import { MaterialIcons } from '@expo/vector-icons';
 import AddIngredientModal from './components/AddIngredientModal'
 import SignUp from './SignUp';
 import TertiaryButton from './components/TertiaryButton'
-
+import config from './config';
+import moment from 'moment'
 
 export default function GroceryList({navigation}) {
   const [isSigned, setIsSigned] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
+  const [grocery, setGrocery] = useState({})
+  const [ins, setIns] = useState([])
+  
+  useEffect(() => {
+    fetch(
+      config.api + `/v1/grocery`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+      }
+    )
+      .then(res => res.json())
+      .then(response => {
+        setGrocery(response)
+        const inst = response.ingredients.map(item => {
+            return {name : item.ingredient.name, amount : item.qty, fraction : item.fraction, unit : item.unit_name, key : item.id}
+        })
+        setIns(inst);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
 
   return (
     <View style={{flex : 1}}>
         <ScrollView style={{backgroundColor : '#ffffff'}}>
           <Title name="Dates" />
-            <DatePicker/>
+            { grocery ?
+            <DatePicker DatePicker from={grocery.from_date} to={ grocery.to_date}/>
+            : <DatePicker from={moment().format('Do MMMM')} to={moment().format('Do MMMM')} />
+            }
           
           <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} />
 
           <Title name= "List" />
             <View style={{backgroundColor : '#fff5e6', flex : 1}}>
-              <ToBuy/>
+              { grocery ?
+              <ToBuy ingredients={ins}/>
+              : <View></View>
+              }
             </View> 
           
           <AddIngredientModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
