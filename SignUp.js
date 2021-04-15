@@ -14,14 +14,6 @@ import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-
   {label: 'Female', value: 1 }
 ];
 
-const data = [
-    {
-      label: 'Male'
-     },
-     {
-      label: 'Female'
-     }
-    ];
 
 
 export default function SignUp() {
@@ -75,11 +67,16 @@ export default function SignUp() {
                                         autoFocus={true}/>
 
                             <Text style={styles.text}>Gender</Text>
-                                <RadioForm
-                                  radio_props={radio_props}
-                                  initial={radioGender}
-                                  onPress={(value) => {setRadioGender(value)}}
-                                />
+                                <View style={{marginHorizontal : 32}}>
+                                    <RadioForm
+                                    radio_props={radio_props}
+                                    initial={radioGender}
+                                    animation={true}
+                                    onPress={(value) => {setRadioGender(value)}}
+                                    labelStyle={{fontFamily : 'Poppins_500Medium', color : '#3b3b3b'}}
+                                    />
+                                </View>
+                                
 
                                 <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
                                     <Text style={styles.buttonText}>Sign Up</Text>

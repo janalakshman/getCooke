@@ -21,6 +21,8 @@ export default function Welcome() {
 
     return(
         <View style={{backgroundColor : '#ffffff', flex : 1}}>
+            {!fontsLoaded ? (<LoadingScreen />) : (
+            <View >
                        
             <Text style={styles.text}>Hire a personal kitchen assistant</Text>
 
@@ -37,6 +39,10 @@ export default function Welcome() {
             </TouchableOpacity>
 
         </View>
+        )}
+        </View>
+        
+        
     )
 }
 

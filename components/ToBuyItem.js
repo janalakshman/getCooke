@@ -23,16 +23,20 @@ export default function Title(props) {
           <View>
             <View style={styles.container}>
                 <Feather name="check-circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
-                <Text style={styles.clicked}>{props.item.name} </Text>
-                <Text style={styles.clicked}>{props.item.amount} {props.item.unit} </Text>
+                <View style={{flexDirection : 'column'}}>
+                    <Text style={styles.clicked}>{props.item.name.charAt(0).toUpperCase()  + props.item.name.slice(1)} </Text>
+                    <Text style={styles.clicked}>{Math.round(props.item.amount)} {props.item.unit} </Text>
+                </View>
             </View> 
           </View>
           :
           <View>
             <View style={styles.container}>
                 <Feather name="circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
-                <Text style={styles.unclicked}>{props.item.name}</Text>
-                <Text style={styles.unclicked}>{props.item.amount} {props.item.unit}</Text>
+                <View style={{flexDirection : 'column'}}>
+                    <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
+                    <Text style={styles.unclicked}>{Math.round(props.item.amount)} {props.item.unit}</Text>
+                </View>
             </View> 
           </View>  
           }
@@ -48,18 +52,19 @@ export default function Title(props) {
       color : '#3b3b3b',
       fontSize : 17,
       marginHorizontal : 16,
-      fontFamily : 'Poppins_400Regular'
+      fontFamily : 'Poppins_400Regular',
     },
     clicked : {
       color : '#3b3b3b',
       fontSize : 17,
       fontFamily : 'Poppins_400Regular',
       marginHorizontal : 16,
-      textDecorationLine : 'line-through'
+      textDecorationLine : 'line-through',
     },
     container : {
         margin : 8,
         flexDirection : 'row',
-        justifyContent : 'flex-start'
+        justifyContent : 'flex-start',
+        alignItems : 'flex-start',
     },
   });

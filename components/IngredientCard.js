@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { StyleSheet, FlatList, Text, View, ScrollView, VirtualizedList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Divider } from 'react-native-elements';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
@@ -46,7 +45,7 @@ export default function Header(props){
                         <View key={ingredient.id.toString()} style={styles.box}>
                             <Text style={styles.text}>{ingredient.ingredient.name.charAt(0).toUpperCase() + ingredient.ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.text}>{ingredient.qty == 0 ? '' : Math.round(ingredient.qty)} {ingredient.fraction} {ingredient.unit_name} </Text>
+                            <Text style={styles.text}>{ingredient.qty == 0 ? '' : Math.round(ingredient.qty)} {(ingredient.fraction)} {ingredient.unit_name} </Text>
                         </View>
                     )}
             </View>
