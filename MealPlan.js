@@ -12,7 +12,7 @@ import LoadingScreen from "./LoadingScreen";
 
 export default function MealPlan({navigation}) {
   const [events, setEvents] = useState([])
-
+  const user = JSON.parse(localStorage.getItem('token'))
   const [loading, setLoading] = useState(true)
 
   const getEvents = () => {
@@ -21,6 +21,7 @@ export default function MealPlan({navigation}) {
           {
             method: "GET",
             headers: {
+              "Authorization":'Token ' +user.token,
               "Content-Type": "application/json"
             },
             mode: "cors",

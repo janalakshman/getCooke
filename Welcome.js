@@ -12,15 +12,21 @@ export default function Welcome() {
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSanPro_400Regular
       });
-    
+    const user = JSON.parse(localStorage.getItem('token'))
 
+      if (!fontsLoaded) {
+        return (<LoadingScreen />);
+      }
       const navigation = useNavigation();
 
+    if(user) {
+        navigation.navigate('Home')
+    }
     return(
         <View style={{backgroundColor : '#ffffff', flex : 1}}>
             {!fontsLoaded ? (<LoadingScreen />) : (
             <View >
-                       
+
             <Text style={styles.text}>Hire a personal kitchen assistant</Text>
 
             <Text style={styles.body}>Search for recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
@@ -38,8 +44,8 @@ export default function Welcome() {
         </View>
         )}
         </View>
-        
-        
+
+
     )
 }
 

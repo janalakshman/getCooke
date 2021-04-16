@@ -13,13 +13,19 @@ export default function Home( {navigation} ) {
   const [loading, setLoading] = useState(true)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState([]);
+  const user = JSON.parse(localStorage.getItem('token'))
   let panels = []
+  if(!user) {
+        navigation.navigate('SignIn')
+    }
+
   useEffect(() => {
     fetch(
       config.api + `/v1/dashboard`,
       {
         method: "GET",
         headers: {
+          "Authorization":'Token ' +user.token,
           "Content-Type": "application/json"
         },
         mode: "cors",
@@ -31,7 +37,10 @@ export default function Home( {navigation} ) {
         setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
         setLoading(false)
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        localStorage.removeItem("token")
+        navigation.navigate('Welcome')
+      });
   }, []);
 
   const Item = (event) => {
