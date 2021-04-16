@@ -6,13 +6,13 @@ import femaleAvatar from './assets/femaleAvatar.png'
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from './LoadingScreen'
 import { MaterialIcons } from '@expo/vector-icons';
-
+import moment from 'moment';
 
 export default function Profile({navigation}){
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
-    
+    const user = JSON.parse(localStorage.getItem('token'))
       if (!fontsLoaded) {
         return (<LoadingScreen />);
       }
@@ -23,8 +23,8 @@ export default function Profile({navigation}){
                     <Image source={maleAvatar}
                             style={styles.image}/>
                     <View style={styles.line}>
-                        <Text style={styles.text}>Jana Lakshman</Text>
-                        <Text style={styles.body}>Member since 12/12/2020</Text>
+                        <Text style={styles.text}>{user.user.username}</Text>
+                        <Text style={styles.body}>Member since {moment(user.user.date_joined).format('d/MM/YYYY')}</Text>
                     </View>   
                 </View>
                 
@@ -38,7 +38,7 @@ export default function Profile({navigation}){
                     </View>
 
                     <View style={styles.card}>
-                        <Text style={styles.para}>Drop a mail to jana@getcooke.com</Text>
+                        <Text style={styles.para}>Drop a mail to {user.user.email}</Text>
                     </View>
 
                 </View>

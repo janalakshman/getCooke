@@ -9,7 +9,7 @@ import config from '../config';
 
 export default function Header(props){
     const navigation = useNavigation();
-
+    const user = JSON.parse(localStorage.getItem('token'))
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
@@ -32,6 +32,7 @@ export default function Header(props){
                     {
                       method: "DELETE",
                       headers: {
+                        "Authorization":'Token ' +user.token,
                         "Content-Type": "application/json"
                       },
                       mode: "cors",

@@ -7,7 +7,7 @@ import { addUserID, addUserPassword } from './redux/counterSlice';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-
+import config from './config';
 
 const data = [
     {
@@ -27,17 +27,32 @@ export default function SignUp() {
     const [userID, onChangeUserID] = useState('');
     const [password, onChangePassword] = useState('');
     const [gender, setGender ] = useState('Male');
-
+    const user = JSON.parse(localStorage.getItem('token'))
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    const handleClick = () => {
-        dispatch(addUserID(userID))
-        dispatch(addUserPassword(password))
-        navigation.navigate('Home')
-      }
+    if(user) {
+        localStorage.removeItem("token")
+        navigation.navigate('Welcome')
+    }
 
-    
+    const handleClick = () => {
+        fetch(config.api + `/v1/auth`,
+         {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({email:userID, password:password}),
+        })
+          .then((res) => res.json())
+          .then((result) => {
+              localStorage.setItem('token', JSON.stringify(result));
+              navigation.navigate('Home')
+              
+          })
+          .catch((err) => console.log('error'))
+      }    
 
     return(
         <View style={{flex : 1, backgroundColor : '#fff'}}>
@@ -47,7 +62,7 @@ export default function SignUp() {
 
 
                             <KeyboardAvoidingView
-                                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                                //behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}
                                 >
                             

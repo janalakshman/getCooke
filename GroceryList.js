@@ -14,6 +14,7 @@ import LoadingScreen from './LoadingScreen'
 export default function GroceryList({navigation}) {
   const [loading, setLoading] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
+  const user = JSON.parse(localStorage.getItem('token'))
   const [grocery, setGrocery] = useState({})
   const [ins, setIns] = useState([])
   
@@ -23,6 +24,7 @@ export default function GroceryList({navigation}) {
       {
         method: "GET",
         headers: {
+          "Authorization":'Token ' +user.token,
           "Content-Type": "application/json"
         },
         mode: "cors",

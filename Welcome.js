@@ -12,13 +12,16 @@ export default function Welcome() {
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
+    const user = JSON.parse(localStorage.getItem('token'))
     
       if (!fontsLoaded) {
         return (<LoadingScreen />);
       }
-
       const navigation = useNavigation();
 
+    if(user) {
+        navigation.navigate('Home')
+    }
     return(
         <View style={{backgroundColor : '#ffffff', flex : 1}}>
             {!fontsLoaded ? (<LoadingScreen />) : (

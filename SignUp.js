@@ -8,7 +8,8 @@ import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Popp
 import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
- 
+import config from './config';
+
  var radio_props = [
   {label: 'Male', value: 0 },
   {label: 'Female', value: 1 }
@@ -25,18 +26,29 @@ export default function SignUp() {
     const [password, onChangePassword] = useState('');
     const [gender, setGender ] = useState('Male');
     const [radioGender, setRadioGender ] = useState(0);
-
+    const user = JSON.parse(localStorage.getItem('token'))
     const navigation = useNavigation();
     const dispatch = useDispatch();
-
-    const handleClick = () => {
-        dispatch(addUserID(userID))
-        dispatch(addUserPassword(password))
+    if(user) {
         navigation.navigate('Home')
+    }
+    const handleClick = () => {
+        fetch(config.api + `/v1/auth`,
+         {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({email:userID, password:password}),
+        })
+          .then((res) => res.json())
+          .then((result) => {
+              localStorage.setItem('token', JSON.stringify(result));
+              navigation.navigate('Home')
+              
+          })
+          .catch((err) => console.log('error'))
       }
-
-    
-
     return(
         <View style={{flex : 1}}> 
             {!fontsLoaded ? (<LoadingScreen />) :
@@ -45,7 +57,7 @@ export default function SignUp() {
 
 
                             <KeyboardAvoidingView
-                                // behavior={Platform.OS === "ios" ? "padding" : "height"}
+                                behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}
                                 >
                             
