@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { Text, StyleSheet, Image, Button, TouchableOpacity} from 'react-native'
 import * as WebBrowser from 'expo-web-browser';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSanPro_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from './LoadingScreen'
 import Icon from './assets/Assistant.png'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -10,12 +10,9 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 export default function Welcome() {
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSanPro_400Regular
       });
     
-      if (!fontsLoaded) {
-        return (<LoadingScreen />);
-      }
 
       const navigation = useNavigation();
 

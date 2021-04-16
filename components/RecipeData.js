@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Title from './Title';
 import RecipeCardPic from '../assets/RecipeCardPic.png';
 import config from '../config';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
 export default function RecipeData(props){
