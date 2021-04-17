@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 import config from '../config';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Header(props){
     const navigation = useNavigation();
