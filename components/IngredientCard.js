@@ -3,6 +3,7 @@ import { StyleSheet, FlatList, Text, View, ScrollView, VirtualizedList } from 'r
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 export default function Header(props){
@@ -10,6 +11,7 @@ export default function Header(props){
 
     const increment = () => {
         setCount(count + 1)
+        
     }
 
     const decrement = () => {
@@ -17,7 +19,7 @@ export default function Header(props){
     }
 
     let [fontsLoaded] = useFonts({
-      Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+      Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
     });
 
     if (!fontsLoaded) {
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     text : {
         color : '#3b3b3b',
         fontSize : 17,
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'SourceSansPro_400Regular',
         marginHorizontal : 16,
         textAlign : 'left',
         maxWidth : '55%',

@@ -9,7 +9,7 @@ import config from './config';
 import LoadingScreen from "./LoadingScreen";
 import moment from 'moment'
 
-export default function Home( {navigation} ) {
+export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState([]);
