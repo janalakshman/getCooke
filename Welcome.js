@@ -6,18 +6,16 @@ import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Popp
 import LoadingScreen from './LoadingScreen'
 import Icon from './assets/Assistant.png'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 export default function Welcome() {
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSanPro_400Regular
       });
-    const user = JSON.parse(localStorage.getItem('token'))
-
-      if (!fontsLoaded) {
-        return (<LoadingScreen />);
-      }
-      const navigation = useNavigation();
+    
+    const user = useSelector(state => state.counter.token);
+    const navigation = useNavigation();
 
     if(user) {
         navigation.navigate('Home')

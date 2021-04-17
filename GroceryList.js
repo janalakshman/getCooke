@@ -10,11 +10,13 @@ import TertiaryButton from './components/TertiaryButton'
 import config from './config';
 import moment from 'moment'
 import LoadingScreen from './LoadingScreen'
+import { useSelector, useDispatch } from 'react-redux';
+
 
 export default function GroceryList({navigation}) {
   const [loading, setLoading] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
-  const user = JSON.parse(localStorage.getItem('token'))
+  const user = useSelector(state => state.counter.token);
   const [grocery, setGrocery] = useState({})
   const [ins, setIns] = useState([])
   

@@ -7,6 +7,8 @@ import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Popp
 import LoadingScreen from './LoadingScreen'
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 export default function Profile({navigation}){
     let [fontsLoaded] = useFonts({

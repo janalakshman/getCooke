@@ -8,6 +8,7 @@ import RecipeCardHome from './components/RecipeCardHome'
 import config from './config';
 import LoadingScreen from "./LoadingScreen";
 import moment from 'moment'
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)

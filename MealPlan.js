@@ -8,11 +8,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import config from './config';
 import moment from 'moment';
 import LoadingScreen from "./LoadingScreen";
+import { useSelector, useDispatch } from 'react-redux';
 
 
 export default function MealPlan({navigation}) {
   const [events, setEvents] = useState([])
-  const user = JSON.parse(localStorage.getItem('token'))
+  const user = useSelector(state => state.counter.token);
   const [loading, setLoading] = useState(true)
 
   const getEvents = () => {
