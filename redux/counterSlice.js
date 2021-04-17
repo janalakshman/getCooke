@@ -20,8 +20,9 @@ export const counterSlice = createSlice({
       ingredientList : [],
       user : {
           userID : '',
-          password : ''
-      }
+          password : '',
+      },
+      token : ''
   },
   reducers: {
       addFilter : (state, action) => {
@@ -107,11 +108,14 @@ export const counterSlice = createSlice({
             password : action.payload
         }
     },
+    setToken : (state, action) => {
+        state.token = action.payload
+    }
   }
 })
 
 export const { addFilter, removeFilter, addKitchenMaster, removeKitchenMaster,
                 addDate, addTime, resetData, addIngredientName, addIngredientQuantity,
-                newIngredientList, resetIngredient, addUserID, addUserPassword} = counterSlice.actions
+                newIngredientList, resetIngredient, addUserID, addUserPassword, setToken} = counterSlice.actions
 
 export default counterSlice.reducer

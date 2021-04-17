@@ -12,7 +12,7 @@ export default function Profile({navigation}){
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
-    const user = JSON.parse(localStorage.getItem('token'))
+      const user = useSelector(state => state.counter.token);
       if (!fontsLoaded) {
         return (<LoadingScreen />);
       }

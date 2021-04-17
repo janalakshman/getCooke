@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, KeyboardAvo
 import { TextInput } from 'react-native-gesture-handler'
 import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserID, addUserPassword } from './redux/counterSlice';
+import { addUserID, addUserPassword, setToken } from './redux/counterSlice';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -19,7 +19,7 @@ const data = [
     ];
 
 
-export default function SignUp() {
+export default function SignIn() {
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
@@ -27,12 +27,11 @@ export default function SignUp() {
     const [userID, onChangeUserID] = useState('');
     const [password, onChangePassword] = useState('');
     const [gender, setGender ] = useState('Male');
-    const user = JSON.parse(localStorage.getItem('token'))
+    const user = useSelector(state => state.counter.token);
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
     if(user) {
-        localStorage.removeItem("token")
         navigation.navigate('Welcome')
     }
 
@@ -47,9 +46,8 @@ export default function SignUp() {
         })
           .then((res) => res.json())
           .then((result) => {
-              localStorage.setItem('token', JSON.stringify(result));
+              dispatch(setToken(result))
               navigation.navigate('Home')
-              
           })
           .catch((err) => console.log('error'))
       }    
@@ -70,7 +68,7 @@ export default function SignUp() {
 
                             <TextInput style={styles.textInput}
                                         placeholder = "Your mail"
-                                        onChangeText={text => onChangeUserID(text)}
+                                        onEndEditing={text => onChangeUserID(text)}
                                         value={userID}
                                         autoFocus={true}/>
 
@@ -79,7 +77,7 @@ export default function SignUp() {
                             <TextInput style={styles.textInput}
                                         placeholder = "Password"
                                         secureTextEntry={true}
-                                        onChangeText={text => onChangePassword(text)}
+                                        onEndEditing={text => onChangePassword(text)}
                                         value={password}
                                         autoFocus={true}/>
 

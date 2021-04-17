@@ -9,7 +9,7 @@ import config from '../config';
 
 export default function Header(props){
     const navigation = useNavigation();
-    const user = JSON.parse(localStorage.getItem('token'))
+    const user = useSelector(state => state.counter.token);
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });

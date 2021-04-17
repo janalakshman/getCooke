@@ -13,7 +13,7 @@ export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState([]);
-  const user = JSON.parse(localStorage.getItem('token'))
+  const user = useSelector(state => state.counter.token);
   let panels = []
   if(!user) {
         navigation.navigate('SignIn')
@@ -38,7 +38,6 @@ export default function Home({navigation}) {
         setLoading(false)
       })
       .catch(error => {
-        localStorage.removeItem("token")
         navigation.navigate('Welcome')
       });
   }, []);
