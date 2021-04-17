@@ -65,7 +65,7 @@ export default function SignUp() {
 
                             <TextInput style={styles.textInput}
                                         placeholder = "Your mail"
-                                        onEndEditing={text => onChangeUserID(text)}
+                                        onChangeText={text => onChangeUserID(text)}
                                         value={userID}
                                         autoFocus={true}/>
 
@@ -74,7 +74,7 @@ export default function SignUp() {
                             <TextInput style={styles.textInput}
                                         placeholder = "Password"
                                         secureTextEntry={true}
-                                        onEndEditing={text => onChangePassword(text)}
+                                        onChangeText={text => onChangePassword(text)}
                                         value={password}
                                         autoFocus={true}/>
 

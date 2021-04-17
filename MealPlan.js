@@ -8,7 +8,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import config from './config';
 import moment from 'moment';
 import LoadingScreen from "./LoadingScreen";
-import { useSelector, useDispatch } from 'react-redux';
 
 
 export default function MealPlan({navigation}) {
@@ -22,7 +21,7 @@ export default function MealPlan({navigation}) {
           {
             method: "GET",
             headers: {
-              "Authorization":'Token ' +user.token,
+              "Authorization":'Token ' + user.token,
               "Content-Type": "application/json"
             },
             mode: "cors",
