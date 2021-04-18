@@ -5,11 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 import math from 'mathjs';
-
+import numericQuantity from 'numeric-quantity';
 
 
 export default function Header(props){
     const [count, setCount] = useState(props.servings)
+    const denom = props.servings
 
     const increment = () => {
         setCount(count + 1)
@@ -49,7 +50,7 @@ export default function Header(props){
                         <View key={ingredient.id.toString()} style={styles.box}>
                             <Text style={styles.text}>{ingredient.ingredient.name.charAt(0).toUpperCase() + ingredient.ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.text}>{ ingredient.qty == 0 ? '' : Math.round(ingredient.qty)} {ingredient.fraction} {ingredient.unit_name} </Text>
+                            <Text style={styles.text}>{numericQuantity((ingredient.qty === 0 ? '' : Math.round(ingredient.qty).toString()) + ingredient.fraction)*(count/denom)} {ingredient.unit_name} </Text>
                         </View>
                     )}
             </View>

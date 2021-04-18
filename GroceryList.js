@@ -51,7 +51,7 @@ export default function GroceryList({navigation}) {
           <View style={{flex : 1}}>
           <ScrollView style={{backgroundColor : '#ffffff'}}>
             
-              { grocery.length > 0 ?
+              { grocery.ingredients.length > 0 ?
               <View>
                   <Title name="Dates" />
                   <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>
