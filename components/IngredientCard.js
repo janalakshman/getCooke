@@ -9,17 +9,7 @@ import numericQuantity from 'numeric-quantity';
 
 
 export default function Header(props){
-    const [count, setCount] = useState(props.servings)
-    const denom = props.servings
 
-    const increment = () => {
-        setCount(count + 1)
-    }
-
-
-    const decrement = () => {
-       {count === 1 ? setCount(1) : setCount(count - 1) } 
-    }
 
     let [fontsLoaded] = useFonts({
       Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
@@ -36,11 +26,10 @@ export default function Header(props){
         <SafeAreaView style={styles.card} >
             <View style={styles.line}>
                 <Text style={styles.heading}>Servings</Text>
-                <View style={styles.line}>
-                    <MaterialIcons name="remove-circle-outline" style={styles.icon} onPress={decrement}/>
-                    <Text style={styles.heading}>{count}</Text>
-                    <MaterialIcons name="add-circle-outline" style={styles.icon} onPress={increment}/>
-                </View>
+                <View style={{flexGrow : 1}}></View>
+                    {/* <MaterialIcons name="remove-circle-outline" style={styles.icon}/> */}
+                        <Text style={styles.heading}>{props.servings}</Text>
+                    {/* <MaterialIcons name="add-circle-outline" style={styles.icon}/> */}
             </View>
             
             <View style={{margin : 8}} />
@@ -50,7 +39,7 @@ export default function Header(props){
                         <View key={ingredient.id.toString()} style={styles.box}>
                             <Text style={styles.text}>{ingredient.ingredient.name.charAt(0).toUpperCase() + ingredient.ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.text}>{(numericQuantity((ingredient.qty === 0 ? '' : Math.round(ingredient.qty).toString()) + ingredient.fraction)*(count/denom)).toFixed(2)} {ingredient.unit_name} </Text>
+                            <Text style={styles.text}>{ingredient.qty == 0 ? '' : Math.round(ingredient.qty)} {ingredient.fraction} {ingredient.unit_name} </Text>
                         </View>
                     )}
             </View>
@@ -91,13 +80,14 @@ const styles = StyleSheet.create({
         fontSize : 19,
         color : '#3b3b3b',
         fontFamily : 'Poppins_600SemiBold',
-        margin : 16,
-        textAlign : 'left'
+        textAlign : 'right',
+        marginHorizontal : 16
     },
     line : {
         flexDirection : "row",
         alignItems : 'center',
         justifyContent : 'center',
+        marginHorizontal : 8
     },
     text : {
         color : '#3b3b3b',

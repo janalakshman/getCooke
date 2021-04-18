@@ -9,6 +9,8 @@ import { addDate, resetData, addTime } from '../redux/counterSlice'
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 import config from '../config';
+import NumericInput from 'react-native-numeric-input'
+import { MaterialIcons } from '@expo/vector-icons';
 
 const DATA = [
   {
@@ -49,6 +51,7 @@ export default function CalendarModal( props ) {
     const [dates, setDates] = useState([])
     const [courses, setCourses] = useState([])
     const [markedDates, setMarkedDates] = useState({});
+    const [servings, setServings] = useState(1)
     const dispatch = useDispatch();
     const recipe = useSelector(state => state.counter.recipe)
 
@@ -132,6 +135,16 @@ export default function CalendarModal( props ) {
 
             <ScrollView style={{width : '100%'}}>
 
+            <View  style={styles.time}>
+              <Text style={styles.unpressedText}>Servings</Text>
+              <View style={{flexGrow : 1}}></View>
+              <View style={{flexDirection : 'row', alignItems : 'center', marginHorizontal : 32}}>
+                <MaterialIcons name="remove-circle" size={24} color="black" onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)} />
+                <Text style={styles.unpressedText}>{servings}</Text>
+                <MaterialIcons name="add-circle" size={24} color="black" onPress={() => setServings(servings + 1)} />
+              </View>
+            </View> 
+
              <Calendar 
                   theme={{
                     indicatorColor : '#ffc885',
@@ -149,6 +162,8 @@ export default function CalendarModal( props ) {
                     getSelectedDates(day.dateString);
                   }}
                   />
+
+                
 
                 <FlatList 
                     data={DATA}
@@ -236,5 +251,21 @@ export default function CalendarModal( props ) {
       margin : 16,
       flexDirection : 'row',
       alignSelf : 'center'
-         }   
+         } ,
+  time: {
+      borderRadius : 4,
+      borderWidth : 1,
+      borderColor : '#3b3b3b',
+      backgroundColor : '#ffffff',
+      margin : 16,
+      flexDirection : 'row',
+    },  
+  unpressedText : {
+    color : '#3b3b3b',
+    fontSize : 17,
+    fontFamily : 'Poppins_500Medium',
+    marginHorizontal : 32,
+    textAlign : 'center',
+    margin : 16
+  },
   });
