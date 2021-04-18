@@ -20,22 +20,22 @@ export default function Header(props){
                 <View style={{backgroundColor : '#fff5e6'}}>
                 <View style={styles.card}>
                     <View style={styles.line}>
-                        <Text style={styles.text}>{recipe.calories*props.count}</Text>
+                        <Text style={styles.text}>{recipe.calories}</Text>
                         <Text style={styles.body}>Calories</Text>     
                     </View>
 
                     <View style={styles.line}>
-                        <Text style={styles.text}>{recipe.carbohydrate*props.count}g</Text>
+                        <Text style={styles.text}>{recipe.carbohydrate}g</Text>
                         <Text style={styles.body}>Carbs</Text>     
                     </View>
 
                     <View style={styles.line}>
-                        <Text style={styles.text}>{recipe.proteins*props.count}g</Text>
+                        <Text style={styles.text}>{recipe.proteins}g</Text>
                         <Text style={styles.body}>Protein</Text>     
                     </View>
 
                     <View style={styles.line}>
-                        <Text style={styles.text}>{recipe.fat*props.count}g</Text>
+                        <Text style={styles.text}>{recipe.fat}g</Text>
                         <Text style={styles.body}>Fat</Text>     
                     </View>
                 </View>

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from "react";
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList, Image } from 'react-native';
 import Title from './components/Title';
 import CalendarCard from './components/CalendarCard'
 import NutritionCard from './components/NutritionCard'
@@ -8,6 +8,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import config from './config';
 import moment from 'moment';
 import LoadingScreen from "./LoadingScreen";
+import { useSelector } from 'react-redux'
+import Calendar from './assets/Calendar.png'
 
 
 export default function MealPlan({navigation}) {
@@ -52,8 +54,8 @@ export default function MealPlan({navigation}) {
       {loading ? (<LoadingScreen/>) : (
           <View style={{flex : 1}}>
 
-          <ScrollView style={{backgroundColor : '#ffffff'}}>
-            { events ?
+          <ScrollView style={{backgroundColor : '#fff'}}>
+            { events.length > 0 ?
                           <SectionList
                               sections={events}
                               keyExtractor={(item, index) =>index.toString()}
@@ -66,7 +68,13 @@ export default function MealPlan({navigation}) {
                                     <NutritionCard nutrition={nutrition} />
                                 </View>
                               )}
-                            /> : ''}
+                            /> :
+                            <View>
+                              <Text style={styles.text}>Meal plan in minutes</Text>
+                              <Text style={styles.body}>Add recipes to your calendar, get remainders, nutrition info and more! </Text>
+                              <Image style={styles.image} source={Calendar} alt="Icon"/> 
+                            </View> 
+                            }
           </ScrollView>
 
                 <View style={styles.navigation}>
@@ -126,4 +134,23 @@ const styles = StyleSheet.create({
     fontSize : 32,
     margin : 16
   },
+  image : {
+    height : 350,
+    width : 350,
+    resizeMode : 'contain',
+    alignSelf : 'center'
+},
+body : {
+  fontSize : 17,
+  color : '#3b3b3b',
+  fontFamily : 'Poppins_400Regular',
+  margin : 16
+},
+text : {
+  fontSize : 24,
+  color : '#3b3b3b',
+  fontFamily : 'Poppins_600SemiBold',
+  marginTop : 32,
+  marginHorizontal : 16
+},
 });

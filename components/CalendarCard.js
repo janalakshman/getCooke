@@ -7,10 +7,6 @@ import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Popp
 import LoadingScreen from '../LoadingScreen'
 import config from '../config';
 import { useSelector, useDispatch } from 'react-redux';
-<<<<<<< HEAD
-=======
-
->>>>>>> 9588fa6bc509651bdf4ecfdfe268326f8dfdd945
 
 export default function Header(props){
     const navigation = useNavigation();

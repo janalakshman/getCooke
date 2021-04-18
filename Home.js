@@ -76,7 +76,7 @@ export default function Home({navigation}) {
       {loading ? (<LoadingScreen/>) : (
           <View style={{flex : 1}}>
                 <ScrollView style={{backgroundColor : '#ffffff'}}>
-                     { events ?
+                     {/* { events.length > 0 ?
                       <SectionList
                           sections={events}
                           keyExtractor={(item, index) =>index.toString()}
@@ -89,7 +89,7 @@ export default function Home({navigation}) {
                                 <NutritionCard nutrition={nutrition} />
                             </View>
                           )}
-                        /> : ''}
+                        /> : ''} */}
 
               {panels}
 

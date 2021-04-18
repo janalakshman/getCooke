@@ -11,6 +11,7 @@ import config from './config';
 import moment from 'moment'
 import LoadingScreen from './LoadingScreen'
 import { useSelector, useDispatch } from 'react-redux';
+import toDo from './assets/toDo.png'
 
 
 export default function GroceryList({navigation}) {
@@ -49,21 +50,29 @@ export default function GroceryList({navigation}) {
       {loading ? (<LoadingScreen/>) : (
           <View style={{flex : 1}}>
           <ScrollView style={{backgroundColor : '#ffffff'}}>
-            <Title name="Dates" />
-              { grocery ?
-              <DatePicker DatePicker from={grocery.from_date} to={ grocery.to_date}/>
-              : <DatePicker from={moment().format('Do MMMM')} to={moment().format('Do MMMM')} />
+            
+              { grocery.length > 0 ?
+              <View>
+                  <Title name="Dates" />
+                  <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>
+                  <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                  <Title name= "List" />
+                    <View style={{backgroundColor : '#fff5e6', flex : 1}}>
+                      { grocery ?
+                      <ToBuy ingredients={ins}/>
+                      : <View></View>
+                      }
+                    </View> 
+              </View>
+              : 
+              <View>
+                <Text style={styles.text}>Grocery shopping made easy</Text>
+                <Text style={styles.body}>Get the grocery list based on the recipes you have added in your calendar! </Text>
+                <Image style={styles.image} source={toDo} alt="Icon"/> 
+              </View> 
               }
             
-            <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} />
-  
-            <Title name= "List" />
-              <View style={{backgroundColor : '#fff5e6', flex : 1}}>
-                { grocery ?
-                <ToBuy ingredients={ins}/>
-                : <View></View>
-                }
-              </View> 
+            
             
             <AddIngredientModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
   
@@ -131,4 +140,23 @@ const styles = StyleSheet.create({
     fontSize : 32,
     margin : 16
   },
+  image : {
+    height : 350,
+    width : 350,
+    resizeMode : 'contain',
+    alignSelf : 'center'
+},
+body : {
+  fontSize : 17,
+  color : '#3b3b3b',
+  fontFamily : 'Poppins_400Regular',
+  margin : 16
+},
+text : {
+  fontSize : 24,
+  color : '#3b3b3b',
+  fontFamily : 'Poppins_600SemiBold',
+  marginTop : 32,
+  marginHorizontal : 16
+},
 });

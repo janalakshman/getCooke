@@ -25,7 +25,7 @@ export default function Profile({navigation}){
                     <Image source={maleAvatar}
                             style={styles.image}/>
                     <View style={styles.line}>
-                        <Text style={styles.text}>{user.user.username}</Text>
+                        <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                         <Text style={styles.body}>Member since {moment(user.user.date_joined).format('d/MM/YYYY')}</Text>
                     </View>   
                 </View>
