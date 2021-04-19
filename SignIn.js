@@ -52,12 +52,12 @@ export default function SignIn(props) {
                 dispatch(setToken(result))
                 return navigation.navigate('Home')
               } else {
-                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                Alert.alert( "Incorrect credentials", "Username or password is incorrect", {text : "OK"} )
               }
               
           })
           .catch((err) => {
-                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                Alert.alert( "Incorrect credentials", "Username or password is incorrect", {text : "OK"} )
           })
       }    
 

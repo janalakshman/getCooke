@@ -76,7 +76,6 @@ export default function CalendarModal( props ) {
     const handleClick = () => {
       const payload = {'event_date':Object.keys(markedDates), 'course':Array.from(new Set(courses)), 
       recipe_id: props.recipe }
-      console.debug(payload)
       fetch(config.api + `/v1/events`,
          {
           method: 'POST',

@@ -9,6 +9,7 @@ import config from './config';
 import LoadingScreen from "./LoadingScreen";
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
+import error from './assets/error.png'
 
 export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)
@@ -46,7 +47,11 @@ export default function Home({navigation}) {
           
       })
     .catch((err) => {
-        Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+      <View>
+        <Text style={styles.text}>Page not found!</Text>
+        <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
+        <Image style={styles.image} source={error} alt="Icon"/> 
+      </View> 
     })
   }, []);
 
@@ -160,6 +165,24 @@ selectedIcon : {
   color : '#3b3b3b',
   fontSize : 30,
   margin : 16
-}
-
+},
+  image : {
+    height : 350,
+    width : 350,
+    resizeMode : 'contain',
+    alignSelf : 'center'
+    },
+    body : {
+      fontSize : 17,
+      color : '#3b3b3b',
+      fontFamily : 'Poppins_400Regular',
+      margin : 16
+    },
+    text : {
+      fontSize : 24,
+      color : '#3b3b3b',
+      fontFamily : 'Poppins_600SemiBold',
+      marginTop : 32,
+      marginHorizontal : 16
+    }
 });

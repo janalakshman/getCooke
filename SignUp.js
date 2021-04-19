@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, KeyboardAvoidingView} from 'react-native'
+import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, KeyboardAvoidingView, Alert} from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
@@ -49,12 +49,12 @@ export default function SignUp() {
                 dispatch(setToken(result))
                 return navigation.navigate('Home')
               } else {
-                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                Alert.alert( "Incorrect credentials", "Username or password is incorrect", {text : "OK"} )
               }
               
           })
         .catch((err) => {
-            Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+            Alert.alert( "Incorrect credentials", "Username or password is incorrect", {text : "OK"} )
         })
       }
     return(

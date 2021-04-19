@@ -12,6 +12,7 @@ import moment from 'moment'
 import LoadingScreen from './LoadingScreen'
 import { useSelector, useDispatch } from 'react-redux';
 import toDo from './assets/toDo.png'
+import error from './assets/error.png'
 
 
 export default function GroceryList({navigation}) {
@@ -52,7 +53,11 @@ export default function GroceryList({navigation}) {
           
       })
     .catch((err) => {
-        Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+      <View>
+        <Text style={styles.text}>Page not found!</Text>
+        <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
+        <Image style={styles.image} source={error} alt="Icon"/> 
+      </View> 
     })
   }, []);
 
