@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import CalendarCardIcon from '../assets/calendarCardIcon.png';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'

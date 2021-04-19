@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Title from './Title';
-import RecipeCardPic from '../assets/RecipeCardPic.png';
+import RecipeCardPic from '../assets/RecipeCardDefault.png';
 import config from '../config';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'

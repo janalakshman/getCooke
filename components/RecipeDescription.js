@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import DefaultProfilePic from '../assets/DefaultProfilePic.png'
 import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
 import { useNavigation } from '@react-navigation/native';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import RecipeCard from '../assets/RecipeCardPic.png';
+import RecipeCard from '../assets/RecipeCardDefault.png';
 import veg from '../assets/veg.png'
 import nonVeg from '../assets/nonVeg.png'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
