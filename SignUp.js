@@ -41,6 +41,7 @@ export default function SignUp() {
           },
           body: JSON.stringify({email:userID, password:password}),
         })
+<<<<<<< HEAD
         .then((res) => {
             return Promise.all([res.status, res.json()]);        
             })
