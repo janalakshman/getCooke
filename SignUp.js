@@ -45,9 +45,8 @@ export default function SignUp() {
           .then((result) => {
               dispatch(setToken(result))
               navigation.navigate('Home')
-              
           })
-          .catch((err) => console.log('error'))
+          .catch((err, status) => console.log(status))
       }
     return(
         <View style={{flex : 1}}> 
