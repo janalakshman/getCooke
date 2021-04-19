@@ -33,16 +33,27 @@ export default function GroceryList({navigation}) {
         mode: "cors",
       }
     )
-      .then(res => res.json())
-      .then(response => {
-        setGrocery(response)
-        const inst = response.ingredients.map(item => {
-            return {name : item.ingredient.name, amount : item.qty, fraction : item.fraction, unit : item.unit_name, key : item.id}
+    .then((res) => {
+        return Promise.all([res.status, res.json()]);        
         })
-        setIns(inst);
-        setLoading(false)
+    .then(([status, response])=> {
+          if(status === 200) {
+            setGrocery(response)
+            if (response.ingredients) {
+              const inst = response.ingredients.map(item => {
+                  return {name : item.ingredient.name, amount : item.qty, fraction : item.fraction, unit : item.unit_name, key : item.id}
+              })
+              setIns(inst);
+            }
+            setLoading(false)
+          } else {
+            Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+          }
+          
       })
-      .catch(error => console.log(error));
+    .catch((err) => {
+        Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+    })
   }, []);
 
   return (

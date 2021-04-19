@@ -29,12 +29,21 @@ export default function MealPlan({navigation}) {
             mode: "cors",
           }
         )
-          .then(res => res.json())
-          .then(response => {
-            setEvents(response)
-            setLoading(false)
+        .then((res) => {
+          return Promise.all([res.status, res.json()]);        
+        })
+        .then(([status, response])=> {
+              if(status === 200) {
+                setEvents(response)
+                setLoading(false)
+              } else {
+                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+              }
+              
           })
-          .catch(error => console.log(error));
+        .catch((err) => {
+            Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+        })
   }
 
    useEffect(() => {

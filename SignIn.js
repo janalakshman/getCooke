@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, KeyboardAvoidingView} from 'react-native'
+import {View, Text, StyleSheet, Image, Alert, ScrollView, TouchableOpacity, KeyboardAvoidingView} from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,7 +19,7 @@ const data = [
     ];
 
 
-export default function SignIn() {
+export default function SignIn(props) {
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
       });
@@ -36,7 +36,6 @@ export default function SignIn() {
     }
 
     const handleClick = () => {
-        console.debug({email:userID, password:password})
         fetch(config.api + `/v1/auth`,
          {
           method: 'POST',
@@ -45,12 +44,21 @@ export default function SignIn() {
           },
           body: JSON.stringify({email:userID, password:password}),
         })
-          .then((res) => res.json())
-          .then((result) => {
-              dispatch(setToken(result))
-              navigation.navigate('Home')
+          .then((res) => {
+            return Promise.all([res.status, res.json()]);        
+            })
+          .then(([status, result])=> {
+              if(status === 200) {
+                dispatch(setToken(result))
+                return navigation.navigate('Home')
+              } else {
+                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+              }
+              
           })
-          .catch((err) => console.log('error'))
+          .catch((err) => {
+                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+          })
       }    
 
     return(

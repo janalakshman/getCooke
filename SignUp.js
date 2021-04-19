@@ -41,13 +41,21 @@ export default function SignUp() {
           },
           body: JSON.stringify({email:userID, password:password}),
         })
-          .then((res) => res.json())
-          .then((result) => {
-              dispatch(setToken(result))
-              navigation.navigate('Home')
+        .then((res) => {
+            return Promise.all([res.status, res.json()]);        
+            })
+        .then(([status, result])=> {
+              if(status === 200) {
+                dispatch(setToken(result))
+                return navigation.navigate('Home')
+              } else {
+                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+              }
               
           })
-          .catch((err) => console.log('error'))
+        .catch((err) => {
+            Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+        })
       }
     return(
         <View style={{flex : 1}}> 

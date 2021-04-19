@@ -34,12 +34,21 @@ export default function RecipeFullDetail({navigation, route, props}) {
         mode: "cors",
       }
     )
-      .then(res => res.json())
-      .then(response => {
-        setRecipe(response);
-        setLoading(false)
-      })
-      .catch(error => console.log(error));
+      .then((res) => {
+          return Promise.all([res.status, res.json()]);        
+        })
+        .then(([status, response])=> {
+              if(status === 200) {
+                setRecipe(response);
+                setLoading(false)
+              } else {
+                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+              }
+              
+          })
+        .catch((err) => {
+            Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+        });
   }, []);
 
   

@@ -32,15 +32,22 @@ export default function Home({navigation}) {
         mode: "cors",
       }
     )
-      .then(res => res.json())
-      .then(response => {
-        setRecipes(response['recipes']);
-        setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
-        setLoading(false)
+    .then((res) => {
+        return Promise.all([res.status, res.json()]);        
+        })
+    .then(([status, response])=> {
+          if(status === 200) {
+            setRecipes(response['recipes']);
+            setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
+            setLoading(false)
+          } else {
+            Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+          }
+          
       })
-      .catch(error => {
-        navigation.navigate('Welcome')
-      });
+    .catch((err) => {
+        Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+    })
   }, []);
 
   const Item = (event) => {
