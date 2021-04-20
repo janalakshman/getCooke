@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
       margin : 4,
   },
   text : {
-      fontSize : 17,
+      fontSize : 14,
       color : '#3b3b3b',
       margin : 4,
       fontFamily : 'Poppins_500Medium'
