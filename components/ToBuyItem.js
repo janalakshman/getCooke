@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 export default function Title(props) {
   var [ isPress, setIsPress ] = useState(false);
 
   let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
   });
 
   if (!fontsLoaded) {
@@ -50,14 +51,14 @@ export default function Title(props) {
   const styles = StyleSheet.create({
     unclicked : {
       color : '#3b3b3b',
-      fontSize : 17,
+      fontSize : 19,
       marginHorizontal : 16,
-      fontFamily : 'Poppins_400Regular',
+      fontFamily : 'SourceSansPro_400Regular',
     },
     clicked : {
       color : '#3b3b3b',
-      fontSize : 17,
-      fontFamily : 'Poppins_400Regular',
+      fontSize : 19,
+      fontFamily : 'SourceSansPro_400Regular',
       marginHorizontal : 16,
       textDecorationLine : 'line-through',
     },

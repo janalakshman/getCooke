@@ -71,7 +71,7 @@ export default function Home({navigation}) {
         return (
           <ScrollView key={key.toString()} style={{backgroundColor : '#fff'}}>
             <Title name={recipe} />
-            <View style={{paddingLeft : 16, paddingVertical : 8, marginTop:8, backgroundColor : '#fff'}}>
+            <View style={{paddingLeft : 16, backgroundColor : '#fff'}}>
               <FlatList
                 data={recipes[recipe]}
                 renderItem={renderCard}

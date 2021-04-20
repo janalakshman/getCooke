@@ -26,6 +26,10 @@ export default function Header(props){
                 {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> } 
 
                 <Text style={styles.text}>{props.recipe.name}</Text>
+                {props.recipe.user.first_name ? 
+                                <Text style={styles.body}>{props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)}</Text>
+                                : <Text style={styles.body}>{props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)}</Text>
+                                }
                 </View>       
         </View>
         </Pressable>
@@ -65,4 +69,11 @@ const styles = StyleSheet.create({
       margin : 4,
       fontFamily : 'Poppins_500Medium'
   },
+body : {
+    fontSize : 14,
+    color : '#a13e00',
+    marginTop : 8,
+    margin : 4,
+    fontFamily : 'Poppins_400Regular'
+}
   });

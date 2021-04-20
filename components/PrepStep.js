@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
+
 
 export default function PrepStep(props) {
   let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
   });
 
   if (!fontsLoaded) {
@@ -21,7 +23,7 @@ export default function PrepStep(props) {
                 <View key={step.id.toString()} style={styles.container}>
                   <Text style={styles.title}>{++count}</Text>
 
-                  <View style={{paddingLeft : 8, paddingRight : 40}}>
+                  <View style={{paddingLeft : 8, paddingRight : 8}}>
                     <Text style={styles.text}>{step.step}</Text>
                   </View>
 
@@ -37,8 +39,8 @@ export default function PrepStep(props) {
   const styles = StyleSheet.create({
     text : {
       color : '#3b3b3b',
-      fontSize : 17,
-      fontFamily : 'Poppins_400Regular',
+      fontSize : 19,
+      fontFamily : 'SourceSansPro_400Regular',
       margin : 4
       },
     title : {

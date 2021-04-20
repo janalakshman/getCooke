@@ -55,7 +55,7 @@ export default function GroceryList({navigation}) {
     .catch((err) => {
       <View>
         <Text style={styles.text}>Page not found!</Text>
-        <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
+        <Text style={styles.body}>Please refresh and try again. If the issue persists, please drop a mail @ jana@getcooke.com!</Text>
         <Image style={styles.image} source={error} alt="Icon"/> 
       </View> 
     })

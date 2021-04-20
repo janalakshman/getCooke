@@ -5,11 +5,12 @@ import femaleAvatar from '../assets/femaleAvatar.png'
 import { useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 export default function RecipeDescription(props){
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
       });
     
     const navigation = useNavigation();
@@ -60,10 +61,10 @@ const styles = StyleSheet.create({
         resizeMode : 'contain',
     },
     text : {
-        fontSize : 17,
+        fontSize : 19,
         color : '#3b3b3b',
         marginLeft : 16,
-        fontFamily : 'Poppins_400Regular'
+        fontFamily : 'SourceSansPro_400Regular'
     },
     title : {
         fontSize : 19,
