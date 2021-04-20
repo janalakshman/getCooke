@@ -54,6 +54,7 @@ export default function CalendarModal( props ) {
     const [servings, setServings] = useState(1)
     const dispatch = useDispatch();
     const recipe = useSelector(state => state.counter.recipe)
+    const user = useSelector(state => state.counter.token);
 
     const getSelectedDates = (date) => {
       if (date in markedDates) { 
@@ -74,12 +75,13 @@ export default function CalendarModal( props ) {
     );
 
     const handleClick = () => {
-      const payload = {'event_date':Object.keys(markedDates), 'course':Array.from(new Set(courses)), 
+      const payload = {'event_date':Object.keys(markedDates), 'servings': servings, 'course':Array.from(new Set(courses)), 
       recipe_id: props.recipe }
       fetch(config.api + `/v1/events`,
          {
           method: 'POST',
           headers: {
+            "Authorization":'Token ' +user.token,
             "Content-Type": "application/json"
           },
           body: JSON.stringify(payload),
