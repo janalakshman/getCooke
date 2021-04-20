@@ -20,7 +20,10 @@ export default function RecipeFullDetail({navigation, route, props}) {
   const [loading, setLoading] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
   const [recipe, setRecipe] = useState({});
+  const [count, setCount] = useState(0);
   const { recipeId } = route.params;
+
+  
 
 
   useEffect(() => {
@@ -42,12 +45,12 @@ export default function RecipeFullDetail({navigation, route, props}) {
                 setRecipe(response);
                 setLoading(false)
               } else {
-                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                Alert.alert( "Error", "Unable to get recipe. Please try again", {text : "OK"} )
               }
               
           })
         .catch((err) => {
-            Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+            Alert.alert( "Error", "Unable to get recipe. Please try again", {text : "OK"} )
         });
   }, []);
 
