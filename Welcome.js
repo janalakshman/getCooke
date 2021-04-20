@@ -28,7 +28,7 @@ export default function Welcome() {
 
             <Text style={styles.text}>Hire a personal kitchen assistant</Text>
 
-            <Text style={styles.body}>Search for recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
+            <Text style={styles.body}>Search recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
 
             <Image style={styles.image} source={Icon} alt="Icon"/>
 
@@ -60,14 +60,16 @@ const styles = StyleSheet.create({
         color : '#3b3b3b',
         fontFamily : 'SourceSansPro_400Regular',
         margin : 4,
-        marginHorizontal : 16
+        marginHorizontal : 16,
+        width : '75%'
     },
     text : {
         fontSize : 24,
         color : '#3b3b3b',
         fontFamily : 'Poppins_600SemiBold',
         marginTop : 16,
-        marginHorizontal : 16
+        marginHorizontal : 16,
+        width : '90%'
     },
     buttonText : {
         color : '#A13E00',

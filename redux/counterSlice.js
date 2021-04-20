@@ -13,6 +13,7 @@ export const counterSlice = createSlice({
           serving : null
       },
       kitchenMaster : [],
+      ingredients:[],
       ingredient : {
           name : '',
           quantity : ''
@@ -110,12 +111,19 @@ export const counterSlice = createSlice({
     },
     setToken : (state, action) => {
         state.token = action.payload
-    }
+    },
+    setIngredient : (state, action) => {
+        let newIngredient = [...state.ingredients, action.payload]
+        function getUniqueListBy(arr, key) {
+            return [...new Map(arr.map(item => [item[key], item])).values()]
+        }
+        state.ingredients = getUniqueListBy(newIngredient)
+    },
   }
 })
 
 export const { addFilter, removeFilter, addKitchenMaster, removeKitchenMaster,
                 addDate, addTime, resetData, addIngredientName, addIngredientQuantity,
-                newIngredientList, resetIngredient, addUserID, addUserPassword, setToken} = counterSlice.actions
+                newIngredientList, resetIngredient, addUserID, addUserPassword, setToken, setIngredient} = counterSlice.actions
 
 export default counterSlice.reducer

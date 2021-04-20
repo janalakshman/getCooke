@@ -21,6 +21,8 @@ export default function GroceryList({navigation}) {
   const user = useSelector(state => state.counter.token);
   const [grocery, setGrocery] = useState({})
   const [ins, setIns] = useState([])
+  const ingredients = useSelector(state => state.counter.ingredients)
+  console.log(ingredients)
   
   useEffect(() => {
     fetch(
@@ -71,7 +73,7 @@ export default function GroceryList({navigation}) {
               <View>
                   <Title name="Dates" />
                   <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>
-                  <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                  {/* <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
                   <Title name= "List" />
                     <View style={{backgroundColor : '#fff5e6', flex : 1}}>
                       { grocery ?

@@ -24,7 +24,7 @@ export default function Title(props) {
                 <View style={{flexDirection : 'row'}}>
                     <Text style={styles.clicked}>{props.item.name.charAt(0).toUpperCase()  + props.item.name.slice(1)} </Text>
                     <View style={{flexGrow : 1}}></View>
-                    <Text style={styles.clicked}>{Math.round(props.item.amount)} {props.item.unit ? (props.item.unit.length > 4 ? props.item.unit.substring(0,4) : props.item.unit) : ''} </Text>
+                    <Text style={styles.clicked}>{props.item.amount == 0 ? '' : Math.round(props.item.amount)} {props.item.fraction} {props.item.unit ? (props.item.unit.length > 4 ? props.item.unit.substring(0,4) : props.item.unit) : ''} </Text>
                 </View>
             </View> 
           :
@@ -33,7 +33,7 @@ export default function Title(props) {
                 <View style={{flexDirection : 'row'}}>
                     <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
                     <View style={{flexGrow : 1}}></View>
-                    <Text style={styles.unclicked}>{Math.round(props.item.amount)} {props.item.unit ? (props.item.unit.length > 4 ? props.item.unit.substring(0,4) : props.item.unit) : ''}</Text>
+                    <Text style={styles.unclicked}>{props.item.amount == 0 ? '' : Math.round(props.item.amount)} {props.item.fraction} {props.item.unit ? (props.item.unit.length > 4 ? props.item.unit.substring(0,4) : props.item.unit) : ''}</Text>
                 </View>
           </View>  
           }
@@ -58,6 +58,7 @@ export default function Title(props) {
       fontFamily : 'SourceSansPro_400Regular',
       marginHorizontal : 8,
       textDecorationLine : 'line-through',
+      width : '50%'
     },
     container : {
         paddingHorizontal : 4,

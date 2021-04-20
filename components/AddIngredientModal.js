@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Modal, Pressable, Alert, ScrollView, TouchableO
 import { AntDesign } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector} from 'react-redux'
-import { addIngredientName, addIngredientQuantity, newIngredientList, resetIngredient } from '../redux/counterSlice';
+import { addIngredientName, addIngredientQuantity, newIngredientList, resetIngredient, setIngredient } from '../redux/counterSlice';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
@@ -15,15 +15,14 @@ export default function AddIngredientModal(props) {
   
     const [name, onChangeName] = useState('');
     const [quantity, onChangeQuantity] = useState('');
-    const ingredient= useSelector(state => state.counter.ingredient)
+    const [ingredient, setIngredient] = useState({})
 
     const dispatch = useDispatch();
 
     const handleClick = () => {
       setTimeout(handleModal, 2000)
-      dispatch(addIngredientName(name))
-      dispatch(addIngredientQuantity(quantity))
-      dispatch(newIngredientList(ingredient))
+      console.log(ingredient)
+      dispatch(setIngredient(ingredient))
       dispatch(resetIngredient)
       onChangeName('')
       onChangeQuantity('')
@@ -66,18 +65,18 @@ export default function AddIngredientModal(props) {
                         </Pressable>
     
                     
-                        <Text style={styles.text} > Ingredient</Text>
+                        <Text style={styles.text}>Ingredient</Text>
     
                         <TextInput style={styles.textInput}
                                     placeholder = "Ingredient name"
-                                     onChangeText={text => onChangeName(text)}
+                                     onChangeText={text => setIngredient(text)}
                                      value={name}/>
     
-                        <Text style={styles.text} > Quantity</Text>
+                        <Text style={styles.text}>Quantity</Text>
     
                         <TextInput style={styles.textInput}
                                     placeholder = "Quantity"
-                                     onChangeText={text => onChangeQuantity(text)}
+                                     onChangeText={text => setIngredient(text)}
                                      value={quantity}
                                      autoFocus/>
     
