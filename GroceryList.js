@@ -21,8 +21,7 @@ export default function GroceryList({navigation}) {
   const user = useSelector(state => state.counter.token);
   const [grocery, setGrocery] = useState({})
   const [ins, setIns] = useState([])
-  const ingredients = useSelector(state => state.counter.ingredients)
-  console.log(ingredients)
+ 
   
   useEffect(() => {
     fetch(
@@ -30,7 +29,7 @@ export default function GroceryList({navigation}) {
       {
         method: "GET",
         headers: {
-          "Authorization":'Token ' +user.token,
+          "Authorization":'Token ' + user.token,
           "Content-Type": "application/json"
         },
         mode: "cors",
