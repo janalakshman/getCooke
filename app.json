@@ -10,6 +10,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "packagerOpts" : {
+      "nonPersistent" : true
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -22,7 +25,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/CookeLogo.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "cooke.json"

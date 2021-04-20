@@ -1,8 +1,9 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Text, StyleSheet, Image, Button, TouchableOpacity} from 'react-native'
+import { Text, StyleSheet, Image, Button, TouchableOpacity, ScrollView} from 'react-native'
 import * as WebBrowser from 'expo-web-browser';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from './LoadingScreen'
 import Icon from './assets/Assistant.png'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -11,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function Welcome() {
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
       });
     
     const user = useSelector(state => state.counter.token);
@@ -21,7 +22,7 @@ export default function Welcome() {
         navigation.navigate('Home')
     }
     return(
-        <View style={{backgroundColor : '#ffffff', flex : 1}}>
+        <ScrollView style={{backgroundColor : '#ffffff', flex : 1}}>
             {!fontsLoaded ? (<LoadingScreen />) : (
             <View >
 
@@ -32,16 +33,16 @@ export default function Welcome() {
             <Image style={styles.image} source={Icon} alt="Icon"/>
 
             <TouchableOpacity  style={styles.button}  onPress={() => navigation.navigate('SignUp')} >
-                <Text style={styles.buttonText}>Sign Up</Text>
+                <Text style={styles.buttonText}>SIGN UP</Text>
             </TouchableOpacity>
 
             <TouchableOpacity  style={styles.secondarybutton}  onPress={() => navigation.navigate('SignIn')} >
-                <Text style={styles.buttonText}>Log In</Text>
+                <Text style={styles.buttonText}>LOG IN</Text>
             </TouchableOpacity>
 
         </View>
         )}
-        </View>
+        </ScrollView>
 
 
     )
@@ -49,7 +50,7 @@ export default function Welcome() {
 
 const styles = StyleSheet.create({
     image : {
-        height : 250,
+        height : 270,
         width : 300,
         resizeMode : 'contain',
         alignSelf : 'center'
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
     body : {
         fontSize : 17,
         color : '#3b3b3b',
-        fontFamily : 'Poppins_400Regular',
-        margin : 8,
+        fontFamily : 'SourceSansPro_400Regular',
+        margin : 4,
         marginHorizontal : 16
     },
     text : {
@@ -70,9 +71,9 @@ const styles = StyleSheet.create({
     },
     buttonText : {
         color : '#A13E00',
-        fontSize : 19,
+        fontSize : 17,
         fontFamily : 'Poppins_600SemiBold',
-        margin : 12,
+        margin : 8,
         marginHorizontal : 16,
         flexGrow : 1,
         textAlign : 'center'

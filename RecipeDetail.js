@@ -23,10 +23,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
   const [count, setCount] = useState(0);
   const { recipeId } = route.params;
 
-  
-
-
-  useEffect(() => {
+   useEffect(() => {
     fetch(
       config.api + `/v1/recipe/`+ recipeId,
       {

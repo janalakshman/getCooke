@@ -95,7 +95,7 @@ export default function SignIn(props) {
 
 
                                 <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
-                                    <Text style={styles.buttonText}>Sign In</Text>
+                                    <Text style={styles.buttonText}>LOG IN</Text>
                                 </TouchableOpacity>
                             </KeyboardAvoidingView>
                         </ScrollView>
@@ -119,8 +119,9 @@ const styles = StyleSheet.create({
     },
     buttonText : {
         color : '#A13E00',
-        fontSize : 19,
+        fontSize : 17,
         margin : 16,
+        marginVertical : 8,
         flexGrow : 1,
         textAlign : 'center',
         fontFamily : 'Poppins_600SemiBold'
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
         borderRadius : 20,
         borderTopLeftRadius : 0,
         backgroundColor :  '#f1f1f1',
-        height : 56,
+        height : 64,
         width : '90%',
         alignSelf : 'flex-start',
         padding : 16,

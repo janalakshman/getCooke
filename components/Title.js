@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { useFonts,  Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
 
 export default function Title(props) {
     let [fontsLoaded] = useFonts({
-      Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold
+      Poppins_600SemiBold
     });
 
     if (!fontsLoaded) {
@@ -26,7 +26,7 @@ export default function Title(props) {
   const styles = StyleSheet.create({
     heading : {
       color : '#3b3b3b',
-      fontSize : 21,
+      fontSize : 19,
       fontFamily : 'Poppins_600SemiBold',
     },
     border : {

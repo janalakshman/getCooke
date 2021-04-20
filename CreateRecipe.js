@@ -3,12 +3,13 @@ import { View } from 'react-native'
 import { Text, StyleSheet, Image, Button, TouchableOpacity} from 'react-native'
 import * as WebBrowser from 'expo-web-browser';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from './LoadingScreen'
 import Icon from './assets/Chef.png'
 
 export default function CreateRecipe({navigation}) {
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
       });
     
       if (!fontsLoaded) {
@@ -20,7 +21,7 @@ export default function CreateRecipe({navigation}) {
       };
 
     return(
-        <View style={{backgroundColor : '#ffffff'}}>
+        <View style={{backgroundColor : '#ffffff', flex : 1}}>
                        
             <Text style={styles.text}>Upload recipes and start earning in minutes</Text>
 
@@ -32,7 +33,7 @@ export default function CreateRecipe({navigation}) {
             </View>
 
             <TouchableOpacity  style={styles.button}  onPress={_handleOpenWithWebBrowser} >
-                <Text style={styles.buttonText}>Sign In</Text>
+                <Text style={styles.buttonText}>LOG IN</Text>
             </TouchableOpacity>
 
         </View>
@@ -41,7 +42,7 @@ export default function CreateRecipe({navigation}) {
 
 const styles = StyleSheet.create({
     image : {
-        height : 300,
+        height : 280,
         width : 300,
         resizeMode : 'contain',
         alignSelf : 'center'
@@ -49,11 +50,11 @@ const styles = StyleSheet.create({
     body : {
         fontSize : 17,
         color : '#3b3b3b',
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'SourceSansPro_400Regular',
         margin : 16
     },
     text : {
-        fontSize : 24,
+        fontSize : 19,
         color : '#3b3b3b',
         fontFamily : 'Poppins_600SemiBold',
         marginTop : 32,
@@ -61,9 +62,9 @@ const styles = StyleSheet.create({
     },
     buttonText : {
         color : '#A13E00',
-        fontSize : 19,
-        fontFamily : 'Poppins_500Medium',
-        margin : 16,
+        fontSize : 17,
+        fontFamily : 'Poppins_600SemiBold',
+        margin : 8,
         flexGrow : 1,
         textAlign : 'center'
       },

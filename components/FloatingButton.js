@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_500Medium } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function FloatingButton(props) {
   let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+    Poppins_500Medium
   });
 
   if (!fontsLoaded) {
@@ -26,18 +26,18 @@ export default function FloatingButton(props) {
       color : '#A13E00',
       fontSize : 17,
       fontFamily : 'Poppins_500Medium',
-      margin : 12,
+      margin : 8,
     },
     button: {
         borderRadius : 8,
         backgroundColor : '#ffc885',
         margin : 16,
         flexDirection : 'row',
+        alignItems : 'center',
         },
     icon : {
         fontSize : 20,
         color : '#a13e00',
-        padding : 12,
-        paddingRight : 0
+        paddingLeft : 8
     },
   }); 

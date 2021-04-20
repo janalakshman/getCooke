@@ -35,7 +35,7 @@ export default function TertiaryButton() {
   const styles = StyleSheet.create({
     buttonText : {
       color : '#A13E00',
-      fontSize : 17,
+      fontSize : 14,
       fontFamily : 'Poppins_400Regular',
       margin : 8,
       marginHorizontal : 16

@@ -6,12 +6,13 @@ import veg from '../assets/veg.png'
 import nonVeg from '../assets/nonVeg.png'
 import { Pressable } from 'react-native';
 import config from '../config';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
+import { useFonts } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
 export default function Header(props){
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+         SourceSansPro_400Regular, SourceSansPro_600SemiBold
       });
     
       if (!fontsLoaded) {
@@ -39,7 +40,7 @@ export default function Header(props){
 
 const styles = StyleSheet.create({
     card : {
-        width : 116,
+        width : 140,
         padding : 8,
         margin : 8,
         borderRadius : 20,
@@ -52,8 +53,8 @@ const styles = StyleSheet.create({
         shadowOffset : {width : 0, height : 4},
     },
   image : {
-      height : 100,
-      width : 100,
+      height : 124,
+      width : 124,
       marginBottom : 4,
       borderTopLeftRadius : 0,
       borderRadius : 20
@@ -64,16 +65,16 @@ const styles = StyleSheet.create({
       margin : 4,
   },
   text : {
-      fontSize : 14,
+      fontSize : 17,
       color : '#3b3b3b',
       margin : 4,
       fontFamily : 'Poppins_500Medium'
   },
 body : {
     fontSize : 14,
-    color : '#a13e00',
+    color : '#626262',
     marginTop : 8,
     margin : 4,
-    fontFamily : 'Poppins_400Regular'
-}
+    fontFamily : 'SourceSansPro_400Regular'
+  }
   });

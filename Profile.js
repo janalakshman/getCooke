@@ -4,6 +4,7 @@ import Title from './components/Title'
 import maleAvatar from './assets/maleAvatar.png'
 import femaleAvatar from './assets/femaleAvatar.png'
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from './LoadingScreen'
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
@@ -12,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function Profile({navigation}){
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
       });
       const user = useSelector(state => state.counter.token);
       if (!fontsLoaded) {
@@ -77,7 +78,7 @@ export default function Profile({navigation}){
 const styles = StyleSheet.create({
     para : {
         fontSize : 17,
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'SourceSansPro_400Regular',
         margin : 16
     },
     image : {
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
       color : '#3b3b3b',
       marginLeft : 16,
       marginTop : 4,
-      fontFamily : 'Poppins_400Regular'
+      fontFamily : 'SourceSansPro_400Regular'
     },
     line : {
         flexDirection : "column",
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         shadowColor : 'rgba(0, 0, 0, 0.10)',
         shadowRadius : 2,
         shadowOffset : {width : 0, height : 4},
-        height : 84
+        height : 96
     },
     navigation : {
         backgroundColor : '#ffffff',

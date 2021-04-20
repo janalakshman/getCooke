@@ -3,6 +3,7 @@ import { StyleSheet, Image, Text, View, ScrollView, Pressable, TouchableOpacity,
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 import config from '../config';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,7 +12,7 @@ export default function Header(props){
     const navigation = useNavigation();
     const user = useSelector(state => state.counter.token);
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_600SemiBold, SourceSansPro_400Regular
       });
       if (!fontsLoaded) {
         return (<LoadingScreen />);
@@ -23,7 +24,6 @@ export default function Header(props){
             "Are you sure you want to delete the recipe from your meal plan?",
             [ {
                 text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
                 style: "cancel"
               },
               { text: "Delete", onPress: () => {
@@ -194,8 +194,9 @@ const styles = StyleSheet.create({
   smalltext : {
       fontSize : 14,
       color : '#3b3b3b',
-      margin : 4,
-      fontFamily : 'Poppins_400Regular'
+      margin : 8,
+      marginBottom : 4,
+      fontFamily : 'SourceSansPro_400Regular'
   },
   delete : {
     flexDirection : 'row', 

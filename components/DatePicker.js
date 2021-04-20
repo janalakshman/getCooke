@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular} from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 
 export default function DatePicker(props) {
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
       });
 
       let fromDate = props.from.split(/\s/)[0]
@@ -17,7 +18,6 @@ export default function DatePicker(props) {
       let toMonth = props.to.split(/\s/)[1]
       let toDay = props.from.split(/\n/)
 
-      console.log(fromDay[1])
 
     
       if (!fontsLoaded) {
@@ -29,14 +29,14 @@ export default function DatePicker(props) {
             
             <View style={styles.line} >  
                 <Text style={styles.text}>{fromDate} {fromMonth.substring(0,3)}</Text>
-                <Text style={styles.body}>{fromDay[1]}</Text>
+                <Text style={styles.body}>{fromDay[1].substring(0,3)}</Text>
             </View> 
 
             <Text style={styles.body}>to</Text>
 
             <View style={styles.line}>  
                 <Text style={styles.text}>{toDate} {toMonth.substring(0,3)}</Text>
-                <Text style={styles.body}>{toDay[1]}</Text>
+                <Text style={styles.body}>{toDay[1].substring(0,3)}</Text>
             </View> 
 
         </View>
@@ -47,13 +47,13 @@ export default function DatePicker(props) {
   const styles = StyleSheet.create({
     text : {
       color : '#3b3b3b',
-      fontSize : 19,
+      fontSize : 17,
       fontFamily : 'Poppins_500Medium',
     },
     body : {
         color : '#3b3b3b',
         fontSize : 14,
-        fontFamily : 'Poppins_400Regular'
+        fontFamily : 'SourceSansPro_400Regular'
     },
     line : {
         flexDirection : 'column',

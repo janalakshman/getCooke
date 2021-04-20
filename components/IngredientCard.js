@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, Text, View, ScrollView, VirtualizedList } from 'r
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
+import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 
@@ -39,7 +39,7 @@ export default function Header(props){
                         <View key={ingredient.id.toString()} style={styles.box}>
                             <Text style={styles.text}>{ingredient.ingredient.name.charAt(0).toUpperCase() + ingredient.ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.text}>{ingredient.qty == 0 ? '' : Math.round(ingredient.qty)} {ingredient.fraction} {ingredient.unit_name} </Text>
+                            <Text style={styles.unit}>{ingredient.qty == 0 ? '' : Math.round(ingredient.qty)} {ingredient.fraction} {ingredient.unit_name ? (ingredient.unit_name.length > 4 ? ingredient.unit_name.substring(0,4) : ingredient.unit_name) : ''} </Text>
                         </View>
                     )}
             </View>
@@ -53,7 +53,7 @@ export default function Header(props){
 
 const styles = StyleSheet.create({
     card : {
-        width : '88%',
+        width : '92%',
         margin : 32,
         borderRadius : 4,
         alignSelf : 'center',
@@ -91,16 +91,25 @@ const styles = StyleSheet.create({
     },
     text : {
         color : '#3b3b3b',
-        fontSize : 19,
+        fontSize : 17,
         fontFamily : 'SourceSansPro_400Regular',
         marginHorizontal : 16,
         textAlign : 'left',
-        maxWidth : '55%',
+        width : '50%',
+        marginVertical : 8
+      },
+      unit : {
+        color : '#3b3b3b',
+        fontSize : 17,
+        fontFamily : 'SourceSansPro_400Regular',
+        marginHorizontal : 16,
+        textAlign : 'right',
         marginVertical : 8
       },
       box : {
           margin : 8,
           flexDirection : 'row',
-          justifyContent : 'flex-start'
+          justifyContent : 'flex-start',
+          alignItems : 'flex-end'
       },
   });

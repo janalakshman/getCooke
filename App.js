@@ -278,7 +278,7 @@ export default function App() {
                       <Image source={Logo} alt="Logo"
                         style={{ width: 50, height: 50, marginLeft : 16 }}
                       />
-                      <Text style={styles.text}>Sign In</Text>
+                      <Text style={styles.text}>Log In</Text>
                     </View>
                   ),
                   headerStyle : {
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
   text : {
     color : '#3b3b3b',
     fontSize : 19,
-    fontFamily : 'Poppins_700Bold',
+    fontFamily : 'Poppins_600SemiBold',
     marginLeft : 8,
     marginTop : 8
 },

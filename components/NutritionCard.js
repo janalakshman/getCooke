@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { useFonts,  Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 
 export default function Header(props){
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
+          Poppins_600SemiBold,  SourceSansPro_400Regular
       });
   
       if (!fontsLoaded) {
@@ -21,21 +22,21 @@ export default function Header(props){
                 <View style={styles.card}>
                     <View style={styles.line}>
                         <Text style={styles.text}>{recipe.calories}</Text>
-                        <Text style={styles.body}>Calories</Text>     
+                        <Text style={styles.body}>Cals</Text>     
                     </View>
 
                     <View style={styles.line}>
-                        <Text style={styles.text}>{recipe.carbohydrate}g</Text>
+                        <Text style={styles.text}>{recipe.carbohydrate} g</Text>
                         <Text style={styles.body}>Carbs</Text>     
                     </View>
 
                     <View style={styles.line}>
-                        <Text style={styles.text}>{recipe.proteins}g</Text>
+                        <Text style={styles.text}>{recipe.proteins} g</Text>
                         <Text style={styles.body}>Protein</Text>     
                     </View>
 
                     <View style={styles.line}>
-                        <Text style={styles.text}>{recipe.fat}g</Text>
+                        <Text style={styles.text}>{recipe.fat} g</Text>
                         <Text style={styles.body}>Fat</Text>     
                     </View>
                 </View>
@@ -76,13 +77,13 @@ const styles = StyleSheet.create({
       fontSize : 17,
       color : '#3b3b3b',
       margin : 8,
-      fontFamily : 'Poppins_600SemiBold'
+      fontFamily : 'Poppins_500Medium'
   },
   body : {
       fontSize : 14,
       color : '#3b3b3b',
       margin : 4,
-      fontFamily : 'Poppins_400Regular'
+      fontFamily : 'SourceSansPro_400Regular'
   },
   
   });

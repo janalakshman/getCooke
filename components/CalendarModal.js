@@ -90,8 +90,8 @@ export default function CalendarModal( props ) {
           .then((result) => {
             handleModal()
             Alert.alert(
-                "Recipe added to your meal plan",
-                "success",
+                "Recipe added",
+                "Recipe added to your meal plan succesfully!",
                 {text : "OK"}
                 ) 
               setMarkedDates({})
@@ -110,7 +110,7 @@ export default function CalendarModal( props ) {
     var minDate = moment().format('YYYY-MM-DD');
 
     return (
-      <View>
+      <ScrollView>
       { !fontsLoaded ? (<LoadingScreen />) : 
         (<View style={styles.centeredView}>
           <Modal
@@ -174,7 +174,7 @@ export default function CalendarModal( props ) {
                     />
 
                 <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
-                    <Text style={styles.buttonText}>Schedule</Text>
+                    <Text style={styles.buttonText}>SCHEDULE</Text>
                 </TouchableOpacity>
 
               </ScrollView>
@@ -184,7 +184,7 @@ export default function CalendarModal( props ) {
               
   </View>)
       }
-     </View> 
+     </ScrollView> 
           
     );
   }

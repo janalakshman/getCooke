@@ -1,44 +1,40 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
+import { useFonts, SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 export default function Title(props) {
   var [ isPress, setIsPress ] = useState(false);
 
   let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
+       SourceSansPro_400Regular
   });
 
   if (!fontsLoaded) {
     return (<LoadingScreen />);
   }
 
-
     return(
-        <View>
+        <View style={{padding : 0}}>
           {
           isPress ? 
-          <View>
             <View style={styles.container}>
                 <Feather name="check-circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
-                <View style={{flexDirection : 'column'}}>
+                <View style={{flexDirection : 'row'}}>
                     <Text style={styles.clicked}>{props.item.name.charAt(0).toUpperCase()  + props.item.name.slice(1)} </Text>
-                    <Text style={styles.clicked}>{Math.round(props.item.amount)} {props.item.unit} </Text>
+                    <View style={{flexGrow : 1}}></View>
+                    <Text style={styles.clicked}>{Math.round(props.item.amount)} {props.item.unit ? (props.item.unit.length > 4 ? props.item.unit.substring(0,4) : props.item.unit) : ''} </Text>
                 </View>
             </View> 
-          </View>
           :
-          <View>
             <View style={styles.container}>
                 <Feather name="circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
-                <View style={{flexDirection : 'column'}}>
+                <View style={{flexDirection : 'row'}}>
                     <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
-                    <Text style={styles.unclicked}>{Math.round(props.item.amount)} {props.item.unit}</Text>
+                    <View style={{flexGrow : 1}}></View>
+                    <Text style={styles.unclicked}>{Math.round(props.item.amount)} {props.item.unit ? (props.item.unit.length > 4 ? props.item.unit.substring(0,4) : props.item.unit) : ''}</Text>
                 </View>
-            </View> 
           </View>  
           }
           <View style={{margin : 8}}></View>
@@ -51,21 +47,23 @@ export default function Title(props) {
   const styles = StyleSheet.create({
     unclicked : {
       color : '#3b3b3b',
-      fontSize : 19,
-      marginHorizontal : 16,
+      fontSize : 17,
+      marginHorizontal : 8,
       fontFamily : 'SourceSansPro_400Regular',
+      width : '50%'
     },
     clicked : {
       color : '#3b3b3b',
-      fontSize : 19,
+      fontSize : 17,
       fontFamily : 'SourceSansPro_400Regular',
-      marginHorizontal : 16,
+      marginHorizontal : 8,
       textDecorationLine : 'line-through',
     },
     container : {
-        margin : 8,
+        paddingHorizontal : 4,
+        paddingVertical : 8,
         flexDirection : 'row',
         justifyContent : 'flex-start',
-        alignItems : 'flex-start',
+        alignItems : 'center',
     },
   });

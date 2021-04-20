@@ -4,13 +4,13 @@ import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
 import { useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
+import { useFonts, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 export default function RecipeDescription(props){
     let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
+         Poppins_600SemiBold, SourceSansPro_400Regular
       });
     
     const navigation = useNavigation();
@@ -34,7 +34,7 @@ export default function RecipeDescription(props){
                                 <Text style={styles.title}>{recipe.user.first_name}</Text>
                                 : <Text style={styles.title}>{recipe.user.username}</Text>
                                 }
-                                <Text style={styles.body}>Kitchen Master @ Cook-e</Text>
+                                <Text style={styles.body}>Community member</Text>
                         </View>
                     </View>
 
@@ -61,22 +61,22 @@ const styles = StyleSheet.create({
         resizeMode : 'contain',
     },
     text : {
-        fontSize : 19,
+        fontSize : 17,
         color : '#3b3b3b',
         marginLeft : 16,
         fontFamily : 'SourceSansPro_400Regular'
     },
     title : {
-        fontSize : 19,
+        fontSize : 17,
         color : '#3b3b3b',
         fontFamily : 'Poppins_600SemiBold',
         marginLeft : 16,
     },
     body : {
       fontSize : 14,
-      color : '#3b3b3b',
+      color : '#626262',
       marginLeft : 16,
-      fontFamily : 'Poppins_400Regular'
+      fontFamily : 'SourceSanPro_400Regular'
     },
     line : {
         flexDirection : "column",

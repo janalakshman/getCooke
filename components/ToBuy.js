@@ -21,8 +21,8 @@ export default function ToBuy(props){
 
 const styles = StyleSheet.create({
     card : {
-        width : '88%',
-        paddingHorizontal : 32, 
+        width : '92%',
+        paddingHorizontal : 16, 
         margin : 32,
         paddingBottom : 8,
         borderRadius : 4,

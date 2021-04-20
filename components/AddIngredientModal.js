@@ -83,7 +83,7 @@ export default function AddIngredientModal(props) {
     
                         
                       <TouchableOpacity  style={styles.button} onPress={() => handleClick(props)}>
-                          <Text style={styles.buttonText}>Done</Text>
+                          <Text style={styles.buttonText}>DONE</Text>
                       </TouchableOpacity>
     
                                                     
@@ -147,7 +147,7 @@ export default function AddIngredientModal(props) {
     borderRadius : 20,
     borderTopLeftRadius : 0,
     backgroundColor :  '#f1f1f1',
-    height : 56,
+    height : 64,
     width : '90%',
     alignSelf : 'flex-start',
     padding : 16,
@@ -157,7 +157,7 @@ export default function AddIngredientModal(props) {
   buttonText : {
     color : '#A13E00',
     fontSize : 19,
-    margin : 16,
+    margin : 8,
     flexGrow : 1,
     textAlign : 'center',
     fontFamily : 'Poppins_600SemiBold'
