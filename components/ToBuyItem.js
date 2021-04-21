@@ -23,19 +23,25 @@ export default function Title(props) {
           isPress ? 
             <View style={styles.container}>
                 <Feather name="check-circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
-                <View style={{flexDirection : 'row'}}>
+                <View style={{flexDirection : 'row', alignItems : 'center'}}>
                     <Text style={styles.clicked}>{props.item.name.charAt(0).toUpperCase()  + props.item.name.slice(1)} </Text>
-                    <View style={{flexGrow : 1}}></View>
-                    <Text style={styles.clicked}>{amt} {unit[0].length > 4 ? unit[0].substring(0,4) : unit}</Text>
+                    <View style={{flexGrow :1}}></View>
+                    {/*For loop here*/}
+                    <View style={{flexDirection : 'column', width : '50%'}}>
+                      <Text style={styles.clicked}>{amt} {unit[0].length > 4 ? unit[0].substring(0,4) : unit}</Text>
+                    </View>
                 </View>
             </View> 
           :
             <View style={styles.container}>
                 <Feather name="circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
-                <View style={{flexDirection : 'row'}}>
+                <View style={{flexDirection : 'row', alignItems : 'center'}}>
                     <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
                     <View style={{flexGrow : 1}}></View>
-                    <Text style={styles.unclicked}>{amt} {unit[0].length > 4 ? unit[0].substring(0,4) : unit}</Text>
+                    {/*For loop here*/}
+                    <View style={{flexDirection : 'column', width : '50%'}}>
+                      <Text style={styles.unclicked}>{amt} {unit[0].length > 4 ? unit[0].substring(0,4) : unit}</Text>
+                    </View>
                 </View>
           </View>  
           }
@@ -58,7 +64,7 @@ export default function Title(props) {
       color : '#3b3b3b',
       fontSize : 17,
       fontFamily : 'SourceSansPro_400Regular',
-      marginHorizontal : 8,
+      marginHorizontal : 12,
       textDecorationLine : 'line-through',
       width : '50%'
     },
