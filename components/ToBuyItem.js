@@ -6,9 +6,6 @@ import LoadingScreen from '../LoadingScreen'
 
 export default function Title(props) {
   var [ isPress, setIsPress ] = useState(false);
-  let unit = Object.keys(props.item.qty)
-  let amt = Object.values(props.item.qty)
-
   let [fontsLoaded] = useFonts({
        SourceSansPro_400Regular
   });
@@ -16,7 +13,6 @@ export default function Title(props) {
   if (!fontsLoaded) {
     return (<LoadingScreen />);
   }
-
     return(
         <View style={{padding : 0}}>
           {
@@ -24,24 +20,21 @@ export default function Title(props) {
             <View style={styles.container}>
                 <Feather name="check-circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
                 <View style={{flexDirection : 'row', alignItems : 'center'}}>
-                    <Text style={styles.clicked}>{props.item.name.charAt(0).toUpperCase()  + props.item.name.slice(1)} </Text>
-                    <View style={{flexGrow :1}}></View>
-                    {/*For loop here*/}
-                    <View style={{flexDirection : 'column', width : '50%'}}>
-                      <Text style={styles.clicked}>{amt} {unit[0].length > 4 ? unit[0].substring(0,4) : unit}</Text>
-                    </View>
+                    <Text style={styles.clicked}>{props.item.name} </Text>
+                    { Object.keys(props.item.qty).map((key) => (
+                      <View style={{flexGrow :1}}>{key} {props.item.qty[key]}</View>
+                        ))}
                 </View>
             </View> 
           :
             <View style={styles.container}>
                 <Feather name="circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
                 <View style={{flexDirection : 'row', alignItems : 'center'}}>
-                    <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
-                    <View style={{flexGrow : 1}}></View>
-                    {/*For loop here*/}
-                    <View style={{flexDirection : 'column', width : '50%'}}>
-                      <Text style={styles.unclicked}>{amt} {unit[0].length > 4 ? unit[0].substring(0,4) : unit}</Text>
-                    </View>
+                    <Text style={styles.unclicked}>{props.item.name}</Text>
+                   { Object.keys(props.item.qty).map((key) => (
+                      <View style={{flexGrow :1}}>{key} {props.item.qty[key]}</View>
+                        ))}
+                      
                 </View>
           </View>  
           }
