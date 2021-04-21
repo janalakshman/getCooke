@@ -41,6 +41,7 @@ export default function GroceryList({navigation}) {
     .then(([status, response])=> {
           if(status === 200) {
             setGrocery(response)
+            console.log(grocery)
             if (response.ingredients) {
               const inst = response.ingredients.map(item => {
                   return {name : item.ingredient.name, amount : item.qty, fraction : item.fraction, unit : item.unit_name, key : item.id}
