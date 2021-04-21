@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, Text, View, ScrollView, VirtualizedList } from 'r
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ToBuyItem from './ToBuyItem'
 
-export default function ToBuy(props){   
+export default function ToBuy(props){  
 
     return(
         <SafeAreaView style={styles.card} >

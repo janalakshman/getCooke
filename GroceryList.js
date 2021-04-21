@@ -41,10 +41,9 @@ export default function GroceryList({navigation}) {
     .then(([status, response])=> {
           if(status === 200) {
             setGrocery(response)
-            console.log(grocery)
             if (response.ingredients) {
-              const inst = response.ingredients.map(item => {
-                  return {name : item.ingredient.name, amount : item.qty, fraction : item.fraction, unit : item.unit_name, key : item.id}
+              const inst = Object.values(response.ingredients).map(item => {
+                  return {name : item.name, qty : item.data}
               })
               setIns(inst);
             }
@@ -69,7 +68,7 @@ export default function GroceryList({navigation}) {
           <View style={{flex : 1}}>
           <ScrollView style={{backgroundColor : '#ffffff'}}>
             
-              { grocery.ingredients.length > 0 ?
+              { grocery.ingredients ?
               <View>
                   <Title name="Dates" />
                   <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>

@@ -6,6 +6,8 @@ import LoadingScreen from '../LoadingScreen'
 
 export default function Title(props) {
   var [ isPress, setIsPress ] = useState(false);
+  let unit = Object.keys(props.item.qty)
+  let amt = Object.values(props.item.qty)
 
   let [fontsLoaded] = useFonts({
        SourceSansPro_400Regular
@@ -24,7 +26,7 @@ export default function Title(props) {
                 <View style={{flexDirection : 'row'}}>
                     <Text style={styles.clicked}>{props.item.name.charAt(0).toUpperCase()  + props.item.name.slice(1)} </Text>
                     <View style={{flexGrow : 1}}></View>
-                    <Text style={styles.clicked}>{props.item.amount == 0 ? '' : Math.round(props.item.amount)} {props.item.fraction} {props.item.unit ? (props.item.unit.length > 4 ? props.item.unit.substring(0,4) : props.item.unit) : ''} </Text>
+                    <Text style={styles.clicked}>{amt} {unit[0].length > 4 ? unit[0].substring(0,4) : unit}</Text>
                 </View>
             </View> 
           :
@@ -33,7 +35,7 @@ export default function Title(props) {
                 <View style={{flexDirection : 'row'}}>
                     <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
                     <View style={{flexGrow : 1}}></View>
-                    <Text style={styles.unclicked}>{props.item.amount == 0 ? '' : Math.round(props.item.amount)} {props.item.fraction} {props.item.unit ? (props.item.unit.length > 4 ? props.item.unit.substring(0,4) : props.item.unit) : ''}</Text>
+                    <Text style={styles.unclicked}>{amt} {unit[0].length > 4 ? unit[0].substring(0,4) : unit}</Text>
                 </View>
           </View>  
           }

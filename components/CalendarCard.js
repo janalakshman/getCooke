@@ -60,14 +60,14 @@ export default function Header(props){
                             <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
                         </View>
                     </Pressable> 
-                    <View style={{flexDirection : 'row', marginVertical : 4}}>{
+                    <View style={{flexDirection : 'row', marginTop : 4}}>{
                         props.event.title.recipe.over_night_prep ? (
-                            <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                            <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                 <MaterialIcons name="nights-stay" style={styles.icon} />
                                 <Text style={styles.smalltext}>Overnight prep</Text> 
                             </View>
                         ) : (
-                        <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center', marginRight : 32 }}>
+                        <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                 <MaterialIcons name="timelapse" style={styles.icon} />
                                 <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
                         </View>)
@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
       fontSize : 14,
       color : '#3b3b3b',
       margin : 8,
-      marginBottom : 4,
       fontFamily : 'SourceSansPro_400Regular'
   },
   delete : {
