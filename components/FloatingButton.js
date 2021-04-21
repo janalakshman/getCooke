@@ -34,6 +34,11 @@ export default function FloatingButton(props) {
         margin : 16,
         flexDirection : 'row',
         alignItems : 'center',
+        elevation : 3,
+        shadowRadius : 3,
+        shadowOpacity : 0.5,
+        shadowColor : 'rgba(0, 0, 0, 0.25)',
+        shadowOffset : {width : 0, height : 4},
         },
     icon : {
         fontSize : 20,

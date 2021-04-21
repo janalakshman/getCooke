@@ -87,8 +87,7 @@ export default function SignIn(props) {
                                         placeholder = "Password"
                                         secureTextEntry={true}
                                         onChangeText={text => onChangePassword(text)}
-                                        value={password}
-                                        autoFocus={true}/>
+                                        value={password}/>
 
                             <View style={{flexGrow : 1}}>
                             </View>

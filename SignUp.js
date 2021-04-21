@@ -83,8 +83,7 @@ export default function SignUp() {
                                         placeholder = "Password"
                                         secureTextEntry={true}
                                         onChangeText={text => onChangePassword(text)}
-                                        value={password}
-                                        autoFocus={true}/>
+                                        value={password}/>
 
                             <Text style={styles.text}>Gender</Text>
                                 <View style={{marginHorizontal : 32}}>
