@@ -2,8 +2,6 @@ import React from 'react'
 import { View } from 'react-native'
 import { Text, StyleSheet, Image, Button, TouchableOpacity, ScrollView} from 'react-native'
 import * as WebBrowser from 'expo-web-browser';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from './LoadingScreen'
 import Icon from './assets/Assistant.png'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -11,10 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 
 export default function Welcome() {
-    let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
-      });
-    
+
     const user = useSelector(state => state.counter.token);
     const navigation = useNavigation();
 
@@ -23,7 +18,7 @@ export default function Welcome() {
     }
     return(
         <ScrollView style={{backgroundColor : '#ffffff', flex : 1}}>
-            {!fontsLoaded ? (<LoadingScreen />) : (
+
             <View >
 
             <Text style={styles.text}>Hire a personal kitchen assistant</Text>
@@ -40,8 +35,8 @@ export default function Welcome() {
                 <Text style={styles.buttonText}>LOG IN</Text>
             </TouchableOpacity>
 
-        </View>
-        )}
+            </View>
+            
         </ScrollView>
 
 

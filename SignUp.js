@@ -4,7 +4,6 @@ import { TextInput } from 'react-native-gesture-handler'
 import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { addUserID, addUserPassword, setToken } from './redux/counterSlice';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
@@ -17,13 +16,10 @@ import config from './config';
 
 
 export default function SignUp() {
-    let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
-      });
-
     const [userID, onChangeUserID] = useState('');
     const [password, onChangePassword] = useState('');
     const [radioGender, setRadioGender ] = useState(0);
+    const [loading, setLoading] = useState(false)
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const user = useSelector(state => state.counter.token);
@@ -33,6 +29,7 @@ export default function SignUp() {
     }
 
     const handleClick = () => {
+        setLoading(true)
         fetch(config.api + `/v1/auth`,
          {
           method: 'POST',
@@ -42,6 +39,7 @@ export default function SignUp() {
           body: JSON.stringify({email:userID, password:password}),
         })
         .then((res) => {
+            setLoading(false)
             return Promise.all([res.status, res.json()]);        
             })
         .then(([status, result])=> {
@@ -59,7 +57,7 @@ export default function SignUp() {
       }
     return(
         <View style={{flex : 1}}> 
-            {!fontsLoaded ? (<LoadingScreen />) :
+            {loading ? (<LoadingScreen />) :
             (
                 <ScrollView style={styles.container}>
 

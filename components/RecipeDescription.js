@@ -4,23 +4,17 @@ import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
 import { useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
-import { useFonts, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
+
 import LoadingScreen from '../LoadingScreen'
 
 export default function RecipeDescription(props){
-    let [fontsLoaded] = useFonts({
-         Poppins_600SemiBold, SourceSansPro_400Regular
-      });
-    
+
     const navigation = useNavigation();
     const recipe = props.recipe
     
 
     return(
-        <View>
-            {!fontsLoaded ? (<LoadingScreen/>) :
-            (
+       
                 <View>
                     <View style={styles.container}>
                             {recipe.user.profile.gender === 1 ? 
@@ -44,9 +38,7 @@ export default function RecipeDescription(props){
                         </Text>
                     </View>
                 </View>
-            )}
-        </View>
-              
+                     
     )
 }
 

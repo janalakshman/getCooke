@@ -1,14 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import { SourceSansPro_400Regular} from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 
 export default function DatePicker(props) {
-    let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
-      });
+
 
       let fromDate = props.from.split(/\s/)[0]
       let fromMonth = props.from.split(/\s/)[1]
@@ -18,11 +15,6 @@ export default function DatePicker(props) {
       let toMonth = props.to.split(/\s/)[1]
       let toDay = props.from.split(/\n/)
 
-
-    
-      if (!fontsLoaded) {
-        return (<LoadingScreen />);
-      }
 
     return(
         <View style={styles.container}>

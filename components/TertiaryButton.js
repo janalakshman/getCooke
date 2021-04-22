@@ -15,7 +15,7 @@ export default function TertiaryButton(props) {
   
   }
     return(
-        <TouchableOpacity onPress={() => props.setModalVisible(true)}>
+        <TouchableOpacity onPress={props.function}>
           <View style={styles.button}>
               <Text style={styles.buttonText}>{props.name}</Text>
           </View>   

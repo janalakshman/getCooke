@@ -3,13 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useSelector, useDispatch } from 'react-redux';
 import { addTime } from '../redux/counterSlice'
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
 export default function Filter(props) {
-  let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
-  });
+
 
   var [ isPress, setIsPress ] = useState(false);
   const setCourses = props.setCourses
@@ -21,9 +18,6 @@ export default function Filter(props) {
 
 
     return(
-          <View>
-            {!fontsLoaded ? <LoadingScreen /> :
-            (
               <View>
               {
                 !isPress ?
@@ -40,9 +34,6 @@ export default function Filter(props) {
                 </View> 
                 }
               </View> 
-            )}
-
-          </View> 
     )
 }
   

@@ -1,17 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useFonts,  Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import LoadingScreen from '../LoadingScreen'
-
 
 export default function Title(props) {
-    let [fontsLoaded] = useFonts({
-      Poppins_600SemiBold
-    });
-
-    if (!fontsLoaded) {
-      return (<LoadingScreen />);
-    }
 
     return(
       <View style={styles.container}>

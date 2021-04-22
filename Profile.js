@@ -8,6 +8,7 @@ import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from './LoadingScreen'
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
+import TertiaryButton from './components/TertiaryButton'
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -21,7 +22,9 @@ export default function Profile({navigation}){
       }
 
     return(
-            <View style={{backgroundColor : '#ffffff', flexGrow : 1}}>
+        
+            <View style={{flexGrow : 1, backgroundColor : '#fff556'}}>
+              <ScrollView style={{backgroundColor : '#ffffff'}}>
                 <View style={{flexDirection : 'row', margin : 16, marginTop : 32}}>
                     <Image source={maleAvatar}
                             style={styles.image}/>
@@ -30,23 +33,26 @@ export default function Profile({navigation}){
                         <Text style={styles.body}>Member since {moment(user.user.date_joined).format('d/MM/YYYY')}</Text>
                     </View>   
                 </View>
+
                 
             <Title name="Contact"/>
             
-                <View style={{backgroundColor : '#fff5e6', paddingTop : 16}}>
+                <View style={{backgroundColor : '#fff5e6', paddingVertical : 16}}>
                     <View style={styles.card}>
-                        <Text style={styles.para}>
-                            Compliments are nice, but criticisms are better! 
-                        </Text>
+                        <Text style={styles.para}>Compliments are nice, but criticisms are better!</Text>
                     </View>
 
                     <View style={styles.card}>
-                        <Text style={styles.para}>Drop a mail to {user.user.email}</Text>
+                        <Text style={styles.para}>Drop a mail to jana@getcooke.com!</Text>
                     </View>
-
                 </View>
+
+                <View style={{marginTop : 16}}>
+                  <TertiaryButton name="Log out" />
+                </View>
+
+              </ScrollView>
                 
-                <View style={{flexGrow : 1, backgroundColor : '#fff5e6'}}></View>
 
                 <View style={styles.navigation}>
                   <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
@@ -68,9 +74,9 @@ export default function Profile({navigation}){
                   <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
                     <MaterialIcons name="account-box" style={styles.selectedIcon}/>
                   </TouchableOpacity> 
-          </View>
+                </View>
 
-            </View>
+          </View>
 
     )
 }
@@ -116,7 +122,7 @@ const styles = StyleSheet.create({
         shadowColor : 'rgba(0, 0, 0, 0.10)',
         shadowRadius : 2,
         shadowOffset : {width : 0, height : 4},
-        height : 96
+        height : 88
     },
     navigation : {
         backgroundColor : '#ffffff',

@@ -6,10 +6,8 @@ import {Calendar} from 'react-native-calendars';
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
 import { addDate, resetData, addTime } from '../redux/counterSlice'
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 import config from '../config';
-import NumericInput from 'react-native-numeric-input'
 import { MaterialIcons } from '@expo/vector-icons';
 
 const DATA = [
@@ -44,16 +42,11 @@ const DATA = [
  
 
 export default function CalendarModal( props ) {
-  let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
-  });
 
     const [dates, setDates] = useState([])
     const [courses, setCourses] = useState([])
     const [markedDates, setMarkedDates] = useState({});
     const [servings, setServings] = useState(1)
-    const dispatch = useDispatch();
-    const recipe = useSelector(state => state.counter.recipe)
     const user = useSelector(state => state.counter.token);
 
     const getSelectedDates = (date) => {
@@ -111,8 +104,7 @@ export default function CalendarModal( props ) {
 
     return (
       <ScrollView>
-      { !fontsLoaded ? (<LoadingScreen />) : 
-        (<View style={styles.centeredView}>
+     <View style={styles.centeredView}>
           <Modal
             animationType="slide"
             transparent={true}
@@ -182,8 +174,7 @@ export default function CalendarModal( props ) {
               </View>
           </Modal>
               
-  </View>)
-      }
+      </View>
      </ScrollView> 
           
     );

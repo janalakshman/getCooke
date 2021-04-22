@@ -7,19 +7,10 @@ import nonVeg from '../assets/nonVeg.png'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
 export default function Header(props){
 let array = ['200 g Onion', '2 Tomatoes', '1 cup Panner', '1 tsp Rasam powder', '1 cup Butter']
-
-let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
-  });
-
-  if (!fontsLoaded) {
-    return (<LoadingScreen />);
-  }
 
 const navigation = useNavigation(); 
 

@@ -2,19 +2,10 @@ import React from 'react'
 import { View } from 'react-native'
 import { Text, StyleSheet, Image, Button, TouchableOpacity} from 'react-native'
 import * as WebBrowser from 'expo-web-browser';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from './LoadingScreen'
 import Icon from './assets/Chef.png'
 
 export default function CreateRecipe({navigation}) {
-    let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
-      });
-    
-      if (!fontsLoaded) {
-        return (<LoadingScreen />);
-      }
 
     _handleOpenWithWebBrowser = () => {
         WebBrowser.openBrowserAsync('http://getcooke.com/login');

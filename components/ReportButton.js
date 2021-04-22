@@ -1,26 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import LoadingScreen from '../LoadingScreen'
-import { useLinkProps } from '@react-navigation/native';
+
 
 export default function TertiaryButton() {
   
-  let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold
-  });
-
-  if (!fontsLoaded) {
-    return (<LoadingScreen />);
-  }
 
   const handleReport = () => {
     Alert.alert(
         "Report recipe",
-        "Recipe has been reported due to the presence of obscene content. It will be reviewed shortly. Thank you!",
+        "Are you sure you want to report this recipe because it has obscene/distrubing content?",
         [
-          { text: "OK", onPress: () => console.log("OK Pressed") }
+          { text: "Cancel", onPress: () => console.log("Cancel Pressed") },
+          { text: "Report", onPress: () => console.log("OK Pressed") }
         ]
       );
   }

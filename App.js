@@ -16,7 +16,8 @@ import SignIn from './SignIn'
 import Welcome from './Welcome'
 import store from './redux/store'
 import { Provider } from 'react-redux'
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import * as Font from 'expo-font';
+import { useFonts } from 'expo-font';
 import LoadingScreen from './LoadingScreen'
 import Logo from './assets/CookeLogo.png'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -24,14 +25,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const Stack = createStackNavigator();
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold
+  const [loaded] = useFonts({
+    'Poppins_600SemiBold' : require('./assets/fonts/Poppins/Poppins-SemiBold.ttf'),
+    'Poppins_500Medium' : require('./assets/fonts/Poppins/Poppins-Medium.ttf'),
+    'Poppins_400Regular' : require('./assets/fonts/Poppins/Poppins-Regular.ttf'),
+    'SourceSansPro_400Regular' :  require('./assets/fonts/SourceSansPro/SourceSansPro-Regular.ttf'),
   });
 
-  if (!fontsLoaded) {
-    return (<LoadingScreen />);
+  if(!loaded) {
+    return (<LoadingScreen />)
   }
-
 
   return (
     <NavigationContainer>

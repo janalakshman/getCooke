@@ -4,13 +4,9 @@ import { AntDesign } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector} from 'react-redux'
 import { addIngredientName, addIngredientQuantity, newIngredientList, resetIngredient, setIngredient } from '../redux/counterSlice';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
 export default function AddIngredientModal(props) {
-  let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
-  });
 
   
     const [name, onChangeName] = useState('');
@@ -40,8 +36,7 @@ export default function AddIngredientModal(props) {
     
     return (
       <View>
-        { !fontsLoaded ? (<LoadingScreen />) :
-        (
+        
           <ScrollView>
 
           <View style={styles.centeredView}>
@@ -91,12 +86,10 @@ export default function AddIngredientModal(props) {
                       
           </View>
           </ScrollView>
-        )}
+        
       </View>
-       
-          
-    );
-  }
+     
+    )}
   
   const styles = StyleSheet.create({
     centeredView: {

@@ -1,18 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import { useFonts, Poppins_500Medium } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function FloatingButton(props) {
-  let [fontsLoaded] = useFonts({
-    Poppins_500Medium
-  });
-
-  if (!fontsLoaded) {
-    return (<LoadingScreen />);
-  }
-
     return(
             <TouchableOpacity  style={styles.button} onPress={() => props.setModalVisible(true)}>
                 <MaterialIcons name="add" style={styles.icon} />
@@ -25,7 +16,7 @@ export default function FloatingButton(props) {
     buttonText : {
       color : '#A13E00',
       fontSize : 17,
-      fontFamily : 'Poppins_500Medium',
+      fontFamily : 'Poppins_600SemiBold',
       margin : 8,
     },
     button: {

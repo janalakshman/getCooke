@@ -1,18 +1,9 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
-import { useFonts,  Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from '../LoadingScreen'
 
 
 export default function Header(props){
-    let [fontsLoaded] = useFonts({
-          Poppins_600SemiBold,  SourceSansPro_400Regular
-      });
-  
-      if (!fontsLoaded) {
-          return (<LoadingScreen />);
-        }
 
     const recipe = props.recipe
     return(

@@ -1,18 +1,10 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { useFonts, SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
-import LoadingScreen from '../LoadingScreen'
 
 export default function Title(props) {
   var [ isPress, setIsPress ] = useState(false);
-  let [fontsLoaded] = useFonts({
-       SourceSansPro_400Regular
-  });
 
-  if (!fontsLoaded) {
-    return (<LoadingScreen />);
-  }
     return(
         <View style={{padding : 0}}>
           {

@@ -1,23 +1,8 @@
 import React, {useState} from 'react';
 import { StyleSheet, FlatList, Text, View, ScrollView, VirtualizedList } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
-import LoadingScreen from '../LoadingScreen'
-
-
 
 export default function Header(props){
-
-
-    let [fontsLoaded] = useFonts({
-      Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
-    });
-
-    if (!fontsLoaded) {
-        return (<LoadingScreen />);
-      }
 
     return(
         <View>

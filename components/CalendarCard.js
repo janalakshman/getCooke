@@ -2,21 +2,14 @@ import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular} from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
-import LoadingScreen from '../LoadingScreen'
 import config from '../config';
 import { useSelector, useDispatch } from 'react-redux';
+import { typeOf } from 'mathjs';
 
 export default function Header(props){
     const navigation = useNavigation();
     const user = useSelector(state => state.counter.token);
-    let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_600SemiBold, SourceSansPro_400Regular
-      });
-      if (!fontsLoaded) {
-        return (<LoadingScreen />);
-      }
+
 
       const handleDelete = () => {
         Alert.alert(
@@ -51,6 +44,7 @@ export default function Header(props){
       }
 
       const course = (props.event.title.course).split(",")[0]
+
       return (
             <View>
                 <View style={ course === 'Breakfast' ? styles.breakfastcard : course === 'Brunch' ? 
@@ -60,22 +54,46 @@ export default function Header(props){
                             <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
                         </View>
                     </Pressable> 
-                    <View style={{flexDirection : 'row', marginTop : 4}}>{
-                        props.event.title.recipe.over_night_prep ? (
-                            <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
-                                <MaterialIcons name="nights-stay" style={styles.icon} />
-                                <Text style={styles.smalltext}>Overnight prep</Text> 
-                            </View>
-                        ) : (
-                        <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
-                                <MaterialIcons name="timelapse" style={styles.icon} />
-                                <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
-                        </View>)
-                    }
-                        <View style={{flexDirection : 'row', justify : 'row', alignItems : 'center'}}>
+                    <View style={{flexDirection : 'column', marginTop : 4}}>
+                        
+                        <View style={{flexDirection : 'row', alignItems : 'center'}}>
                             <MaterialIcons name="access-time" style={styles.icon} />
-                            <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                            {props.event.title.course.includes(',') ? 
+                                <Text style={styles.smalltext}>{props.event.title.course.split(',').join('  |  ')}</Text> :
+                                <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                            }
+                            
                         </View>
+
+                    {props.event.title.recipe.over_night_prep ? (
+                            <View style={{flexDirection : 'row', justifyContent : 'flex-start', alignItems : 'center', marginRight : 32 }}>
+                                <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="food-bank" style={styles.icon} />
+                                    <Text style={styles.smalltext}>{props.event.title.servings === 1 ? '1 serving' : props.event.title.servings + ' servings'}</Text>
+                                </View>
+
+                                <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="nights-stay" style={styles.icon} />
+                                    <Text style={styles.smalltext}>Overnight prep</Text> 
+                                </View> 
+                            </View>
+                            
+                        ) : 
+                        <View style={{flexDirection : 'row', justifyContent : 'flex-start', alignItems : 'center', marginRight : 32 }}>
+                                <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="food-bank" style={styles.icon} />
+                                    <Text style={styles.smalltext}>{props.event.title.servings === 1 ? '1 serving' : props.event.title.servings + ' servings'}</Text>
+                                </View>
+
+                                <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
+                                    <MaterialIcons name="timelapse" style={styles.icon} />
+                                    <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
+                                </View> 
+                            </View>
+                    }
+                        
+                       
+                      
                     </View>
 
                 </View>

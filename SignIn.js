@@ -4,7 +4,6 @@ import { TextInput } from 'react-native-gesture-handler'
 import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { addUserID, addUserPassword, setToken } from './redux/counterSlice';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import config from './config';
@@ -20,22 +19,19 @@ const data = [
 
 
 export default function SignIn(props) {
-    let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
-      });
-
     const [userID, onChangeUserID] = useState('');
     const [password, onChangePassword] = useState('');
-    const [gender, setGender ] = useState('Male');
+    const [loading, setLoading] = useState(false)
     const user = useSelector(state => state.counter.token);
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
     if(user) {
-        navigation.navigate('Welcome')
+        navigation.navigate('Home')
     }
 
     const handleClick = () => {
+        setLoading(true)
         fetch(config.api + `/v1/auth`,
          {
           method: 'POST',
@@ -45,6 +41,7 @@ export default function SignIn(props) {
           body: JSON.stringify({email:userID, password:password}),
         })
           .then((res) => {
+            setLoading(false)
             return Promise.all([res.status, res.json()]);        
             })
           .then(([status, result])=> {
@@ -52,7 +49,8 @@ export default function SignIn(props) {
                 dispatch(setToken(result))
                 return navigation.navigate('Home')
               } else {
-                Alert.alert( "Incorrect credentials", "Username or password is incorrect", {text : "OK"} )
+                Alert.alert( "Incorrect credentials", "Username or password is incorrect", 
+                                {text : "OK", onPress : () => console.log("")} )
               }
               
           })
@@ -63,7 +61,7 @@ export default function SignIn(props) {
 
     return(
         <View style={{flex : 1, backgroundColor : '#fff'}}>
-            {!fontsLoaded ? (<LoadingScreen />) :
+            {loading ? (<LoadingScreen />) :
             (
                 <ScrollView style={styles.container}>
 

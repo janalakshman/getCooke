@@ -6,18 +6,10 @@ import veg from '../assets/veg.png'
 import nonVeg from '../assets/nonVeg.png'
 import { Pressable } from 'react-native';
 import config from '../config';
-import { SourceSansPro_400Regular, SourceSansPro_600SemiBold } from '@expo-google-fonts/source-sans-pro';
-import { useFonts } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
 export default function Header(props){
-    let [fontsLoaded] = useFonts({
-         SourceSansPro_400Regular, SourceSansPro_600SemiBold
-      });
-    
-      if (!fontsLoaded) {
-        return (<LoadingScreen />);
-      }
+
 
     return(
         <Pressable onPress={props.onPress}>
