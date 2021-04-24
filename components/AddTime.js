@@ -6,13 +6,13 @@ import { addTime } from '../redux/counterSlice'
 import LoadingScreen from '../LoadingScreen'
 
 export default function Filter(props) {
-
-
   var [ isPress, setIsPress ] = useState(false);
   const setCourses = props.setCourses
+  const courses = props.courses
+  console.log(props)
 
-  const handleClick = (props) => {
-    setCourses(courses => [...courses, props])
+  const handleClick = (item) => {
+    courses.indexOf(item) > 0 ? console.log(courses.splice(item)) : console.log(courses.push(item))
     setIsPress(!isPress)
   }
 

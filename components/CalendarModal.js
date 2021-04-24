@@ -63,7 +63,7 @@ export default function CalendarModal( props ) {
 
     const Item = ({item}) => (
       <View>
-        <AddTime name={item.title} time={item.time} setCourses={setCourses}/>
+        <AddTime name={item.title} time={item.time} courses={courses} setCourses={setCourses}/>
       </View>
     );
 
