@@ -2,25 +2,25 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useSelector, useDispatch } from 'react-redux';
-import { addFilter, removeFilter } from '../redux/counterSlice'
+
 
 
 export default function Filter(props) {
   let [isPress, setIsPress] = useState(false)
   const dispatch = useDispatch()
-  const filters = useSelector(state => state.counter.filters)
-  let selected = filters.filter(word => word === props.name)
+  // const filters = useSelector(state => state.counter.filters)
+  // let selected = filters.filter(word => word === props.name)
   
 
-  const handleClick = (props) => {
-    isPress = !isPress
-    setIsPress(isPress)
-    if(isPress){
-      dispatch(addFilter(props))
-    } else {
-      dispatch(removeFilter(props))
-    }
-  }
+  // const handleClick = (props) => {
+  //   isPress = !isPress
+  //   setIsPress(isPress)
+  //   if(isPress){
+  //     dispatch(addFilter(props))
+  //   } else {
+  //     dispatch(removeFilter(props))
+  //   }
+  // }
 
 
     return(

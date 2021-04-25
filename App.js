@@ -14,15 +14,18 @@ import Profile from './Profile'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
 import Welcome from './Welcome'
-import store from './redux/store'
 import { Provider } from 'react-redux'
 import * as Font from 'expo-font';
 import { useFonts } from 'expo-font';
 import LoadingScreen from './LoadingScreen'
 import Logo from './assets/CookeLogo.png'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import store from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
 
-const Stack = createStackNavigator();
+
+
 
 export default function App() {
   const [loaded] = useFonts({
@@ -35,10 +38,14 @@ export default function App() {
   if(!loaded) {
     return (<LoadingScreen />)
   }
+  const Stack = createStackNavigator();
+  let persistor = persistStore(store);
+
 
   return (
     <NavigationContainer>
       <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
         <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen 
               name="Home" 
@@ -321,6 +328,7 @@ export default function App() {
                   },
                  })}  />
       </Stack.Navigator>
+      </PersistGate>
       </Provider>
     </NavigationContainer>
   );

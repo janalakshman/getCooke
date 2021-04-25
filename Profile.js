@@ -10,15 +10,24 @@ import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import TertiaryButton from './components/TertiaryButton'
 import { useSelector, useDispatch } from 'react-redux';
+import { deleteToken } from './redux/counterSlice';
+
 
 
 export default function Profile({navigation}){
     let [fontsLoaded] = useFonts({
         Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
       });
+      
       const user = useSelector(state => state.counter.token);
+      
       if (!fontsLoaded) {
         return (<LoadingScreen />);
+      }
+
+      const handleLogout = () => {
+        dispatch(deleteToken())
+        navigation.navigate('Welcome')
       }
 
     return(
@@ -26,8 +35,7 @@ export default function Profile({navigation}){
             <View style={{flexGrow : 1, backgroundColor : '#fff556'}}>
               <ScrollView style={{backgroundColor : '#ffffff'}}>
                 <View style={{flexDirection : 'row', margin : 16, marginTop : 32}}>
-                    <Image source={maleAvatar}
-                            style={styles.image}/>
+                {user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image}/> : <Image source={femaleAvatar} style={styles.image}/>} 
                     <View style={styles.line}>
                         <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                         <Text style={styles.body}>Member since {moment(user.user.date_joined).format('d/MM/YYYY')}</Text>
@@ -48,7 +56,7 @@ export default function Profile({navigation}){
                 </View>
 
                 <View style={{marginTop : 16}}>
-                  <TertiaryButton name="Log out" />
+                  <TertiaryButton name="Log out" onPress={handleLogout}/>
                 </View>
 
               </ScrollView>
