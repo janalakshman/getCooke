@@ -8,6 +8,7 @@ import { typeOf } from 'mathjs';
 
 export default function Header(props){
     const navigation = useNavigation();
+    const user = useSelector(state => state.counter.token);
 
 
       const handleDelete = () => {
