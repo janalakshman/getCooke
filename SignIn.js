@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Image, Alert, ScrollView, TouchableOpacity, Keyb
 import { TextInput } from 'react-native-gesture-handler'
 import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserID, addUserPassword, setToken } from './redux/counterSlice';
+import { setToken } from './redux/counterSlice';
 import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import config from './config';
