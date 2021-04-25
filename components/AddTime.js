@@ -8,8 +8,16 @@ export default function Filter(props) {
   const courses = props.courses
 
   const handleClick = (item) => {
-    courses.indexOf(item) > 0 ? setCourses(courses) : setCourses([...courses, item])
-    console.log(courses)
+    if(courses.includes(item)) {
+      const i  = courses.indexOf(item)
+      if ( i!== -1) {
+        courses.splice(i, 1); 
+        setCourses(courses)
+      }
+    }else{
+      setCourses([...courses, item])
+    }
+    // courses.includes(item) ? setCourses(courses) : setCourses([...courses, item])
     setIsPress(!isPress)
   }
 
