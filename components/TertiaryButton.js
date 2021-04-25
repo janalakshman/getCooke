@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../LoadingScreen'
 
+
 export default function TertiaryButton(props) {
   
   let [fontsLoaded] = useFonts({

@@ -3,42 +3,35 @@ import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react
 import Title from './components/Title'
 import maleAvatar from './assets/maleAvatar.png'
 import femaleAvatar from './assets/femaleAvatar.png'
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import { SourceSansPro_400Regular } from '@expo-google-fonts/source-sans-pro';
-import LoadingScreen from './LoadingScreen'
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import TertiaryButton from './components/TertiaryButton'
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteToken } from './redux/counterSlice';
+import Welcome from './Welcome'
 
 
 
 export default function Profile({navigation}){
-    let [fontsLoaded] = useFonts({
-        Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular, SourceSansPro_400Regular
-      });
-      
       const user = useSelector(state => state.counter.token);
-      
-      if (!fontsLoaded) {
-        return (<LoadingScreen />);
-      }
 
+      const dispatch = useDispatch();
+    
       const handleLogout = () => {
         dispatch(deleteToken())
         navigation.navigate('Welcome')
       }
 
     return(
-        
-            <View style={{flexGrow : 1, backgroundColor : '#fff556'}}>
+            <View style={{flex : 1}}>
+              {user ? (
+              <View style={{flex : 1}}>
               <ScrollView style={{backgroundColor : '#ffffff'}}>
                 <View style={{flexDirection : 'row', margin : 16, marginTop : 32}}>
                 {user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image}/> : <Image source={femaleAvatar} style={styles.image}/>} 
                     <View style={styles.line}>
                         <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
-                        <Text style={styles.body}>Member since {moment(user.user.date_joined).format('d/MM/YYYY')}</Text>
+                        <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>
                     </View>   
                 </View>
 
@@ -56,7 +49,7 @@ export default function Profile({navigation}){
                 </View>
 
                 <View style={{marginTop : 16}}>
-                  <TertiaryButton name="Log out" onPress={handleLogout}/>
+                  <TertiaryButton name="Log out" function={handleLogout} />
                 </View>
 
               </ScrollView>
@@ -83,6 +76,8 @@ export default function Profile({navigation}){
                     <MaterialIcons name="account-box" style={styles.selectedIcon}/>
                   </TouchableOpacity> 
                 </View>
+                </View>) : (<Welcome/>)}
+              
 
           </View>
 

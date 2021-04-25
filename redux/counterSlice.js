@@ -17,7 +17,7 @@ const counterSlice = createSlice({
 
 
 
-export const { setToken } = counterSlice.actions
+export const { setToken, deleteToken } = counterSlice.actions
 
 export default counterSlice.reducer
 

@@ -1,18 +1,15 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons'; 
-import { useSelector, useDispatch } from 'react-redux';
-import { addTime } from '../redux/counterSlice'
-import LoadingScreen from '../LoadingScreen'
+
 
 export default function Filter(props) {
   var [ isPress, setIsPress ] = useState(false);
   const setCourses = props.setCourses
   const courses = props.courses
-  console.log(props)
 
   const handleClick = (item) => {
-    courses.indexOf(item) > 0 ? console.log(courses.splice(item)) : console.log(courses.push(item))
+    courses.indexOf(item) > 0 ? setCourses(courses) : setCourses([...courses, item])
+    console.log(courses)
     setIsPress(!isPress)
   }
 
