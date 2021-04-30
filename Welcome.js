@@ -16,6 +16,7 @@ export default function Welcome() {
     if(user) {
         navigation.navigate('Home')
     }
+    
     return(
         <ScrollView style={{backgroundColor : '#ffffff', flex : 1}}>
 
