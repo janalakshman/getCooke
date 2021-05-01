@@ -63,11 +63,6 @@ export default function App() {
                     <Text style={styles.text}>Cook-e</Text>
                   </View>
                 ),
-                headerRight : () => (
-                  <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
-                    <Text style={styles.buttonText}>CREATE</Text>
-                  </TouchableOpacity>
-                ),
                 headerStyle : {
                   backgroundColor : '#ffffff',
                   elevation : 5,
@@ -125,11 +120,6 @@ export default function App() {
                       <Text style={styles.text}>Meal plan</Text>
                     </View>
                   ),
-                  headerRight : () => (
-                    <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
-                      <Text style={styles.buttonText}>CREATE</Text>
-                    </TouchableOpacity>
-                  ),
                   headerStyle : {
                     backgroundColor : '#ffffff',
                     elevation : 5,
@@ -154,11 +144,6 @@ export default function App() {
                         />
                         <Text style={styles.text}>Grocery list</Text>
                       </View>
-                    ),
-                    headerRight : () => (
-                      <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
-                        <Text style={styles.buttonText}>CREATE</Text>
-                      </TouchableOpacity>
                     ),
                     headerStyle : {
                       backgroundColor : '#ffffff',

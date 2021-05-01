@@ -85,7 +85,9 @@ export default function MealPlan({navigation}) {
                             /> :
                             <View>
                               <Text style={styles.text}>Meal plan in minutes</Text>
-                              <Text style={styles.body}>Add recipes to your calendar, get remainders, nutrition info and more! </Text>
+                              <Text style={styles.body}>Find the recipe you like.</Text>
+                              <Text style={styles.body1}>Click + CALENDAR to open calendar.</Text>
+                              <Text style={styles.body1}>Add number of servings, choose the dates and courses. SCHEDULE to add it your meal plan!</Text>
                               <Image style={styles.image} source={Calendar} alt="Icon"/> 
                             </View> 
                             }
@@ -158,7 +160,15 @@ body : {
   fontSize : 17,
   color : '#3b3b3b',
   fontFamily : 'SourceSansPro_400Regular',
-  margin : 16
+  margin : 16,
+  marginBottom : 4
+},
+body1 : {
+  fontSize : 17,
+  color : '#3b3b3b',
+  fontFamily : 'SourceSansPro_400Regular',
+  marginHorizontal : 16,
+  marginVertical : 4
 },
 text : {
   fontSize : 24,

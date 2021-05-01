@@ -17,7 +17,10 @@ export default function Home({navigation}) {
   const [events, setEvents] = useState([]);
   const user = useSelector(state => state.counter.token);
   let panels = []
-   
+   if(!user) {
+         navigation.navigate('SignIn')
+    }
+
   useEffect(() => {
     fetch(
       config.api + `/v1/dashboard`,

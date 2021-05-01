@@ -91,9 +91,7 @@ export default function Header(props){
                                 </View> 
                             </View>
                     }
-                        
-                       
-                      
+
                     </View>
 
                 </View>
@@ -105,9 +103,7 @@ export default function Header(props){
                 : <View></View> }
             </View>
 
-        )
-            
-    
+        )    
 }
 
 const styles = StyleSheet.create({
