@@ -11,7 +11,6 @@ import LoadingScreen from "./LoadingScreen";
 import { useSelector } from 'react-redux'
 import Calendar from './assets/Calendar.png'
 import error from './assets/error.png'
-import example from './assets/example.jpg'
 import { Pressable } from 'react-native';
 
 
