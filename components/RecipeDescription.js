@@ -31,14 +31,16 @@ export default function RecipeDescription(props){
                                 <Text style={styles.body}>Community member</Text>
                         </View>
                     </View>
-
-                    <View style={styles.container}>
+                
+                {recipe.notes ? 
+                <View style={styles.container}>
                         <Text style={styles.text}>
                             {recipe.notes}
                         </Text>
                     </View>
-                </View>
-                     
+              : <View></View>}
+                    
+            </View>      
     )
 }
 

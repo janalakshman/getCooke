@@ -63,6 +63,11 @@ export default function App() {
                     <Text style={styles.text}>Cook-e</Text>
                   </View>
                 ),
+                headerRight : () => (
+                  <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                    <Text style={styles.buttonText}>PROFILE</Text>
+                  </TouchableOpacity>
+                ),
                 headerStyle : {
                   backgroundColor : '#ffffff',
                   elevation : 5,
@@ -120,6 +125,11 @@ export default function App() {
                       <Text style={styles.text}>Meal plan</Text>
                     </View>
                   ),
+                  headerRight : () => (
+                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                      <Text style={styles.buttonText}>PROFILE</Text>
+                    </TouchableOpacity>
+                  ),
                   headerStyle : {
                     backgroundColor : '#ffffff',
                     elevation : 5,
@@ -144,6 +154,11 @@ export default function App() {
                         />
                         <Text style={styles.text}>Grocery list</Text>
                       </View>
+                    ),
+                    headerRight : () => (
+                      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                        <Text style={styles.buttonText}>PROFILE</Text>
+                      </TouchableOpacity>
                     ),
                     headerStyle : {
                       backgroundColor : '#ffffff',
@@ -171,8 +186,8 @@ export default function App() {
                       </View>
                     ),
                     headerRight : () => (
-                      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                        <Text style={styles.buttonText}>HOME</Text>
+                      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                        <Text style={styles.buttonText}>PROFILE</Text>
                       </TouchableOpacity>
                     ),
                     headerStyle : {
@@ -201,8 +216,8 @@ export default function App() {
                       </View>
                     ),
                     headerRight : () => (
-                      <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
-                        <Text style={styles.buttonText}>CREATE</Text>
+                      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                        <Text style={styles.buttonText}>HOME</Text>
                       </TouchableOpacity>
                     ),
                     headerStyle : {

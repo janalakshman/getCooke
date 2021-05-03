@@ -52,7 +52,6 @@ export default function GroceryList({navigation}) {
           } else {
             Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
           }
-          
       })
     .catch((err) => {
       <View>
@@ -85,7 +84,7 @@ export default function GroceryList({navigation}) {
               : 
               <View>
                 <Text style={styles.text}>Grocery shopping made easy</Text>
-                <Text style={styles.body}>Get the grocery list based on the recipes you have added in your calendar! </Text>
+                <Text style={styles.body}>Automatically get the grocery list based on the recipes you have added in your calendar! </Text>
                 <Pressable onPress={() => navigation.navigate('Home')}>
                   <Image style={styles.image} source={toDo} alt="Icon"/>
                 </Pressable> 
@@ -115,8 +114,8 @@ export default function GroceryList({navigation}) {
                         <MaterialIcons name="list-alt" style={styles.selectedIcon} />
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
-                      <MaterialIcons name="account-box" style={styles.icon}/>
+                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} > 
+                      <MaterialIcons name="add-box" style={styles.icon}/>
                     </TouchableOpacity> 
             </View>
         </View>

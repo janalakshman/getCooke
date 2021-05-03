@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity , Modal, Pressable, SectionList, FlatList} from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity , Modal, Pressable, SectionList, FlatList, TextInput} from 'react-native';
 import Title from './components/Title';
 import { MaterialIcons } from '@expo/vector-icons';
 import CalendarCard from './components/CalendarCard'
@@ -15,6 +15,7 @@ export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState([]);
+  const [search, setSearch] = useState('')
   const user = useSelector(state => state.counter.token);
   let panels = []
    if(!user) {
@@ -88,6 +89,11 @@ export default function Home({navigation}) {
       {loading ? (<LoadingScreen/>) : (
           <View style={{flex : 1}}>
                 <ScrollView style={{backgroundColor : '#ffffff'}}>
+                <TextInput  style={styles.textInput}
+                            placeholder = "Search recipes"
+                            onChangeText={text => setSearch(text)}
+                            value={search}
+                            clearButtonMode = {('while-editing')} />
                      {/* { events.length > 0 ?
                       <SectionList
                           sections={events}
@@ -124,8 +130,8 @@ export default function Home({navigation}) {
                         <MaterialIcons name="list-alt" style={styles.icon} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
-                      <MaterialIcons name="account-box" style={styles.icon}/>
+                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} >
+                      <MaterialIcons name="add-box" style={styles.icon}/>
                     </TouchableOpacity>
             </View>
 
@@ -184,5 +190,16 @@ selectedIcon : {
       fontFamily : 'Poppins_600SemiBold',
       marginTop : 32,
       marginHorizontal : 16
-    }
+    },
+    textInput : {
+      borderRadius : 20,
+      borderTopLeftRadius : 0,
+      backgroundColor :  '#f1f1f1',
+      height : 56,
+      width : '90%',
+      alignSelf : 'flex-start',
+      padding : 16,
+      margin : 16,
+      fontFamily : 'Poppins_500Medium'
+  },
 });

@@ -111,8 +111,8 @@ export default function MealPlan({navigation}) {
                           <MaterialIcons name="list-alt" style={styles.icon} />
                       </TouchableOpacity>
     
-                      <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
-                        <MaterialIcons name="account-box" style={styles.icon}/>
+                      <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} >
+                        <MaterialIcons name="add-box" style={styles.icon}/>
                       </TouchableOpacity>
               </View>
         </View>
