@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { Pressable } from 'react-native';
 
 export default function Title(props) {
   var [ isPress, setIsPress ] = useState(false);
@@ -9,8 +10,8 @@ export default function Title(props) {
         <View style={{padding : 0}}>
           {
           isPress ? 
-            <View style={styles.container}>
-                <Feather name="check-circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
+            <Pressable style={styles.container}  onPress={() => setIsPress(!isPress)} >
+                <Feather name="check-circle" size={20} color="#3b3b3b"/>
                 <View style={{flexDirection : 'row', alignItems : 'center'}}>
                     <Text style={styles.clicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)} </Text>
                     <View style={{flexGrow : 1}}></View>
@@ -20,10 +21,10 @@ export default function Title(props) {
                       </View>
                         ))}
                 </View>
-            </View> 
+            </Pressable> 
           :
-            <View style={styles.container}>
-                <Feather name="circle" size={20} color="#3b3b3b" onPress={() => setIsPress(!isPress)} />
+            <Pressable style={styles.container}  onPress={() => setIsPress(!isPress)} >
+                <Feather name="circle" size={20} color="#3b3b3b"/>
                 <View style={{flexDirection : 'row', alignItems : 'center'}}>
                     <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
                     <View style={{flexGrow : 1}}></View>
@@ -34,7 +35,7 @@ export default function Title(props) {
                         ))}
                       
                 </View>
-          </View>  
+          </Pressable>  
           }
           <View style={{margin : 8}}></View>
             

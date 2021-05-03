@@ -25,6 +25,7 @@ export default function Welcome() {
             <Text style={styles.text}>Hire a personal kitchen assistant</Text>
 
             <Text style={styles.body}>Search recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
+            <View style={{flexGrow : 1}}></View>
 
             <Image style={styles.image} source={Icon} alt="Icon"/>
 

@@ -13,6 +13,7 @@ import LoadingScreen from './LoadingScreen'
 import { useSelector, useDispatch } from 'react-redux';
 import toDo from './assets/toDo.png'
 import error from './assets/error.png'
+import { Pressable } from 'react-native';
 
 
 export default function GroceryList({navigation}) {
@@ -85,7 +86,9 @@ export default function GroceryList({navigation}) {
               <View>
                 <Text style={styles.text}>Grocery shopping made easy</Text>
                 <Text style={styles.body}>Get the grocery list based on the recipes you have added in your calendar! </Text>
-                <Image style={styles.image} source={toDo} alt="Icon"/> 
+                <Pressable onPress={() => navigation.navigate('Home')}>
+                  <Image style={styles.image} source={toDo} alt="Icon"/>
+                </Pressable> 
               </View> 
               }
             
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
     height : 350,
     width : 350,
     resizeMode : 'contain',
-    alignSelf : 'center'
+    alignSelf : 'center',
 },
 body : {
   fontSize : 17,

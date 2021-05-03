@@ -28,7 +28,7 @@ export default function Profile({navigation}){
               <View style={{flex : 1}}>
               <ScrollView style={{backgroundColor : '#ffffff'}}>
                 <View style={{flexDirection : 'row', margin : 16, marginTop : 32}}>
-                {user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image}/> : <Image source={femaleAvatar} style={styles.image}/>} 
+                {user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
                     <View style={styles.line}>
                         <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                         <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>
@@ -40,7 +40,7 @@ export default function Profile({navigation}){
             
                 <View style={{backgroundColor : '#fff5e6', paddingVertical : 16}}>
                     <View style={styles.card}>
-                        <Text style={styles.para}>Compliments are nice, but criticisms are better!</Text>
+                        <Text style={styles.para}>Compliments are nice, but critique is better!</Text>
                     </View>
 
                     <View style={styles.card}>

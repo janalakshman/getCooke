@@ -18,10 +18,10 @@ export default function Header(props){
                 {props.recipe.image ? <Image source={{uri:config.api+props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
                 {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> } 
 
-                <Text style={styles.text}>{props.recipe.name}</Text>
+                <Text style={styles.text}>{props.recipe.name.length > 28 ? props.recipe.name.slice(0,28)+'...' : props.recipe.name}</Text>
                 {props.recipe.user.first_name ? 
-                                <Text style={styles.body}>{props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)}</Text>
-                                : <Text style={styles.body}>{props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)}</Text>
+                                <Text style={styles.body}>{(props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).length > 12 ? (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).slice(0, 12) + '...' : (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1))}</Text>
+                                : <Text style={styles.body}>{(props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).length > 12 ? (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).slice(0, 12) + '...' : (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1))}</Text>
                                 }
                 </View>       
         </View>
@@ -33,6 +33,7 @@ export default function Header(props){
 const styles = StyleSheet.create({
     card : {
         width : 140,
+        height : 270,
         padding : 8,
         margin : 8,
         borderRadius : 20,

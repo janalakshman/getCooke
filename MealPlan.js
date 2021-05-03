@@ -11,6 +11,8 @@ import LoadingScreen from "./LoadingScreen";
 import { useSelector } from 'react-redux'
 import Calendar from './assets/Calendar.png'
 import error from './assets/error.png'
+import example from './assets/example.jpg'
+import { Pressable } from 'react-native';
 
 
 export default function MealPlan({navigation}) {
@@ -84,11 +86,11 @@ export default function MealPlan({navigation}) {
                               )}
                             /> :
                             <View>
-                              <Text style={styles.text}>Meal plan in minutes</Text>
-                              <Text style={styles.body}>Find the recipe you like.</Text>
-                              <Text style={styles.body1}>Click + CALENDAR to open calendar.</Text>
-                              <Text style={styles.body1}>Add number of servings, choose the dates and courses. SCHEDULE to add it your meal plan!</Text>
-                              <Image style={styles.image} source={Calendar} alt="Icon"/> 
+                              <Text style={styles.text}>Such empty!</Text>
+                              <Text style={styles.body}>Start adding by going to a recipe page, and clicking on the add to calendar button.</Text>
+                              <Pressable onPress={() => navigation.navigate('Home')}>
+                                <Image style={styles.image} source={Calendar} alt="Icon"/> 
+                              </Pressable>
                             </View> 
                             }
           </ScrollView>
@@ -154,7 +156,8 @@ const styles = StyleSheet.create({
     height : 350,
     width : 350,
     resizeMode : 'contain',
-    alignSelf : 'center'
+    alignSelf : 'center',
+    margin : 32
 },
 body : {
   fontSize : 17,

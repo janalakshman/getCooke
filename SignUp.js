@@ -11,7 +11,8 @@ import config from './config';
 
  var radio_props = [
   {label: 'Male', value: 0 },
-  {label: 'Female', value: 1 }
+  {label: 'Female', value: 1 },
+  {label : "Don't want to say", value: 2 }
 ];
 
 
