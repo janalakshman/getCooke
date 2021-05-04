@@ -24,7 +24,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import store from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
-
+import useSelector from 'react-redux'
 
 
 
@@ -47,7 +47,7 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-        <Stack.Navigator initialRouteName="Welcome">
+        <Stack.Navigator initialRouteName="Home">  
         <Stack.Screen 
               name="Home" 
               component={Home}
@@ -63,11 +63,6 @@ export default function App() {
                     />
                     <Text style={styles.text}>Cook-e</Text>
                   </View>
-                ),
-                headerRight : () => (
-                  <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                    <Text style={styles.buttonText}>PROFILE</Text>
-                  </TouchableOpacity>
                 ),
                 headerStyle : {
                   backgroundColor : '#ffffff',
@@ -126,11 +121,6 @@ export default function App() {
                       <Text style={styles.text}>Meal plan</Text>
                     </View>
                   ),
-                  headerRight : () => (
-                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                      <Text style={styles.buttonText}>PROFILE</Text>
-                    </TouchableOpacity>
-                  ),
                   headerStyle : {
                     backgroundColor : '#ffffff',
                     elevation : 5,
@@ -156,11 +146,6 @@ export default function App() {
                         <Text style={styles.text}>Grocery list</Text>
                       </View>
                     ),
-                    headerRight : () => (
-                      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                        <Text style={styles.buttonText}>PROFILE</Text>
-                      </TouchableOpacity>
-                    ),
                     headerStyle : {
                       backgroundColor : '#ffffff',
                       elevation : 5,
@@ -183,13 +168,8 @@ export default function App() {
                         <Image source={Logo} alt="Logo"
                           style={{ width: 50, height: 50, marginLeft : 16 }}
                         />
-                        <Text style={styles.text}>Create</Text>
+                        <Text style={styles.text}>Create recipe</Text>
                       </View>
-                    ),
-                    headerRight : () => (
-                      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                        <Text style={styles.buttonText}>PROFILE</Text>
-                      </TouchableOpacity>
                     ),
                     headerStyle : {
                       backgroundColor : '#ffffff',
@@ -215,11 +195,6 @@ export default function App() {
                         />
                         <Text style={styles.text}>Profile</Text>
                       </View>
-                    ),
-                    headerRight : () => (
-                      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                        <Text style={styles.buttonText}>HOME</Text>
-                      </TouchableOpacity>
                     ),
                     headerStyle : {
                       backgroundColor : '#ffffff',

@@ -24,25 +24,21 @@ export default function Header(){
 
 const styles = StyleSheet.create({
     card : {
-        width : '88%',
-        padding : 16, 
-        margin : 16,
+        width : '100%',
         borderRadius : 4,
-        alignSelf : 'center',
+        alignContent : 'center',
+        justifyContent : 'center',
         backgroundColor : '#ffffff',
-        borderTopLeftRadius : 0,
-        borderRadius : 20,
         flexDirection : 'row',
-        elevation : 3,
-        shadowRadius : 3,
-        shadowOpacity : 0.5,
-        shadowColor : 'rgba(0, 0, 0, 0.25)',
-        shadowOffset : {width : 0, height : 4},
     },
     line : {
-        flexDirection : "column",
-        flex : 1,
+        flexDirection : "row",
         alignItems : 'center',
+        justifyContent : 'center',
+        borderTopLeftRadius : 0,
+        borderRadius : 20,
+        margin : 8,
+        padding : 8, 
     },
   text : {
       fontSize : 17,
@@ -51,7 +47,7 @@ const styles = StyleSheet.create({
       fontFamily : 'Poppins_500Medium'
   },
   body : {
-      fontSize : 14,
+      fontSize : 17,
       color : '#3b3b3b',
       margin : 4,
       fontFamily : 'SourceSansPro_400Regular'

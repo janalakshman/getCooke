@@ -10,6 +10,7 @@ import LoadingScreen from "./LoadingScreen";
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
 import error from './assets/error.png'
+import NavBar from './components/NavBar'
 
 export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)
@@ -19,7 +20,7 @@ export default function Home({navigation}) {
   const user = useSelector(state => state.counter.token);
   let panels = []
    if(!user) {
-         navigation.navigate('SignIn')
+         navigation.navigate('Welcome')
     }
 
   useEffect(() => {
@@ -113,27 +114,7 @@ export default function Home({navigation}) {
 
           </ScrollView>
 
-            <View style={styles.navigation}>
-                    <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
-                      <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
-                    </TouchableOpacity>
-
-                    {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
-                        <MaterialIcons name="search" style={styles.icon}/>
-                    </TouchableOpacity> */}
-  
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
-                        <MaterialIcons name="event-note" style={styles.icon}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
-                        <MaterialIcons name="list-alt" style={styles.icon} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} >
-                      <MaterialIcons name="add-box" style={styles.icon}/>
-                    </TouchableOpacity>
-            </View>
+            <NavBar name="Home" />
 
       </View>
 
@@ -144,34 +125,6 @@ export default function Home({navigation}) {
 }
 
 const styles = StyleSheet.create({
- navigation : {
-  backgroundColor : '#ffffff',
-  flexDirection : 'row',
-  justifyContent : 'center',
-  alignItems : 'center',
-  shadowColor: "#000",
-  shadowOffset: {
-    width: 0,
-    height: 2
-  },
-  shadowOpacity: 0.25,
-  shadowRadius: 4,
-  elevation: 3
-},
-tab : {
-  alignItems : 'center',
-  width : '25%',
-},
-icon : {
-  color : 'rgba(207, 207, 207, 0.99)',
-  fontSize : 30,
-  margin : 16
-},
-selectedIcon : {
-  color : '#3b3b3b',
-  fontSize : 30,
-  margin : 16
-},
   image : {
     height : 350,
     width : 350,

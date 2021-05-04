@@ -9,6 +9,7 @@ import TertiaryButton from './components/TertiaryButton'
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteToken } from './redux/counterSlice';
 import Welcome from './Welcome'
+import NavBar from './components/NavBar'
 
 
 
@@ -49,12 +50,13 @@ export default function Profile({navigation}){
                 </View>
 
                 <View style={{marginTop : 16}}>
-                  <TertiaryButton name="Log out" function={handleLogout} />
+                  <TertiaryButton name="Log out" onPress={handleLogout} />
                 </View>
 
               </ScrollView>
                 
               </View>) : (<Welcome/>)}
+              <NavBar name="Profile"/>
               
 
           </View>

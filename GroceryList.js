@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import toDo from './assets/toDo.png'
 import error from './assets/error.png'
 import { Pressable } from 'react-native';
+import NavBar from './components/NavBar'
 
 
 export default function GroceryList({navigation}) {
@@ -97,27 +98,8 @@ export default function GroceryList({navigation}) {
   
           </ScrollView> 
       
-            <View style={styles.navigation}>
-                    <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
-                      <MaterialIcons name="home-filled" style={styles.icon}/>
-                    </TouchableOpacity>
-  
-                    {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
-                        <MaterialIcons name="search" style={styles.icon}/>
-                    </TouchableOpacity>  */}
-  
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} > 
-                        <MaterialIcons name="event-note" style={styles.icon}/>
-                    </TouchableOpacity> 
-                    
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
-                        <MaterialIcons name="list-alt" style={styles.selectedIcon} />
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} > 
-                      <MaterialIcons name="add-box" style={styles.icon}/>
-                    </TouchableOpacity> 
-            </View>
+           <NavBar name="Grocery list"/>
+
         </View>
   
       )}

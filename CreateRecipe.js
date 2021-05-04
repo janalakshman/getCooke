@@ -13,6 +13,7 @@ import config from './config';
 import error from './assets/error.png'
 import ProfileData from './components/ProfileData'
 import Title from './components/Title'
+import NavBar from './components/NavBar'
 
 
 export default function CreateRecipe({navigation}) {
@@ -73,28 +74,7 @@ export default function CreateRecipe({navigation}) {
             }
             
                        
-            
-            <View style={styles.navigation}>
-                    <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
-                      <MaterialIcons name="home-filled" style={styles.icon}/>
-                    </TouchableOpacity>
-
-                    {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
-                        <MaterialIcons name="search" style={styles.icon}/>
-                    </TouchableOpacity> */}
-  
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
-                        <MaterialIcons name="event-note" style={styles.icon}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
-                        <MaterialIcons name="list-alt" style={styles.icon} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} >
-                      <MaterialIcons name="add-box" style={styles.selectedIcon}/>
-                    </TouchableOpacity>
-            </View>
+           <NavBar name="Create Recipe" />
 
         </View>
     )
@@ -135,33 +115,4 @@ const styles = StyleSheet.create({
           margin : 16,
           flexDirection : 'row'
         },
-        navigation : {
-            backgroundColor : '#ffffff',
-            flexDirection : 'row',
-            justifyContent : 'center',
-            alignItems : 'center',
-            shadowColor: "#000",
-            shadowOffset: {
-            width: 0,
-            height: 2
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 3
-        },
-        tab : {
-            alignItems : 'center',
-            width : '25%',
-        },
-        icon : {
-            color : 'rgba(207, 207, 207, 0.99)',
-            fontSize : 30,
-            margin : 16
-        },
-        selectedIcon : {
-            color : '#3b3b3b',
-            fontSize : 30,
-            margin : 16
-        },
-
 })

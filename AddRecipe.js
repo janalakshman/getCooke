@@ -11,11 +11,19 @@ import ProfileDescription from './components/RecipeDescription'
 import SecondaryButton from './components/SecondaryButton'
 import AddPrepStep from "./components/AddPrepStep";
 
+
+
 export default function AddRecipe({navigation}) {
 
   const user = useSelector(state => state.counter.token)
   const [loading, setLoading] = useState(true)
-  const [recipe, setRecipe] = useState({name : "", cooking_time : "", notes : "", nutrition : {calories : null, carbohydrate : null, proteins : null, fat : null}})
+  const [steps, setSteps] = useState(1)
+  const [recipe, setRecipe] = useState({name : "", 
+                                        cooking_time : "", 
+                                        notes : "", 
+                                        calories : null, carbohydrate : null, proteins : null, fat : null,
+                                        steps : []})
+
 
   return (
     <View style={{backgroundColor : '#fff', flex : 1}} >
@@ -50,7 +58,7 @@ export default function AddRecipe({navigation}) {
 
                 <Title name="Ingredients"/>
                     <View style={{margin : 8}}></View>
-                    <SecondaryButton name="Ingredient" />
+                    <SecondaryButton name="Add Ingredient" />
 
 
                 <Title name="Nutrition" />
@@ -99,9 +107,13 @@ export default function AddRecipe({navigation}) {
                 </View>
 
                 <Title name="Preparation" />
-                    <View style={{margin : 8}}></View>
-                    <AddPrepStep />
-                    <SecondaryButton name="Step" />
+                    <TextInput style={styles.notes}
+                        multiline
+                        placeholder = "Add a step"
+                        onChangeText={notes => setRecipe(notes)}
+                        value={recipe.notes}
+                        name="name" />
+                    <SecondaryButton name="Add Step"/>
 
                 <Title name="Tags"/>
 
@@ -119,12 +131,12 @@ const styles = StyleSheet.create({
         borderTopLeftRadius : 0,
         borderColor : '#cfcfcf',
         borderWidth : 1,
-        height : 64,
+        height : 56,
         width : '90%',
         margin : 16,
         padding : 16,
         fontFamily : 'Poppins_500Medium',
-        fontSize : 17,
+        fontSize : 14,
         alignContent : 'flex-start'
     },
         text : {
@@ -143,7 +155,7 @@ const styles = StyleSheet.create({
             padding : 16,
             paddingTop : 8,
             fontFamily : 'Poppins_400Regular',
-            fontSize : 17,
+            fontSize : 14,
             alignContent : 'flex-start'
         },
         card : {

@@ -20,14 +20,15 @@ export default function TertiaryButton(props) {
     buttonText : {
       color : '#A13E00',
       fontSize : 17,
-      fontFamily : 'Poppins_400Regular',
+      fontFamily : 'Poppins_500Medium',
       margin : 8,
       marginHorizontal : 16
     },
     button: {
-        alignSelf : 'flex-end',
-        marginRight : 16,
-        marginTop : 0
+        alignSelf : 'center',
+        margin : 16,
+        backgroundColor : '#ffc885',
+        borderRadius : 8
       },
     icon : {
         fontSize : 20,
