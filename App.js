@@ -10,6 +10,7 @@ import GroceryList from './GroceryList'
 import CreateRecipe from './CreateRecipe'
 import RecipeDetail from './RecipeDetail'
 import { MaterialIcons } from '@expo/vector-icons';
+import AddRecipe from './AddRecipe'
 import Profile from './Profile'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
@@ -233,6 +234,25 @@ export default function App() {
             <Stack.Screen 
                   name="RecipeDetail" 
                   component={RecipeDetail}
+                  options={({ navigation }) => ({
+                    headerTitle :  () => (
+                      <View></View>
+                    ),
+                    headerTintColor : '#3b3b3b',
+                    headerBackTitle : ' ',
+                    headerStyle : {
+                      backgroundColor : '#ffffff',
+                      elevation : 5,
+                      shadowOpacity : 3,
+                      shadowColor : 'rgba(0, 0, 0, 0.10)',
+                      shadowRadius : 2,
+                      shadowOffset : {width : 0, height : 4},
+                      height : 84,
+                    },
+                   })}  />
+             <Stack.Screen 
+                  name="AddRecipe" 
+                  component={AddRecipe}
                   options={({ navigation }) => ({
                     headerTitle :  () => (
                       <View></View>

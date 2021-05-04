@@ -47,7 +47,8 @@ export default function RecipeDescription(props){
 const styles = StyleSheet.create({
     container : {
         flexDirection : 'row',
-        margin : 16,
+        marginHorizontal : 16,
+        marginVertical : 12
     },
     image : {
         height : 72,

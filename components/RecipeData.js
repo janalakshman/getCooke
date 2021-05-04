@@ -12,14 +12,14 @@ export default function RecipeData(props){
     return(
         <ScrollView>
                 
-                <Text style={{fontFamily : 'Poppins_600SemiBold', fontSize : 24, margin : 16}}>{recipe.name}</Text>
+                <Text style={{fontFamily : 'Poppins_600SemiBold', fontSize : 24, margin : 16, marginBottom : 4}}>{recipe.name}</Text>
 
                 { recipe.over_night_prep ? ( 
                 <View style={styles.line}>
                     <MaterialIcons name="nights-stay" style={styles.icon} />
                     <Text style={styles.body}>Overnight prep</Text> 
                 </View> )
-                : <View style={styles.line}></View>
+                : <View></View>
                 }   
 
                 <View style={styles.line}>
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   icon : {
       fontSize : 16,
       margin : 4,
-      marginLeft : 8,
   },
   body : {
     fontSize : 14,

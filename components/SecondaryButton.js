@@ -1,15 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import LoadingScreen from '../LoadingScreen'
 
 
-export default function TertiaryButton(props) {
+export default function SecondaryButton(props) {
   
     return(
         <TouchableOpacity onPress={props.onPress}>
           <View style={styles.button}>
+              <MaterialIcons name="add" style={styles.icon} />
               <Text style={styles.buttonText}>{props.name}</Text>
           </View>   
         </TouchableOpacity>
@@ -25,9 +24,15 @@ export default function TertiaryButton(props) {
       marginHorizontal : 16
     },
     button: {
-        alignSelf : 'flex-end',
+        alignSelf : 'flex-start',
         marginRight : 16,
-        marginTop : 0
+        marginTop : 0,
+        borderRadius : 4,
+        borderWidth : 1,
+        borderColor : '#a13e00',
+        flexDirection : 'row',
+        margin : 16,
+        marginHorizontal : 32
       },
     icon : {
         fontSize : 20,

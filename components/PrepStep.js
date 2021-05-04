@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import LoadingScreen from '../LoadingScreen'
 
 
 export default function PrepStep(props) {
@@ -8,7 +7,7 @@ export default function PrepStep(props) {
   let count = 0;
     return(
      
-                  <View style={{backgroundColor : 'fff5e6', paddingBottom : 80}}>
+                  <View style={{paddingBottom : 80}}>
                     {props.steps ? 
                       <View >
                           {props.steps.map(step => 

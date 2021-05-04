@@ -10,6 +10,9 @@ import ProfileDescription from './components/RecipeDescription'
 import TertiaryButton from './components/TertiaryButton'
 import { useSelector } from 'react-redux'
 import config from './config';
+import error from './assets/error.png'
+import ProfileData from './components/ProfileData'
+import Title from './components/Title'
 
 
 export default function CreateRecipe({navigation}) {
@@ -29,20 +32,32 @@ export default function CreateRecipe({navigation}) {
             mode: "cors",
           }
         )
-          .then(res => res.json())
-          .then(response => {
-            setRecipes(response);
-            console.log(recipes)
+        .then((res) => {
+            return Promise.all([res.status, res.json()]);        
+            })
+        .then(([status, response])=> {
+                setRecipes(response['recipes']);   
+                console.log(recipes)          
           })
-          .catch(error => console.log(error));
+        .catch((err) => {
+          <View>
+            <Text style={styles.text}>Page not found!</Text>
+            <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
+            <Image style={styles.image} source={error} alt="Icon"/> 
+          </View> 
+        })
       }, []);
+
+
 
       return(
         <View style={{backgroundColor : '#ffffff', flex : 1}}>
             {recipes ? (
                 <ScrollView>
                     <ProfileDescription recipe={user}/>
-                    <TertiaryButton name="Add recipe" />
+                    <ProfileData />
+                    <TertiaryButton name="Add recipe" onPress={() => navigation.navigate('AddRecipe')} />
+                    <Title name="Recipes" />
 
                 </ScrollView>
             ) : (
