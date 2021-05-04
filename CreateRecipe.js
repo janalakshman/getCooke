@@ -14,9 +14,9 @@ export default function CreateRecipe({navigation}) {
     return(
         <View style={{backgroundColor : '#ffffff', flex : 1}}>
                        
-            <Text style={styles.text}>Upload recipes and start earning in minutes</Text>
+            <Text style={styles.text}>Upload recipes and get your free food blog!</Text>
 
-            <Text style={styles.body}>Create a profile, upload your recipes and earn whenever someone cooks your recipe</Text>
+            <Text style={styles.body}>Create a profile, upload your recipes and share it to the world!</Text>
 
             <Image style={styles.image} source={Icon} alt="Icon"/>
 
