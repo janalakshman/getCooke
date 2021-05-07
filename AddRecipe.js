@@ -88,6 +88,7 @@ const toggleOvernight = () => setIsOvernight(previousState => !previousState);
 
 
                 <Text style={styles.heading}>Ingredients</Text>
+                
                 <TertiaryButton name="Add ingredient" />
 
                 <Text style={styles.heading}>Nutrition</Text>
