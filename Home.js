@@ -18,9 +18,10 @@ export default function Home({navigation}) {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState('')
   const user = useSelector(state => state.counter.token);
+  console.log(user.token)
   let panels = []
    if(!user) {
-         navigation.navigate('Welcome')
+         navigation.navigate('LogIn')
     }
 
   useEffect(() => {
@@ -36,7 +37,9 @@ export default function Home({navigation}) {
       }
     )
     .then((res) => {
-        return Promise.all([res.status, res.json()]);        
+        return Promise.all([res.status, res.json()]);
+        console.log('hi')
+        
         })
     .then(([status, response])=> {
           if(status === 200) {
@@ -49,10 +52,10 @@ export default function Home({navigation}) {
           
       })
     .catch((err) => {
+     { console.log('12')}
       <View>
         <Text style={styles.text}>Page not found!</Text>
         <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
-        <Image style={styles.image} source={error} alt="Icon"/> 
       </View> 
     })
   }, []);
@@ -82,7 +85,7 @@ export default function Home({navigation}) {
                 />
             </View>
           </ScrollView>
-        )
+        ) 
     })
 }
  return (
@@ -90,11 +93,11 @@ export default function Home({navigation}) {
       {loading ? (<LoadingScreen/>) : (
           <View style={{flex : 1}}>
                 <ScrollView style={{backgroundColor : '#ffffff'}}>
-                <TextInput  style={styles.textInput}
+                {/* <TextInput  style={styles.textInput}
                             placeholder = "Search recipes"
                             onChangeText={text => setSearch(text)}
                             value={search}
-                            clearButtonMode = {('while-editing')} />
+                            clearButtonMode = {('while-editing')} /> */}
                      {/* { events.length > 0 ?
                       <SectionList
                           sections={events}

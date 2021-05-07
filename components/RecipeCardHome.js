@@ -33,7 +33,6 @@ export default function Header(props){
 const styles = StyleSheet.create({
     card : {
         width : 140,
-        height : 270,
         padding : 8,
         margin : 8,
         borderRadius : 20,

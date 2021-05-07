@@ -7,7 +7,7 @@ import Icon from './assets/Chef.png'
 import { ScrollView } from 'react-native-gesture-handler';
 import { MaterialIcons } from '@expo/vector-icons';
 import ProfileDescription from './components/RecipeDescription'
-import TertiaryButton from './components/TertiaryButton'
+import TertiaryButton from './components/PrimaryButton'
 import { useSelector } from 'react-redux'
 import config from './config';
 import error from './assets/error.png'

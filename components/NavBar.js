@@ -18,7 +18,7 @@ export default function NavBar(props) {
                         <MaterialIcons name="event-note" style={props.name == 'Meal plan' ? styles.selectedIcon : styles.icon}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('CreateRecipe')} >
+                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('AddRecipe')} >
                       <MaterialIcons name="create" style={props.name == 'Create Recipe' ? styles.selectedIcon : styles.icon}/>
                     </TouchableOpacity>
 
@@ -48,11 +48,12 @@ const styles = StyleSheet.create({
   },
   shadowOpacity: 0.25,
   shadowRadius: 4,
-  elevation: 3
+  elevation: 3,
 },
 tab : {
   alignItems : 'center',
   width : '20%',
+  marginVertical : 4
 },
 icon : {
   color : 'rgba(207, 207, 207, 0.99)',

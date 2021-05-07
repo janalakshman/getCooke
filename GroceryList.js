@@ -6,7 +6,7 @@ import DatePicker from './components/DatePicker'
 import ToBuy from './components/ToBuy'
 import { MaterialIcons } from '@expo/vector-icons';
 import AddIngredientModal from './components/AddIngredientModal'
-import TertiaryButton from './components/TertiaryButton'
+import TertiaryButton from './components/PrimaryButton'
 import config from './config';
 import moment from 'moment'
 import LoadingScreen from './LoadingScreen'

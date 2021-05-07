@@ -2,7 +2,7 @@ import React ,{ useState }from 'react';
 import { StyleSheet, ScrollView, Text, View, TextInput , TouchableOpacity, FlatList } from 'react-native';
 import Title from './components/Title';
 import Tags from './components/Tags';
-import TertiaryButton from './components/TertiaryButton'
+import TertiaryButton from './components/PrimaryButton'
 import SearchModal from './components/SearchModal'
 import FilterModal from './components/FilterModal'
 import RecipeCard from './components/RecipeCard'
@@ -40,14 +40,6 @@ export default function Discover( {navigation} ) {
   const filters = useSelector(state => state.counter.filters);
 
   const dispatch = useDispatch();
-
-  let [fontsLoaded] = useFonts({
-    Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular
-  });
-
-  if (!fontsLoaded) {
-    return (<LoadingScreen />);
-  }
 
 
   const renderItem = ({ item }) => (

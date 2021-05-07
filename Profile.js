@@ -5,7 +5,7 @@ import maleAvatar from './assets/maleAvatar.png'
 import femaleAvatar from './assets/femaleAvatar.png'
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
-import TertiaryButton from './components/TertiaryButton'
+import TertiaryButton from './components/PrimaryButton'
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteToken } from './redux/counterSlice';
 import Welcome from './Welcome'

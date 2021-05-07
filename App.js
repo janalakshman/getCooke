@@ -34,6 +34,8 @@ export default function App() {
     'Poppins_500Medium' : require('./assets/fonts/Poppins/Poppins-Medium.ttf'),
     'Poppins_400Regular' : require('./assets/fonts/Poppins/Poppins-Regular.ttf'),
     'SourceSansPro_400Regular' :  require('./assets/fonts/SourceSansPro/SourceSansPro-Regular.ttf'),
+    'SourceSerifPro' : require('./assets/fonts/SourceSerifPro/SourceSerifPro.ttf'),
+    'SourceSerifPro_Regular' : require('./assets/fonts/SourceSerifPro/SourceSerifPro-Regular.ttf'),
   });
 
   if(!loaded) {
@@ -47,7 +49,7 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-        <Stack.Navigator initialRouteName="Home">  
+        <Stack.Navigator initialRouteName="Welcome">  
         <Stack.Screen 
               name="Home" 
               component={Home}
@@ -57,21 +59,13 @@ export default function App() {
                   </View>
                 ),
                 headerLeft : () => (
-                  <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
-                    <Image source={Logo} alt="Logo"
-                      style={{ width: 50, height: 50, marginLeft : 16 }}
-                    />
-                    <Text style={styles.text}>Cook-e</Text>
+                  <View>
+                    <Text style={styles.text}>Home</Text>
                   </View>
                 ),
                 headerStyle : {
-                  backgroundColor : '#ffffff',
-                  elevation : 5,
-                  shadowOpacity : 3,
-                  shadowColor : 'rgba(0, 0, 0, 0.10)',
-                  shadowRadius : 2,
-                  shadowOffset : {width : 0, height : 4},
-                  height : 84
+                  backgroundColor : '#fff',
+                  height : 92
                 },
               })} />
         {/* <Stack.Screen 
@@ -114,21 +108,13 @@ export default function App() {
                     </View>
                   ),
                   headerLeft : () => (
-                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
-                      <Image source={Logo} alt="Logo"
-                        style={{ width: 50, height: 50, marginLeft : 16 }}
-                      />
+                    <View>
                       <Text style={styles.text}>Meal plan</Text>
                     </View>
                   ),
                   headerStyle : {
-                    backgroundColor : '#ffffff',
-                    elevation : 5,
-                    shadowOpacity : 3,
-                    shadowColor : 'rgba(0, 0, 0, 0.10)',
-                    shadowRadius : 2,
-                    shadowOffset : {width : 0, height : 4},
-                    height : 84
+                    backgroundColor : '#fff',
+                    height : 92
                   },
                  })}  />
         <Stack.Screen 
@@ -139,21 +125,13 @@ export default function App() {
                       <View></View>
                     ),
                     headerLeft : () => (
-                      <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
-                        <Image source={Logo} alt="Logo"
-                          style={{ width: 50, height: 50, marginLeft : 16 }}
-                        />
+                      <View>
                         <Text style={styles.text}>Grocery list</Text>
                       </View>
                     ),
                     headerStyle : {
-                      backgroundColor : '#ffffff',
-                      elevation : 5,
-                      shadowOpacity : 3,
-                      shadowColor : 'rgba(0, 0, 0, 0.10)',
-                      shadowRadius : 2,
-                      shadowOffset : {width : 0, height : 4},
-                      height : 84
+                      backgroundColor : '#fff',
+                      height : 92
                     },
                    })}  />
           <Stack.Screen 
@@ -164,7 +142,7 @@ export default function App() {
                       <View></View>
                     ),
                     headerLeft : () => (
-                      <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
+                      <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center', marginVertical : 16}}>
                         <Image source={Logo} alt="Logo"
                           style={{ width: 50, height: 50, marginLeft : 16 }}
                         />
@@ -178,7 +156,7 @@ export default function App() {
                       shadowColor : 'rgba(0, 0, 0, 0.10)',
                       shadowRadius : 2,
                       shadowOffset : {width : 0, height : 4},
-                      height : 84
+                      height : 92
                     },
                    })}  />
           <Stack.Screen 
@@ -189,21 +167,13 @@ export default function App() {
                       <View></View>
                     ),
                     headerLeft : () => (
-                      <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
-                        <Image source={Logo} alt="Logo"
-                          style={{ width: 50, height: 50, marginLeft : 16 }}
-                        />
+                      <View>
                         <Text style={styles.text}>Profile</Text>
                       </View>
                     ),
                     headerStyle : {
-                      backgroundColor : '#ffffff',
-                      elevation : 5,
-                      shadowOpacity : 3,
-                      shadowColor : 'rgba(0, 0, 0, 0.10)',
-                      shadowRadius : 2,
-                      shadowOffset : {width : 0, height : 4},
-                      height : 84
+                      backgroundColor : '#fff',
+                      height : 92
                     },
                    })}  />
             <Stack.Screen 
@@ -216,13 +186,8 @@ export default function App() {
                     headerTintColor : '#3b3b3b',
                     headerBackTitle : ' ',
                     headerStyle : {
-                      backgroundColor : '#ffffff',
-                      elevation : 5,
-                      shadowOpacity : 3,
-                      shadowColor : 'rgba(0, 0, 0, 0.10)',
-                      shadowRadius : 2,
-                      shadowOffset : {width : 0, height : 4},
-                      height : 84,
+                      backgroundColor : '#fff',
+                      height : 92,
                     },
                    })}  />
              <Stack.Screen 
@@ -235,13 +200,7 @@ export default function App() {
                     headerTintColor : '#3b3b3b',
                     headerBackTitle : ' ',
                     headerStyle : {
-                      backgroundColor : '#ffffff',
-                      elevation : 5,
-                      shadowOpacity : 3,
-                      shadowColor : 'rgba(0, 0, 0, 0.10)',
-                      shadowRadius : 2,
-                      shadowOffset : {width : 0, height : 4},
-                      height : 84,
+                      backgroundColor : '#f7f7f7',
                     },
                    })}  />
             <Stack.Screen 
@@ -253,21 +212,13 @@ export default function App() {
                     </View>
                   ),
                   headerLeft : () => (
-                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
-                      <Image source={Logo} alt="Logo"
-                        style={{ width: 50, height: 50, marginLeft : 16 }}
-                      />
+                    <View>
                       <Text style={styles.text}>Sign Up</Text>
                     </View>
                   ),
                   headerStyle : {
-                    backgroundColor : '#ffffff',
-                    elevation : 5,
-                    shadowOpacity : 3,
-                    shadowColor : 'rgba(0, 0, 0, 0.10)',
-                    shadowRadius : 2,
-                    shadowOffset : {width : 0, height : 4},
-                    height : 84
+                    backgroundColor : '#fff',
+                    height : 92
                   },
                  })}  />
             <Stack.Screen 
@@ -279,21 +230,13 @@ export default function App() {
                     </View>
                   ),
                   headerLeft : () => (
-                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
-                      <Image source={Logo} alt="Logo"
-                        style={{ width: 50, height: 50, marginLeft : 16 }}
-                      />
+                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center', marginVertical : 16}}>
                       <Text style={styles.text}>Log In</Text>
                     </View>
                   ),
                   headerStyle : {
                     backgroundColor : '#ffffff',
-                    elevation : 5,
-                    shadowOpacity : 3,
-                    shadowColor : 'rgba(0, 0, 0, 0.10)',
-                    shadowRadius : 2,
-                    shadowOffset : {width : 0, height : 4},
-                    height : 84
+                    height : 92
                   },
                  })}  />
             <Stack.Screen 
@@ -305,21 +248,13 @@ export default function App() {
                     </View>
                   ),
                   headerLeft : () => (
-                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center'}}>
-                      <Image source={Logo} alt="Logo"
-                        style={{ width: 50, height: 50, marginLeft : 16 }}
-                      />
+                    <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center', marginVertical : 16}}>
                       <Text style={styles.text}>Cook-e</Text>
                     </View>
                   ),
                   headerStyle : {
                     backgroundColor : '#ffffff',
-                    elevation : 5,
-                    shadowOpacity : 3,
-                    shadowColor : 'rgba(0, 0, 0, 0.10)',
-                    shadowRadius : 2,
-                    shadowOffset : {width : 0, height : 4},
-                    height : 84
+                    height : 92
                   },
                  })}  />
       </Stack.Navigator>
@@ -332,10 +267,9 @@ export default function App() {
 const styles = StyleSheet.create({
   text : {
     color : '#3b3b3b',
-    fontSize : 19,
-    fontFamily : 'Poppins_600SemiBold',
-    marginLeft : 8,
-    marginTop : 8
+    fontSize : 32,
+    fontFamily : 'SourceSerifPro',
+    marginHorizontal : 16
 },
 icon : {
   padding : 16,
