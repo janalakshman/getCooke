@@ -9,10 +9,12 @@ import config from './config';
 import LoadingScreen from "./LoadingScreen";
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
-import error from './assets/error.png'
+import Error from './Error'
+import NavBar from './components/NavBar'
 
 export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState([]);
   const user = useSelector(state => state.counter.token);
@@ -42,17 +44,15 @@ export default function Home({navigation}) {
             setRecipes(response['recipes']);
             setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
             setLoading(false)
+            setError(false)
           } else {
             Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
           }
           
       })
     .catch((err) => {
-      <View>
-        <Text style={styles.text}>Page not found!</Text>
-        <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
-        <Image style={styles.image} source={error} alt="Icon"/> 
-      </View> 
+      setLoading(false)
+      setError(true)
     })
   }, []);
 
@@ -86,7 +86,7 @@ export default function Home({navigation}) {
 }
  return (
     <View style={{flex : 1}}>
-      {loading ? (<LoadingScreen/>) : (
+      {loading ? (<LoadingScreen/>) : error ? (<Error />) : (
           <View style={{flex : 1}}>
                 <ScrollView style={{backgroundColor : '#ffffff'}}>
                      {/* { events.length > 0 ?
@@ -108,27 +108,7 @@ export default function Home({navigation}) {
 
           </ScrollView>
 
-            <View style={styles.navigation}>
-                    <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
-                      <MaterialIcons name="home-filled" style={styles.selectedIcon}/>
-                    </TouchableOpacity>
-
-                    {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} >
-                        <MaterialIcons name="search" style={styles.icon}/>
-                    </TouchableOpacity> */}
-  
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
-                        <MaterialIcons name="event-note" style={styles.icon}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
-                        <MaterialIcons name="list-alt" style={styles.icon} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
-                      <MaterialIcons name="account-box" style={styles.icon}/>
-                    </TouchableOpacity>
-            </View>
+          <NavBar props="Home"/>
 
       </View>
 
@@ -167,23 +147,5 @@ selectedIcon : {
   fontSize : 30,
   margin : 16
 },
-  image : {
-    height : 350,
-    width : 350,
-    resizeMode : 'contain',
-    alignSelf : 'center'
-    },
-    body : {
-      fontSize : 17,
-      color : '#3b3b3b',
-      fontFamily : 'Poppins_400Regular',
-      margin : 16
-    },
-    text : {
-      fontSize : 24,
-      color : '#3b3b3b',
-      fontFamily : 'Poppins_600SemiBold',
-      marginTop : 32,
-      marginHorizontal : 16
-    }
+  
 });

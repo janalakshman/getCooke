@@ -9,7 +9,7 @@ import TertiaryButton from './components/TertiaryButton'
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteToken } from './redux/counterSlice';
 import Welcome from './Welcome'
-
+import NavBar from './components/NavBar'
 
 
 export default function Profile({navigation}){
@@ -28,7 +28,7 @@ export default function Profile({navigation}){
               <View style={{flex : 1}}>
               <ScrollView style={{backgroundColor : '#ffffff'}}>
                 <View style={{flexDirection : 'row', margin : 16, marginTop : 32}}>
-                {user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
+                {user.user.profile.gender === 1 ? <Image source={maleAvatar} style={styles.image}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
                     <View style={styles.line}>
                         <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                         <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>
@@ -53,29 +53,9 @@ export default function Profile({navigation}){
                 </View>
 
               </ScrollView>
+              <NavBar props="Profile" />
                 
 
-                <View style={styles.navigation}>
-                  <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
-                    <MaterialIcons name="home-filled" style={styles.icon}/>
-                  </TouchableOpacity>
-
-                  {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
-                      <MaterialIcons name="search" style={styles.icon}/>
-                  </TouchableOpacity>  */}
-
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} > 
-                      <MaterialIcons name="event-note" style={styles.icon}/>
-                  </TouchableOpacity> 
-                  
-                  <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
-                      <MaterialIcons name="list-alt" style={styles.icon} />
-                  </TouchableOpacity>
-                  
-                  <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
-                    <MaterialIcons name="account-box" style={styles.selectedIcon}/>
-                  </TouchableOpacity> 
-                </View>
                 </View>) : (<Welcome/>)}
               
 

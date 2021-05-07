@@ -46,7 +46,7 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen 
               name="Home" 
               component={Home}
@@ -70,7 +70,7 @@ export default function App() {
                   shadowColor : 'rgba(0, 0, 0, 0.10)',
                   shadowRadius : 2,
                   shadowOffset : {width : 0, height : 4},
-                  height : 84
+                  height : 92
                 },
               })} />
         {/* <Stack.Screen 
@@ -127,7 +127,7 @@ export default function App() {
                     shadowColor : 'rgba(0, 0, 0, 0.10)',
                     shadowRadius : 2,
                     shadowOffset : {width : 0, height : 4},
-                    height : 84
+                    height : 92
                   },
                  })}  />
         <Stack.Screen 
@@ -152,7 +152,7 @@ export default function App() {
                       shadowColor : 'rgba(0, 0, 0, 0.10)',
                       shadowRadius : 2,
                       shadowOffset : {width : 0, height : 4},
-                      height : 84
+                      height : 92
                     },
                    })}  />
           <Stack.Screen 
@@ -182,7 +182,7 @@ export default function App() {
                       shadowColor : 'rgba(0, 0, 0, 0.10)',
                       shadowRadius : 2,
                       shadowOffset : {width : 0, height : 4},
-                      height : 84
+                      height : 92
                     },
                    })}  />
           <Stack.Screen 
@@ -212,7 +212,7 @@ export default function App() {
                       shadowColor : 'rgba(0, 0, 0, 0.10)',
                       shadowRadius : 2,
                       shadowOffset : {width : 0, height : 4},
-                      height : 84
+                      height : 92
                     },
                    })}  />
             <Stack.Screen 
@@ -231,7 +231,7 @@ export default function App() {
                       shadowColor : 'rgba(0, 0, 0, 0.10)',
                       shadowRadius : 2,
                       shadowOffset : {width : 0, height : 4},
-                      height : 84,
+                      height : 92,
                     },
                    })}  />
             <Stack.Screen 
@@ -257,7 +257,7 @@ export default function App() {
                     shadowColor : 'rgba(0, 0, 0, 0.10)',
                     shadowRadius : 2,
                     shadowOffset : {width : 0, height : 4},
-                    height : 84
+                    height : 92
                   },
                  })}  />
             <Stack.Screen 
@@ -283,7 +283,7 @@ export default function App() {
                     shadowColor : 'rgba(0, 0, 0, 0.10)',
                     shadowRadius : 2,
                     shadowOffset : {width : 0, height : 4},
-                    height : 84
+                    height : 92
                   },
                  })}  />
             <Stack.Screen 
@@ -309,7 +309,7 @@ export default function App() {
                     shadowColor : 'rgba(0, 0, 0, 0.10)',
                     shadowRadius : 2,
                     shadowOffset : {width : 0, height : 4},
-                    height : 84
+                    height : 92
                   },
                  })}  />
       </Stack.Navigator>

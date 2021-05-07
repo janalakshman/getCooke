@@ -14,10 +14,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import toDo from './assets/toDo.png'
 import error from './assets/error.png'
 import { Pressable } from 'react-native';
+import Error from './Error'
+import NavBar from './components/NavBar'
 
 
 export default function GroceryList({navigation}) {
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const [modalVisible, setModalVisible] = useState(false);
   const user = useSelector(state => state.counter.token);
   const [grocery, setGrocery] = useState({})
@@ -49,23 +52,21 @@ export default function GroceryList({navigation}) {
               setIns(inst);
             }
             setLoading(false)
+            setError(false)
           } else {
             Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
           }
           
       })
     .catch((err) => {
-      <View>
-        <Text style={styles.text}>Page not found!</Text>
-        <Text style={styles.body}>Please refresh and try again. If the issue persists, please drop a mail @ jana@getcooke.com!</Text>
-        <Image style={styles.image} source={error} alt="Icon"/> 
-      </View> 
+      setLoading(false)
+      setError(true)
     })
   }, []);
 
   return (
     <View style={{flex : 1}}>
-      {loading ? (<LoadingScreen/>) : (
+      {loading ? (<LoadingScreen/>) :  error ? (<Error/>) : (
           <View style={{flex : 1}}>
           <ScrollView style={{backgroundColor : '#ffffff'}}>
             
@@ -97,28 +98,9 @@ export default function GroceryList({navigation}) {
             <AddIngredientModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
   
           </ScrollView> 
-      
-            <View style={styles.navigation}>
-                    <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}> 
-                      <MaterialIcons name="home-filled" style={styles.icon}/>
-                    </TouchableOpacity>
-  
-                    {/* <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Discover')} > 
-                        <MaterialIcons name="search" style={styles.icon}/>
-                    </TouchableOpacity>  */}
-  
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} > 
-                        <MaterialIcons name="event-note" style={styles.icon}/>
-                    </TouchableOpacity> 
-                    
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
-                        <MaterialIcons name="list-alt" style={styles.selectedIcon} />
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} > 
-                      <MaterialIcons name="account-box" style={styles.icon}/>
-                    </TouchableOpacity> 
-            </View>
+
+          <NavBar props="Grocery list" />
+
         </View>
   
       )}
@@ -132,34 +114,6 @@ export default function GroceryList({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  navigation : {
-    backgroundColor : '#ffffff',
-    flexDirection : 'row',
-    justifyContent : 'center',
-    alignItems : 'center',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 3
-  },
-  tab : {
-    alignItems : 'center',
-    width : '25%',
-  },
-  icon : {
-    color : 'rgba(207, 207, 207, 0.99)',
-    fontSize : 32,
-    margin : 16
-  },
-  selectedIcon : {
-    color : '#3b3b3b',
-    fontSize : 32,
-    margin : 16
-  },
   image : {
     height : 350,
     width : 350,
