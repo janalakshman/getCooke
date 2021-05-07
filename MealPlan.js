@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux'
 import Calendar from './assets/Calendar.png'
 import error from './assets/error.png'
 import { Pressable } from 'react-native';
+import Error from './Error'
 import NavBar from './components/NavBar'
 
 
@@ -19,6 +20,7 @@ export default function MealPlan({navigation}) {
   const [events, setEvents] = useState([])
   const user = useSelector(state => state.counter.token);
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   const getEvents = () => {
     fetch(
@@ -39,17 +41,15 @@ export default function MealPlan({navigation}) {
               if(status === 200) {
                 setEvents(response)
                 setLoading(false)
+                setError(false)
               } else {
                 Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
               }
               
           })
         .catch((err) => {
-          <View>
-            <Text style={styles.text}>Page not found!</Text>
-            <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
-            <Image style={styles.image} source={error} alt="Icon"/> 
-          </View> 
+         setLoading(false)
+         setError(true)
         })
   }
 
@@ -67,7 +67,7 @@ export default function MealPlan({navigation}) {
 
   return (
     <View style={{flex : 1}}>
-      {loading ? (<LoadingScreen/>) : (
+      {loading ? (<LoadingScreen/>) : error ? (<Error/>) : (
           <View style={{flex : 1}}>
 
           <ScrollView style={{backgroundColor : '#fff'}}>
@@ -95,8 +95,8 @@ export default function MealPlan({navigation}) {
                             }
           </ScrollView>
 
-                <NavBar name="Meal plan" />
-
+          <NavBar props="Meal plan"/>      
+          
         </View>
       )}
     </View>

@@ -12,7 +12,6 @@ import Welcome from './Welcome'
 import NavBar from './components/NavBar'
 
 
-
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
 
@@ -29,7 +28,7 @@ export default function Profile({navigation}){
               <View style={{flex : 1}}>
               <ScrollView style={{backgroundColor : '#ffffff'}}>
                 <View style={{flexDirection : 'row', margin : 16, marginTop : 32}}>
-                {user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
+                {user.user.profile.gender === 1 ? <Image source={maleAvatar} style={styles.image}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
                     <View style={styles.line}>
                         <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                         <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>
@@ -54,9 +53,10 @@ export default function Profile({navigation}){
                 </View>
 
               </ScrollView>
+              <NavBar props="Profile" />
                 
-              </View>) : (<Welcome/>)}
-              <NavBar name="Profile"/>
+
+                </View>) : (<Welcome/>)}
               
 
           </View>

@@ -25,6 +25,7 @@ export default function SignIn(props) {
     const user = useSelector(state => state.counter.token);
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    console.log(user)
 
     if(user) {
         navigation.navigate('Home')

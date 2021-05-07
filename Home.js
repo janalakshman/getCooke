@@ -9,11 +9,12 @@ import config from './config';
 import LoadingScreen from "./LoadingScreen";
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
-import error from './assets/error.png'
+import Error from './Error'
 import NavBar from './components/NavBar'
 
 export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState('')
@@ -46,17 +47,15 @@ export default function Home({navigation}) {
             setRecipes(response['recipes']);
             setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
             setLoading(false)
+            setError(false)
           } else {
             Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
           }
           
       })
     .catch((err) => {
-     { console.log('12')}
-      <View>
-        <Text style={styles.text}>Page not found!</Text>
-        <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
-      </View> 
+      setLoading(false)
+      setError(true)
     })
   }, []);
 
@@ -90,7 +89,7 @@ export default function Home({navigation}) {
 }
  return (
     <View style={{flex : 1}}>
-      {loading ? (<LoadingScreen/>) : (
+      {loading ? (<LoadingScreen/>) : error ? (<Error />) : (
           <View style={{flex : 1}}>
                 <ScrollView style={{backgroundColor : '#ffffff'}}>
                 {/* <TextInput  style={styles.textInput}
@@ -117,7 +116,7 @@ export default function Home({navigation}) {
 
           </ScrollView>
 
-            <NavBar name="Home" />
+          <NavBar props="Home"/>
 
       </View>
 
