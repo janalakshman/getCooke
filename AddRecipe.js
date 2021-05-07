@@ -15,17 +15,18 @@ import TertiaryButton from './components/TertiaryButton'
 
 export default function AddRecipe({navigation}) {
 
-  const user = useSelector(state => state.counter.token)
-  const [name, setName] = useState(null)
-  const [time, setTime] = useState(null)
-  const [notes, setNotes] = useState(null)
-  const [steps, setSteps] = useState([])
-  const [carbs, setCarbs] = useState(null)
-  const [protein, setProtein] = useState(null)
-  const [fat, setFat] = useState(null)
-  const [isVeg, setIsVeg] = useState(false)
-  const [isOvernight, setIsOvernight] = useState(false)
-  const [loading, setLoading] = useState(true)
+const user = useSelector(state => state.counter.token)
+const [name, setName] = useState(null)
+const [time, setTime] = useState(null)
+const [notes, setNotes] = useState(null)
+const [steps, setSteps] = useState([])
+const [ingredients, setIngredients] = useState([])
+const [carbs, setCarbs] = useState(null)
+const [protein, setProtein] = useState(null)
+const [fat, setFat] = useState(null)
+const [isVeg, setIsVeg] = useState(false)
+const [isOvernight, setIsOvernight] = useState(false)
+const [loading, setLoading] = useState(true)
 const toggleVeg = () => setIsVeg(previousState => !previousState);
 const toggleOvernight = () => setIsOvernight(previousState => !previousState);
 
@@ -136,17 +137,29 @@ const toggleOvernight = () => setIsOvernight(previousState => !previousState);
                 <Text style={styles.heading}>Preparation</Text>
                     {steps.map((step, index) => {
                         return (
-                            <TextInput style={styles.notes}
-                                multiline
-                                placeholder = "Add a step"
-                                onChangeText={notes => {
-                                    setSteps(prevState => {
-                                        let tempArray = [...prevState]
-                                        tempArray[index] = notes
-                                        return tempArray
-                                    })}}
-                                value={step}
-                                name="name" />
+                            <View>
+                                 <TextInput style={styles.notes}
+                                        multiline
+                                        placeholder = "Add a step"
+                                        onChangeText={notes => {
+                                            setSteps(prevState => {
+                                                let tempArray = [...prevState]
+                                                tempArray[index] = notes
+                                                return tempArray
+                                            })}}
+                                        value={step}
+                                        name="name" />
+                            
+                                <TouchableOpacity style={styles.delete} onPress={() => {
+                                                                setSteps(prevState => {
+                                                                    let tempArray = [...prevState]
+                                                                    tempArray.splice(index, 1)
+                                                                    return tempArray 
+                                                                    })}}> 
+                                    <MaterialIcons name="delete" style={styles.icon} />
+                                    <Text style={styles.smalltext}>Delete</Text>
+                                </TouchableOpacity>
+                            </View>
                         )
                     })}
                     
@@ -255,5 +268,22 @@ const styles = StyleSheet.create({
         fontSize : 32,
         fontFamily : 'SourceSerifPro',
         margin : 16
+    },
+    smalltext : {
+        fontSize : 14,
+        color : '#3b3b3b',
+        margin : 8,
+        fontFamily : 'SourceSansPro_400Regular'
+    },
+    delete : {
+      flexDirection : 'row', 
+      alignItems : 'center', 
+      justifyContent : 'flex-start', 
+      marginBottom : 8,
+      marginHorizontal : 32
+    },
+    icon : {
+        fontSize : 16,
+        color : '#3b3b3b',
     },
 });

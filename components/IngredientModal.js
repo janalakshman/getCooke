@@ -39,7 +39,7 @@ export default function SearchModal( props ) {
       justifyContent: "center",
       alignItems: "flex-end",
       width : '100%',
-      height : '75%'
+      height : '100%'
     },
     modalView: {
       backgroundColor: "#fff",
@@ -47,7 +47,7 @@ export default function SearchModal( props ) {
       alignItems: "flex-start",
       justifyContent : 'flex-start',
       width : '100%',
-      height : '60%',
+      height : '100%',
       position : 'absolute',
       bottom : 0,
       margin : 'auto'

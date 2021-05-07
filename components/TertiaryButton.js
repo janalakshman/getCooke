@@ -24,7 +24,7 @@ export default function TertiaryButton(props) {
       marginHorizontal : 16
     },
     button: {
-        alignSelf : 'flex-end',
+        alignSelf : 'flex-start',
         marginRight : 16,
         marginTop : 0,
         flexDirection : 'row',
