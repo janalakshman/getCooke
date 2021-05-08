@@ -37,8 +37,10 @@ export default function Profile({navigation}){
 
                 
             <Title name="Contact"/>
+
             
-                <View style={{backgroundColor : '#fff5e6', paddingVertical : 16}}>
+            
+                <View style={{backgroundColor : '#fff', paddingVertical : 16}}>
                     <View style={styles.card}>
                         <Text style={styles.para}>Compliments are nice, but critique is better!</Text>
                     </View>
@@ -100,11 +102,13 @@ const styles = StyleSheet.create({
         margin : 16,
         borderRadius : 20,
         borderTopLeftRadius : 0,
-        elevation : 5,
-        shadowOpacity : 3,
-        shadowColor : 'rgba(0, 0, 0, 0.10)',
-        shadowRadius : 2,
-        shadowOffset : {width : 0, height : 4},
+        borderWidth : 1,
+        borderColor : '#cfcfcf',
+        // elevation : 5,
+        // shadowOpacity : 3,
+        // shadowColor : 'rgba(0, 0, 0, 0.10)',
+        // shadowRadius : 2,
+        // shadowOffset : {width : 0, height : 4},
         height : 88
     },
 }

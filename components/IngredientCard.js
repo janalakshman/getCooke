@@ -39,18 +39,20 @@ export default function Header(props){
 const styles = StyleSheet.create({
     card : {
         width : '92%',
-        margin : 32,
+        margin : 16,
         borderRadius : 4,
         alignSelf : 'center',
         backgroundColor : '#ffffff',
         flexGrow : 1,
         borderTopLeftRadius : 0,
         borderRadius : 20,
-        elevation : 3,
-        shadowRadius : 3,
-        shadowOpacity : 0.5,
-        shadowColor : 'rgba(0, 0, 0, 0.25)',
-        shadowOffset : {width : 0, height : 4},
+        borderWidth : 1,
+        borderColor : '#cfcfcf'
+        // elevation : 3,
+        // shadowRadius : 3,
+        // shadowOpacity : 0.5,
+        // shadowColor : 'rgba(0, 0, 0, 0.25)',
+        // shadowOffset : {width : 0, height : 4},
     },
     container : {
         width : '100%',

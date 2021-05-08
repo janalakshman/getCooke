@@ -65,7 +65,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   <RecipeDescription recipe = {recipe}/>
 
                   <Title name="Ingredients" />
-                  <View style={{backgroundColor : '#fff5e6'}}>
+                  <View style={{backgroundColor : '#fff'}}>
                     <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings}/>
                   </View>
 
@@ -77,11 +77,11 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   
 
                   <Title name="Preparation" />
-                  <View style={{backgroundColor : '#fff5e6'}}>
+                  <View style={{backgroundColor : '#fff'}}>
                       <PrepStep steps={recipe.steps} />
                   </View>
 
-                  <View style={{backgroundColor : '#fff5e6'}}>
+                  <View style={{backgroundColor : '#fff'}}>
                     <ReportButton/>
                   </View>
 

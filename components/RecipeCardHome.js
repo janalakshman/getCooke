@@ -38,11 +38,13 @@ const styles = StyleSheet.create({
         borderRadius : 20,
         borderTopLeftRadius : 0,
         backgroundColor : '#fff',
-        elevation : 3,
-        shadowRadius : 3,
-        shadowOpacity : 0.5,
-        shadowColor : 'rgba(0, 0, 0, 0.25)',
-        shadowOffset : {width : 0, height : 4},
+        borderWidth : 1,
+        borderColor : '#cfcfcf'
+        // elevation : 3,
+        // shadowRadius : 3,
+        // shadowOpacity : 0.5,
+        // shadowColor : 'rgba(0, 0, 0, 0.25)',
+        // shadowOffset : {width : 0, height : 4},
     },
   image : {
       height : 124,
@@ -60,12 +62,13 @@ const styles = StyleSheet.create({
       fontSize : 14,
       color : '#3b3b3b',
       margin : 4,
+      marginVertical : 8,
       fontFamily : 'Poppins_500Medium'
   },
 body : {
     fontSize : 14,
     color : '#626262',
-    marginTop : 8,
+    marginVertical : 8,
     margin : 4,
     fontFamily : 'SourceSansPro_400Regular'
   }

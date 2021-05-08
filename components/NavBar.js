@@ -20,7 +20,7 @@ export default function Home(props) {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('AddRecipe')} >
-                        <MaterialIcons name="create" style={props.props === 'Grocery list' ? styles.selectedIcon : styles.icon}/>
+                        <MaterialIcons name="create" style={props.props === 'AddRecipe' ? styles.selectedIcon : styles.icon}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >

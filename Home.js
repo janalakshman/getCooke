@@ -19,7 +19,6 @@ export default function Home({navigation}) {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState('')
   const user = useSelector(state => state.counter.token);
-  console.log(user.token)
   let panels = []
    if(!user) {
          navigation.navigate('LogIn')
@@ -38,9 +37,7 @@ export default function Home({navigation}) {
       }
     )
     .then((res) => {
-        return Promise.all([res.status, res.json()]);
-        console.log('hi')
-        
+        return Promise.all([res.status, res.json()]);        
         })
     .then(([status, response])=> {
           if(status === 200) {

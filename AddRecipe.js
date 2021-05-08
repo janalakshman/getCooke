@@ -7,9 +7,8 @@ import LoadingScreen from "./LoadingScreen";
 import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux'
-import ProfileDescription from './components/RecipeDescription'
-import AddPrepStep from "./components/AddPrepStep";
 import TertiaryButton from './components/TertiaryButton'
+import AddIngredient from './components/AddIngredient'
 
 
 
@@ -20,6 +19,7 @@ const [name, setName] = useState(null)
 const [time, setTime] = useState(null)
 const [notes, setNotes] = useState(null)
 const [steps, setSteps] = useState([])
+const [servings, setServings] = useState(1)
 const [ingredients, setIngredients] = useState([])
 const [carbs, setCarbs] = useState(null)
 const [protein, setProtein] = useState(null)
@@ -29,6 +29,7 @@ const [isOvernight, setIsOvernight] = useState(false)
 const [loading, setLoading] = useState(true)
 const toggleVeg = () => setIsVeg(previousState => !previousState);
 const toggleOvernight = () => setIsOvernight(previousState => !previousState);
+console.log(ingredients)
 
 
   return (
@@ -88,8 +89,40 @@ const toggleOvernight = () => setIsOvernight(previousState => !previousState);
 
 
                 <Text style={styles.heading}>Ingredients</Text>
+
+                <View  style={{flexDirection : 'row', margin : 16}}>
+                    <Text style={styles.servingsUnit}>Servings</Text>
+                    <View style={{flexGrow : 1}}></View>
+                    <View style={{flexDirection : 'row', alignItems : 'center', marginHorizontal : 32}}>
+                        <MaterialIcons name="remove" style={{marginHorizontal : 16}} size={24} color="#3b3b3b" onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)} />
+                        <Text style={styles.servingsUnit}>{servings}</Text>
+                        <MaterialIcons name="add" style={{marginHorizontal : 16}} size={24} color="#3b3b3b" onPress={() => setServings(servings + 1)} />
+                    </View>
+                </View>
                 
-                <TertiaryButton name="Add ingredient" />
+                {ingredients ? ingredients.map((ingredient, index) => {
+                        return (
+                            <View style={styles.box}>
+                                <View style={{flexDirection : 'row', marginVertical : 8, alignItems : 'center'}}>
+                                    <Text style={styles.servings}>{ingredient.name}</Text>
+                                    <View style={{flexGrow : 1}}></View>
+                                    <Text style={styles.servingsUnit}>{ingredient.amount} {ingredient.unit}</Text>
+                                    <MaterialIcons name="delete" style={{marginHorizontal : 16 }} size={24} color="#3b3b3b" 
+                                        onPress={() => {
+                                                    setIngredients(prevState => {
+                                                        let tempArray = [...prevState]
+                                                        tempArray.splice(index, 1)
+                                                        return tempArray 
+                                                        })}} />
+                                </View>
+                            </View>
+                        )})
+
+             : <View></View>} 
+
+
+                <TertiaryButton name="Add ingredient" onPress={() => navigation.navigate('AddIngredient',{ingredients: ingredients, setIngredients : setIngredients })}/>
+
 
                 <Text style={styles.heading}>Nutrition</Text>
 
@@ -129,7 +162,7 @@ const toggleOvernight = () => setIsOvernight(previousState => !previousState);
                 </View>
                     
                         <View style={styles.calories}>
-                            <Text style={styles.subheading}>Total Calories: {(carbs+protein)*4 + fat*9} calories</Text>
+                            <Text style={styles.subheading}>Total Calories: {carbs*4 + protein*4 + fat*9} calories</Text>
                         </View>     
 
                     </View>
@@ -158,7 +191,7 @@ const toggleOvernight = () => setIsOvernight(previousState => !previousState);
                                                                     return tempArray 
                                                                     })}}> 
                                     <MaterialIcons name="delete" style={styles.icon} />
-                                    <Text style={styles.smalltext}>Delete</Text>
+                                    <Text style={styles.text}>Delete</Text>
                                 </TouchableOpacity>
                             </View>
                         )
@@ -167,6 +200,10 @@ const toggleOvernight = () => setIsOvernight(previousState => !previousState);
                     <TertiaryButton name="Add step" onPress={() => setSteps([...steps, ''])} />
 
                 <Text style={styles.heading}>Tags</Text>
+
+                <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
+                    <Text style={styles.buttonText}>Submit recipe</Text>
+                </TouchableOpacity>
 
 
 
@@ -184,18 +221,19 @@ const styles = StyleSheet.create({
         borderTopLeftRadius : 0,
         borderColor : '#cfcfcf',
         borderWidth : 1,
-        height : 56,
+        height : 64,
         width : '90%',
         margin : 16,
         padding : 16,
-        fontFamily : 'Poppins_500Medium',
-        fontSize : 14,
+        fontFamily : 'Poppins_400Regular',
+        fontSize : 17,
         alignContent : 'flex-start'
     },
     text : {
         fontFamily : 'Poppins_400Regular',
         fontSize : 14,
-        alignSelf : 'center'
+        alignSelf : 'center',
+        margin : 8
     },
     notes : {
         borderRadius : 20,
@@ -207,8 +245,8 @@ const styles = StyleSheet.create({
         margin : 16,
         padding : 16,
         paddingTop : 8,
-        fontFamily : 'Poppins_500Medium',
-        fontSize : 14,
+        fontFamily : 'Poppins_400Regular',
+        fontSize : 17,
         alignContent : 'flex-start'
     },
     card : {
@@ -286,5 +324,41 @@ const styles = StyleSheet.create({
     icon : {
         fontSize : 16,
         color : '#3b3b3b',
+    },
+    buttonText : {
+        color : '#A13E00',
+        fontSize : 17,
+        fontFamily : 'Poppins_600SemiBold',
+        margin : 8,
+        flexGrow : 1,
+        textAlign : 'center'
+      },
+      button: {
+          borderRadius : 4,
+          backgroundColor : '#ffc885',
+          margin : 16,
+          flexDirection : 'row',
+          alignSelf : 'center'
+             } ,
+    servings : {
+        fontFamily : 'Poppins_400Regular',
+        fontSize : 17,
+        marginHorizontal : 16,
+        marginVertical : 8,
+        width : '40%'
+    },
+    servingsUnit : {
+        fontFamily : 'Poppins_400Regular',
+        fontSize : 17,
+        marginHorizontal : 16,
+        marginVertical : 8,
+    },
+    box : {
+        margin : 16,
+        justifyContent : 'flex-start',
+        alignItems : 'flex-end',
+        borderColor : '#cfcfcf',
+        paddingVertical : 16,
+
     },
 });

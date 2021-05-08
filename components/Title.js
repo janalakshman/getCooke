@@ -5,9 +5,9 @@ export default function Title(props) {
 
     return(
       <View style={styles.container}>
-          <View style={styles.border}> 
+          {/* <View style={styles.border}>  */}
             <Text style={styles.heading}>{props.name}</Text>
-          </View>
+          {/* </View> */}
       </View>
         
     )
@@ -18,12 +18,13 @@ export default function Title(props) {
       color : '#3b3b3b',
       fontSize : 19,
       fontFamily : 'Poppins_600SemiBold',
+      margin : 16
+
     },
     border : {
         borderBottomColor : '#ffcd4c',
         borderBottomWidth : 8,
         borderRadius : 8,
-        margin : 16
     },
     container: {
       flex: 1,

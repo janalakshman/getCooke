@@ -9,7 +9,7 @@ export default function Header(props){
     return(
         <View>
                 {recipe ? (
-                <View style={{backgroundColor : '#fff5e6'}}>
+                <View style={{backgroundColor : '#fff'}}>
                 <View style={styles.card}>
                     <View style={styles.line}>
                         <Text style={styles.text}>{recipe.calories}</Text>
@@ -45,19 +45,20 @@ const styles = StyleSheet.create({
     card : {
         width : '88%',
         padding : 16, 
-        margin : 32,
-        borderRadius : 4,
+        margin : 16,
         alignSelf : 'center',
         backgroundColor : '#ffffff',
         flexGrow : 1,
         borderTopLeftRadius : 0,
         borderRadius : 20,
         flexDirection : 'row',
-        elevation : 3,
-        shadowRadius : 3,
-        shadowOpacity : 0.5,
-        shadowColor : 'rgba(0, 0, 0, 0.25)',
-        shadowOffset : {width : 0, height : 4},
+        borderWidth : 1,
+        borderColor : '#cfcfcf'
+        // elevation : 5,
+        // shadowRadius : 5,
+        // shadowOpacity : 0.8,
+        // shadowColor : 'rgba(0, 0, 0, 0.25)',
+        // shadowOffset : {width : 0, height : 4},
     },
     line : {
         flexDirection : "column",

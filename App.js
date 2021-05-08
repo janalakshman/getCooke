@@ -25,6 +25,7 @@ import store from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import useSelector from 'react-redux'
+import AddIngredient from './components/AddIngredient'
 
 
 
@@ -35,7 +36,6 @@ export default function App() {
     'Poppins_400Regular' : require('./assets/fonts/Poppins/Poppins-Regular.ttf'),
     'SourceSansPro_400Regular' :  require('./assets/fonts/SourceSansPro/SourceSansPro-Regular.ttf'),
     'SourceSerifPro' : require('./assets/fonts/SourceSerifPro/SourceSerifPro.ttf'),
-    'SourceSerifPro_Regular' : require('./assets/fonts/SourceSerifPro/SourceSerifPro-Regular.ttf'),
   });
 
   if(!loaded) {
@@ -200,7 +200,20 @@ export default function App() {
                     headerTintColor : '#3b3b3b',
                     headerBackTitle : ' ',
                     headerStyle : {
-                      backgroundColor : '#f7f7f7',
+                      backgroundColor : '#fff',
+                    },
+                   })}  />
+            <Stack.Screen 
+                  name="AddIngredient" 
+                  component={AddIngredient}
+                  options={({ navigation }) => ({
+                    headerTitle :  () => (
+                      <View></View>
+                    ),
+                    headerTintColor : '#3b3b3b',
+                    headerBackTitle : ' ',
+                    headerStyle : {
+                      backgroundColor : '#fff',
                     },
                    })}  />
             <Stack.Screen 
