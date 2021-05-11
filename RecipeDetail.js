@@ -61,18 +61,17 @@ export default function RecipeFullDetail({navigation, route, props}) {
               
                 <ScrollView key={recipe.id.toString()}>
                   <RecipeData recipe = {recipe} />
+                  
+                  <Title name="Author Info" />
+                    <RecipeDescription recipe = {recipe}/>
 
-                  <RecipeDescription recipe = {recipe}/>
-
-                  <Title name="Ingredients" />
-                  <View style={{backgroundColor : '#fff'}}>
+                  <Title name="Ingredients for" />
                     <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings}/>
-                  </View>
 
                   {recipe.calories ? 
                   <View>
-                    <Title name="Nutrition" />
-                    <NutritionCard recipe={recipe} count={count}/> 
+                    <Title name="Nutrition info for" />
+                    <NutritionCard recipe={recipe}/> 
                   </View> : <View></View>}
                   
 

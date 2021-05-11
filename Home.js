@@ -85,10 +85,10 @@ export default function Home({navigation}) {
     })
 }
  return (
-    <View style={{flex : 1}}>
+    <View style={{flex : 1,}}>
       {loading ? (<LoadingScreen/>) : error ? (<Error />) : (
-          <View style={{flex : 1}}>
-                <ScrollView style={{backgroundColor : '#ffffff'}}>
+          <View style={{flex : 1,  backgroundColor : '#fffafa'}}>
+                <ScrollView style={{backgroundColor : '#fffafa'}}>
                 {/* <TextInput  style={styles.textInput}
                             placeholder = "Search recipes"
                             onChangeText={text => setSearch(text)}

@@ -7,7 +7,7 @@ import { setToken } from './redux/counterSlice';
 import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import config from './config';
-
+import PrimaryButton from './components/PrimaryButton';
 const data = [
     {
       label: 'Male'
@@ -88,13 +88,10 @@ export default function SignIn(props) {
                                         onChangeText={text => onChangePassword(text)}
                                         value={password}/>
 
-                            <View style={{flexGrow : 1}}>
-                            </View>
+                            <View style={{margin : 16}}></View>
+                            
+                            <PrimaryButton name="Log In" onPress={() => handleClick()}/>
 
-
-                                <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
-                                    <Text style={styles.buttonText}>LOG IN</Text>
-                                </TouchableOpacity>
                             </KeyboardAvoidingView>
                         </ScrollView>
             )}
@@ -128,7 +125,7 @@ const styles = StyleSheet.create({
         borderRadius : 8,
         backgroundColor : '#ffc885',
         alignSelf : 'flex-start',
-        margin : 16,
+        margin : 12,
         flexDirection : 'row',
         alignSelf : 'center'
             },

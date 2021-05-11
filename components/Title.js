@@ -16,10 +16,9 @@ export default function Title(props) {
   const styles = StyleSheet.create({
     heading : {
       color : '#3b3b3b',
-      fontSize : 19,
-      fontFamily : 'Poppins_600SemiBold',
+      fontSize : 24,
+      fontFamily : 'Lora',
       margin : 16
-
     },
     border : {
         borderBottomColor : '#ffcd4c',

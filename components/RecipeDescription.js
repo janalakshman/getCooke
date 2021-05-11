@@ -17,7 +17,7 @@ export default function RecipeDescription(props){
        
                 <View>
                     <View style={styles.container}>
-                            {recipe.user.profile.gender === 1 ? 
+                            {recipe.user.profile.gender === 0 ? 
                             <Image source={femaleAvatar} style={styles.image}/>  
                             :
                             <Image source={maleAvatar} style={styles.image}/>   }
@@ -47,8 +47,8 @@ export default function RecipeDescription(props){
 const styles = StyleSheet.create({
     container : {
         flexDirection : 'row',
-        marginHorizontal : 16,
-        marginVertical : 12
+        margin : 16,
+        marginTop : 8
     },
     image : {
         height : 72,

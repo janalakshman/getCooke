@@ -16,12 +16,12 @@ export default function Header(props){
             <View style={styles.card}>
                 <View>
                 {props.recipe.image ? <Image source={{uri:config.api+props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
-                {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> } 
+                {/* {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> }  */}
 
                 <Text style={styles.text}>{props.recipe.name.length > 28 ? props.recipe.name.slice(0,28)+'...' : props.recipe.name}</Text>
                 {props.recipe.user.first_name ? 
-                                <Text style={styles.body}>{(props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).length > 12 ? (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).slice(0, 12) + '...' : (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1))}</Text>
-                                : <Text style={styles.body}>{(props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).length > 12 ? (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).slice(0, 12) + '...' : (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1))}</Text>
+                                <Text style={styles.body}>{(props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).length > 20 ? (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).slice(0, 20) + '...' : (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1))}</Text>
+                                : <Text style={styles.body}>{(props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).length > 20 ? (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).slice(0, 20) + '...' : (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1))}</Text>
                                 }
                 </View>       
         </View>
@@ -32,14 +32,14 @@ export default function Header(props){
 
 const styles = StyleSheet.create({
     card : {
-        width : 140,
+        width : 196,
         padding : 8,
         margin : 8,
         borderRadius : 20,
         borderTopLeftRadius : 0,
         backgroundColor : '#fff',
-        borderWidth : 1,
-        borderColor : '#cfcfcf'
+        // borderWidth : 1,
+        // borderColor : '#cfcfcf'
         // elevation : 3,
         // shadowRadius : 3,
         // shadowOpacity : 0.5,
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
         // shadowOffset : {width : 0, height : 4},
     },
   image : {
-      height : 124,
-      width : 124,
+      height : 180,
+      width : 180,
       marginBottom : 4,
       borderTopLeftRadius : 0,
       borderRadius : 20
@@ -62,13 +62,11 @@ const styles = StyleSheet.create({
       fontSize : 14,
       color : '#3b3b3b',
       margin : 4,
-      marginVertical : 8,
       fontFamily : 'Poppins_500Medium'
   },
 body : {
     fontSize : 14,
     color : '#626262',
-    marginVertical : 8,
     margin : 4,
     fontFamily : 'SourceSansPro_400Regular'
   }

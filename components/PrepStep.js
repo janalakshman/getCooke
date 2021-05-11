@@ -7,7 +7,7 @@ export default function PrepStep(props) {
   let count = 0;
     return(
      
-                  <View style={{paddingBottom : 80}}>
+                  <View style={{paddingBottom : 80, backgroundColor : '#fffafa'}}>
                     {props.steps ? 
                       <View >
                           {props.steps.map(step => 
@@ -33,24 +33,26 @@ export default function PrepStep(props) {
       color : '#3b3b3b',
       fontSize : 17,
       fontFamily : 'SourceSansPro_400Regular',
-      margin : 4
+      margin : 16,
       },
     title : {
-        color : '#3b3b3b',
+        color : '#a13e00',
         fontSize : 17,
         marginHorizontal : 16,
         marginVertical : 6,
         fontFamily : 'Poppins_600SemiBold',
     },
     container: {
-        padding : 16, 
         margin : 16,
-        backgroundColor : '#ffffff',
+        paddingRight : 16,
+        backgroundColor : '#fff',
         flexGrow : 1,
         borderTopLeftRadius : 0,
         borderRadius : 20,
-        borderWidth : 1,
-        borderColor : '#cfcfcf'
+        flexDirection : 'row',
+        alignItems : 'center'
+        // borderWidth : 1,
+        // borderColor : '#cfcfcf'
         // elevation : 3,
         // shadowRadius : 3,
         // shadowOpacity : 0.5,

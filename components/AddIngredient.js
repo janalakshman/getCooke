@@ -4,6 +4,8 @@ import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
+import Title from './Title'
+import PrimaryButton from './PrimaryButton'
 
 const DATA = [
   {
@@ -84,10 +86,8 @@ export default function AddIngredient({route, navigation}) {
                               keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
                               behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ScrollView>
-            
-            <Text style={styles.main}>Add Ingredient</Text>
-                
-            <Text style={styles.heading}>Ingredient name</Text>
+                            
+            <Title name="Name of the ingredient" />
 
                 <TextInput style={styles.name}
                     placeholder = "Ingredient name"
@@ -95,7 +95,7 @@ export default function AddIngredient({route, navigation}) {
                     value={name}
                     name="name" />
 
-            <Text style={styles.heading}>Amount</Text>
+            <Title name="Amount" />
 
                 <TextInput style={styles.name}
                     numeric
@@ -123,9 +123,9 @@ export default function AddIngredient({route, navigation}) {
                             value={isKey}/>
                 </View>
 
-                <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
-                    <Text style={styles.buttonText}>Add ingredient</Text>
-                </TouchableOpacity>
+                <View style={{flexGrow : 1}} />
+
+                <PrimaryButton name="Add Ingredient" onPress={() => handleClick()} />
 
             </ScrollView>
         </KeyboardAvoidingView>    
@@ -137,7 +137,7 @@ export default function AddIngredient({route, navigation}) {
 
 const styles = StyleSheet.create({
     name : {
-        borderRadius : 20,
+        borderRadius : 0,
         borderTopLeftRadius : 0,
         borderColor : '#cfcfcf',
         borderWidth : 1,

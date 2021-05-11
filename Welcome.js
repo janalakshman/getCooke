@@ -6,6 +6,8 @@ import LoadingScreen from './LoadingScreen'
 import Icon from './assets/Assistant.png'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import PrimaryButton from './components/PrimaryButton'
+import SecondaryButton from './components/SecondaryButton'
 
 
 export default function Welcome() {
@@ -18,28 +20,21 @@ export default function Welcome() {
     }
     
     return(
-        <ScrollView style={{backgroundColor : '#ffffff', flex : 1}}>
 
-            <View >
+        <View style={{backgroundColor : '#ffffff', flex : 1}}>
 
             <Text style={styles.text}>Hire a personal kitchen assistant</Text>
 
-            <Text style={styles.body}>Search recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
-            <View style={{flexGrow : 1}}></View>
+            <Text style={styles.body}>Find recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
 
             <Image style={styles.image} source={Icon} alt="Icon"/>
+           
+            <PrimaryButton name="Sign Up" onPress={() => navigation.navigate('SignUp')} />
 
-            <TouchableOpacity  style={styles.button}  onPress={() => navigation.navigate('SignUp')} >
-                <Text style={styles.buttonText}>SIGN UP</Text>
-            </TouchableOpacity>
+            <SecondaryButton name="Log In" onPress={() => navigation.navigate('SignIn')} />
 
-            <TouchableOpacity  style={styles.secondarybutton}  onPress={() => navigation.navigate('SignIn')} >
-                <Text style={styles.buttonText}>LOG IN</Text>
-            </TouchableOpacity>
+        </View>
 
-            </View>
-            
-        </ScrollView>
 
 
     )
@@ -47,8 +42,8 @@ export default function Welcome() {
 
 const styles = StyleSheet.create({
     image : {
-        height : 270,
-        width : 300,
+        height : '48%',
+        width : '80%',
         resizeMode : 'contain',
         alignSelf : 'center'
     },
@@ -68,30 +63,4 @@ const styles = StyleSheet.create({
         marginHorizontal : 16,
         width : '90%'
     },
-    buttonText : {
-        color : '#A13E00',
-        fontSize : 17,
-        fontFamily : 'Poppins_600SemiBold',
-        margin : 8,
-        marginHorizontal : 16,
-        flexGrow : 1,
-        textAlign : 'center'
-      },
-      button: {
-          borderRadius : 8,
-          backgroundColor : '#ffc885',
-          alignSelf : 'flex-start',
-          margin : 16,
-          flexDirection : 'row'
-},
-        secondarybutton: {
-            borderRadius : 8,
-            backgroundColor : '#fff',
-            borderWidth : 1,
-            borderColor : '#a13e00',
-            alignSelf : 'flex-start',
-            margin : 16,
-            flexDirection : 'row'
-        },
-
         })

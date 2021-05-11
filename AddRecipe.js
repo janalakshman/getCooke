@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch} from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch, Image} from 'react-native';
 import Title from './components/Title';
 import config from './config';
 import LoadingScreen from "./LoadingScreen";
@@ -8,8 +8,9 @@ import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux'
 import TertiaryButton from './components/TertiaryButton'
-import AddIngredient from './components/AddIngredient'
-
+import PrimaryButton from "./components/PrimaryButton";
+import * as ImagePicker from 'expo-image-picker';
+import ImageInput from './components/ImageInput'
 
 
 export default function AddRecipe({navigation}) {
@@ -17,6 +18,7 @@ export default function AddRecipe({navigation}) {
 const user = useSelector(state => state.counter.token)
 const [name, setName] = useState(null)
 const [time, setTime] = useState(null)
+const [image, setImage] = useState(null)
 const [notes, setNotes] = useState(null)
 const [steps, setSteps] = useState([])
 const [servings, setServings] = useState(1)
@@ -29,7 +31,31 @@ const [isOvernight, setIsOvernight] = useState(false)
 const [loading, setLoading] = useState(true)
 const toggleVeg = () => setIsVeg(previousState => !previousState);
 const toggleOvernight = () => setIsOvernight(previousState => !previousState);
-console.log(ingredients)
+
+useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+        setImage(result.uri);
+      }
+    };
 
 
   return (
@@ -41,7 +67,7 @@ console.log(ingredients)
             
             <Text style={styles.main}>Add Recipe</Text>
                 
-            <Text style={styles.heading}>Recipe Info</Text>
+            <Title name ="Recipe Info" />
 
                 <TextInput style={styles.name}
                     placeholder = "Name of the recipe"
@@ -58,6 +84,21 @@ console.log(ingredients)
                             keyboardType="numeric"
                             name="time" />
                         <Text style={styles.text}>mins</Text>
+                    </View>
+
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin : 16, marginBottom : 0 }}>
+                        {image ? <View></View> : <ImageInput name="Add a photo of your recipe" onPress={pickImage} /> }
+                        {image &&   
+                                    <View style={{width: '100%',  alignSelf : 'center'}}>
+                                        <Image source={{ uri: image }} style={styles.image} />
+                                    
+                                    <View style={{margin : 4}} />
+
+                                    <TouchableOpacity style={styles.delete} onPress={() => setImage(null)}>
+                                        <MaterialIcons name="delete" style={styles.icon} />
+                                        <Text style={styles.text}>Delete</Text>
+                                    </TouchableOpacity>
+                                    </View>}
                     </View>
 
                     <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
@@ -87,18 +128,27 @@ console.log(ingredients)
                     value={notes}
                     name="notes" />
 
+                    <View style={{margin : 16}}></View>
 
-                <Text style={styles.heading}>Ingredients</Text>
+                    <Title name="Portion size" />
 
-                <View  style={{flexDirection : 'row', margin : 16}}>
-                    <Text style={styles.servingsUnit}>Servings</Text>
-                    <View style={{flexGrow : 1}}></View>
-                    <View style={{flexDirection : 'row', alignItems : 'center', marginHorizontal : 32}}>
-                        <MaterialIcons name="remove" style={{marginHorizontal : 16}} size={24} color="#3b3b3b" onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)} />
-                        <Text style={styles.servingsUnit}>{servings}</Text>
-                        <MaterialIcons name="add" style={{marginHorizontal : 16}} size={24} color="#3b3b3b" onPress={() => setServings(servings + 1)} />
+                    <View style={{flexDirection : 'column'}}>
+                    <View style={{width : '75%', flexDirection : 'row', alignContent : 'center', margin : 32, marginTop : 16}}>
+                        <TextInput style={styles.nutrition}
+                            placeholder = "Number of servings"
+                            onChangeText={servings => setServings(servings)}
+                            value={servings}
+                            keyboardType="numeric"
+                            name="servings" />
+                            <View style={{flexGrow : 1}} />
+                        <Text style={styles.text}>Servings</Text>
                     </View>
-                </View>
+                    </View>
+
+
+
+                <Title name="Ingredients" />
+
                 
                 {ingredients ? ingredients.map((ingredient, index) => {
                         return (
@@ -122,9 +172,11 @@ console.log(ingredients)
 
 
                 <TertiaryButton name="Add ingredient" onPress={() => navigation.navigate('AddIngredient',{ingredients: ingredients, setIngredients : setIngredients })}/>
+                
+                <View style={{margin : 16}}></View>
 
 
-                <Text style={styles.heading}>Nutrition</Text>
+                <Title name="Nutrition Info" />
 
                 <View style={styles.card}>
 
@@ -167,8 +219,10 @@ console.log(ingredients)
 
                     </View>
                    
+                    <View style={{margin : 16}}></View>
 
-                <Text style={styles.heading}>Preparation</Text>
+
+                    <Title name="Preparation" />
                     {steps.map((step, index) => {
                         return (
                             <View>
@@ -199,11 +253,15 @@ console.log(ingredients)
                     
                     <TertiaryButton name="Add step" onPress={() => setSteps([...steps, ''])} />
 
-                <Text style={styles.heading}>Tags</Text>
+                    <View style={{margin : 16}}></View>
 
-                <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
-                    <Text style={styles.buttonText}>Submit recipe</Text>
-                </TouchableOpacity>
+
+                <Title name="Tags" />
+
+                <View style={{margin : 16}}></View>
+
+
+                <PrimaryButton name="Submit recipe" onPress={() => handleClick()} />
 
 
 
@@ -217,17 +275,17 @@ console.log(ingredients)
 
 const styles = StyleSheet.create({
     name : {
-        borderRadius : 20,
+        borderRadius : 8,
         borderTopLeftRadius : 0,
         borderColor : '#cfcfcf',
         borderWidth : 1,
-        height : 64,
+        height : 60,
         width : '90%',
         margin : 16,
         padding : 16,
         fontFamily : 'Poppins_400Regular',
-        fontSize : 17,
-        alignContent : 'flex-start'
+        fontSize : 14,
+        alignContent : 'flex-start',
     },
     text : {
         fontFamily : 'Poppins_400Regular',
@@ -236,17 +294,17 @@ const styles = StyleSheet.create({
         margin : 8
     },
     notes : {
-        borderRadius : 20,
+        borderRadius : 8,
         borderTopLeftRadius : 0,
         borderColor : '#cfcfcf',
         borderWidth : 1,
-        height : 96,
+        height : 108,
         width : '90%',
         margin : 16,
         padding : 16,
         paddingTop : 8,
         fontFamily : 'Poppins_400Regular',
-        fontSize : 17,
+        fontSize : 14,
         alignContent : 'flex-start'
     },
     card : {
@@ -263,7 +321,7 @@ const styles = StyleSheet.create({
         marginHorizontal : '2.5%'
     },
     nutrition : {
-        borderRadius : 20,
+        borderRadius : 8,
         borderTopLeftRadius : 0,
         borderColor : '#cfcfcf',
         borderWidth : 1,
@@ -305,7 +363,7 @@ const styles = StyleSheet.create({
     main : {
         color : '#3b3b3b',
         fontSize : 32,
-        fontFamily : 'SourceSerifPro',
+        fontFamily : 'Lora',
         margin : 16
     },
     smalltext : {
@@ -359,6 +417,12 @@ const styles = StyleSheet.create({
         alignItems : 'flex-end',
         borderColor : '#cfcfcf',
         paddingVertical : 16,
-
     },
+    image : {
+        width : '100%',
+        height : 300,
+        borderRadius : 20,
+        borderTopLeftRadius : 0
+    }
+
 });

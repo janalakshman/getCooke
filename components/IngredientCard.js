@@ -1,23 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, FlatList, Text, View, ScrollView, VirtualizedList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { MaterialIcons } from '@expo/vector-icons';
+
 
 export default function Header(props){
+    
 
     return(
-        <View>
+        <View style={styles.card}>
         {props.ingredients  ?
-        <View> 
-        <SafeAreaView style={styles.card} >
+        <View  >
             <View style={styles.line}>
-                <Text style={styles.heading}>Servings</Text>
-                <View style={{flexGrow : 1}}></View>
-                    {/* <MaterialIcons name="remove-circle-outline" style={styles.icon}/> */}
-                        <Text style={styles.heading}>{props.servings}</Text>
-                    {/* <MaterialIcons name="add-circle-outline" style={styles.icon}/> */}
+                <Text style={styles.heading}>{props.servings}</Text>
+                <Text style={styles.heading}>{props.servings === 1 ? 'serving' : 'servings'}</Text>
+                    {/* <MaterialIcons name="remove" style={styles.icon} onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)}/> */}
+                    {/* <MaterialIcons name="add" style={styles.icon}  onPress={(count) => setServings(count + 1)}/> */}
             </View>
             
-            <View style={{margin : 8}} />
+            <View style={{margin : 8}}/>
 
             <View style={styles.container}>
                 {props.ingredients.map(ingredient =>
@@ -28,8 +29,8 @@ export default function Header(props){
                         </View>
                     )}
             </View>
-        </SafeAreaView>
-        </View> : 
+        </View>
+             : 
         <View style={{margin : 32}}>
         </View>}
      </View>
@@ -38,16 +39,17 @@ export default function Header(props){
 
 const styles = StyleSheet.create({
     card : {
-        width : '92%',
+        width : '100%',
         margin : 16,
+        marginTop : 0,
         borderRadius : 4,
         alignSelf : 'center',
         backgroundColor : '#ffffff',
         flexGrow : 1,
-        borderTopLeftRadius : 0,
-        borderRadius : 20,
-        borderWidth : 1,
-        borderColor : '#cfcfcf'
+        // borderTopLeftRadius : 0,
+        // borderRadius : 20,
+        // borderWidth : 1,
+        // borderColor : '#cfcfcf'
         // elevation : 3,
         // shadowRadius : 3,
         // shadowOpacity : 0.5,
@@ -64,17 +66,18 @@ const styles = StyleSheet.create({
         margin : 16,
     },
     heading : {
-        fontSize : 19,
+        fontSize : 17,
         color : '#3b3b3b',
-        fontFamily : 'Poppins_600SemiBold',
-        textAlign : 'right',
-        marginHorizontal : 16
+        fontFamily : 'Poppins_500Medium',
+        textAlign : 'center',
+        marginHorizontal : 4,
+        margin : 0
     },
     line : {
         flexDirection : "row",
-        alignItems : 'center',
-        justifyContent : 'center',
-        marginHorizontal : 8
+        justifyContent : 'flex-end',
+        marginHorizontal : 16,
+        marginTop : 0,
     },
     text : {
         color : '#3b3b3b',
@@ -83,7 +86,6 @@ const styles = StyleSheet.create({
         marginHorizontal : 16,
         textAlign : 'left',
         width : '50%',
-        marginVertical : 8
       },
       unit : {
         color : '#3b3b3b',
@@ -94,9 +96,11 @@ const styles = StyleSheet.create({
         marginVertical : 8
       },
       box : {
-          margin : 8,
           flexDirection : 'row',
           justifyContent : 'flex-start',
-          alignItems : 'flex-end'
+          alignItems : 'flex-end',
+          borderColor : '#cfcfcf',
+          borderBottomWidth : 0.5,
+          padding : 8
       },
   });

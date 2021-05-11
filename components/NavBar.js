@@ -37,7 +37,7 @@ export default function Home(props) {
 
 const styles = StyleSheet.create({
  navigation : {
-  backgroundColor : '#ffffff',
+  backgroundColor : '#fff',
   flexDirection : 'row',
   justifyContent : 'center',
   alignItems : 'center',

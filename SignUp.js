@@ -8,6 +8,7 @@ import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import config from './config';
+import PrimaryButton from './components/PrimaryButton';
 
  var radio_props = [
   {label: 'Male', value: 0 },
@@ -85,20 +86,19 @@ export default function SignUp() {
                                         value={password}/>
 
                             <Text style={styles.text}>Gender</Text>
-                                <View style={{marginHorizontal : 32}}>
+                                <View style={{marginHorizontal : 32, margin : 16}}>
                                     <RadioForm
                                     radio_props={radio_props}
                                     initial={radioGender}
                                     animation={true}
                                     onPress={(value) => {setRadioGender(value)}}
-                                    labelStyle={{fontFamily : 'Poppins_500Medium', color : '#3b3b3b'}}
+                                    labelStyle={{fontFamily : 'Poppins_400Regular', color : '#3b3b3b'}}
                                     />
                                 </View>
-                                
 
-                                <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
-                                    <Text style={styles.buttonText}>SIGN UP</Text>
-                                </TouchableOpacity>
+                                
+                            <PrimaryButton name="Sign Up" onPress={() => handleClick()} />
+
                             </KeyboardAvoidingView>
                         </ScrollView>
             )}

@@ -36,6 +36,7 @@ export default function App() {
     'Poppins_400Regular' : require('./assets/fonts/Poppins/Poppins-Regular.ttf'),
     'SourceSansPro_400Regular' :  require('./assets/fonts/SourceSansPro/SourceSansPro-Regular.ttf'),
     'SourceSerifPro' : require('./assets/fonts/SourceSerifPro/SourceSerifPro.ttf'),
+    'Lora' : require('./assets/fonts/Lora/Lora-SemiBold.ttf'),
   });
 
   if(!loaded) {
@@ -109,7 +110,7 @@ export default function App() {
                   ),
                   headerLeft : () => (
                     <View>
-                      <Text style={styles.text}>Meal plan</Text>
+                      <Text style={styles.text}>Meal Plan</Text>
                     </View>
                   ),
                   headerStyle : {
@@ -126,7 +127,7 @@ export default function App() {
                     ),
                     headerLeft : () => (
                       <View>
-                        <Text style={styles.text}>Grocery list</Text>
+                        <Text style={styles.text}>Grocery List</Text>
                       </View>
                     ),
                     headerStyle : {
@@ -146,7 +147,7 @@ export default function App() {
                         <Image source={Logo} alt="Logo"
                           style={{ width: 50, height: 50, marginLeft : 16 }}
                         />
-                        <Text style={styles.text}>Create recipe</Text>
+                        <Text style={styles.text}>Create Recipe</Text>
                       </View>
                     ),
                     headerStyle : {
@@ -281,7 +282,7 @@ const styles = StyleSheet.create({
   text : {
     color : '#3b3b3b',
     fontSize : 32,
-    fontFamily : 'SourceSerifPro',
+    fontFamily : 'Lora',
     marginHorizontal : 16
 },
 icon : {

@@ -6,8 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 export default function FloatingButton(props) {
     return(
             <TouchableOpacity  style={styles.button} onPress={() => props.setModalVisible(true)}>
-                <MaterialIcons name="add" style={styles.icon} />
-                <Text style={styles.buttonText}>Calendar</Text>
+                <Text style={styles.buttonText}>Add to Calendar</Text>
             </TouchableOpacity>
     )
 }
@@ -16,13 +15,15 @@ export default function FloatingButton(props) {
     buttonText : {
       color : '#A13E00',
       fontSize : 17,
-      fontFamily : 'Poppins_600SemiBold',
+      fontFamily : 'Poppins_500Medium',
       margin : 8,
+      marginVertical : 12,
+      textAlign : 'center'
     },
     button: {
         borderRadius : 8,
         backgroundColor : '#ffc885',
-        margin : 16,
+        margin : 8,
         flexDirection : 'row',
         alignItems : 'center',
         elevation : 3,
@@ -31,9 +32,4 @@ export default function FloatingButton(props) {
         shadowColor : 'rgba(0, 0, 0, 0.25)',
         shadowOffset : {width : 0, height : 4},
         },
-    icon : {
-        fontSize : 20,
-        color : '#a13e00',
-        paddingLeft : 8
-    },
   }); 
