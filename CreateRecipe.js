@@ -38,7 +38,6 @@ export default function CreateRecipe({navigation}) {
             })
         .then(([status, response])=> {
                 setRecipes(response['recipes']);   
-                console.log(recipes)          
           })
         .catch((err) => {
           <View>

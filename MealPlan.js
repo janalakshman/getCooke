@@ -79,11 +79,11 @@ export default function MealPlan({navigation}) {
                               renderSectionHeader={({ section: { title } }) => (
                                 <Title name={title}/>
                               )}
-                              renderSectionFooter={({ section : {nutrition}}) => (
-                                <View style={{marginTop : 16}}>
-                                    <NutritionCard nutrition={nutrition} />
-                                </View>
-                              )}
+                              // renderSectionFooter={({ section : {nutrition}}) => (
+                              //   <View style={{marginTop : 16}}>
+                              //       <NutritionCard nutrition={nutrition} />
+                              //   </View>
+                              // )}
                             /> :
                             <View>
                               <Text style={styles.text}>Such empty!</Text>

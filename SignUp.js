@@ -151,7 +151,8 @@ const styles = StyleSheet.create({
         alignSelf : 'flex-start',
         padding : 16,
         margin : 16,
-        fontFamily : 'Poppins_500Medium'
+        fontFamily : 'SourceSansPro_400Regular',
+        fontSize : 17
     },
 }
 

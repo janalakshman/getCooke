@@ -6,16 +6,31 @@ import config from './config';
 import LoadingScreen from "./LoadingScreen";
 import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons } from '@expo/vector-icons';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import TertiaryButton from './components/TertiaryButton'
 import PrimaryButton from "./components/PrimaryButton";
 import * as ImagePicker from 'expo-image-picker';
-import ImageInput from './components/ImageInput'
+import ImageInput from './components/ImageInput';
+
 
 
 export default function AddRecipe({navigation}) {
 
 const user = useSelector(state => state.counter.token)
+
+const recipe = {
+    name : name,
+    time : time,
+    image : image,
+    notes : notes,
+    steps : steps,
+    ingredients : ingredients,
+    carbs : carbs,
+    protein : protein,
+    fat : fat,
+    isVeg : isVeg,
+    isOvernight : isOvernight,
+}
 const [name, setName] = useState(null)
 const [time, setTime] = useState(null)
 const [image, setImage] = useState(null)
@@ -153,7 +168,7 @@ useEffect(() => {
                 {ingredients ? ingredients.map((ingredient, index) => {
                         return (
                             <View style={styles.box}>
-                                <View style={{flexDirection : 'row', marginVertical : 8, alignItems : 'center'}}>
+                                <View style={{flexDirection : 'row', alignItems : 'center'}}>
                                     <Text style={styles.servings}>{ingredient.name}</Text>
                                     <View style={{flexGrow : 1}}></View>
                                     <Text style={styles.servingsUnit}>{ingredient.amount} {ingredient.unit}</Text>
@@ -232,7 +247,7 @@ useEffect(() => {
                                         onChangeText={notes => {
                                             setSteps(prevState => {
                                                 let tempArray = [...prevState]
-                                                tempArray[index] = notes
+                                                tempArray[index].description = notes
                                                 return tempArray
                                             })}}
                                         value={step}
@@ -251,7 +266,7 @@ useEffect(() => {
                         )
                     })}
                     
-                    <TertiaryButton name="Add step" onPress={() => setSteps([...steps, ''])} />
+                    <TertiaryButton name="Add step" onPress={() => setSteps([...steps, {}])} />
 
                     <View style={{margin : 16}}></View>
 
@@ -262,8 +277,6 @@ useEffect(() => {
 
 
                 <PrimaryButton name="Submit recipe" onPress={() => handleClick()} />
-
-
 
             </ScrollView>
         </KeyboardAvoidingView>    
@@ -283,8 +296,8 @@ const styles = StyleSheet.create({
         width : '90%',
         margin : 16,
         padding : 16,
-        fontFamily : 'Poppins_400Regular',
-        fontSize : 14,
+        fontFamily : 'SourceSansPro_400Regular',
+        fontSize : 17,
         alignContent : 'flex-start',
     },
     text : {
@@ -303,8 +316,8 @@ const styles = StyleSheet.create({
         margin : 16,
         padding : 16,
         paddingTop : 8,
-        fontFamily : 'Poppins_400Regular',
-        fontSize : 14,
+        fontFamily : 'SourceSansPro_400Regular',
+        fontSize : 17,
         alignContent : 'flex-start'
     },
     card : {
@@ -328,8 +341,8 @@ const styles = StyleSheet.create({
         height : 48,
         width : '90%',
         paddingHorizontal : 16,
-        fontFamily : 'Poppins_500Medium',
-        fontSize : 14,
+        fontFamily : 'SourceSansPro_400Regular',
+        fontSize : 17,
         alignContent : 'flex-start'
     },
     calories : {
@@ -399,24 +412,26 @@ const styles = StyleSheet.create({
           alignSelf : 'center'
              } ,
     servings : {
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'SourceSansPro_400Regular',
         fontSize : 17,
         marginHorizontal : 16,
         marginVertical : 8,
-        width : '40%'
+        width : '40%',
+        color : '#3b3b3b'
     },
     servingsUnit : {
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'SourceSansPro_400Regular',
         fontSize : 17,
         marginHorizontal : 16,
         marginVertical : 8,
+        color : '#3b3b3b'
     },
     box : {
         margin : 16,
+        marginTop : 0,
         justifyContent : 'flex-start',
         alignItems : 'flex-end',
         borderColor : '#cfcfcf',
-        paddingVertical : 16,
     },
     image : {
         width : '100%',

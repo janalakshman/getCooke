@@ -137,7 +137,7 @@ export default function AddIngredient({route, navigation}) {
 
 const styles = StyleSheet.create({
     name : {
-        borderRadius : 0,
+        borderRadius : 8,
         borderTopLeftRadius : 0,
         borderColor : '#cfcfcf',
         borderWidth : 1,
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
         width : '90%',
         margin : 16,
         padding : 16,
-        fontFamily : 'Poppins_500Medium',
-        fontSize : 14,
+        fontFamily : 'SourceSansPro_400Regular',
+        fontSize : 17,
         alignContent : 'flex-start'
     },
     text : {
@@ -194,19 +194,4 @@ const styles = StyleSheet.create({
         fontFamily : 'SourceSerifPro',
         margin : 16
     },
-    buttonText : {
-      color : '#A13E00',
-      fontSize : 17,
-      fontFamily : 'Poppins_600SemiBold',
-      margin : 8,
-      flexGrow : 1,
-      textAlign : 'center'
-    },
-    button: {
-        borderRadius : 4,
-        backgroundColor : '#ffc885',
-        margin : 16,
-        flexDirection : 'row',
-        alignSelf : 'center'
-           } ,
 });

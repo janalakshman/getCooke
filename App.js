@@ -26,6 +26,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import useSelector from 'react-redux'
 import AddIngredient from './components/AddIngredient'
+import Contact from './components/Contact'
 
 
 
@@ -215,6 +216,20 @@ export default function App() {
                     headerBackTitle : ' ',
                     headerStyle : {
                       backgroundColor : '#fff',
+                    },
+                   })}  />
+            <Stack.Screen 
+                  name="Contact" 
+                  component={Contact}
+                  options={({ navigation }) => ({
+                    headerTitle :  () => (
+                      <View></View>
+                    ),
+                    headerTintColor : '#3b3b3b',
+                    headerBackTitle : ' ',
+                    headerStyle : {
+                      backgroundColor : '#fff',
+                      height : 92,
                     },
                    })}  />
             <Stack.Screen 

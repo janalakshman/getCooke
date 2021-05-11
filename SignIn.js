@@ -8,6 +8,7 @@ import LoadingScreen from './LoadingScreen'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import config from './config';
 import PrimaryButton from './components/PrimaryButton';
+
 const data = [
     {
       label: 'Male'
@@ -25,7 +26,6 @@ export default function SignIn(props) {
     const user = useSelector(state => state.counter.token);
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    console.log(user)
 
     if(user) {
         navigation.navigate('Home')
@@ -144,7 +144,8 @@ const styles = StyleSheet.create({
         alignSelf : 'flex-start',
         padding : 16,
         margin : 16,
-        fontFamily : 'Poppins_500Medium'
+        fontFamily : 'SourceSansPro_400Regular',
+        fontSize : 17
     },
 }
 

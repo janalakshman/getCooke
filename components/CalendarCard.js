@@ -34,7 +34,7 @@ export default function Header(props){
                   )
                     .then(res => res.json())
                     .then(response => {
-                        navigation.navigate('Home')
+                        navigation.navigate('Meal plan')
                     })
                     .catch(error => console.log(error));
               } }
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
       fontSize : 14,
       color : '#3b3b3b',
       margin : 8,
-      fontFamily : 'SourceSansPro_400Regular'
+      fontFamily : 'Poppins_400Regular'
   },
   delete : {
     flexDirection : 'row', 

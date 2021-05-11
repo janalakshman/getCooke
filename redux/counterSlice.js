@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const counterSlice = createSlice({
   name: 'counter',
   initialState: {
-    token : ''
+    token : '',
   },
   reducers: {
    setToken : (state, action) => {
@@ -11,7 +11,8 @@ const counterSlice = createSlice({
    },
    deleteToken : (state) => {
        state.token = ''
-   }
+   },
+
   }
 })
 

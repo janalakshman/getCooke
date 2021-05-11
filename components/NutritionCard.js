@@ -4,6 +4,7 @@ import LoadingScreen from '../LoadingScreen'
 
 
 export default function Header(props){
+    console.log(props.recipe.servings)
 
     return(
         <View style={styles.card}>

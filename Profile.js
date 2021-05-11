@@ -10,7 +10,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteToken } from './redux/counterSlice';
 import Welcome from './Welcome'
 import NavBar from './components/NavBar'
-
+import SecondaryButton from './components/SecondaryButton'
+import ProfileData from './components/ProfileData'
+import Button from './components/Button'
 
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
@@ -36,23 +38,16 @@ export default function Profile({navigation}){
                 </View>
 
                 
-            <Title name="Contact"/>
+            <ProfileData />
 
-            
-            
-                <View style={{backgroundColor : '#fff', paddingVertical : 16}}>
-                    <View style={styles.card}>
-                        <Text style={styles.para}>Compliments are nice, but critique is better!</Text>
-                    </View>
+            <View style={{flexDirection : 'row', justifyContent : 'space-around', marginVertical : 16}} >
+                <Button name="Add Recipe" onPress={() => navigation.navigate('AddRecipe')}/>
+                <Button name="Contact" onPress={() => navigation.navigate('Contact')}/>
+                <Button name="Log Out" onPress={handleLogout} />
+            </View>
 
-                    <View style={styles.card}>
-                        <Text style={styles.para}>Drop a mail to jana@getcooke.com!</Text>
-                    </View>
-                </View>
+         
 
-                <View style={{marginTop : 16}}>
-                  <TertiaryButton name="Log out" onPress={handleLogout} />
-                </View>
 
               </ScrollView>
               <NavBar props="Profile" />
