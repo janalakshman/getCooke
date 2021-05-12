@@ -5,7 +5,7 @@ import femaleAvatar from '../assets/femaleAvatar.png'
 import { useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
 
-import LoadingScreen from '../LoadingScreen'
+import LoadingScreen from './LoadingScreen'
 
 export default function RecipeDescription(props){
 

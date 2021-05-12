@@ -4,8 +4,8 @@ import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
-import Title from './Title'
-import PrimaryButton from './PrimaryButton'
+import Title from '../components/Title'
+import Button from '../components/Button'
 
 
 export default function AddIngredient({navigation}) {
@@ -42,7 +42,7 @@ export default function AddIngredient({navigation}) {
 
                 <View style={{flexGrow : 1}} />
 
-                <PrimaryButton name="Send Feedback" onPress={() => handleClick()} />
+                <Button type="primary" name="Send Feedback" onPress={() => handleClick()} />
 
             </ScrollView>
         </KeyboardAvoidingView>    

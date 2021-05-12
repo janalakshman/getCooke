@@ -3,30 +3,28 @@ import React from 'react';
 import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './Home'
-import Discover from './Discover'
-import MealPlan from './MealPlan'
-import GroceryList from './GroceryList'
-import CreateRecipe from './CreateRecipe'
-import RecipeDetail from './RecipeDetail'
+import Home from './Pages/Home'
+import MealPlan from './Pages/MealPlan'
+import GroceryList from './Pages/GroceryList'
+import RecipeDetail from './Pages/RecipeDetail'
 import { MaterialIcons } from '@expo/vector-icons';
-import AddRecipe from './AddRecipe'
-import Profile from './Profile'
-import SignUp from './SignUp'
-import SignIn from './SignIn'
-import Welcome from './Welcome'
+import AddRecipe from './Pages/AddRecipe'
+import Profile from './Pages/Profile'
+import SignUp from './Pages/SignUp'
+import SignIn from './Pages/SignIn'
+import Welcome from './Pages/Welcome'
 import { Provider } from 'react-redux'
 import * as Font from 'expo-font';
 import { useFonts } from 'expo-font';
-import LoadingScreen from './LoadingScreen'
+import LoadingScreen from './components/LoadingScreen'
 import Logo from './assets/CookeLogo.png'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import store from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import useSelector from 'react-redux'
-import AddIngredient from './components/AddIngredient'
-import Contact from './components/Contact'
+import AddIngredient from './Modal/AddIngredient'
+import Contact from './Modal/Contact'
 
 
 
@@ -133,31 +131,6 @@ export default function App() {
                     ),
                     headerStyle : {
                       backgroundColor : '#fff',
-                      height : 92
-                    },
-                   })}  />
-          <Stack.Screen 
-                  name="CreateRecipe" 
-                  component={CreateRecipe}
-                  options={({ navigation }) => ({
-                    headerTitle :  () => (
-                      <View></View>
-                    ),
-                    headerLeft : () => (
-                      <View style={{flexDirection : 'row', alignItems : 'center', justify : 'center', marginVertical : 16}}>
-                        <Image source={Logo} alt="Logo"
-                          style={{ width: 50, height: 50, marginLeft : 16 }}
-                        />
-                        <Text style={styles.text}>Create Recipe</Text>
-                      </View>
-                    ),
-                    headerStyle : {
-                      backgroundColor : '#ffffff',
-                      elevation : 5,
-                      shadowOpacity : 3,
-                      shadowColor : 'rgba(0, 0, 0, 0.10)',
-                      shadowRadius : 2,
-                      shadowOffset : {width : 0, height : 4},
                       height : 92
                     },
                    })}  />

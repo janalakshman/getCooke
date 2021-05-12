@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import {View, ActivityIndicator, Text, Image, StyleSheet} from 'react-native'
-import error from './assets/error.png'
+import {View, Text, Image, StyleSheet} from 'react-native'
+import error from '../assets/error.png'
 
 export default function Error(){
     return(

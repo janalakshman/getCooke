@@ -1,16 +1,15 @@
 import React, { useState, useEffect} from "react";
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity , Modal, Pressable, SectionList, FlatList, TextInput} from 'react-native';
-import Title from './components/Title';
+import Title from '../components/Title';
 import { MaterialIcons } from '@expo/vector-icons';
-import CalendarCard from './components/CalendarCard'
-import NutritionCard from './components/NutritionCard'
-import RecipeCardHome from './components/RecipeCardHome'
-import config from './config';
-import LoadingScreen from "./LoadingScreen";
+import NutritionCard from '../components/NutritionCard'
+import RecipeCardHome from '../components/RecipeCard'
+import config from '../config';
+import LoadingScreen from "../components/LoadingScreen";
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
-import Error from './Error'
-import NavBar from './components/NavBar'
+import Error from '../components/Error'
+import NavBar from '../components/NavBar'
 
 export default function Home({navigation}) {
   const [loading, setLoading] = useState(true)

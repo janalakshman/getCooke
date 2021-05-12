@@ -1,18 +1,16 @@
 import React, { useState, useEffect} from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, Alert} from 'react-native';
-import Title from './components/Title';
-import NutritionCard from './components/NutritionCard'
-import RecipeData from './components/RecipeData'
-import RecipeDescription from './components/RecipeDescription'
-import IngredientCard from './components/IngredientCard'
-import PrepStep from './components/PrepStep'
-import FloatingButton from './components/FloatingButton'
-import Tags from './components/Tags'
-import CalendarModal from './components/CalendarModal'
-import config from './config';
-import LoadingScreen from "./LoadingScreen";
-import ReportButton from './components/ReportButton'
+import Title from '../components/Title';
+import NutritionCard from '../components/NutritionCard'
+import RecipeData from '../components/RecipeData'
+import RecipeDescription from '../components/RecipeDescription'
+import IngredientCard from '../components/IngredientCard'
+import PrepStep from '../components/PrepStep'
+import Button from '../components/Button'
+import CalendarModal from '../Modal/CalendarModal'
+import config from '../config';
+import LoadingScreen from "../components/LoadingScreen";
 
 
 export default function RecipeFullDetail({navigation, route, props}) {
@@ -22,6 +20,17 @@ export default function RecipeFullDetail({navigation, route, props}) {
   const [recipe, setRecipe] = useState({});
   const [count, setCount] = useState(0);
   const { recipeId } = route.params;
+
+  const handleReport = () => {
+    Alert.alert(
+        "Report recipe",
+        "Are you sure you want to report this recipe because it has obscene/distrubing content?",
+        [
+          { text: "Cancel", onPress: () => console.log("Cancel Pressed") },
+          { text: "Report", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+  }
 
    useEffect(() => {
     fetch(
@@ -81,14 +90,14 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   </View>
 
                   <View style={{backgroundColor : '#fff'}}>
-                    <ReportButton/>
+                    <Button type="report" onPress={() => handleReport()} />
                   </View>
 
 
                 </ScrollView> 
 
                 <View style={styles.position}>
-                  <FloatingButton modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+                  <Button type="floating" name="Add to Calendar" onPress={() => setModalVisible(true)}/>
                 </View>
 
                 <CalendarModal recipe={recipe.id} modalVisible={modalVisible} setModalVisible={setModalVisible}/>

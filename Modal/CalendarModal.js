@@ -1,14 +1,14 @@
 import React ,{ useState }from 'react';
 import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import AddTime from './AddTime'
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
 import { addDate, resetData, addTime } from '../redux/counterSlice'
-import LoadingScreen from '../LoadingScreen'
+import LoadingScreen from '../components/LoadingScreen'
 import config from '../config';
 import { MaterialIcons } from '@expo/vector-icons';
+import Button from '../components/Button'
 
 const DATA = [
   {
@@ -38,6 +38,33 @@ const DATA = [
   },
 ];
 
+const AddTime = (props) => {
+  var [ isPress, setIsPress ] = useState(false);
+  const setCourses = props.setCourses
+  const courses = props.courses
+
+  const handleClick = (item) => {
+    if(courses.includes(item)) {
+      const i  = courses.indexOf(item)
+      if ( i!== -1) {
+        courses.splice(i, 1); 
+        setCourses(courses)
+      }
+    }else{
+      setCourses([...courses, item])
+    }
+    // courses.includes(item) ? setCourses(courses) : setCourses([...courses, item])
+    setIsPress(!isPress)
+  }
+
+
+    return(
+                <TouchableOpacity  style={!isPress ? styles.time : styles.pressedTime} onPress={() => handleClick(props.name)}>
+                  <Text style={!isPress ? styles.unpressedText : styles.pressedText}>{props.name}</Text>
+                  <Text style={!isPress ? styles.unpressedText : styles.pressedText}>{props.time}</Text>
+                </TouchableOpacity> 
+    )
+}
 
  
 
@@ -165,9 +192,9 @@ export default function CalendarModal( props ) {
                     numColumns={1}
                     />
 
-                <TouchableOpacity  style={styles.button} onPress={() => handleClick()}>
-                    <Text style={styles.buttonText}>SCHEDULE</Text>
-                </TouchableOpacity>
+
+
+                <Button type="primary" name="Schedule" onPress={() => handleClick()} />
 
               </ScrollView>
                                             
@@ -229,21 +256,6 @@ export default function CalendarModal( props ) {
       width : '100%',
       alignItems : 'center'
   },
-  buttonText : {
-    color : '#A13E00',
-    fontSize : 19,
-    fontFamily : 'Poppins_600SemiBold',
-    margin : 16,
-    flexGrow : 1,
-    textAlign : 'center'
-  },
-  button: {
-      borderRadius : 4,
-      backgroundColor : '#ffc885',
-      margin : 16,
-      flexDirection : 'row',
-      alignSelf : 'center'
-         } ,
   time: {
       borderRadius : 4,
       borderWidth : 1,
@@ -256,8 +268,30 @@ export default function CalendarModal( props ) {
     color : '#3b3b3b',
     fontSize : 17,
     fontFamily : 'Poppins_500Medium',
-    marginHorizontal : 32,
+    margin : 16,
     textAlign : 'center',
-    margin : 16
+    flexGrow : 1
+  },
+  time: {
+    borderRadius : 4,
+    borderWidth : 1,
+    borderColor : '#3b3b3b',
+    backgroundColor : '#ffffff',
+    margin : 16,
+    flexDirection : 'row',
+  },
+  pressedText : {
+    color : '#fff',
+    fontSize : 17,
+    margin : 16,
+    textAlign : 'center',
+    flexGrow : 1,
+    fontFamily : 'Poppins_500Medium'
+  },
+  pressedTime : {
+    borderRadius : 4,
+    backgroundColor : '#54b8ec',
+    margin : 16,
+    flexDirection : 'row',
   },
   });

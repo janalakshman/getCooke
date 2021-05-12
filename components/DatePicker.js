@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import { SourceSansPro_400Regular} from '@expo-google-fonts/source-sans-pro';
-import LoadingScreen from '../LoadingScreen'
+import LoadingScreen from './LoadingScreen'
 
 
 export default function DatePicker(props) {

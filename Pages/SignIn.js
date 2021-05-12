@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import {View, Text, StyleSheet, Image, Alert, ScrollView, TouchableOpacity, KeyboardAvoidingView} from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
-import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
-import { setToken } from './redux/counterSlice';
-import LoadingScreen from './LoadingScreen'
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import config from './config';
-import PrimaryButton from './components/PrimaryButton';
+import { setToken } from '../redux/counterSlice';
+import LoadingScreen from '../components/LoadingScreen'
+import { useNavigation } from '@react-navigation/native';
+import config from '../config';
+import Button from '../components/Button';
 
 const data = [
     {
@@ -90,7 +89,7 @@ export default function SignIn(props) {
 
                             <View style={{margin : 16}}></View>
                             
-                            <PrimaryButton name="Log In" onPress={() => handleClick()}/>
+                            <Button type="primary" name="Log In" onPress={() => handleClick()}/>
 
                             </KeyboardAvoidingView>
                         </ScrollView>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
-import LoadingScreen from '../LoadingScreen'
+import LoadingScreen from './LoadingScreen'
 
 
 export default function Header(props){

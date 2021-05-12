@@ -1,16 +1,15 @@
 import React, { useState, useEffect} from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch, Image} from 'react-native';
-import Title from './components/Title';
-import config from './config';
-import LoadingScreen from "./LoadingScreen";
+import Title from '../components/Title';
+import config from '../config';
+import LoadingScreen from "../components/LoadingScreen";
 import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import TertiaryButton from './components/TertiaryButton'
-import PrimaryButton from "./components/PrimaryButton";
+import Button from '../components/Button'
 import * as ImagePicker from 'expo-image-picker';
-import ImageInput from './components/ImageInput';
+import ImageInput from '../components/ImageInput';
 
 
 
@@ -186,7 +185,7 @@ useEffect(() => {
              : <View></View>} 
 
 
-                <TertiaryButton name="Add ingredient" onPress={() => navigation.navigate('AddIngredient',{ingredients: ingredients, setIngredients : setIngredients })}/>
+                <Button type="tertiary" name="Add ingredient" onPress={() => navigation.navigate('AddIngredient',{ingredients: ingredients, setIngredients : setIngredients })}/>
                 
                 <View style={{margin : 16}}></View>
 
@@ -266,7 +265,7 @@ useEffect(() => {
                         )
                     })}
                     
-                    <TertiaryButton name="Add step" onPress={() => setSteps([...steps, {}])} />
+                    <Button type="tertiary" name="Add step" onPress={() => setSteps([...steps, {}])} />
 
                     <View style={{margin : 16}}></View>
 
@@ -276,7 +275,7 @@ useEffect(() => {
                 <View style={{margin : 16}}></View>
 
 
-                <PrimaryButton name="Submit recipe" onPress={() => handleClick()} />
+                <Button type="primary" name="Submit recipe" onPress={() => handleClick()} />
 
             </ScrollView>
         </KeyboardAvoidingView>    

@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, ActivityIndicator, Text, Image, StyleSheet} from 'react-native'
-import CookeLogo from './assets/CookeLogo.png'
+import CookeLogo from '../assets/CookeLogo.png'
 
 export default function LoadingScreen(){
     return(

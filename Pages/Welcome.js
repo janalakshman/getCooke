@@ -1,13 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Text, StyleSheet, Image, Button, TouchableOpacity, ScrollView} from 'react-native'
-import * as WebBrowser from 'expo-web-browser';
-import LoadingScreen from './LoadingScreen'
-import Icon from './assets/Assistant.png'
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
-import PrimaryButton from './components/PrimaryButton'
-import SecondaryButton from './components/SecondaryButton'
+import { Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native'
+import Icon from '../assets/Assistant.png'
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import Button from '../components/Button'
+
 
 
 export default function Welcome() {
@@ -29,9 +27,9 @@ export default function Welcome() {
 
             <Image style={styles.image} source={Icon} alt="Icon"/>
            
-            <PrimaryButton name="Sign Up" onPress={() => navigation.navigate('SignUp')} />
+            <Button type="primary" name="Sign Up" onPress={() => navigation.navigate('SignUp')} />
 
-            <SecondaryButton name="Log In" onPress={() => navigation.navigate('SignIn')} />
+            <Button type="secondary" name="Log In" onPress={() => navigation.navigate('SignIn')} />
 
         </View>
 

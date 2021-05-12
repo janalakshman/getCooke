@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
 import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native'
-import Title from './components/Title'
-import maleAvatar from './assets/maleAvatar.png'
-import femaleAvatar from './assets/femaleAvatar.png'
+import Title from '../components/Title'
+import maleAvatar from '../assets/maleAvatar.png'
+import femaleAvatar from '../assets/femaleAvatar.png'
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
-import TertiaryButton from './components/PrimaryButton'
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteToken } from './redux/counterSlice';
+import { deleteToken } from '../redux/counterSlice';
 import Welcome from './Welcome'
-import NavBar from './components/NavBar'
-import SecondaryButton from './components/SecondaryButton'
-import ProfileData from './components/ProfileData'
-import Button from './components/Button'
+import NavBar from '../components/NavBar'
+import ProfileData from '../components/ProfileData'
+import Button from '../components/Button'
 
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
@@ -41,9 +39,20 @@ export default function Profile({navigation}){
             <ProfileData />
 
             <View style={{flexDirection : 'row', justifyContent : 'space-around', marginVertical : 16}} >
-                <Button name="Add Recipe" onPress={() => navigation.navigate('AddRecipe')}/>
-                <Button name="Contact" onPress={() => navigation.navigate('Contact')}/>
-                <Button name="Log Out" onPress={handleLogout} />
+                <Button type="profile" name="Add Recipe" onPress={() => navigation.navigate('AddRecipe')}/>
+                <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
+                <Button type="profile" name="Log Out" onPress={handleLogout} />
+            </View>
+
+
+            <View>
+                <TouchableOpacity>
+                    <MaterialIcons name="menu-book" size={24} color="black" />
+                    <Text>Cookbook</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text>Cookbook</Text>
+                </TouchableOpacity>
             </View>
 
          

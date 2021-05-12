@@ -1,109 +1,73 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import RecipeCard from '../assets/RecipeCardDefault.png';
+import RecipeCardPic from '../assets/RecipeCardDefault.png';
 import veg from '../assets/veg.png'
 import nonVeg from '../assets/nonVeg.png'
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
-import LoadingScreen from '../LoadingScreen'
+import config from '../config';
+import LoadingScreen from './LoadingScreen'
 
 export default function Header(props){
-let array = ['200 g Onion', '2 Tomatoes', '1 cup Panner', '1 tsp Rasam powder', '1 cup Butter']
 
-const navigation = useNavigation(); 
 
     return(
-        <View style={styles.shadow}>
-                <View style={styles.card} >
+        <Pressable onPress={props.onPress}>
+            <View style={styles.card}>
+                <View>
+                {props.recipe.image ? <Image source={{uri:config.api+props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
+                {/* {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> }  */}
 
-                        <Image source={RecipeCard} alt="Card" style={styles.image} />
-                        <Image source={veg} alt="icon"style={styles.icon}/>
-
-                        <Pressable onPressIn ={() => navigation.navigate('RecipeDetail')}>
-                            <Text style={styles.text}>Paneer Butter Masala</Text>
-                            
-                        </Pressable>
-
-                        <View style={styles.line}>
-                            <MaterialIcons name="nights-stay" style={styles.smallIcon} />
-                            <Text style={styles.body}>Overnight prep</Text> 
-                        </View>     
-
-                        <View style={styles.line}>
-                            <MaterialIcons name="access-time" style={styles.smallIcon} />
-                            <Text style={styles.body}>25 mins</Text>
-                        </View> 
-
-
-                        <Text style={styles.subtitle}>Ingredients</Text>
-                        {array.map(ingredient =>
-                            <Text key={ingredient.id} style={styles.body}>{ingredient}</Text>
-                            )
-                        }
-
-
-                </View>
+                <Text style={styles.text}>{props.recipe.name.length > 28 ? props.recipe.name.slice(0,28)+'...' : props.recipe.name}</Text>
+                {props.recipe.user.first_name ? 
+                                <Text style={styles.body}>{(props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).length > 20 ? (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).slice(0, 20) + '...' : (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1))}</Text>
+                                : <Text style={styles.body}>{(props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).length > 20 ? (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).slice(0, 20) + '...' : (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1))}</Text>
+                                }
+                </View>       
         </View>
-        
+        </Pressable>
         
     )
 }
 
 const styles = StyleSheet.create({
-    shadow : {
-        elevation : 3,
-        shadowRadius : 3,
-        shadowOpacity : 0.5,
-        shadowColor : 'rgba(0, 0, 0, 0.25)',
-        shadowOffset : {width : 0, height : 4},
-        width : '45%',
+    card : {
+        width : 196,
         padding : 8,
-        margin : '2.5%',
-        backgroundColor : '#fff',
+        margin : 8,
         borderRadius : 20,
         borderTopLeftRadius : 0,
+        backgroundColor : '#fff',
+        // borderWidth : 1,
+        // borderColor : '#cfcfcf'
+        // elevation : 3,
+        // shadowRadius : 3,
+        // shadowOpacity : 0.5,
+        // shadowColor : 'rgba(0, 0, 0, 0.25)',
+        // shadowOffset : {width : 0, height : 4},
     },
   image : {
-      height : 140,
-      width : 140,
-      borderRadius : 20,
+      height : 180,
+      width : 180,
+      marginBottom : 4,
       borderTopLeftRadius : 0,
-      margin : 4,
-      alignSelf : 'center'
+      borderRadius : 20
   },
   icon : {
       height : 16,
       width : 16,
-      marginLeft : 8,
-      marginTop : 4
-  },
-  smallIcon : {
-      height : 12,
-      width : 12,
-      marginTop : 2
-  },
-  subtitle : {
-      fontSize : 14,
-      color : '#fa9332',
-      margin : 8,
-      fontFamily : 'Poppins_500Medium'
-  },
-  body : {
-      fontSize : 14,
-      color : '#626262',
-      marginLeft : 8,
-      fontFamily : 'Poppins_400Regular'
+      margin : 4,
   },
   text : {
-      fontSize : 17,
+      fontSize : 14,
       color : '#3b3b3b',
-      margin : 8,
+      margin : 4,
       fontFamily : 'Poppins_500Medium'
   },
-line : {
-    flexDirection : "row",
-    marginLeft : 8
-}
+body : {
+    fontSize : 14,
+    color : '#626262',
+    margin : 4,
+    fontFamily : 'SourceSansPro_400Regular'
+  }
   });

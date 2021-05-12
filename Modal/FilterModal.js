@@ -1,11 +1,11 @@
 import React ,{ useState }from 'react';
 import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import FilterChips from './FilterChips'
+import FilterChips from '../components/FilterChips'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionList } from 'react-native';
 import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import LoadingScreen from '../LoadingScreen'
+import LoadingScreen from '../components/LoadingScreen'
 
 const DATA = [
   {

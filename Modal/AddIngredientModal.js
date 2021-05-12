@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Modal, Pressable, Alert, ScrollView, TouchableO
 import { AntDesign } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector} from 'react-redux'
-import LoadingScreen from '../LoadingScreen'
+import LoadingScreen from '../components/LoadingScreen'
 
 export default function AddIngredientModal(props) {
 

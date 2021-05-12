@@ -1,21 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
 import React , {useState, useEffect }from 'react';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, Image} from 'react-native';
-import Title from './components/Title';
-import DatePicker from './components/DatePicker'
-import ToBuy from './components/ToBuy'
-import { MaterialIcons } from '@expo/vector-icons';
-import AddIngredientModal from './components/AddIngredientModal'
-import TertiaryButton from './components/PrimaryButton'
-import config from './config';
-import moment from 'moment'
-import LoadingScreen from './LoadingScreen'
+import Title from '../components/Title';
+import DatePicker from '../components/DatePicker'
+import ToBuy from '../components/ToBuy'
+import AddIngredientModal from '../Modal/AddIngredientModal'
+import config from '../config';
+import LoadingScreen from '../components/LoadingScreen'
 import { useSelector, useDispatch } from 'react-redux';
-import toDo from './assets/toDo.png'
-import error from './assets/error.png'
+import toDo from '../assets/toDo.png'
 import { Pressable } from 'react-native';
-import Error from './Error'
-import NavBar from './components/NavBar'
+import Error from '../components/Error'
+import NavBar from '../components/NavBar'
 
 
 export default function GroceryList({navigation}) {
@@ -75,7 +70,7 @@ export default function GroceryList({navigation}) {
                   <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>
                   {/* <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
                   <Title name= "List" />
-                    <View style={{backgroundColor : '#fff5e6', flex : 1}}>
+                    <View style={{backgroundColor : '#fff', flex : 1}}>
                       { grocery ?
                       <ToBuy ingredients={ins}/>
                       : <View></View>

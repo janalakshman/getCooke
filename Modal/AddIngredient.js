@@ -4,8 +4,8 @@ import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
-import Title from './Title'
-import PrimaryButton from './PrimaryButton'
+import Title from '../components/Title'
+import Button from '../components/Button'
 
 const DATA = [
   {
@@ -125,7 +125,7 @@ export default function AddIngredient({route, navigation}) {
 
                 <View style={{flexGrow : 1}} />
 
-                <PrimaryButton name="Add Ingredient" onPress={() => handleClick()} />
+                <Button type="primary" name="Add Ingredient" onPress={() => handleClick()} />
 
             </ScrollView>
         </KeyboardAvoidingView>    

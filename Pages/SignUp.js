@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, KeyboardAvoidingView, Alert} from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
-import Logo from './assets/CookeLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserID, addUserPassword, setToken } from './redux/counterSlice';
-import LoadingScreen from './LoadingScreen'
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { setToken } from '../redux/counterSlice';
+import LoadingScreen from '../components/LoadingScreen'
+import { useNavigation } from '@react-navigation/native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import config from './config';
-import PrimaryButton from './components/PrimaryButton';
+import config from '../config';
+import Button from '../components/Button';
 
  var radio_props = [
   {label: 'Male', value: 0 },
@@ -97,7 +96,7 @@ export default function SignUp() {
                                 </View>
 
                                 
-                            <PrimaryButton name="Sign Up" onPress={() => handleClick()} />
+                            <Button type="primary" name="Sign Up" onPress={() => handleClick()} />
 
                             </KeyboardAvoidingView>
                         </ScrollView>
