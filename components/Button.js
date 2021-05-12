@@ -34,8 +34,8 @@ export default function Button(props) {
   
   const styles = StyleSheet.create({
     profileText : {
-        color : '#A13E00',
-        fontSize : 17,
+        color : '#3b3b3b',
+        fontSize : 14,
         fontFamily : 'Poppins_400Regular',
         margin : 4,
         textAlign : 'center',
@@ -45,7 +45,7 @@ export default function Button(props) {
       borderRadius : 4,
       backgroundColor : '#fff',
       borderWidth : 1,
-      borderColor : '#a13e00',
+      borderColor : '#626262',
       alignSelf : 'center',
       flexDirection : 'row',
     },
@@ -71,7 +71,7 @@ export default function Button(props) {
     }, 
     primaryText : {
       color : '#A13E00',
-      fontSize : 19,
+      fontSize : 17,
       fontFamily : 'Poppins_500Medium',
       margin : 8,
       marginVertical : 12,
@@ -89,7 +89,7 @@ export default function Button(props) {
     },
     secondaryText : {
       color : '#A13E00',
-      fontSize : 19,
+      fontSize : 17,
       fontFamily : 'Poppins_500Medium',
       margin : 8,
       marginVertical : 12,

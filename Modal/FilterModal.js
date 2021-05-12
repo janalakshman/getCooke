@@ -96,7 +96,7 @@ export default function FilterModal( props ) {
       bottom : 0,
     },
     text : {
-      fontSize : 19,
+      fontSize : 17,
       color : '#3b3b3b',
       margin : 16,
       fontFamily : 'Poppins_500Medium'

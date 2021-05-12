@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
     },
     heading : {
         fontFamily : 'Poppins_600SemiBold',
-        fontSize : 19,
+        fontSize : 17,
         margin : 16
     },
     subheading : {

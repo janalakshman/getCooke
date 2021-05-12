@@ -8,40 +8,40 @@ import { useNavigation } from '@react-navigation/native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import config from '../config';
 import Button from '../components/Button';
-import Amplify, { Auth } from 'aws-amplify';
-Amplify.configure({
-    Auth: {
-        identityPoolId: 'ap-south-1:a9292546-612c-43e7-8416-b92fcfa9aa65',
-        region: 'AP_SOUTH_1', 
-        userPoolId: 'ap-south-1_bJDMonD0L', 
-        userPoolWebClientId: '1jjc829o2rkgi4qo32tutkilo6',
-        oauth: {
-            domain:'getcooke.auth.ap-south-1.amazoncognito.com',
-            redirectSignIn:'http://localhost:3000/',
-            redirectSignOut:'http://localhost:3000/',
-            responseType:'token'
-        }
-    }
-});
+// import Amplify, { Auth } from 'aws-amplify';
+// Amplify.configure({
+//     Auth: {
+//         identityPoolId: 'ap-south-1:a9292546-612c-43e7-8416-b92fcfa9aa65',
+//         region: 'AP_SOUTH_1', 
+//         userPoolId: 'ap-south-1_bJDMonD0L', 
+//         userPoolWebClientId: '1jjc829o2rkgi4qo32tutkilo6',
+//         oauth: {
+//             domain:'getcooke.auth.ap-south-1.amazoncognito.com',
+//             redirectSignIn:'http://localhost:3000/',
+//             redirectSignOut:'http://localhost:3000/',
+//             responseType:'token'
+//         }
+//     }
+// });
 
-async function signup() {
-    try {
-        const { user } = await Auth.signUp({
-            username:userID,
-            password:password,
-            attributes: {
-                name: register.name,
-                locale:'en',
-                email:register?.email,
-                phone_number: register.phone
-            }
-        });
-      dispatch(setItem(user))
-      authDispatch({ type: "SIGNIN_SUCCESS" });
-    } catch (error) {
-        console.log('error signing up:', error);
-    }
-}
+// async function signup() {
+//     try {
+//         const { user } = await Auth.signUp({
+//             username:userID,
+//             password:password,
+//             attributes: {
+//                 name: register.name,
+//                 locale:'en',
+//                 email:register?.email,
+//                 phone_number: register.phone
+//             }
+//         });
+//       dispatch(setItem(user))
+//       authDispatch({ type: "SIGNIN_SUCCESS" });
+//     } catch (error) {
+//         console.log('error signing up:', error);
+//     }
+// }
 
  var radio_props = [
   {label: 'Male', value: 0 },
@@ -130,7 +130,7 @@ export default function SignUp() {
                                 </View>
 
                                 
-                            <Button type="primary" name="Sign Up" onPress={() => signup()} />
+                            <Button type="primary" name="Sign Up" onPress={() => handleClick()} />
 
                             </KeyboardAvoidingView>
                         </ScrollView>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
         alignSelf : 'center'
             },
     text : {
-        fontSize : 19,
+        fontSize : 17,
         color : '#3b3b3b',
         margin : 16,
         fontFamily : 'Poppins_500Medium'

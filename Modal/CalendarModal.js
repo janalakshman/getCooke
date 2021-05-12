@@ -237,7 +237,7 @@ export default function CalendarModal( props ) {
     elevation: 5
     },
     text : {
-      fontSize : 19,
+      fontSize : 17,
       color : '#3b3b3b',
       fontWeight : '500',
       margin : 16,

@@ -113,7 +113,7 @@ export default function AddIngredientModal(props) {
     elevation: 5
     },
     text : {
-      fontSize : 19,
+      fontSize : 17,
       color : '#3b3b3b',
       margin : 16,
       fontFamily : 'Poppins_500Medium'
@@ -147,7 +147,7 @@ export default function AddIngredientModal(props) {
   },
   buttonText : {
     color : '#A13E00',
-    fontSize : 19,
+    fontSize : 17,
     margin : 8,
     flexGrow : 1,
     textAlign : 'center',

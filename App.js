@@ -33,7 +33,6 @@ export default function App() {
     'Poppins_500Medium' : require('./assets/fonts/Poppins/Poppins-Medium.ttf'),
     'Poppins_400Regular' : require('./assets/fonts/Poppins/Poppins-Regular.ttf'),
     'SourceSansPro_400Regular' :  require('./assets/fonts/SourceSansPro/SourceSansPro-Regular.ttf'),
-    'SourceSerifPro' : require('./assets/fonts/SourceSerifPro/SourceSerifPro.ttf'),
     'Lora' : require('./assets/fonts/Lora/Lora-SemiBold.ttf'),
   });
 

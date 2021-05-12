@@ -11,9 +11,12 @@ import Welcome from './Welcome'
 import NavBar from '../components/NavBar'
 import ProfileData from '../components/ProfileData'
 import Button from '../components/Button'
+import SegmentedControlTab from "react-native-segmented-control-tab";
+
 
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
+      const [index, setIndex] = useState(0)
 
       const dispatch = useDispatch();
     
@@ -27,7 +30,7 @@ export default function Profile({navigation}){
               {user ? (
               <View style={{flex : 1}}>
               <ScrollView style={{backgroundColor : '#ffffff'}}>
-                <View style={{flexDirection : 'row', margin : 16, marginTop : 32}}>
+                <View style={{flexDirection : 'row', margin : 16, marginBottom : 0}}>
                 {user.user.profile.gender === 1 ? <Image source={maleAvatar} style={styles.image}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
                     <View style={styles.line}>
                         <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
@@ -38,25 +41,27 @@ export default function Profile({navigation}){
                 
             <ProfileData />
 
-            <View style={{flexDirection : 'row', justifyContent : 'space-around', marginVertical : 16}} >
-                <Button type="profile" name="Add Recipe" onPress={() => navigation.navigate('AddRecipe')}/>
+            <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
                 <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
                 <Button type="profile" name="Log Out" onPress={handleLogout} />
             </View>
 
-
-            <View>
-                <TouchableOpacity>
-                    <MaterialIcons name="menu-book" size={24} color="black" />
-                    <Text>Cookbook</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text>Cookbook</Text>
-                </TouchableOpacity>
+            
+            <View style={{marginVertical : 8}}> 
+                <SegmentedControlTab
+                    values={["Cookbook", "Liked recipes"]}
+                    selectedIndex={index}
+                    onTabPress={(index) => setIndex(index)}
+                    tabStyle={styles.tabStyle}
+                    borderRadius={0}
+                    tabTextStyle = {{fontFamily : 'Poppins_500Medium', fontSize : 14, color : 'rgba(207, 207, 207, 0.99)'}}
+                    activeTabStyle={styles.activeTabStyle}
+                    activeTabTextStyle = {{fontFamily : 'Poppins_500Medium', fontSize : 16, color : '#a13e00'}}
+                    />
             </View>
 
-         
-
+                {index === 0 ? 
+                    <Text>Cookbook</Text> : <Text>Liked recipes</Text>}
 
               </ScrollView>
               <NavBar props="Profile" />
@@ -115,6 +120,21 @@ const styles = StyleSheet.create({
         // shadowOffset : {width : 0, height : 4},
         height : 88
     },
+    tabStyle : {
+        borderBottomWidth : 1,
+        height : 40,
+        marginVertical : 16,
+        backgroundColor : '#fff',
+        borderColor : '#fff',
+        borderBottomColor : 'rgba(207, 207, 207, 0.99)'
+    },
+    activeTabStyle : {
+        borderBottomWidth : 1,
+        height : 40,
+        marginVertical : 16,
+        backgroundColor : '#fff',
+        borderBottomColor : '#a13e00',
+    }
 }
 
 )

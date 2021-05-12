@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     alignSelf : 'center'
     },
     body : {
-      fontSize : 17,
+      fontSize : 19,
       color : '#3b3b3b',
       fontFamily : 'Poppins_400Regular',
       margin : 16
