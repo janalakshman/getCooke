@@ -8,41 +8,14 @@ import { useNavigation } from '@react-navigation/native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import config from '../config';
 import Button from '../components/Button';
-// import Amplify, { Auth } from 'aws-amplify';
-// Amplify.configure({
-//     Auth: {
-//         identityPoolId: 'ap-south-1:a9292546-612c-43e7-8416-b92fcfa9aa65',
-//         region: 'AP_SOUTH_1', 
-//         userPoolId: 'ap-south-1_bJDMonD0L', 
-//         userPoolWebClientId: '1jjc829o2rkgi4qo32tutkilo6',
-//         oauth: {
-//             domain:'getcooke.auth.ap-south-1.amazoncognito.com',
-//             redirectSignIn:'http://localhost:3000/',
-//             redirectSignOut:'http://localhost:3000/',
-//             responseType:'token'
-//         }
-//     }
-// });
-
-// async function signup() {
-//     try {
-//         const { user } = await Auth.signUp({
-//             username:userID,
-//             password:password,
-//             attributes: {
-//                 name: register.name,
-//                 locale:'en',
-//                 email:register?.email,
-//                 phone_number: register.phone
-//             }
-//         });
-//       dispatch(setItem(user))
-//       authDispatch({ type: "SIGNIN_SUCCESS" });
-//     } catch (error) {
-//         console.log('error signing up:', error);
-//     }
-// }
-
+import Amplify, { Auth } from 'aws-amplify';
+Amplify.configure({
+    Auth: {
+        region: 'AP_SOUTH_1', 
+        userPoolId: 'ap-south-1_2OlV2qKvl', 
+        userPoolWebClientId: '7bccd9sdo9t2qmfh0idoobej3j',
+    }
+});
  var radio_props = [
   {label: 'Male', value: 0 },
   {label: 'Female', value: 1 },
@@ -62,6 +35,28 @@ export default function SignUp() {
     if(user) {
         navigation.navigate('Home')
     }
+
+async function signup() {
+    try {
+        const { user } = await Auth.signUp({
+            username:userID,
+            password:password,
+            attributes: {
+                name: 'Prakash',
+                locale:'en',
+                email:userID,
+                gender: 'male',
+
+                phone_number: '+14325551212'
+            }
+        });
+        console.log(user)
+      //dispatch(setItem(user))
+      authDispatch({ type: "SIGNIN_SUCCESS" });
+    } catch (error) {
+        console.log('error signing up:', error);
+    }
+}
 
     const handleClick = () => {
         setLoading(true)
@@ -98,7 +93,7 @@ export default function SignUp() {
 
 
                             <KeyboardAvoidingView
-                                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                                //behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}
                                 >
                             
