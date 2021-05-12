@@ -27,7 +27,6 @@ import AddIngredient from './Modal/AddIngredient'
 import Contact from './Modal/Contact'
 
 
-
 export default function App() {
   const [loaded] = useFonts({
     'Poppins_600SemiBold' : require('./assets/fonts/Poppins/Poppins-SemiBold.ttf'),

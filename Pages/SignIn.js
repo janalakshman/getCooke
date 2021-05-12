@@ -7,6 +7,22 @@ import LoadingScreen from '../components/LoadingScreen'
 import { useNavigation } from '@react-navigation/native';
 import config from '../config';
 import Button from '../components/Button';
+import Amplify, { Auth } from 'aws-amplify';
+Amplify.configure({
+    Auth: {
+        identityPoolId: 'ap-south-1:a9292546-612c-43e7-8416-b92fcfa9aa65',
+        region: 'AP_SOUTH_1', 
+        userPoolId: 'ap-south-1_bJDMonD0L', 
+        userPoolWebClientId: '1jjc829o2rkgi4qo32tutkilo6',
+        oauth: {
+            domain:'getcooke.auth.ap-south-1.amazoncognito.com',
+            redirectSignIn:'http://localhost:3000/',
+            redirectSignOut:'http://localhost:3000/',
+            responseType:'token'
+        }
+    }
+});
+
 
 const data = [
     {
@@ -16,6 +32,16 @@ const data = [
       label: 'Female'
      }
     ];
+
+    async function LogIn() {
+        try {
+            const user = await Auth.signIn(userID, password);
+          localStorage.setItem("access_token", user);
+          authDispatch({ type: "SIGNIN_SUCCESS" });
+        } catch (error) {
+            console.log('error signing in', error);
+        }
+    }
 
 
 export default function SignIn(props) {
@@ -89,7 +115,7 @@ export default function SignIn(props) {
 
                             <View style={{margin : 16}}></View>
                             
-                            <Button type="primary" name="Log In" onPress={() => handleClick()}/>
+                            <Button type="primary" name="Log In" onPress={() => LogIn()}/>
 
                             </KeyboardAvoidingView>
                         </ScrollView>
