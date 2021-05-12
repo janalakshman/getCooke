@@ -7,19 +7,14 @@ import LoadingScreen from '../components/LoadingScreen'
 import { useNavigation } from '@react-navigation/native';
 import config from '../config';
 import Button from '../components/Button';
+import 'crypto-js/lib-typedarrays'; 
 import Amplify, { Auth } from 'aws-amplify';
+
 Amplify.configure({
     Auth: {
-        identityPoolId: 'ap-south-1:a9292546-612c-43e7-8416-b92fcfa9aa65',
         region: 'AP_SOUTH_1', 
-        userPoolId: 'ap-south-1_bJDMonD0L', 
-        userPoolWebClientId: '1jjc829o2rkgi4qo32tutkilo6',
-        oauth: {
-            domain:'getcooke.auth.ap-south-1.amazoncognito.com',
-            redirectSignIn:'http://localhost:3000/',
-            redirectSignOut:'http://localhost:3000/',
-            responseType:'token'
-        }
+        userPoolId: 'ap-south-1_2OlV2qKvl', 
+        userPoolWebClientId: '7bccd9sdo9t2qmfh0idoobej3j'
     }
 });
 
@@ -33,16 +28,6 @@ const data = [
      }
     ];
 
-    async function LogIn() {
-        try {
-            const user = await Auth.signIn(userID, password);
-          localStorage.setItem("access_token", user);
-          authDispatch({ type: "SIGNIN_SUCCESS" });
-        } catch (error) {
-            console.log('error signing in', error);
-        }
-    }
-
 
 export default function SignIn(props) {
     const [userID, onChangeUserID] = useState('');
@@ -54,6 +39,17 @@ export default function SignIn(props) {
 
     if(user) {
         navigation.navigate('Home')
+    }
+
+    async function LogIn() {
+        try {
+        const user = await Auth.signIn('sivaprakashniet2@gmail.com', 'Admin@1234');
+        console.log(user)
+          localStorage.setItem("access_token", user);
+          authDispatch({ type: "SIGNIN_SUCCESS" });
+        } catch (error) {
+            console.log('error signing in', error);
+        }
     }
 
     const handleClick = () => {
