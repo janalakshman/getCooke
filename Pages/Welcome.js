@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         alignSelf : 'center'
     },
     body : {
-        fontSize : 19,
+        fontSize : 17,
         color : '#3b3b3b',
         fontFamily : 'SourceSansPro_400Regular',
         margin : 4,

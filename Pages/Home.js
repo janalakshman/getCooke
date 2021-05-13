@@ -86,8 +86,8 @@ export default function Home({navigation}) {
  return (
     <View style={{flex : 1,}}>
       {loading ? (<LoadingScreen/>) : error ? (<Error />) : (
-          <View style={{flex : 1,  backgroundColor : '#fffafa'}}>
-                <ScrollView style={{backgroundColor : '#fffafa'}}>
+          <View style={{flex : 1,  backgroundColor : '#fff'}}>
+                <ScrollView style={{backgroundColor : '#fff'}}>
                 {/* <TextInput  style={styles.textInput}
                             placeholder = "Search recipes"
                             onChangeText={text => setSearch(text)}
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     alignSelf : 'center'
     },
     body : {
-      fontSize : 19,
+      fontSize : 17,
       color : '#3b3b3b',
       fontFamily : 'Poppins_400Regular',
       margin : 16

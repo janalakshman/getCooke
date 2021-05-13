@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch, Image} from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch, Image, ImageBackground} from 'react-native';
 import Title from '../components/Title';
 import config from '../config';
 import LoadingScreen from "../components/LoadingScreen";
@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from '../components/Button'
 import * as ImagePicker from 'expo-image-picker';
 import ImageInput from '../components/ImageInput';
-
+import background from '../assets/background.png'
 
 
 export default function AddRecipe({navigation}) {
@@ -77,6 +77,7 @@ useEffect(() => {
         <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
                               keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
                               behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <ImageBackground source={background} style={styles.background}>
             <ScrollView>
             
             <Text style={styles.main}>Add Recipe</Text>
@@ -158,8 +159,6 @@ useEffect(() => {
                         <Text style={styles.text}>Servings</Text>
                     </View>
                     </View>
-
-
 
                 <Title name="Ingredients" />
 
@@ -274,14 +273,12 @@ useEffect(() => {
 
                 <View style={{margin : 16}}></View>
 
-
                 <Button type="primary" name="Submit recipe" onPress={() => handleClick()} />
 
             </ScrollView>
+            </ImageBackground>
         </KeyboardAvoidingView>    
-    </View>
-    
-        
+    </View>  
   );
 }
 
@@ -289,8 +286,8 @@ const styles = StyleSheet.create({
     name : {
         borderRadius : 8,
         borderTopLeftRadius : 0,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
+        // borderColor : '#cfcfcf',
+        // borderWidth : 1,
         height : 60,
         width : '90%',
         margin : 16,
@@ -298,6 +295,7 @@ const styles = StyleSheet.create({
         fontFamily : 'SourceSansPro_400Regular',
         fontSize : 17,
         alignContent : 'flex-start',
+        backgroundColor : '#f1f1f1'
     },
     text : {
         fontFamily : 'Poppins_400Regular',
@@ -308,8 +306,8 @@ const styles = StyleSheet.create({
     notes : {
         borderRadius : 8,
         borderTopLeftRadius : 0,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
+        // borderColor : '#cfcfcf',
+        // borderWidth : 1,
         height : 108,
         width : '90%',
         margin : 16,
@@ -317,7 +315,8 @@ const styles = StyleSheet.create({
         paddingTop : 8,
         fontFamily : 'SourceSansPro_400Regular',
         fontSize : 17,
-        alignContent : 'flex-start'
+        alignContent : 'flex-start',
+        backgroundColor : '#f1f1f1'
     },
     card : {
         width : '100%',
@@ -335,14 +334,15 @@ const styles = StyleSheet.create({
     nutrition : {
         borderRadius : 8,
         borderTopLeftRadius : 0,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
+        // borderColor : '#cfcfcf',
+        // borderWidth : 1,
         height : 48,
         width : '90%',
         paddingHorizontal : 16,
         fontFamily : 'SourceSansPro_400Regular',
         fontSize : 17,
-        alignContent : 'flex-start'
+        alignContent : 'flex-start',
+        backgroundColor : '#f1f1f1'
     },
     calories : {
         borderRadius : 20,
@@ -402,14 +402,14 @@ const styles = StyleSheet.create({
         margin : 8,
         flexGrow : 1,
         textAlign : 'center'
-      },
+    },
       button: {
           borderRadius : 4,
           backgroundColor : '#ffc885',
           margin : 16,
           flexDirection : 'row',
           alignSelf : 'center'
-             } ,
+        } ,
     servings : {
         fontFamily : 'SourceSansPro_400Regular',
         fontSize : 17,
@@ -437,6 +437,11 @@ const styles = StyleSheet.create({
         height : 300,
         borderRadius : 20,
         borderTopLeftRadius : 0
-    }
+    },
+    background: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center"
+      },
 
 });

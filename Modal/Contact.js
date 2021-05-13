@@ -21,11 +21,11 @@ export default function AddIngredient({navigation}) {
                               behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ScrollView>
                             
-            <Title name="Problems on the app" />
+            <Title name="Feedback" />
 
                 <TextInput style={styles.name}
                     multiline
-                    placeholder = "The app ..."
+                    placeholder = "Please feel free!"
                     onChangeText={name => setProblem(name)}
                     value={problem}
                     name="problem" />

@@ -39,7 +39,7 @@ export default function DatePicker(props) {
   const styles = StyleSheet.create({
     text : {
       color : '#3b3b3b',
-      fontSize : 19,
+      fontSize : 17,
       fontFamily : 'Poppins_500Medium',
     },
     body : {

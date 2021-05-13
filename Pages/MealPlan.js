@@ -13,11 +13,13 @@ import { Pressable } from 'react-native';
 import Error from '../components/Error'
 import NavBar from '../components/NavBar'
 import { useNavigation } from '@react-navigation/native';
+import RecipeDefault from '../assets/RecipeCardDefault.png'
 
 
 const CalendarCard = (props) => {
   const navigation = useNavigation();
   const user = useSelector(state => state.counter.token);
+  console.log(props.event)
 
     const handleDelete = () => {
       Alert.alert(
@@ -57,49 +59,52 @@ const CalendarCard = (props) => {
     return (
           <View>
               <View style={ course === 'Breakfast' ? styles.breakfastcard : course === 'Brunch' ? 
-              styles.brunchcard : course === 'Lunch' ? styles.lunchcard : course=== 'Snacks' ? styles.snackscard : styles.dinnercard}>  
+              styles.brunchcard : course === 'Lunch' ? styles.lunchcard : course=== 'Snacks' ? styles.snackscard : styles.dinnercard}> 
+
+                  <View>
+                      <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/>
+                  </View> 
+                  
+                  <View style={{flexDirection : 'column', marginTop : 4, margin : 16, width : '50%'}}>
                   <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
                       <View>
                           <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
                       </View>
                   </Pressable> 
-                  <View style={{flexDirection : 'column', marginTop : 4}}>
                       
-                      <View style={{flexDirection : 'row', alignItems : 'center'}}>
-                          <MaterialIcons name="access-time" style={styles.icon} />
-                          {props.event.title.course.includes(',') ? 
-                              <Text style={styles.smalltext}>{props.event.title.course.split(',').join('  |  ')}</Text> :
-                              <Text style={styles.smalltext}>{props.event.title.course}</Text>
-                          }
-                          
-                      </View>
+                      
 
-                  {props.event.title.recipe.over_night_prep ? (
-                          <View style={{flexDirection : 'row', justifyContent : 'flex-start', alignItems : 'center', marginRight : 32 }}>
+                          <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 32 }}>
+                              <View style={{flexDirection : 'row', alignItems : 'center', justifyContent : 'flex-start'}}>
+                                  <MaterialIcons name="access-time" style={styles.icon} />
+                                  {props.event.title.course.includes(',') ? 
+                                      <Text style={styles.smalltext}>{props.event.title.course.split(',').join('  |  ')}</Text> :
+                                      <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                                  }
+                                  
+                              </View>
+                              
                               <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="food-bank" style={styles.icon} />
                                   <Text style={styles.smalltext}>{props.event.title.servings === 1 ? '1 serving' : props.event.title.servings + ' servings'}</Text>
                               </View>
+                              
+                              {props.event.title.recipe.over_night_prep ? 
 
                               <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="nights-stay" style={styles.icon} />
                                   <Text style={styles.smalltext}>Overnight prep</Text> 
                               </View> 
-                          </View>
-                          
-                      ) : 
-                      <View style={{flexDirection : 'row', justifyContent : 'flex-start', alignItems : 'center', marginRight : 32 }}>
-                              <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
-                                  <MaterialIcons name="food-bank" style={styles.icon} />
-                                  <Text style={styles.smalltext}>{props.event.title.servings === 1 ? '1 serving' : props.event.title.servings + ' servings'}</Text>
-                              </View>
+                              
+                              :
 
-                              <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
+                            <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="timelapse" style={styles.icon} />
                                   <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
-                              </View> 
+                            </View> }
+
+                          
                           </View>
-                  }
 
                   </View>
 
@@ -268,21 +273,20 @@ lunchcard : {
   shadowOffset : {width : 0, height : 4},
 },
 brunchcard : {
-  backgroundColor : '#e0fdcd',
-  flexDirection : 'column',
-  width : '88%',
+  // backgroundColor : '#e0fdcd',
+  flexDirection : 'row',
+  width : '100%',
   padding : 16, 
-  margin : 8,
   borderRadius : 4,
   alignSelf : 'center',
   flexGrow : 1,
   borderTopLeftRadius : 0,
   borderRadius : 20,
-  elevation : 3,
-  shadowRadius : 2,
-  shadowOpacity : 0.5,
-  shadowColor : 'rgba(0, 0, 0, 0.25)',
-  shadowOffset : {width : 0, height : 4},
+  // elevation : 3,
+  // shadowRadius : 2,
+  // shadowOpacity : 0.5,
+  // shadowColor : 'rgba(0, 0, 0, 0.25)',
+  // shadowOffset : {width : 0, height : 4},
 },
 snackscard : {
   backgroundColor : '#9ed2ea',
@@ -319,29 +323,35 @@ dinnercard : {
   shadowOffset : {width : 0, height : 4},
 },
 imageIcon : {
-height : 16,
-width : 21.5,
-},
+  height : 16,
+  width : 21.5,
+  },
 icon : {
-fontSize : 16,
-color : '#3b3b3b',
-},
+  fontSize : 16,
+  color : '#3b3b3b',
+  },
 text : {
-fontSize : 17,
-color : '#3b3b3b',
-fontFamily : 'Poppins_500Medium'
-},
+  fontSize : 17,
+  color : '#3b3b3b',
+  fontFamily : 'Poppins_500Medium'
+  },
 smalltext : {
-fontSize : 14,
-color : '#3b3b3b',
-margin : 8,
-fontFamily : 'Poppins_400Regular'
-},
+  fontSize : 14,
+  color : '#3b3b3b',
+  margin : 8,
+  fontFamily : 'Poppins_400Regular'
+  },
 delete : {
-flexDirection : 'row', 
-alignItems : 'center', 
-justifyContent : 'flex-start', 
-marginBottom : 8,
-marginHorizontal : 32
+  flexDirection : 'row', 
+  alignItems : 'center', 
+  justifyContent : 'flex-start', 
+  marginBottom : 8,
+  marginHorizontal : 16,
+  },
+recipe : {
+    height : 180,
+    width : 180,
+    borderTopLeftRadius : 0,
+    borderRadius : 20
 },
 });
