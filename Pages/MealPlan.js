@@ -19,7 +19,6 @@ import RecipeDefault from '../assets/RecipeCardDefault.png'
 const CalendarCard = (props) => {
   const navigation = useNavigation();
   const user = useSelector(state => state.counter.token);
-  console.log(props.event)
 
     const handleDelete = () => {
       Alert.alert(
@@ -54,26 +53,21 @@ const CalendarCard = (props) => {
       
     }
 
-    const course = (props.event.title.course).split(",")[0]
 
     return (
-          <View>
-              <View style={ course === 'Breakfast' ? styles.breakfastcard : course === 'Brunch' ? 
-              styles.brunchcard : course === 'Lunch' ? styles.lunchcard : course=== 'Snacks' ? styles.snackscard : styles.dinnercard}> 
+          <View style={{marginBottom : 16}}>
+              <View style={styles.card}> 
 
                   <View>
-                      <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/>
+                      <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
+                        {props.event.title.recipe.image ? 
+                            <Image source={props.event.title.recipe.image} alt="Recipe" style={styles.recipe}/> :
+                            <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/> }
+                      </Pressable> 
                   </View> 
                   
-                  <View style={{flexDirection : 'column', marginTop : 4, margin : 16, width : '50%'}}>
-                  <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
-                      <View>
-                          <Text style={styles.text}>{props.event.title.recipe.name}</Text>  
-                      </View>
-                  </Pressable> 
-                      
-                      
-
+                  <View style={{flexDirection : 'column', justifyContent : 'center', height : 180, marginVertical : 4, margin : 16, marginBottom : 0, width : '50%'}}>
+                          <Text style={styles.text}>{props.event.title.recipe.name.length > 24 ? props.event.title.recipe.name.slice(0,24)+ '...' : props.event.title.recipe.name}</Text>                       
                           <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 32 }}>
                               <View style={{flexDirection : 'row', alignItems : 'center', justifyContent : 'flex-start'}}>
                                   <MaterialIcons name="access-time" style={styles.icon} />
@@ -165,7 +159,7 @@ export default function MealPlan({navigation}) {
           
    const Item = (event) => {
     return(
-      <View>
+      <View style={{margin : 4}}>
         <CalendarCard point={1} event={event} setEvents={setEvents}/>
       </View>)
   };
@@ -176,6 +170,7 @@ export default function MealPlan({navigation}) {
           <View style={{flex : 1}}>
 
           <ScrollView style={{backgroundColor : '#fff'}}>
+
             { events.length > 0 ?
                           <SectionList
                               sections={events}
@@ -220,93 +215,34 @@ const styles = StyleSheet.create({
 subheading : {
   fontSize : 17,
   color : '#3b3b3b',
-  fontFamily : 'SourceSansPro_400Regular',
+  fontFamily : 'ExoRegular',
   margin : 16,
   marginBottom : 4
 },
 body1 : {
   fontSize : 17,
   color : '#3b3b3b',
-  fontFamily : 'SourceSansPro_400Regular',
+  fontFamily : 'ExoRegular',
   marginHorizontal : 16,
   marginVertical : 4
 },
 heading : {
   fontSize : 24,
   color : '#3b3b3b',
-  fontFamily : 'Poppins_600SemiBold',
+  fontFamily : 'ExoSemiBold',
   marginTop : 32,
   marginHorizontal : 16
 },
-breakfastcard : {
-  backgroundColor : '#ffe484',
-  flexDirection : 'column',
-  width : '88%',
-  padding : 16, 
-  margin : 8,
-  borderRadius : 4,
-  alignSelf : 'center',
-  flexGrow : 1,
-  borderTopLeftRadius : 0,
-  borderRadius : 20,
-  elevation : 3,
-  shadowRadius : 2,
-  shadowOpacity : 0.5,
-  shadowColor : 'rgba(0, 0, 0, 0.25)',
-  shadowOffset : {width : 0, height : 4},
-},
-lunchcard : {
-  flexDirection : 'column',
-  width : '88%',
-  padding : 16, 
-  margin : 8,
-  borderRadius : 4,
-  alignSelf : 'center',
-  backgroundColor : '#b6d2fb',
-  flexGrow : 1,
-  borderTopLeftRadius : 0,
-  borderRadius : 20,
-  elevation : 3,
-  shadowRadius : 2,
-  shadowOpacity : 0.5,
-  shadowColor : 'rgba(0, 0, 0, 0.25)',
-  shadowOffset : {width : 0, height : 4},
-},
-brunchcard : {
-  // backgroundColor : '#e0fdcd',
+card : {
   flexDirection : 'row',
   width : '100%',
-  padding : 16, 
-  borderRadius : 4,
+  padding : 16,
+  paddingBottom : 0, 
   alignSelf : 'center',
   flexGrow : 1,
-  borderTopLeftRadius : 0,
-  borderRadius : 20,
-  // elevation : 3,
-  // shadowRadius : 2,
-  // shadowOpacity : 0.5,
-  // shadowColor : 'rgba(0, 0, 0, 0.25)',
-  // shadowOffset : {width : 0, height : 4},
 },
 snackscard : {
   backgroundColor : '#9ed2ea',
-  flexDirection : 'column',
-  width : '88%',
-  padding : 16, 
-  margin : 8,
-  borderRadius : 4,
-  alignSelf : 'center',
-  flexGrow : 1,
-  borderTopLeftRadius : 0,
-  borderRadius : 20,
-  elevation : 3,
-  shadowRadius : 2,
-  shadowOpacity : 0.5,
-  shadowColor : 'rgba(0, 0, 0, 0.25)',
-  shadowOffset : {width : 0, height : 4},
-},
-dinnercard : {
-  backgroundColor : '#fbb6b6',
   flexDirection : 'column',
   width : '88%',
   padding : 16, 
@@ -328,25 +264,25 @@ imageIcon : {
   },
 icon : {
   fontSize : 16,
-  color : '#3b3b3b',
+  color : '#626262',
   },
 text : {
-  fontSize : 17,
+  fontSize : 19,
   color : '#3b3b3b',
-  fontFamily : 'Poppins_500Medium'
+  fontFamily : 'ExoSemiBold'
   },
 smalltext : {
   fontSize : 14,
-  color : '#3b3b3b',
+  color : '#626262',
   margin : 8,
-  fontFamily : 'Poppins_400Regular'
+  fontFamily : 'ExoRegular',
   },
 delete : {
   flexDirection : 'row', 
   alignItems : 'center', 
   justifyContent : 'flex-start', 
-  marginBottom : 8,
   marginHorizontal : 16,
+  marginBottom : 4
   },
 recipe : {
     height : 180,

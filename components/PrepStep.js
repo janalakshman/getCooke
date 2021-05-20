@@ -32,7 +32,7 @@ export default function PrepStep(props) {
     text : {
       color : '#3b3b3b',
       fontSize : 17,
-      fontFamily : 'SourceSansPro_400Regular',
+      fontFamily : 'ExoRegular',
       margin : 16,
       },
     title : {
@@ -40,7 +40,7 @@ export default function PrepStep(props) {
         fontSize : 17,
         marginHorizontal : 16,
         marginVertical : 6,
-        fontFamily : 'Poppins_600SemiBold',
+        fontFamily : 'ExoSemiBold',
     },
     container: {
         margin : 16,

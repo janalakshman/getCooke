@@ -11,25 +11,16 @@ import Button from '../components/Button'
 import * as ImagePicker from 'expo-image-picker';
 import ImageInput from '../components/ImageInput';
 import background from '../assets/background.png'
+import TagModal from "../Modal/TagModal";
+
+
 
 
 export default function AddRecipe({navigation}) {
 
 const user = useSelector(state => state.counter.token)
 
-const recipe = {
-    name : name,
-    time : time,
-    image : image,
-    notes : notes,
-    steps : steps,
-    ingredients : ingredients,
-    carbs : carbs,
-    protein : protein,
-    fat : fat,
-    isVeg : isVeg,
-    isOvernight : isOvernight,
-}
+
 const [name, setName] = useState(null)
 const [time, setTime] = useState(null)
 const [image, setImage] = useState(null)
@@ -42,9 +33,42 @@ const [protein, setProtein] = useState(null)
 const [fat, setFat] = useState(null)
 const [isVeg, setIsVeg] = useState(false)
 const [isOvernight, setIsOvernight] = useState(false)
+const [appliances, setAppliances] = useState('')
+const [appliancesModal, setAppliancesModal] = useState(false)
+const [cuisine, setCuisine] = useState('')
+const [cuisineModal, setCuisineModal] = useState(false)
+const [course, setCourse] = useState('')
+const [courseModal, setCourseModal] = useState(false)
+const [tags, setTags] = useState(null)
 const [loading, setLoading] = useState(true)
 const toggleVeg = () => setIsVeg(previousState => !previousState);
 const toggleOvernight = () => setIsOvernight(previousState => !previousState);
+let calories = carbs*4 + protein*4 + fat*9
+let courseID, cuisineID, appliancesID
+
+if(course) {courseID = course.map(c => c.id)}
+if(cuisine) {cuisineID = cuisine.map(c => c.id)}
+if(appliances) {appliancesID = appliances.map(c => c.id)}
+
+useEffect(() => {
+    getTags();
+  }, []);
+
+const getTags = () => {
+    fetch(
+          config.api + `/v1/meta`,
+          {
+            method: "GET",
+            mode: "cors",
+          }
+        )
+        .then((res) => {
+          return res.json();        
+        }).then((response) => {
+            setTags(response)
+        }).catch(error => console.log(error));
+  }
+
 
 useEffect(() => {
     (async () => {
@@ -71,17 +95,55 @@ useEffect(() => {
       }
     };
 
+    const onSubmit = () => {
+        setLoading(true);
+            const recipe = {
+                user : user.user.id,
+                name : name ? name : '',
+                servings : servings ? servings : 0,
+                cooking_time : time ? time : 0,
+                image_url : image,
+                notes : notes ? notes : '',
+                steps : steps,
+                ingredients : ingredients,
+                carbs : carbs ? carbs : 0,
+                protein : protein ? protein : 0,
+                fat : fat ? fat : 0,
+                calories : calories ? calories : 0,
+                isVeg : isVeg,
+                over_night_prep : isOvernight,
+                cooking_appliance : appliancesID,
+                course : courseID,
+                cuisine : cuisineID,
+            }
+        fetch(config.api + `/v1/recipes`,
+         {
+          method: 'POST',
+          headers: {
+            "Authorization":'Token ' +user.token,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(recipe),
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            setLoading(false);
+            console.log('Success')
+          })
+          .catch((err) => {
+            console.log('error')
+            setLoading(false);
+        })
+    };
+
 
   return (
     <View style={{backgroundColor : '#fff', flex : 1}} >
         <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
                               keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
                               behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            <ImageBackground source={background} style={styles.background}>
             <ScrollView>
-            
-            <Text style={styles.main}>Add Recipe</Text>
-                
+                            
             <Title name ="Recipe Info" />
 
                 <TextInput style={styles.name}
@@ -143,9 +205,9 @@ useEffect(() => {
                     value={notes}
                     name="notes" />
 
-                    <View style={{margin : 16}}></View>
+                    <View style={{margin : 8}}></View>
 
-                    <Title name="Portion size" />
+                    <Title name="Portion Size" />
 
                     <View style={{flexDirection : 'column'}}>
                     <View style={{width : '75%', flexDirection : 'row', alignContent : 'center', margin : 32, marginTop : 16}}>
@@ -186,7 +248,7 @@ useEffect(() => {
 
                 <Button type="tertiary" name="Add ingredient" onPress={() => navigation.navigate('AddIngredient',{ingredients: ingredients, setIngredients : setIngredients })}/>
                 
-                <View style={{margin : 16}}></View>
+                <View style={{margin : 8}}></View>
 
 
                 <Title name="Nutrition Info" />
@@ -232,7 +294,7 @@ useEffect(() => {
 
                     </View>
                    
-                    <View style={{margin : 16}}></View>
+                    <View style={{margin : 8}}></View>
 
 
                     <Title name="Preparation" />
@@ -266,17 +328,75 @@ useEffect(() => {
                     
                     <Button type="tertiary" name="Add step" onPress={() => setSteps([...steps, {}])} />
 
-                    <View style={{margin : 16}}></View>
+                    <View style={{margin : 8}}></View>
 
 
                 <Title name="Tags" />
+                
+                    <View style={{justifyContent : 'center', margin : 16, marginTop : 0}}>
+                            {course ? 
+                                <View style={styles.selectedTags}>
+                                    {course.map(c =>
+                                        <Text style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                         :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setCourseModal(true)}>
+                                        <Text style={styles.placeholder}>Courses</Text>
+                                    </TouchableOpacity>
+                            }
+                        {course ? 
+                            <Button type="delete" name="Delete" onPress={() => setCourse('')}/>
+                            : <View/>}
 
-                <View style={{margin : 16}}></View>
+                        
+                        {cuisine ? 
+                                <View style={styles.selectedTags}>
+                                    {cuisine.map(c =>
+                                        <Text style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                         :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setCuisineModal(true)}>
+                                        <Text style={styles.placeholder}>Cuisine</Text>
+                                    </TouchableOpacity>
+                            }
+                        {cuisine ? 
+                            <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
+                            : <View/>}
 
-                <Button type="primary" name="Submit recipe" onPress={() => handleClick()} />
+
+                            
+                        {appliances ? 
+                                <View style={styles.selectedTags}>
+                                    {appliances.map(c =>
+                                        <Text style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                         :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
+                                        <Text style={styles.placeholder}>Cooking Appliances</Text>
+                                    </TouchableOpacity>
+                            }
+                        {appliances ? 
+                            <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
+                            : <View/>}
+
+                    </View>
+                    
+
+                <Button type="primary" name="Submit recipe" onPress={() => onSubmit()} />
+                
 
             </ScrollView>
-            </ImageBackground>
+
+            {cuisineModal || courseModal || appliancesModal ? 
+                <TagModal tags={tags} modalVisible={cuisineModal ? cuisineModal : courseModal ? courseModal : appliancesModal}
+                setModalVisible={cuisineModal ? setCuisineModal : courseModal ? setCourseModal : setAppliancesModal}
+                name={cuisineModal ? 'Cuisine' : courseModal ? 'Course' : 'Cooking Appliances'}
+                select={cuisineModal ? cuisine : courseModal ? course : appliances}
+                setSelect={cuisineModal ? setCuisine : courseModal ? setCourse : setAppliances}/> : <View></View>}
+            
         </KeyboardAvoidingView>    
     </View>  
   );
@@ -285,38 +405,37 @@ useEffect(() => {
 const styles = StyleSheet.create({
     name : {
         borderRadius : 8,
-        borderTopLeftRadius : 0,
-        // borderColor : '#cfcfcf',
-        // borderWidth : 1,
+        borderColor : '#cfcfcf',
+        borderWidth : 1,
         height : 60,
         width : '90%',
         margin : 16,
         padding : 16,
-        fontFamily : 'SourceSansPro_400Regular',
-        fontSize : 17,
+        fontFamily : 'ExoRegular',
+        fontSize : 16,
         alignContent : 'flex-start',
-        backgroundColor : '#f1f1f1'
+        backgroundColor : '#fff',
     },
     text : {
-        fontFamily : 'Poppins_400Regular',
-        fontSize : 14,
+        fontFamily : 'ExoRegular',
+        fontSize : 16,
         alignSelf : 'center',
-        margin : 8
+        margin : 8,
+        color : '#626262'
     },
     notes : {
         borderRadius : 8,
-        borderTopLeftRadius : 0,
-        // borderColor : '#cfcfcf',
-        // borderWidth : 1,
+        borderColor : '#cfcfcf',
+        borderWidth : 1,
         height : 108,
         width : '90%',
         margin : 16,
         padding : 16,
         paddingTop : 8,
-        fontFamily : 'SourceSansPro_400Regular',
-        fontSize : 17,
+        fontFamily : 'ExoRegular',
+        fontSize : 16,
         alignContent : 'flex-start',
-        backgroundColor : '#f1f1f1'
+        backgroundColor : '#fff'
     },
     card : {
         width : '100%',
@@ -333,16 +452,15 @@ const styles = StyleSheet.create({
     },
     nutrition : {
         borderRadius : 8,
-        borderTopLeftRadius : 0,
-        // borderColor : '#cfcfcf',
-        // borderWidth : 1,
+        borderColor : '#cfcfcf',
+        borderWidth : 1,
         height : 48,
         width : '90%',
         paddingHorizontal : 16,
-        fontFamily : 'SourceSansPro_400Regular',
-        fontSize : 17,
+        fontFamily : 'ExoRegular',
+        fontSize : 16,
         alignContent : 'flex-start',
-        backgroundColor : '#f1f1f1'
+        backgroundColor : '#fff'
     },
     calories : {
         borderRadius : 20,
@@ -356,19 +474,19 @@ const styles = StyleSheet.create({
         backgroundColor : '#f1f1f1'
     },
     body : {
-        fontSize : 14,
+        fontSize : 16,
         color : '#3b3b3b',
         margin : 4,
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'ExoRegular',
     },
     heading : {
-        fontFamily : 'Poppins_600SemiBold',
+        fontFamily : 'ExoSemiBold',
         fontSize : 17,
         margin : 16
     },
     subheading : {
-        fontFamily : 'Poppins_500Medium',
-        fontSize : 14,
+        fontFamily : 'ExoSemiBold',
+        fontSize : 16,
         margin : 8,
         textAlign : 'center'
     },
@@ -379,26 +497,26 @@ const styles = StyleSheet.create({
         margin : 16
     },
     smalltext : {
-        fontSize : 14,
+        fontSize : 16,
         color : '#3b3b3b',
         margin : 8,
-        fontFamily : 'SourceSansPro_400Regular'
+        fontFamily : 'ExoRegular'
     },
     delete : {
       flexDirection : 'row', 
       alignItems : 'center', 
       justifyContent : 'flex-start', 
       marginBottom : 8,
-      marginHorizontal : 32
+      marginHorizontal : 16
     },
     icon : {
         fontSize : 16,
-        color : '#3b3b3b',
+        color : '#626262',
     },
     buttonText : {
         color : '#A13E00',
-        fontSize : 17,
-        fontFamily : 'Poppins_600SemiBold',
+        fontSize : 19,
+        fontFamily : 'ExoSemiBold',
         margin : 8,
         flexGrow : 1,
         textAlign : 'center'
@@ -411,7 +529,7 @@ const styles = StyleSheet.create({
           alignSelf : 'center'
         } ,
     servings : {
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         fontSize : 17,
         marginHorizontal : 16,
         marginVertical : 8,
@@ -419,7 +537,7 @@ const styles = StyleSheet.create({
         color : '#3b3b3b'
     },
     servingsUnit : {
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         fontSize : 17,
         marginHorizontal : 16,
         marginVertical : 8,
@@ -434,7 +552,7 @@ const styles = StyleSheet.create({
     },
     image : {
         width : '100%',
-        height : 300,
+        height : 350,
         borderRadius : 20,
         borderTopLeftRadius : 0
     },
@@ -443,5 +561,41 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         justifyContent: "center"
       },
+    placeholder : {
+        fontFamily : 'ExoRegular',
+        fontSize : 16,
+        paddingHorizontal : 16,
+        color : '#626262',
+    },
+    tags : {
+        borderRadius : 8,
+        borderColor : '#cfcfcf',
+        borderWidth : 1,
+        width : '100%',
+        alignItems : 'center',
+        backgroundColor : '#fff',
+        marginVertical : 8,
+        paddingVertical : 12,
+        justifyContent : 'flex-start',
+        flexDirection : 'row',
+        flexWrap : 'wrap'
+    },
+    selectedTags : {
+        borderRadius : 8,
+        backgroundColor : '#f1f1f1',
+        width : '100%',
+        alignItems : 'center',
+        marginVertical : 8,
+        paddingVertical : 12,
+        justifyContent : 'flex-start',
+        flexDirection : 'row',
+        flexWrap : 'wrap'
+    },
+    selectedTagsText : {
+        fontFamily : 'ExoMedium',
+        fontSize : 16,
+        paddingHorizontal : 16,
+        color : '#3b3b3b',
+    }
 
 });

@@ -17,7 +17,7 @@ export default function Title(props) {
     heading : {
       color : '#3b3b3b',
       fontSize : 24,
-      fontFamily : 'Lora',
+      fontFamily : 'ExoSemiBold',
       margin : 16
     },
     border : {

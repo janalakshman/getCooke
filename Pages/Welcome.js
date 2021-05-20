@@ -21,44 +21,46 @@ export default function Welcome() {
 
         <View style={{backgroundColor : '#ffffff', flex : 1}}>
 
-            <Text style={styles.text}>Hire a personal kitchen assistant</Text>
-
+            {/* <Text style={styles.heading}>Cook-e</Text> */}
+            
+            <Text style={styles.text}>Your personal kitchen assistant.</Text>
+            
             <Text style={styles.body}>Find recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
 
             <Image style={styles.image} source={Icon} alt="Icon"/>
-           
+
             <Button type="primary" name="Sign Up" onPress={() => navigation.navigate('SignUp')} />
 
             <Button type="secondary" name="Log In" onPress={() => navigation.navigate('SignIn')} />
 
         </View>
 
-
-
     )
 }
 
 const styles = StyleSheet.create({
     image : {
-        height : '48%',
-        width : '80%',
+        height : '45%',
+        width : '100%',
         resizeMode : 'contain',
         alignSelf : 'center'
     },
     body : {
         fontSize : 17,
         color : '#3b3b3b',
-        fontFamily : 'SourceSansPro_400Regular',
-        margin : 4,
+        fontFamily : 'ExoRegular',
         marginHorizontal : 16,
-        width : '75%'
     },
     text : {
         fontSize : 24,
         color : '#3b3b3b',
-        fontFamily : 'Poppins_600SemiBold',
-        marginTop : 16,
-        marginHorizontal : 16,
-        width : '90%'
+        fontFamily : 'ExoSemiBold',
+        margin : 16,
+    },
+    heading : {
+        color : '#3b3b3b',
+        fontSize : 36,
+        fontFamily : 'ExoBold',
+        marginHorizontal : 16
     },
         })

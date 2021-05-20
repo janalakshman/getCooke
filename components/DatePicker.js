@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
-import { SourceSansPro_400Regular} from '@expo-google-fonts/source-sans-pro';
+import { ExoRegular} from '@expo-google-fonts/source-sans-pro';
 import LoadingScreen from './LoadingScreen'
 
 
@@ -40,12 +40,12 @@ export default function DatePicker(props) {
     text : {
       color : '#3b3b3b',
       fontSize : 17,
-      fontFamily : 'Poppins_500Medium',
+      fontFamily : 'ExoSemiBold',
     },
     body : {
         color : '#3b3b3b',
         fontSize : 14,
-        fontFamily : 'SourceSansPro_400Regular'
+        fontFamily : 'ExoRegular'
     },
     line : {
         flexDirection : 'column',

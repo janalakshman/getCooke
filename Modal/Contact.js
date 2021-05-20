@@ -21,11 +21,11 @@ export default function AddIngredient({navigation}) {
                               behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ScrollView>
                             
-            <Title name="Feedback" />
+            <Title name="Problems faced on the app" />
 
                 <TextInput style={styles.name}
                     multiline
-                    placeholder = "Please feel free!"
+                    placeholder = "Spare no details"
                     onChangeText={name => setProblem(name)}
                     value={problem}
                     name="problem" />
@@ -41,6 +41,11 @@ export default function AddIngredient({navigation}) {
                 
 
                 <View style={{flexGrow : 1}} />
+
+            <Title name="For everything else" />
+
+                <Text style={styles.contact}>Send a mail to jana@getcooke.com</Text>
+
 
                 <Button type="primary" name="Send Feedback" onPress={() => handleClick()} />
 
@@ -60,8 +65,14 @@ const styles = StyleSheet.create({
         width : '90%',
         margin : 16,
         padding : 16,
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         fontSize : 17,
         alignContent : 'flex-start'
     },
+    contact : {
+        fontFamily : 'Poppins_400Regular',
+        margin : 16,
+        color : '#3b3b3b',
+        fontSize : 17
+    }
 });

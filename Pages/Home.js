@@ -18,6 +18,7 @@ export default function Home({navigation}) {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState('')
   const user = useSelector(state => state.counter.token);
+  
   let panels = []
    if(!user) {
          navigation.navigate('LogIn')
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     text : {
       fontSize : 24,
       color : '#3b3b3b',
-      fontFamily : 'Poppins_600SemiBold',
+      fontFamily : 'ExoSemiBold',
       marginTop : 32,
       marginHorizontal : 16
     },
@@ -151,6 +152,6 @@ const styles = StyleSheet.create({
       alignSelf : 'flex-start',
       padding : 16,
       margin : 16,
-      fontFamily : 'Poppins_500Medium'
+      fontFamily : 'ExoSemiBold'
   },
 });

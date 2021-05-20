@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import FilterChips from '../components/FilterChips'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionList } from 'react-native';
-import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_700Bold, ExoSemiBold, ExoSemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import LoadingScreen from '../components/LoadingScreen'
 
 const DATA = [
@@ -99,7 +99,7 @@ export default function FilterModal( props ) {
       fontSize : 17,
       color : '#3b3b3b',
       margin : 16,
-      fontFamily : 'Poppins_500Medium'
+      fontFamily : 'ExoSemiBold'
   },
   heading : {
     color : '#3b3b3b',
@@ -107,7 +107,7 @@ export default function FilterModal( props ) {
     margin : 16,
     marginTop : 32,
     flexGrow : 1,
-    fontFamily : 'Poppins_600SemiBold'
+    fontFamily : 'ExoSemiBold'
   },
   header : {
       backgroundColor : '#fff5e6',

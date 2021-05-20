@@ -1,11 +1,13 @@
 import React, { useState, useEffect} from "react";
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch, FlatList} from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch, FlatList, ImageBackground} from 'react-native';
 import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
 import Title from '../components/Title'
 import Button from '../components/Button'
+import background from '../assets/background.png'
+
 
 const DATA = [
   {
@@ -59,7 +61,7 @@ export default function AddIngredient({route, navigation}) {
     var ing = {
       name : name,
       amount : amount,
-      unit : unit,
+      unit_name : unit,
       isKey : isKey
     }
       setIngredients(prevState => {
@@ -138,29 +140,29 @@ export default function AddIngredient({route, navigation}) {
 const styles = StyleSheet.create({
     name : {
         borderRadius : 8,
-        borderTopLeftRadius : 0,
+        backgroundColor : '#fff',
         borderColor : '#cfcfcf',
         borderWidth : 1,
         height : 56,
         width : '90%',
         margin : 16,
         padding : 16,
-        fontFamily : 'SourceSansPro_400Regular',
-        fontSize : 17,
+        fontFamily : 'ExoRegular',
+        fontSize : 16,
         alignContent : 'flex-start'
     },
     text : {
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'ExoRegular',
         fontSize : 14,
         alignSelf : 'center'
     },
     heading : {
-        fontFamily : 'Poppins_600SemiBold',
+        fontFamily : 'ExoSemiBold',
         fontSize : 17,
         margin : 16
     },
     unit : {
-      fontFamily : 'Poppins_500Medium',
+      fontFamily : 'ExoSemiBold',
       fontSize : 14,
       margin : 8,
       color : '#626262',
@@ -170,13 +172,14 @@ const styles = StyleSheet.create({
       borderColor : '#cfcfcf',
       borderWidth : 0.25,
       flex : 1,
+      backgroundColor : '#fff'
     },
     unitbuttonPressed : {
       flex : 1,
       backgroundColor : '#54b8ec'
     },
     unitOnPress : {
-      fontFamily : 'Poppins_500Medium',
+      fontFamily : 'ExoSemiBold',
       fontSize : 14,
       margin : 8,
       color : '#ffffff',
@@ -188,10 +191,9 @@ const styles = StyleSheet.create({
       marginVertical : 8,
       flexWrap : 'wrap'
     },
-    main : {
-        color : '#3b3b3b',
-        fontSize : 32,
-        fontFamily : 'SourceSerifPro',
-        margin : 16
+    background: {
+      flex: 1,
+      resizeMode: "cover",
+      justifyContent: "center"
     },
 });

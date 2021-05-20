@@ -62,6 +62,7 @@ export default function GroceryList({navigation}) {
     <View style={{flex : 1}}>
       {loading ? (<LoadingScreen/>) :  error ? (<Error/>) : (
           <View style={{flex : 1}}>
+            
           <ScrollView style={{backgroundColor : '#ffffff'}}>
             
               { ins.length > 0 ?
@@ -117,13 +118,13 @@ const styles = StyleSheet.create({
 body : {
   fontSize : 17,
   color : '#3b3b3b',
-  fontFamily : 'SourceSansPro_400Regular',
+  fontFamily : 'ExoRegular',
   margin : 16
 },
 text : {
   fontSize : 24,
   color : '#3b3b3b',
-  fontFamily : 'Poppins_600SemiBold',
+  fontFamily : 'ExoSemiBold',
   marginTop : 32,
   marginHorizontal : 16
 },

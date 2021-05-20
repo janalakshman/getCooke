@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         flexGrow : 1
     },
     subtitle : {
-        fontFamily : 'Poppins_600SemiBold',
+        fontFamily : 'ExoSemiBold',
         textAlign : 'center',
         color : '#3b3b3b',
         fontSize : 24,
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         marginVertical : 8,
         flexGrow : 1,
         textAlign : 'center',
-        fontFamily : 'Poppins_600SemiBold'
+        fontFamily : 'ExoSemiBold'
     },
     button: {
         borderRadius : 8,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         alignSelf : 'flex-start',
         padding : 16,
         margin : 16,
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         fontSize : 17
     },
 }

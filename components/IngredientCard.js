@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     heading : {
         fontSize : 17,
         color : '#3b3b3b',
-        fontFamily : 'Poppins_500Medium',
+        fontFamily : 'ExoSemiBold',
         textAlign : 'center',
         marginHorizontal : 4,
         margin : 0
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     text : {
         color : '#3b3b3b',
         fontSize : 17,
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         marginHorizontal : 16,
         textAlign : 'left',
         width : '50%',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
       unit : {
         color : '#3b3b3b',
         fontSize : 17,
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         marginHorizontal : 16,
         textAlign : 'right',
         marginVertical : 8

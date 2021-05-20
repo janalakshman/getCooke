@@ -116,7 +116,7 @@ export default function AddIngredientModal(props) {
       fontSize : 17,
       color : '#3b3b3b',
       margin : 16,
-      fontFamily : 'Poppins_500Medium'
+      fontFamily : 'ExoSemiBold'
   },
   heading : {
     color : '#3b3b3b',
@@ -124,7 +124,7 @@ export default function AddIngredientModal(props) {
     margin : 16,
     marginTop : 32,
     flexGrow : 1,
-    fontFamily : 'Poppins_600SemiBold'
+    fontFamily : 'ExoSemiBold'
   },
   header : {
       backgroundColor : '#fff5e6',
@@ -143,7 +143,7 @@ export default function AddIngredientModal(props) {
     alignSelf : 'flex-start',
     padding : 16,
     margin : 16,
-    fontFamily : 'Poppins_500Medium'
+    fontFamily : 'ExoSemiBold'
   },
   buttonText : {
     color : '#A13E00',
@@ -151,7 +151,7 @@ export default function AddIngredientModal(props) {
     margin : 8,
     flexGrow : 1,
     textAlign : 'center',
-    fontFamily : 'Poppins_600SemiBold'
+    fontFamily : 'ExoSemiBold'
   },
   button: {
       borderRadius : 8,

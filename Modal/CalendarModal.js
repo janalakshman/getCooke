@@ -170,9 +170,9 @@ export default function CalendarModal( props ) {
                     indicatorColor : '#ffc885',
                     textMonthFontWeight : '600',
                     arrowColor : '#3b3b3b',
-                    textDayFontFamily : 'Poppins_400Regular',
-                    textDayHeaderFontFamily : 'Poppins_500Medium',
-                    textMonthFontFamily : 'Poppins_600SemiBold'
+                    textDayFontFamily : 'ExoRegular',
+                    textDayHeaderFontFamily : 'ExoSemiBold',
+                    textMonthFontFamily : 'ExoSemiBold'
                   }}
                   minDate={minDate}
                   markedDates={markedDates}
@@ -248,7 +248,7 @@ export default function CalendarModal( props ) {
     margin : 16,
     marginTop : 32,
     flexGrow : 1,
-    fontFamily : 'Poppins_600SemiBold'
+    fontFamily : 'ExoSemiBold'
   },
   header : {
       backgroundColor : '#fff5e6',
@@ -267,7 +267,7 @@ export default function CalendarModal( props ) {
   unpressedText : {
     color : '#3b3b3b',
     fontSize : 17,
-    fontFamily : 'Poppins_500Medium',
+    fontFamily : 'ExoMedium',
     margin : 16,
     textAlign : 'center',
     flexGrow : 1
@@ -286,7 +286,7 @@ export default function CalendarModal( props ) {
     margin : 16,
     textAlign : 'center',
     flexGrow : 1,
-    fontFamily : 'Poppins_500Medium'
+    fontFamily : 'ExoMedium'
   },
   pressedTime : {
     borderRadius : 4,

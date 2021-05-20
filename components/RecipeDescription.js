@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
         fontSize : 17,
         color : '#3b3b3b',
         marginLeft : 16,
-        fontFamily : 'SourceSansPro_400Regular'
+        fontFamily : 'ExoRegular'
     },
     title : {
         fontSize : 17,
         color : '#3b3b3b',
-        fontFamily : 'Poppins_600SemiBold',
+        fontFamily : 'ExoSemiBold',
         marginLeft : 16,
     },
     body : {

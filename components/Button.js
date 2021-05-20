@@ -17,6 +17,11 @@ export default function Button(props) {
                   <MaterialIcons name="add" style={styles.icon} />
                   <Text style={styles.buttonText}>{props.name}</Text>
             </TouchableOpacity>
+            ) : props.type === "delete" ? (
+              <TouchableOpacity style={styles.button} onPress={props.onPress}>
+                  <MaterialIcons name="delete" style={styles.delete} />
+                  <Text style={styles.deleteText}>{props.name}</Text>
+              </TouchableOpacity>
             )
             : 
           (<TouchableOpacity  style={props.type === 'primary' ? styles.primary : 
@@ -36,7 +41,7 @@ export default function Button(props) {
     profileText : {
         color : '#3b3b3b',
         fontSize : 14,
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'ExoMedium',
         margin : 4,
         textAlign : 'center',
         width : '50%'
@@ -51,9 +56,9 @@ export default function Button(props) {
     },
     floatingText : {
       color : '#A13E00',
-      fontSize : 17,
-      fontFamily : 'Poppins_500Medium',
-      margin : 8,
+      fontSize : 19,
+      fontFamily : 'ExoSemiBold',
+      margin : 12,
       marginVertical : 12,
       textAlign : 'center'
     },
@@ -71,8 +76,8 @@ export default function Button(props) {
     }, 
     primaryText : {
       color : '#A13E00',
-      fontSize : 17,
-      fontFamily : 'Poppins_500Medium',
+      fontSize : 19,
+      fontFamily : 'ExoSemiBold',
       margin : 8,
       marginVertical : 12,
       flexGrow : 1,
@@ -89,8 +94,8 @@ export default function Button(props) {
     },
     secondaryText : {
       color : '#A13E00',
-      fontSize : 17,
-      fontFamily : 'Poppins_500Medium',
+      fontSize : 19,
+      fontFamily : 'ExoSemiBold',
       margin : 8,
       marginVertical : 12,
       flexGrow : 1,
@@ -108,23 +113,33 @@ export default function Button(props) {
     buttonText : {
       color : '#A13E00',
       fontSize : 14,
-      fontFamily : 'Poppins_400Regular',
+      fontFamily : 'ExoMedium',
       margin : 8,
       marginHorizontal : 16
     },
     button: {
         alignSelf : 'flex-start',
-        marginRight : 16,
         marginTop : 0,
         flexDirection : 'row',
         margin : 16,
-        marginHorizontal : 16
       },
     icon : {
         fontSize : 14,
         color : '#a13e00',
         paddingTop : 10,
         paddingBottom : 10,
-        paddingLeft : 10,
-    }
+    },
+  delete : {
+      fontSize : 14,
+      color : '#626262',
+      paddingTop : 10,
+      paddingBottom : 10,
+  },
+  deleteText : {
+    color : '#626262',
+    fontSize : 14,
+    fontFamily : 'ExoMedium',
+    margin : 8,
+    marginHorizontal : 16
+  },
   });

@@ -12,7 +12,7 @@ export default function RecipeData(props){
     return(
         <ScrollView>
                 
-                <Text style={{fontFamily : 'Poppins_600SemiBold', fontSize : 24, margin : 16, marginBottom : 4}}>{recipe.name}</Text>
+                <Text style={{fontFamily : 'ExoSemiBold', fontSize : 24, margin : 16, marginBottom : 4}}>{recipe.name}</Text>
 
                 { recipe.over_night_prep ? ( 
                 <View style={styles.line}>

@@ -8,7 +8,7 @@
 // import RecipeCard from './components/RecipeCard'
 // import { MaterialIcons } from '@expo/vector-icons';
 // import { useSelector, useDispatch } from 'react-redux';
-// import { useFonts, Poppins_700Bold, Poppins_500Medium, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+// import { useFonts, Poppins_700Bold, ExoSemiBold, ExoSemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 // import LoadingScreen from './LoadingScreen'
 // import { addFilter } from './redux/counterSlice';
 
@@ -162,7 +162,7 @@
 //     alignSelf : 'flex-start',
 //     padding : 16,
 //     margin : 16,
-//     fontFamily : 'Poppins_500Medium'
+//     fontFamily : 'ExoSemiBold'
 //   },  
 //   centeredView: {
 //     flex: 1,
@@ -192,7 +192,7 @@
 // heading : {
 //   color : '#3b3b3b',
 //   fontSize : 21,
-//   fontFamily : 'Poppins_600SemiBold',
+//   fontFamily : 'ExoSemiBold',
 //   margin : 16
 // },
 //  navigation : {

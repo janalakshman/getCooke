@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
         color : '#3b3b3b',
         fontSize : 17,
         marginHorizontal : 12,
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         width : '50%'
       },
       clicked : {
         color : '#3b3b3b',
         fontSize : 17,
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         marginHorizontal : 12,
         textDecorationLine : 'line-through',
         width : '50%'

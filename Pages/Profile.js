@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Pressable} from 'react-native'
 import Title from '../components/Title'
 import maleAvatar from '../assets/maleAvatar.png'
@@ -7,6 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteToken } from '../redux/counterSlice';
+import config from '../config'
 import Welcome from './Welcome'
 import NavBar from '../components/NavBar'
 import ProfileData from '../components/ProfileData'
@@ -18,9 +19,57 @@ import Liked from '../assets/Liked.png'
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
       const [index, setIndex] = useState(0)
+      const [events, setEvents] = useState(null)
+      const [loading, setLoading] = useState(true)
+      const [error, setError] = useState(false)
       const [cookbook, setCookbook] = useState(null)
       const [liked, setLiked] = useState(null)
 
+    // if(events){
+    //     events.map(event => (
+    //         console.log(event.data[0].recipe.id)
+    //     ))
+    // }
+
+     
+
+      const getEvents = () => {
+        fetch(
+              config.api + `/v1/events`,
+              {
+                method: "GET",
+                headers: {
+                  "Authorization":'Token ' + user.token,
+                  "Content-Type": "application/json"
+                },
+                mode: "cors",
+              }
+            )
+            .then((res) => {
+              return Promise.all([res.status, res.json()]);        
+            })
+            .then(([status, response])=> {
+                  if(status === 200) {
+                    setEvents(response)
+                    console.log(events)
+                    setLoading(false)
+                    setError(false)
+                  } else {
+                    Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                  }
+                  
+              })
+            .catch((err) => {
+             setLoading(false)
+             setError(true)
+            })
+      }
+    
+       useEffect(() => {
+                getEvents();
+              }, []);
+
+             
       const dispatch = useDispatch();
     
       const handleLogout = () => {
@@ -42,7 +91,7 @@ export default function Profile({navigation}){
                 </View>
 
                 
-            <ProfileData />
+            <ProfileData user={user}/>
 
             <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
                 <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
@@ -57,9 +106,9 @@ export default function Profile({navigation}){
                     onTabPress={(index) => setIndex(index)}
                     tabStyle={styles.tabStyle}
                     borderRadius={0}
-                    tabTextStyle = {{fontFamily : 'Poppins_500Medium', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
+                    tabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
                     activeTabStyle={styles.activeTabStyle}
-                    activeTabTextStyle = {{fontFamily : 'Poppins_500Medium', fontSize : 17, color : '#a13e00'}}
+                    activeTabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : '#a13e00'}}
                     />
             </View>
 
@@ -67,7 +116,7 @@ export default function Profile({navigation}){
                     cookbook ? <Text>Cookbook</Text> : 
                                 <View>
                                     <Text style={styles.heading}>Get started!</Text>
-                                    <Text style={styles.subheading}>Add recipes and create your own cookbook.</Text>
+                                    <Text style={styles.subheading}>See how many people cooked your recipe from the Calendar Adds stat!</Text>
                                     
                                     <Pressable onPress={() => navigation.navigate('AddRecipe')}>
                                         <Image style={styles.image} source={Cookbook} alt="Icon"/> 
@@ -96,7 +145,7 @@ export default function Profile({navigation}){
 const styles = StyleSheet.create({
     para : {
         fontSize : 17,
-        fontFamily : 'SourceSansPro_400Regular',
+        fontFamily : 'ExoRegular',
         margin : 16
     },
     avatar : {
@@ -107,7 +156,7 @@ const styles = StyleSheet.create({
     text : {
         fontSize : 17,
         color : '#3b3b3b',
-        fontFamily : 'Poppins_500Medium',
+        fontFamily : 'ExoSemiBold',
         marginLeft : 16,
     },
     body : {
@@ -115,7 +164,7 @@ const styles = StyleSheet.create({
       color : '#3b3b3b',
       marginLeft : 16,
       marginTop : 4,
-      fontFamily : 'SourceSansPro_400Regular'
+      fontFamily : 'ExoRegular'
     },
     line : {
         flexDirection : "column",
@@ -162,14 +211,14 @@ const styles = StyleSheet.create({
     subheading : {
       fontSize : 17,
       color : '#3b3b3b',
-      fontFamily : 'SourceSansPro_400Regular',
+      fontFamily : 'ExoRegular',
       margin : 16,
       marginVertical : 0
     },
     heading : {
       fontSize : 24,
       color : '#3b3b3b',
-      fontFamily : 'Poppins_600SemiBold',
+      fontFamily : 'ExoSemiBold',
       margin : 16,
     },
 }
