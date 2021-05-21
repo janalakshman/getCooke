@@ -39,6 +39,8 @@ const [cuisine, setCuisine] = useState('')
 const [cuisineModal, setCuisineModal] = useState(false)
 const [course, setCourse] = useState('')
 const [courseModal, setCourseModal] = useState(false)
+const [diet, setDiet] = useState('')
+const [dietModal, setDietModal] = useState(false)
 const [tags, setTags] = useState(null)
 const [loading, setLoading] = useState(true)
 const toggleVeg = () => setIsVeg(previousState => !previousState);
@@ -49,6 +51,7 @@ let courseID, cuisineID, appliancesID
 if(course) {courseID = course.map(c => c.id)}
 if(cuisine) {cuisineID = cuisine.map(c => c.id)}
 if(appliances) {appliancesID = appliances.map(c => c.id)}
+if(diet) {dietID = diet.map(c=>c.id)}
 
 useEffect(() => {
     getTags();
@@ -115,7 +118,10 @@ useEffect(() => {
                 cooking_appliance : appliancesID,
                 course : courseID,
                 cuisine : cuisineID,
+                type_of_meals : dietID
             }
+            console.log(recipe)
+
         fetch(config.api + `/v1/recipes`,
          {
           method: 'POST',
@@ -227,7 +233,7 @@ useEffect(() => {
                 
                 {ingredients ? ingredients.map((ingredient, index) => {
                         return (
-                            <View style={styles.box}>
+                            <View key={index.toString()} style={styles.box}>
                                 <View style={{flexDirection : 'row', alignItems : 'center'}}>
                                     <Text style={styles.servings}>{ingredient.name}</Text>
                                     <View style={{flexGrow : 1}}></View>
@@ -382,6 +388,22 @@ useEffect(() => {
                             <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
                             : <View/>}
 
+                        
+                        {diet ? 
+                                <View style={styles.selectedTags}>
+                                    {diet.map(c =>
+                                        <Text style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                         :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setDietModal(true)}>
+                                        <Text style={styles.placeholder}>Diet</Text>
+                                    </TouchableOpacity>
+                            }
+                        {diet ? 
+                            <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
+                            : <View/>}
+
                     </View>
                     
 
@@ -390,12 +412,12 @@ useEffect(() => {
 
             </ScrollView>
 
-            {cuisineModal || courseModal || appliancesModal ? 
-                <TagModal tags={tags} modalVisible={cuisineModal ? cuisineModal : courseModal ? courseModal : appliancesModal}
-                setModalVisible={cuisineModal ? setCuisineModal : courseModal ? setCourseModal : setAppliancesModal}
-                name={cuisineModal ? 'Cuisine' : courseModal ? 'Course' : 'Cooking Appliances'}
-                select={cuisineModal ? cuisine : courseModal ? course : appliances}
-                setSelect={cuisineModal ? setCuisine : courseModal ? setCourse : setAppliances}/> : <View></View>}
+            {cuisineModal || courseModal || appliancesModal || dietModal ? 
+                <TagModal tags={tags} modalVisible={cuisineModal ? cuisineModal : courseModal ? courseModal : appliancesModal ? appliancesModal : dietModal}
+                setModalVisible={cuisineModal ? setCuisineModal : courseModal ? setCourseModal : appliancesModal ? setAppliancesModal : setDietModal}
+                name={cuisineModal ? 'Cuisine' : courseModal ? 'Course' : appliancesModal ? 'Cooking Appliances' : 'Diet'}
+                select={cuisineModal ? cuisine : courseModal ? course : appliancesModal ? appliances : diet}
+                setSelect={cuisineModal ? setCuisine : courseModal ? setCourse : appliancesModal ? setAppliances : setDiet}/> : <View></View>}
             
         </KeyboardAvoidingView>    
     </View>  

@@ -4,10 +4,18 @@ import {View, Text, Image, StyleSheet} from 'react-native'
 import error from '../assets/error.png'
 import { useNavigation } from '@react-navigation/native';
 import Button from './Button'
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteToken } from '../redux/counterSlice';
 
 
 export default function Error(){
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+
+    const handleError = () => {
+        dispatch(deleteToken())
+        navigation.navigate('Welcome')
+    }
 
     return(
         <View style={styles.container}>
@@ -15,7 +23,7 @@ export default function Error(){
                 <Text style={styles.text}>Page not found!</Text>
                 <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
                 <Image style={styles.image} source={error} alt="Icon"/>
-                <Button type="primary" name="Sign Up again" onPress={() => navigation.navigate("Welcome")} />
+                <Button type="primary" name="Sign In" onPress={handleError} />
             </ScrollView>
         </View>
     )

@@ -35,8 +35,9 @@ export default function TagModal( props ) {
     let appliances = props.tags['apps']
     let cuisine = props.tags['cuisine']
     let course = props.tags['course']
+    let diet = props.tags['type_of_meals']
 
-    let data = props.name === 'Cuisine' ? cuisine : props.name === 'Course' ? course : appliances
+    let data = props.name === 'Cuisine' ? cuisine : props.name === 'Course' ? course : props.name === 'Cooking Appliances' ? appliances : diet
 
     let select = props.select
     let setSelect = props.setSelect
