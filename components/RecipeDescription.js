@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
       fontSize : 14,
       color : '#626262',
       marginLeft : 16,
-      fontFamily : 'SourceSanPro_400Regular'
+      fontFamily : 'ExoRegular'
     },
     line : {
         flexDirection : "column",

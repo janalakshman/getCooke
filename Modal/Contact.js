@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         alignContent : 'flex-start'
     },
     contact : {
-        fontFamily : 'Poppins_400Regular',
+        fontFamily : 'ExoRegular',
         margin : 16,
         color : '#3b3b3b',
         fontSize : 17

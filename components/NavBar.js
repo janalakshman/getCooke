@@ -12,7 +12,7 @@ export default function Home(props) {
      
             <View style={styles.navigation}>
                     <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
-                      <MaterialIcons name="home-filled" style={props.props === 'Home' ? styles.selectedIcon : styles.icon}/>
+                      <MaterialIcons name="search" style={props.props === 'Home' ? styles.selectedIcon : styles.icon}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
@@ -22,11 +22,7 @@ export default function Home(props) {
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('AddRecipe')} >
                         <MaterialIcons name="create" style={props.props === 'AddRecipe' ? styles.selectedIcon : styles.icon}/>
                     </TouchableOpacity>
-
-                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Grocery list')} >
-                        <MaterialIcons name="list-alt" style={props.props === 'Grocery list' ? styles.selectedIcon : styles.icon} />
-                    </TouchableOpacity>
-
+                    
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
                       <MaterialIcons name="account-box" style={props.props === 'Profile' ? styles.selectedIcon : styles.icon}/>
                     </TouchableOpacity>
@@ -52,7 +48,7 @@ const styles = StyleSheet.create({
 },
 tab : {
   alignItems : 'center',
-  width : '20%',
+  width : '25%',
 },
 icon : {
   color : 'rgba(207, 207, 207, 0.99)',
@@ -63,7 +59,9 @@ icon : {
 selectedIcon : {
   color : '#3b3b3b',
   fontSize : 30,
-  margin : 16
+  margin : 16,
+  paddingVertical : 4
 },
+
   
 });

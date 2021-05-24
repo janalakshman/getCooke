@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 
 export default function Header(props){
+
     
 
     return(
@@ -23,9 +24,9 @@ export default function Header(props){
             <View style={styles.container}>
                 {props.ingredients.map(ingredient =>
                         <View key={ingredient.id.toString()} style={styles.box}>
-                            <Text style={styles.text}>{ingredient.ingredient.name.charAt(0).toUpperCase() + ingredient.ingredient.name.slice(1)} </Text>
+                            <Text style={styles.text}>{ingredient.name.charAt(0).toUpperCase() + ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{ingredient.qty == 0 && ingredient.fraction ? '' : Math.round(ingredient.qty)} {ingredient.fraction} {ingredient.unit_name ? (ingredient.unit_name.length > 4 ? ingredient.unit_name.substring(0,4) : ingredient.unit_name) : ''} </Text>
+                            <Text style={styles.unit}>{Math.round(ingredient.qty)} {ingredient.unit_name ? (ingredient.unit_name.length > 4 ? ingredient.unit_name.substring(0,4) : ingredient.unit_name) : ''} </Text>
                         </View>
                     )}
             </View>

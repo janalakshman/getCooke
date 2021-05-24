@@ -20,8 +20,8 @@ export default function Error(){
     return(
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.text}>Page not found!</Text>
-                <Text style={styles.body}>Please refresh and try again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
+                <Text style={styles.text}>Something went wrong!</Text>
+                <Text style={styles.body}>Please login again. If the issue persists, drop a mail @ jana@getcooke.com!</Text>
                 <Image style={styles.image} source={error} alt="Icon"/>
                 <Button type="primary" name="Sign In" onPress={handleError} />
             </ScrollView>

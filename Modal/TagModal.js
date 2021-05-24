@@ -12,11 +12,17 @@ const Item = ( props ) => {
 
     const handleClick = (item) => {
 
-      if(press){
-        setSelect((obj) => [...obj, item]) 
+      if(select.includes(item)) {
+        const i  = select.indexOf(item)
+        if ( i!== -1) {
+          select.splice(i, 1); 
+          setSelect(select)
+        }
+      }else{
+        setSelect([...select, item])
       }
-        setPress(!press)
-      }
+      setPress(!press)
+    }
 
     return (
         <TouchableOpacity style={styles.checkbox} onPress={() => handleClick(props.name)}>
@@ -38,7 +44,6 @@ export default function TagModal( props ) {
     let diet = props.tags['type_of_meals']
 
     let data = props.name === 'Cuisine' ? cuisine : props.name === 'Course' ? course : props.name === 'Cooking Appliances' ? appliances : diet
-
     let select = props.select
     let setSelect = props.setSelect
 

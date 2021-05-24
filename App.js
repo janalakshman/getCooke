@@ -31,15 +31,13 @@ import Navigation from './Pages/Navigation';
 export default function App() {
   
   const [loaded] = useFonts({
-    // 'ExoSemiBold' : require('./assets/fonts/Poppins/Poppins-SemiBold.ttf'),
-    // 'ExoSemiBold' : require('./assets/fonts/Poppins/Poppins-Medium.ttf'),
-    // 'Poppins_400Regular' : require('./assets/fonts/Poppins/Poppins-Regular.ttf'),
     'ExoBoldItalic' : require('./assets/fonts/Exo/Exo-BoldItalic.ttf'),
     'ExoBold' : require('./assets/fonts/Exo/Exo-Bold.ttf'),
     'ExoSemiBold' : require('./assets/fonts/Exo/Exo-SemiBold.ttf'),
     'ExoMedium' : require('./assets/fonts/Exo/Exo-Medium.ttf'),
     'ExoRegular' : require('./assets/fonts/Exo/Exo-Regular.ttf'),
     'ExoSemiBoldItalic' : require('./assets/fonts/Exo/Exo-MediumItalic.ttf'),
+    'ExoBlack' : require('./assets/fonts/Exo/Exo-Black.ttf')
   });
 
   if(!loaded) {

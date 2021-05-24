@@ -44,7 +44,6 @@ export default function SignIn(props) {
     async function LogIn() {
         try {
         const user = await Auth.signIn('sivaprakashniet2@gmail.com', 'Admin@1234');
-        console.log(user)
           localStorage.setItem("access_token", user);
           authDispatch({ type: "SIGNIN_SUCCESS" });
         } catch (error) {
@@ -82,10 +81,10 @@ export default function SignIn(props) {
       }    
 
     return(
-        <View style={{flex : 1, backgroundColor : '#fff'}}>
+        <View style={{flex : 1, backgroundColor : '#fff', flexDirection : 'column'}}>
             {loading ? (<LoadingScreen />) :
             (
-                <ScrollView style={styles.container}>
+                <View style={styles.container}>
 
 
                             <KeyboardAvoidingView
@@ -109,12 +108,12 @@ export default function SignIn(props) {
                                         onChangeText={text => onChangePassword(text)}
                                         value={password}/>
 
-                            <View style={{margin : 16}}></View>
+                            <View style={{flexGrow : 1}}></View>
                             
                             <Button type="primary" name="Log In" onPress={() => handleClick()}/>
 
                             </KeyboardAvoidingView>
-                        </ScrollView>
+                        </View>
             )}
         </View>
        
@@ -124,7 +123,8 @@ export default function SignIn(props) {
 const styles = StyleSheet.create({
     container : {
         backgroundColor : '#fff',
-        flexGrow : 1
+        flexGrow : 1,
+        flexDirection : 'column'
     },
     subtitle : {
         fontFamily : 'ExoSemiBold',
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         fontSize : 17,
         color : '#3b3b3b',
         margin : 16,
-        fontFamily : 'Poppins_500Medium'
+        fontFamily : 'ExoMedium'
     },
     textInput : {
         borderRadius : 20,

@@ -12,6 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 import ImageInput from '../components/ImageInput';
 import background from '../assets/background.png'
 import TagModal from "../Modal/TagModal";
+import { Alert } from "react-native";
 
 
 
@@ -19,7 +20,6 @@ import TagModal from "../Modal/TagModal";
 export default function AddRecipe({navigation}) {
 
 const user = useSelector(state => state.counter.token)
-
 
 const [name, setName] = useState(null)
 const [time, setTime] = useState(null)
@@ -42,16 +42,19 @@ const [courseModal, setCourseModal] = useState(false)
 const [diet, setDiet] = useState('')
 const [dietModal, setDietModal] = useState(false)
 const [tags, setTags] = useState(null)
-const [loading, setLoading] = useState(true)
+const [loading, setLoading] = useState(false)
+const [error, setError] = useState(false)
 const toggleVeg = () => setIsVeg(previousState => !previousState);
 const toggleOvernight = () => setIsOvernight(previousState => !previousState);
 let calories = carbs*4 + protein*4 + fat*9
-let courseID, cuisineID, appliancesID
+let courseID, cuisineID, appliancesID, dietID
 
 if(course) {courseID = course.map(c => c.id)}
 if(cuisine) {cuisineID = cuisine.map(c => c.id)}
 if(appliances) {appliancesID = appliances.map(c => c.id)}
 if(diet) {dietID = diet.map(c=>c.id)}
+
+
 
 useEffect(() => {
     getTags();
@@ -72,17 +75,19 @@ const getTags = () => {
         }).catch(error => console.log(error));
   }
 
+ 
 
-useEffect(() => {
-    (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+
+    useEffect(() => {
+        (async () => {
+        if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+            }
         }
-      }
-    })();
-  }, []);
+        })();
+    }, []);
 
 
   const pickImage = async () => {
@@ -91,336 +96,381 @@ useEffect(() => {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64 : true
     });
 
     if (!result.cancelled) {
-        setImage(result.uri);
+        setImage("data:image/jpeg;base64," + result.base64); 
       }
     };
 
     const onSubmit = () => {
-        setLoading(true);
-            const recipe = {
-                user : user.user.id,
-                name : name ? name : '',
-                servings : servings ? servings : 0,
-                cooking_time : time ? time : 0,
-                image_url : image,
-                notes : notes ? notes : '',
-                steps : steps,
-                ingredients : ingredients,
-                carbs : carbs ? carbs : 0,
-                protein : protein ? protein : 0,
-                fat : fat ? fat : 0,
-                calories : calories ? calories : 0,
-                isVeg : isVeg,
-                over_night_prep : isOvernight,
-                cooking_appliance : appliancesID,
-                course : courseID,
-                cuisine : cuisineID,
-                type_of_meals : dietID
-            }
-            console.log(recipe)
-
-        fetch(config.api + `/v1/recipes`,
-         {
-          method: 'POST',
-          headers: {
-            "Authorization":'Token ' +user.token,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(recipe),
-        })
-          .then((res) => res.json())
-          .then((result) => {
-            setLoading(false);
-            console.log('Success')
-          })
-          .catch((err) => {
-            console.log('error')
-            setLoading(false);
-        })
+        setLoading(true)
+        const recipe = {
+            user : user.user.id,
+            name : name ? name : '',
+            servings : servings ? servings : 1,
+            cooking_time : time ? time : 0,
+            image_url : image,
+            notes : notes ? notes : '',
+            steps : steps,
+            ingredients : ingredients,
+            carbs : carbs ? carbs : 0,
+            protein : protein ? protein : 0,
+            fat : fat ? fat : 0,
+            calories : calories ? calories : 0,
+            isVeg : isVeg,
+            over_night_prep : isOvernight,
+            cooking_appliance : appliancesID ? appliancesID : '',
+            course : courseID ? courseID : '',
+            cuisine : cuisineID ? cuisineID : '',
+            type_of_meals : dietID ? dietID : ''
+        }
+        if((name && time && ingredients && steps)){
+            return(
+                fetch(config.api + `/v1/recipes`,
+                    {
+                    method: 'POST',
+                    headers: {
+                        "Authorization":'Token ' +user.token,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(recipe),
+                    })
+                    .then((res) => res.json())
+                    .then((result) => {
+                        setName(null), setCarbs(null), setProtein(null), setFat(null),
+                        setTime(null), setIsVeg(false), setIsOvernight(false), setAppliances(''),
+                        setImage(null), setCuisine(''), setCourse(''), setDiet(''), setNotes(null), setIngredients([]), setServings(1)
+                        setLoading(false);
+                        setError(false)
+                        console.debug(recipe)
+                        Alert.alert(
+                            "Recipe Added",
+                            "Thanks for adding your recipe!",
+                            [{ text: "OK"}]
+                        )
+                    })
+                    .catch((err) => {
+                        console.debug(err)
+                        setLoading(false);
+                    })
+                )
+            }else{
+                setLoading(false)
+                setError(true)
+                return(
+                    Alert.alert(
+                        "Input fields missing!",
+                        "Please add all the required fields and try again.",
+                        [{ text: "OK"}]
+                    )
+                )
+            } 
     };
 
 
   return (
     <View style={{backgroundColor : '#fff', flex : 1}} >
-        <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
-                              keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
-                              behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            <ScrollView>
-                            
-            <Title name ="Recipe Info" />
+        {loading ? (<LoadingScreen />) : (
 
-                <TextInput style={styles.name}
-                    placeholder = "Name of the recipe"
-                    onChangeText={name => setName(name)}
-                    value={name}
-                    name="name" />
+            <View style={{backgroundColor : '#fff', flex : 1}} >
+            {/* <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
+                                keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
+                                behavior={Platform.OS === "ios" ? "padding" : "height"}> */}
+                <ScrollView>
+                                
+                <Title name ="Recipe Info" />
 
-                <View style={{flexDirection : 'column'}}>
-                    <View style={{width : '85%', flexDirection : 'row', alignContent : 'center'}}>
-                        <TextInput style={styles.name}
-                            placeholder = "Cooking time"
-                            onChangeText={time => setTime(time)}
-                            value={time}
-                            keyboardType="numeric"
-                            name="time" />
-                        <Text style={styles.text}>mins</Text>
+                    <TextInput style={styles.name}
+                        placeholder = "Name of the recipe"
+                        onChangeText={name => setName(name)}
+                        value={name}
+                        name="name" />
+                    {error ? name ?  <View /> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
+
+                    <View style={{flexDirection : 'column'}}>
+                        <View style={{width : '85%', flexDirection : 'row', alignContent : 'center'}}>
+                            <TextInput style={styles.name}
+                                placeholder = "Cooking time"
+                                onChangeText={time => setTime(time)}
+                                value={time}
+                                keyboardType="numeric"
+                                name="time" />
+                            <Text style={styles.text}>mins</Text>
                     </View>
 
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin : 16, marginBottom : 0 }}>
-                        {image ? <View></View> : <ImageInput name="Add a photo of your recipe" onPress={pickImage} /> }
-                        {image &&   
-                                    <View style={{width: '100%',  alignSelf : 'center'}}>
-                                        <Image source={{ uri: image }} style={styles.image} />
-                                    
-                                    <View style={{margin : 4}} />
+                    {error ? time ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
 
-                                    <TouchableOpacity style={styles.delete} onPress={() => setImage(null)}>
-                                        <MaterialIcons name="delete" style={styles.icon} />
-                                        <Text style={styles.text}>Delete</Text>
-                                    </TouchableOpacity>
-                                    </View>}
+
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin : 16, marginBottom : 0 }}>
+                            {image ? <View></View> : <ImageInput name="Add a photo of your recipe" onPress={pickImage} /> }
+                            {image &&   
+                                        <View style={{width: '100%',  alignSelf : 'center'}}>
+                                            <Image source={{ uri: image }} style={styles.image} />
+                                        
+                                        <View style={{margin : 4}} />
+
+                                        <TouchableOpacity style={styles.delete} onPress={() => setImage(null)}>
+                                            <MaterialIcons name="delete" style={styles.icon} />
+                                            <Text style={styles.text}>Delete</Text>
+                                        </TouchableOpacity>
+                                        </View>}
+                        </View>
+
+                        <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
+                            <Text style={styles.text}>Is your recipe vegetarian?</Text>
+                            <Switch trackColor={{ false: "#f7f7f7", true: "#5BC236" }}
+                                    thumbColor={isVeg ? "#ffffff" : "#ffffff"}
+                                    ios_backgroundColor="#f7f7f7"
+                                    onValueChange={toggleVeg}
+                                    value={isVeg}/>
+                        </View>
                     </View>
+                    
 
                     <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
-                        <Text style={styles.text}>Is your recipe vegetarian?</Text>
+                        <Text style={styles.text}>Is overnight prep required?</Text>
                         <Switch trackColor={{ false: "#f7f7f7", true: "#5BC236" }}
-                                thumbColor={isVeg ? "#ffffff" : "#ffffff"}
+                                thumbColor={isOvernight ? "#ffffff" : "#ffffff"}
                                 ios_backgroundColor="#f7f7f7"
-                                onValueChange={toggleVeg}
-                                value={isVeg}/>
+                                onValueChange={toggleOvernight}
+                                value={isOvernight}/>
                     </View>
-                </View>
-                
 
-                <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
-                    <Text style={styles.text}>Is overnight prep required?</Text>
-                    <Switch trackColor={{ false: "#f7f7f7", true: "#5BC236" }}
-                            thumbColor={isOvernight ? "#ffffff" : "#ffffff"}
-                            ios_backgroundColor="#f7f7f7"
-                            onValueChange={toggleOvernight}
-                            value={isOvernight}/>
-                </View>
+                    <TextInput style={styles.notes}
+                        multiline
+                        placeholder = "Tell us more about your recipe."
+                        onChangeText={notes => setNotes(notes)}
+                        value={notes}
+                        name="notes" />
 
-                <TextInput style={styles.notes}
-                    multiline
-                    placeholder = "Tell us more about your recipe."
-                    onChangeText={notes => setNotes(notes)}
-                    value={notes}
-                    name="notes" />
-
-                    <View style={{margin : 8}}></View>
+            <View style={{margin : 8}}></View>
 
                     <Title name="Portion Size" />
 
                     <View style={{flexDirection : 'column'}}>
-                    <View style={{width : '75%', flexDirection : 'row', alignContent : 'center', margin : 32, marginTop : 16}}>
-                        <TextInput style={styles.nutrition}
-                            placeholder = "Number of servings"
-                            onChangeText={servings => setServings(servings)}
-                            value={servings}
-                            keyboardType="numeric"
-                            name="servings" />
-                            <View style={{flexGrow : 1}} />
-                        <Text style={styles.text}>Servings</Text>
+                        <View style={{width : '75%', flexDirection : 'row', alignContent : 'center', margin : 32, marginVertical : 16}}>
+                            <TextInput style={styles.nutrition}
+                                placeholder = "Number of servings"
+                                onChangeText={servings => setServings(servings)}
+                                value={servings}
+                                keyboardType="numeric"
+                                name="servings" />
+                                <View style={{flexGrow : 1}} />
+                            <Text style={styles.text}>Servings</Text>
+                        </View>
                     </View>
-                    </View>
 
-                <Title name="Ingredients" />
+                    {error ? servings ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
 
-                
-                {ingredients ? ingredients.map((ingredient, index) => {
-                        return (
-                            <View key={index.toString()} style={styles.box}>
-                                <View style={{flexDirection : 'row', alignItems : 'center'}}>
-                                    <Text style={styles.servings}>{ingredient.name}</Text>
-                                    <View style={{flexGrow : 1}}></View>
-                                    <Text style={styles.servingsUnit}>{ingredient.amount} {ingredient.unit}</Text>
-                                    <MaterialIcons name="delete" style={{marginHorizontal : 16 }} size={24} color="#3b3b3b" 
-                                        onPress={() => {
-                                                    setIngredients(prevState => {
-                                                        let tempArray = [...prevState]
-                                                        tempArray.splice(index, 1)
-                                                        return tempArray 
-                                                        })}} />
-                                </View>
-                            </View>
-                        )})
-
-             : <View></View>} 
-
-
-                <Button type="tertiary" name="Add ingredient" onPress={() => navigation.navigate('AddIngredient',{ingredients: ingredients, setIngredients : setIngredients })}/>
                 
                 <View style={{margin : 8}}></View>
 
 
-                <Title name="Nutrition Info" />
+                    <Title name="Ingredients" />
 
-                <View style={styles.card}>
-
-
-                    <View style={{flexDirection : 'row', marginHorizontal : 16}}>
-                    <View style={styles.line}>
-                        <Text style={styles.body}>Carbs</Text>     
-                        <TextInput style={styles.nutrition}
-                                        placeholder = "Grams"
-                                        onChangeText={carbs => setCarbs(carbs)}
-                                        value={carbs}
-                                        keyboardType="numeric"
-                                        name="carbs" />
-                    </View>
-
-                    <View style={styles.line}>
-                        <Text style={styles.body}>Protein</Text>     
-                        <TextInput style={styles.nutrition}
-                                        placeholder = "Grams"
-                                        onChangeText={protein => setProtein(protein)}
-                                        value={protein}
-                                        keyboardType="numeric"
-                                        name="protein" />
-                    </View>
-
-                    <View style={styles.line}>
-                        <Text style={styles.body}>Fat</Text>     
-                        <TextInput style={styles.nutrition}
-                                        placeholder = "Grams"
-                                        onChangeText={fat => setFat(fat)}
-                                        value={fat}
-                                        keyboardType="numeric"
-                                        name="fat" />
-                    </View>
-                </View>
                     
-                        <View style={styles.calories}>
-                            <Text style={styles.subheading}>Total Calories: {carbs*4 + protein*4 + fat*9} calories</Text>
-                        </View>     
+                    {ingredients ? ingredients.map((ingredient, index) => {
+                            return (
+                                <View key={index.toString()} style={styles.box}>
+                                    <View style={{flexDirection : 'row', alignItems : 'center'}}>
+                                        <Text style={styles.servings}>{ingredient.name}</Text>
+                                        <View style={{flexGrow : 1}}></View>
+                                        <Text style={styles.servingsUnit}>{ingredient.amount} {ingredient.unit_name}</Text>
+                                        <MaterialIcons name="delete" style={{marginHorizontal : 16 }} size={24} color="#3b3b3b" 
+                                            onPress={() => {
+                                                        setIngredients(prevState => {
+                                                            let tempArray = [...prevState]
+                                                            tempArray.splice(index, 1)
+                                                            return tempArray 
+                                                            })}} />
+                                    </View>
+                                </View>
+                            )})
 
-                    </View>
-                   
-                    <View style={{margin : 8}}></View>
+                : <View></View>}
 
 
-                    <Title name="Preparation" />
-                    {steps.map((step, index) => {
-                        return (
-                            <View>
-                                 <TextInput style={styles.notes}
-                                        multiline
-                                        placeholder = "Add a step"
-                                        onChangeText={notes => {
-                                            setSteps(prevState => {
-                                                let tempArray = [...prevState]
-                                                tempArray[index].description = notes
-                                                return tempArray
-                                            })}}
-                                        value={step}
-                                        name="name" />
-                            
-                                <TouchableOpacity style={styles.delete} onPress={() => {
-                                                                setSteps(prevState => {
-                                                                    let tempArray = [...prevState]
-                                                                    tempArray.splice(index, 1)
-                                                                    return tempArray 
-                                                                    })}}> 
-                                    <MaterialIcons name="delete" style={styles.icon} />
-                                    <Text style={styles.text}>Delete</Text>
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    })}
+                    <Button type="tertiary" name="Add ingredient" onPress={() => navigation.navigate('AddIngredient',{ingredients: ingredients, setIngredients : setIngredients })}/>
                     
-                    <Button type="tertiary" name="Add step" onPress={() => setSteps([...steps, {}])} />
+                    {error ? ingredients.length > 0 ? <View /> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
 
                     <View style={{margin : 8}}></View>
 
+                    <Title name="Nutrition Info" />
 
-                <Title name="Tags" />
-                
-                    <View style={{justifyContent : 'center', margin : 16, marginTop : 0}}>
+                    <View style={styles.card}>
+
+
+                        <View style={{flexDirection : 'row', marginHorizontal : 16}}>
+                        <View style={styles.line}>
+                            <Text style={styles.body}>Carbs</Text>     
+                            <TextInput style={styles.nutrition}
+                                            placeholder = "Grams"
+                                            onChangeText={carbs => setCarbs(carbs)}
+                                            value={carbs}
+                                            keyboardType="numeric"
+                                            name="carbs" />
+                        </View>
+
+                        <View style={styles.line}>
+                            <Text style={styles.body}>Protein</Text>     
+                            <TextInput style={styles.nutrition}
+                                            placeholder = "Grams"
+                                            onChangeText={protein => setProtein(protein)}
+                                            value={protein}
+                                            keyboardType="numeric"
+                                            name="protein" />
+                        </View>
+
+                        <View style={styles.line}>
+                            <Text style={styles.body}>Fat</Text>     
+                            <TextInput style={styles.nutrition}
+                                            placeholder = "Grams"
+                                            onChangeText={fat => setFat(fat)}
+                                            value={fat}
+                                            keyboardType="numeric"
+                                            name="fat" />
+                        </View>
+                    </View>
+                        
+                            <View style={styles.calories}>
+                                <Text style={styles.subheading}>Total Calories: {carbs*4 + protein*4 + fat*9} calories</Text>
+                            </View>     
+
+                        </View>
+                    
+                        <View style={{margin : 8}}></View>
+
+
+                        <Title name="Preparation" />
+                        {steps.map((step, index) => {
+                            return (
+                                <View key={index.toString()}>
+                                    <TextInput style={styles.notes}
+                                            multiline
+                                            placeholder = "Add a step"
+                                            onChangeText={notes => {
+                                                setSteps(prevState => {
+                                                    let tempArray = [...prevState]
+                                                    tempArray[index].description = notes
+                                                    return tempArray
+                                                })}}
+                                            value={step.description}
+                                            name="name" />
+                                
+                                    <TouchableOpacity style={styles.delete} onPress={() => {
+                                                                    setSteps(prevState => {
+                                                                        let tempArray = [...prevState]
+                                                                        tempArray.splice(index, 1)
+                                                                        return tempArray 
+                                                                        })}}> 
+                                        <MaterialIcons name="delete" style={styles.icon} />
+                                        <Text style={styles.text}>Delete</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        })}
+                        
+                        <Button type="tertiary" name="Add step" onPress={() => setSteps([...steps, {}])} />
+
+                        {error ? steps.length > 0 ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
+                        
+                        <View style={{margin : 8}}></View>
+
+
+                    <Title name="Tags" />
+                    
+                        <View style={{justifyContent : 'center', margin : 16, marginTop : 0}}>
+                                {course ? 
+                                    <View style={styles.selectedTags}>
+                                        {course.map((c, index) =>
+                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                        )}
+                                    </View>
+                                            :
+                                        <TouchableOpacity style={styles.tags}  onPress = {() => setCourseModal(true)}>
+                                            <Text style={styles.placeholder}>Courses</Text>
+                                        </TouchableOpacity>
+                                }
                             {course ? 
-                                <View style={styles.selectedTags}>
-                                    {course.map(c =>
-                                        <Text style={styles.selectedTagsText}>{c.name}</Text>
-                                    )}
-                                </View>
-                                         :
-                                    <TouchableOpacity style={styles.tags}  onPress = {() => setCourseModal(true)}>
-                                        <Text style={styles.placeholder}>Courses</Text>
-                                    </TouchableOpacity>
-                            }
-                        {course ? 
-                            <Button type="delete" name="Delete" onPress={() => setCourse('')}/>
-                            : <View/>}
+                                <Button type="delete" name="Delete" onPress={() => setCourse('')}/>
+                                : <View/>}
 
-                        
-                        {cuisine ? 
-                                <View style={styles.selectedTags}>
-                                    {cuisine.map(c =>
-                                        <Text style={styles.selectedTagsText}>{c.name}</Text>
-                                    )}
-                                </View>
-                                         :
-                                    <TouchableOpacity style={styles.tags}  onPress = {() => setCuisineModal(true)}>
-                                        <Text style={styles.placeholder}>Cuisine</Text>
-                                    </TouchableOpacity>
-                            }
-                        {cuisine ? 
-                            <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
-                            : <View/>}
+                        {error ? course ?  <View /> : <Text style={styles.error}>*This is a required field</Text> : <View/> }
 
 
                             
-                        {appliances ? 
-                                <View style={styles.selectedTags}>
-                                    {appliances.map(c =>
-                                        <Text style={styles.selectedTagsText}>{c.name}</Text>
-                                    )}
-                                </View>
-                                         :
-                                    <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
-                                        <Text style={styles.placeholder}>Cooking Appliances</Text>
-                                    </TouchableOpacity>
-                            }
-                        {appliances ? 
-                            <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
-                            : <View/>}
+                            {cuisine ? 
+                                    <View style={styles.selectedTags}>
+                                        {cuisine.map((c, index) =>
+                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                        )}
+                                    </View>
+                                            :
+                                        <TouchableOpacity style={styles.tags}  onPress = {() => setCuisineModal(true)}>
+                                            <Text style={styles.placeholder}>Cuisine</Text>
+                                        </TouchableOpacity>
+                                }
+                            {cuisine ? 
+                                <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
+                                : <View/>}
 
+
+                                
+                            {appliances ? 
+                                    <View style={styles.selectedTags}>
+                                        {appliances.map((c, index) =>
+                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                        )}
+                                    </View>
+                                            :
+                                        <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
+                                            <Text style={styles.placeholder}>Cooking Appliances</Text>
+                                        </TouchableOpacity>
+                                }
+                            {appliances ? 
+                                <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
+                                : <View/>}
+
+                            
+                            {diet ? 
+                                    <View style={styles.selectedTags}>
+                                        {diet.map((c, index) =>
+                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                        )}
+                                    </View>
+                                            :
+                                        <TouchableOpacity style={styles.tags}  onPress = {() => setDietModal(true)}>
+                                            <Text style={styles.placeholder}>Diet</Text>
+                                        </TouchableOpacity>
+                                }
+                            {diet ? 
+                                <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
+                                : <View/>}
+
+                        </View>
                         
-                        {diet ? 
-                                <View style={styles.selectedTags}>
-                                    {diet.map(c =>
-                                        <Text style={styles.selectedTagsText}>{c.name}</Text>
-                                    )}
-                                </View>
-                                         :
-                                    <TouchableOpacity style={styles.tags}  onPress = {() => setDietModal(true)}>
-                                        <Text style={styles.placeholder}>Diet</Text>
-                                    </TouchableOpacity>
-                            }
-                        {diet ? 
-                            <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
-                            : <View/>}
 
-                    </View>
+                    <Button type="primary" name="Submit recipe" onPress={() => onSubmit()} />
                     
 
-                <Button type="primary" name="Submit recipe" onPress={() => onSubmit()} />
+                </ScrollView>
+
+                {cuisineModal || courseModal || appliancesModal || dietModal ? 
+                    <TagModal tags={tags} modalVisible={cuisineModal ? cuisineModal : courseModal ? courseModal : appliancesModal ? appliancesModal : dietModal}
+                    setModalVisible={cuisineModal ? setCuisineModal : courseModal ? setCourseModal : appliancesModal ? setAppliancesModal : setDietModal}
+                    name={cuisineModal ? 'Cuisine' : courseModal ? 'Course' : appliancesModal ? 'Cooking Appliances' : 'Diet'}
+                    select={cuisineModal ? cuisine : courseModal ? course : appliancesModal ? appliances : diet}
+                    setSelect={cuisineModal ? setCuisine : courseModal ? setCourse : appliancesModal ? setAppliances : setDiet}/> : <View></View>}
                 
+            {/* </KeyboardAvoidingView>     */}
+            </View>  
 
-            </ScrollView>
-
-            {cuisineModal || courseModal || appliancesModal || dietModal ? 
-                <TagModal tags={tags} modalVisible={cuisineModal ? cuisineModal : courseModal ? courseModal : appliancesModal ? appliancesModal : dietModal}
-                setModalVisible={cuisineModal ? setCuisineModal : courseModal ? setCourseModal : appliancesModal ? setAppliancesModal : setDietModal}
-                name={cuisineModal ? 'Cuisine' : courseModal ? 'Course' : appliancesModal ? 'Cooking Appliances' : 'Diet'}
-                select={cuisineModal ? cuisine : courseModal ? course : appliancesModal ? appliances : diet}
-                setSelect={cuisineModal ? setCuisine : courseModal ? setCourse : appliancesModal ? setAppliances : setDiet}/> : <View></View>}
-            
-        </KeyboardAvoidingView>    
-    </View>  
+        )}
+    </View>
+    
   );
 }
 
@@ -569,7 +619,7 @@ const styles = StyleSheet.create({
         margin : 16,
         marginTop : 0,
         justifyContent : 'flex-start',
-        alignItems : 'flex-end',
+        alignItems : 'flex-start',
         borderColor : '#cfcfcf',
     },
     image : {
@@ -618,6 +668,12 @@ const styles = StyleSheet.create({
         fontSize : 16,
         paddingHorizontal : 16,
         color : '#3b3b3b',
+    },
+    error : {
+        fontFamily : 'ExoRegular',
+        fontSize : 14,
+        color : '#B00020',
+        marginLeft : 16
     }
 
 });

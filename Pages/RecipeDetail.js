@@ -49,6 +49,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
         .then(([status, response])=> {
               if(status === 200) {
                 setRecipe(response);
+                console.log(response)
                 setLoading(false)
               } else {
                 Alert.alert( "Error", "Unable to get recipe. Please try again", {text : "OK"} )
@@ -76,11 +77,15 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   
                   <Title name="Author Info" />
                     <RecipeDescription recipe = {recipe}/>
+                  
+               
 
                     <View style={{margin : 16}}></View>
 
                   <Title name="Ingredients for" />
                     <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings}/>
+                  
+                  <Button type="secondary" name="Add to grocery list" onPress={() => setModalVisible(true)}/>
 
                     <View style={{margin : 8}}></View>
 
@@ -90,6 +95,10 @@ export default function RecipeFullDetail({navigation, route, props}) {
                     <Title name="Nutrition info for" />
                     <NutritionCard recipe={recipe}/> 
                   </View> : <View></View>}
+
+                  
+                  <Button type="secondary" name="Add to favourites" onPress={() => setModalVisible(true)}/>
+
                   
                   <View style={{margin : 8}}></View>
 
@@ -99,6 +108,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
                       <PrepStep steps={recipe.steps} />
                   </View>
 
+
                   <View style={{backgroundColor : '#fff'}}>
                     <Button type="report" onPress={() => handleReport()} />
                   </View>
@@ -106,9 +116,9 @@ export default function RecipeFullDetail({navigation, route, props}) {
 
                 </ScrollView> 
 
-                <View style={styles.position}>
-                  <Button type="floating" name="Add to Calendar" onPress={() => setModalVisible(true)}/>
-                </View>
+                {/* <View style={styles.position}>
+                  <Button type="floating" name="Add to grocery list" onPress={() => setModalVisible(true)}/>
+                </View> */}
 
                 <CalendarModal recipe={recipe.id} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
 

@@ -1,6 +1,5 @@
 import React ,{ useState }from 'react';
-import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, TouchableOpacity, Alert} from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, TouchableOpacity, Alert, Switch} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +8,7 @@ import LoadingScreen from '../components/LoadingScreen'
 import config from '../config';
 import { MaterialIcons } from '@expo/vector-icons';
 import Button from '../components/Button'
+import Title from '../components/Title'
 
 const DATA = [
   {
@@ -58,11 +58,16 @@ const AddTime = (props) => {
   }
 
 
-    return(
-                <TouchableOpacity  style={!isPress ? styles.time : styles.pressedTime} onPress={() => handleClick(props.name)}>
-                  <Text style={!isPress ? styles.unpressedText : styles.pressedText}>{props.name}</Text>
-                  <Text style={!isPress ? styles.unpressedText : styles.pressedText}>{props.time}</Text>
-                </TouchableOpacity> 
+    return( 
+              <View>
+                  <TouchableOpacity  style={styles.checkbox} onPress={() => handleClick(props.name)}>
+                      <MaterialIcons name={!isPress ? "check-box-outline-blank" : "check-box"} size={24} color="black" /> 
+                      <Text style={styles.text}>{props.name}</Text>
+                      <View style={{flexGrow : 1}}/>
+                      <Text style={styles.text}>{props.time}</Text>
+                  </TouchableOpacity> 
+              </View>
+                
     )
 }
 
@@ -75,6 +80,9 @@ export default function CalendarModal( props ) {
     const [markedDates, setMarkedDates] = useState({});
     const [servings, setServings] = useState(1)
     const user = useSelector(state => state.counter.token);
+    const [schedule, setSchedule] = useState(false)
+    const toggleSchedule = () => setSchedule(previousState => !previousState);
+
 
     const getSelectedDates = (date) => {
       if (date in markedDates) { 
@@ -96,7 +104,7 @@ export default function CalendarModal( props ) {
 
     const handleClick = () => {
       const payload = {'event_date':Object.keys(markedDates), 'servings': servings, 'course':Array.from(new Set(courses)), 
-      recipe_id: props.recipe }
+      recipe_id: props.recipe, is_schedule : schedule}
       fetch(config.api + `/v1/events`,
          {
           method: 'POST',
@@ -108,7 +116,6 @@ export default function CalendarModal( props ) {
         })
           .then((res) => res.json())
           .then((result) => {
-            handleModal()
             Alert.alert(
                 "Recipe added",
                 "Recipe added to your meal plan succesfully!",
@@ -123,9 +130,6 @@ export default function CalendarModal( props ) {
       
     }
 
-    const handleModal = () => {
-      props.setModalVisible(false)
-    }
     
     var minDate = moment().format('YYYY-MM-DD');
 
@@ -136,65 +140,78 @@ export default function CalendarModal( props ) {
             animationType="slide"
             transparent={true}
             visible={props.modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-              props.setModalVisible(!props.modalVisible);
-            }}
           >
 
               <View style={styles.modalView}>
-                <Pressable
-                    onPress={() => props.setModalVisible(!props.modalVisible)}
-                    >
+                <Pressable onPress={() => props.setModalVisible(!props.modalVisible)} >
                   <View style={styles.header}>
-                    <Text style={styles.heading}>Calendar</Text>
-                    <AntDesign name="closecircle" size={24} color="#3b3b3b" style={{margin : 16, marginTop : 32}}/>
+                    <Text style={styles.heading}>Grocery List</Text>
+                    <MaterialIcons name="close" size={24} color="#3b3b3b" style={{margin : 16, marginTop : 32}} />
                   </View>
                 </Pressable>
 
 
             <ScrollView style={{width : '100%'}}>
 
-            <View  style={styles.time}>
-              <Text style={styles.unpressedText}>Servings</Text>
-              <View style={{flexGrow : 1}}></View>
-              <View style={{flexDirection : 'row', alignItems : 'center', marginHorizontal : 32}}>
-                <MaterialIcons name="remove-circle" size={24} color="black" onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)} />
-                <Text style={styles.unpressedText}>{servings}</Text>
-                <MaterialIcons name="add-circle" size={24} color="black" onPress={() => setServings(servings + 1)} />
-              </View>
-            </View> 
 
-             <Calendar 
-                  theme={{
-                    indicatorColor : '#ffc885',
-                    textMonthFontWeight : '600',
-                    arrowColor : '#3b3b3b',
-                    textDayFontFamily : 'ExoRegular',
-                    textDayHeaderFontFamily : 'ExoSemiBold',
-                    textMonthFontFamily : 'ExoSemiBold'
-                  }}
-                  minDate={minDate}
-                  markedDates={markedDates}
-                  disableMonthChange={true}
-                  monthFormat={"MMMM yyyy "}
-                  onDayPress={day => {
-                    getSelectedDates(day.dateString);
-                  }}
-                  />
+          <Title name="Number of servings" />
+            <View style={{flexDirection : 'row', alignItems : 'center', marginHorizontal : 64}}>
+              <MaterialIcons name="remove" size={24} color="black" onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)} />
+              <Text style={styles.unpressedText}>{servings}</Text>
+              <MaterialIcons name="add" size={24} color="black" onPress={() => setServings(servings + 1)} />
+            </View>
 
-                
-
-                <FlatList 
-                    data={DATA}
-                    renderItem={Item}
-                    keyExtractor={item => item.index.toString()}
-                    numColumns={1}
-                    />
+            <View style={{margin : 8}}/>
 
 
+            <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around', alignItems : 'center'}}>
+                <Text style={styles.text}>Schedule this recipe</Text>
+                <Switch trackColor={{ false: "#f7f7f7", true: "#5BC236" }}
+                        thumbColor={schedule ? "#ffffff" : "#ffffff"}
+                        ios_backgroundColor="#f7f7f7"
+                        onValueChange={toggleSchedule}
+                        value={schedule}/>
+            </View>
 
-                <Button type="primary" name="Schedule" onPress={() => handleClick()} />
+            {schedule ? (
+              <View>
+                <Title name="Pick dates" />
+
+                  <Calendar 
+                      theme={{
+                        indicatorColor : '#ffc885',
+                        textMonthFontWeight : '600',
+                        arrowColor : '#3b3b3b',
+                        textDayFontFamily : 'ExoRegular',
+                        textDayHeaderFontFamily : 'ExoSemiBold',
+                        textMonthFontFamily : 'ExoSemiBold'
+                      }}
+                      minDate={minDate}
+                      markedDates={markedDates}
+                      disableMonthChange={true}
+                      monthFormat={"MMMM yyyy "}
+                      onDayPress={day => {
+                        getSelectedDates(day.dateString);
+                      }}
+                      />
+
+                <View style={{margin : 8}}/>
+  
+              
+                <Title name="Choose course"/>
+  
+                  <FlatList 
+                      data={DATA}
+                      renderItem={Item}
+                      keyExtractor={item => item.index.toString()}
+                      numColumns={1}
+                      />
+            </View>
+ 
+            ) : <View></View>}
+            
+
+                <Button type="primary" name="Add to Grocery list" onPress={() => handleClick()} />
 
               </ScrollView>
                                             
@@ -266,23 +283,20 @@ export default function CalendarModal( props ) {
     },  
   unpressedText : {
     color : '#3b3b3b',
-    fontSize : 17,
+    fontSize : 19,
     fontFamily : 'ExoMedium',
     margin : 16,
     textAlign : 'center',
     flexGrow : 1
   },
   time: {
-    borderRadius : 4,
-    borderWidth : 1,
-    borderColor : '#3b3b3b',
     backgroundColor : '#ffffff',
     margin : 16,
     flexDirection : 'row',
   },
   pressedText : {
     color : '#fff',
-    fontSize : 17,
+    fontSize : 19,
     margin : 16,
     textAlign : 'center',
     flexGrow : 1,
@@ -294,4 +308,17 @@ export default function CalendarModal( props ) {
     margin : 16,
     flexDirection : 'row',
   },
+  checkbox : {
+    flexDirection : 'row', 
+    alignItems : 'center',
+    margin : 8,
+    borderColor : '#cfcfcf',
+    borderBottomWidth : 0.5
+},
+text : {
+  fontSize : 17,
+  color : '#3b3b3b',
+  margin : 16,
+  fontFamily : 'ExoRegular'
+},
   });

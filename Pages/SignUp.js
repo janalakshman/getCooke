@@ -50,7 +50,6 @@ async function signup() {
                 phone_number: '+14325551212'
             }
         });
-        console.log(user)
       //dispatch(setItem(user))
       authDispatch({ type: "SIGNIN_SUCCESS" });
     } catch (error) {
@@ -86,10 +85,10 @@ async function signup() {
         })
       }
     return(
-        <View style={{flex : 1}}> 
+        <View style={{flex : 1, flexDirection : 'column', backgroundColor : '#fff'}}> 
             {loading ? (<LoadingScreen />) :
             (
-                <ScrollView style={styles.container}>
+                <View style={styles.container}>
 
 
                             <KeyboardAvoidingView
@@ -123,12 +122,13 @@ async function signup() {
                                     labelStyle={{fontFamily : 'ExoRegular', color : '#3b3b3b'}}
                                     />
                                 </View>
-
+                            
+                            <View style={{flexGrow : 1}}></View>
                                 
                             <Button type="primary" name="Sign Up" onPress={() => handleClick()} />
 
                             </KeyboardAvoidingView>
-                        </ScrollView>
+                        </View>
             )}
         </View>
        
@@ -138,7 +138,8 @@ async function signup() {
 const styles = StyleSheet.create({
     container : {
         backgroundColor : '#fff',
-        flexGrow : 1
+        flexGrow : 1,
+        flexDirection : 'column'
     },
     subtitle : {
         fontFamily : 'ExoSemiBold',
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
         fontSize : 17,
         color : '#3b3b3b',
         margin : 16,
-        fontFamily : 'Poppins_500Medium'
+        fontFamily : 'ExoMedium'
     },
     textInput : {
         borderRadius : 20,

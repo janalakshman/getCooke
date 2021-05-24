@@ -19,15 +19,19 @@ export default function Welcome() {
     
     return(
 
-        <View style={{backgroundColor : '#ffffff', flex : 1}}>
+        <View style={{backgroundColor : '#ffffff', flex : 1, flexDirection : 'column'}}>
 
-            {/* <Text style={styles.heading}>Cook-e</Text> */}
+            <View style={{flexGrow : 1}}></View>
             
             <Text style={styles.text}>Your personal kitchen assistant.</Text>
             
             <Text style={styles.body}>Find recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
 
+            <View style={{flexGrow : 1}}></View>
+            
             <Image style={styles.image} source={Icon} alt="Icon"/>
+
+            <View style={{flexGrow : 1}}></View>
 
             <Button type="primary" name="Sign Up" onPress={() => navigation.navigate('SignUp')} />
 
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     },
     heading : {
         color : '#3b3b3b',
-        fontSize : 36,
+        fontSize : 24,
         fontFamily : 'ExoBold',
         marginHorizontal : 16
     },

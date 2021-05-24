@@ -1,12 +1,19 @@
 import React from 'react'
 import {View, ActivityIndicator, Text, Image, StyleSheet} from 'react-native'
-import CookeLogo from '../assets/CookeLogo.png'
+import { DotIndicator } from 'react-native-indicators'
 
 export default function LoadingScreen(){
     return(
         <View style={styles.container}>
-            <Image source={CookeLogo} alt="loading" style={styles.image}/>
-            <ActivityIndicator size="small" color="#a13e00" />
+            <View style={{flexGrow : 0.5}} />
+
+            <View style={{flexDirection : 'column', justifyContent : 'center', marginHorizontal : 16}}>
+                <Text style={styles.text}>Loading</Text>
+                <DotIndicator size={14} count={4} color="#626262" />
+            </View>
+
+            <View style={{flexGrow : 1}} />
+
         </View>
     )
 }
@@ -20,6 +27,13 @@ const styles = StyleSheet.create({
   },
   container : {
     flex : 1,
-    backgroundColor : '#fff'
+    backgroundColor : '#fff',
+  },
+  text : {
+      fontFamily : 'ExoBoldItalic',
+      fontSize : 48,
+      margin : 16,
+      color : '#626262',
+      textAlign : 'center'
   }
   });

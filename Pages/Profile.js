@@ -51,7 +51,6 @@ export default function Profile({navigation}){
             .then(([status, response])=> {
                   if(status === 200) {
                     setEvents(response)
-                    console.log(events)
                     setLoading(false)
                     setError(false)
                   } else {
@@ -101,7 +100,7 @@ export default function Profile({navigation}){
             
             <View style={{marginVertical : 8}}> 
                 <SegmentedControlTab
-                    values={["Cookbook", "Liked recipes"]}
+                    values={["Cookbook"]}
                     selectedIndex={index}
                     onTabPress={(index) => setIndex(index)}
                     tabStyle={styles.tabStyle}
@@ -116,7 +115,7 @@ export default function Profile({navigation}){
                     cookbook ? <Text>Cookbook</Text> : 
                                 <View>
                                     <Text style={styles.heading}>Get started!</Text>
-                                    <Text style={styles.subheading}>See how many people cooked your recipe from the Calendar Adds stat!</Text>
+                                    <Text style={styles.subheading}>Add recipes and create your own cookbook. </Text>
                                     
                                     <Pressable onPress={() => navigation.navigate('AddRecipe')}>
                                         <Image style={styles.image} source={Cookbook} alt="Icon"/> 
@@ -125,7 +124,7 @@ export default function Profile({navigation}){
                     liked ? <Text>Liked recipes</Text> :
                                 <View>
                                     <Text style={styles.heading}>Loving it!</Text>
-                                    <Text style={styles.subheading}>View your liked recipes here.</Text>
+                                    <Text style={styles.subheading}>View your cooked recipes here.</Text>
                                     <Image style={styles.image} source={Liked} alt="Icon"/> 
                                 </View>
                 }

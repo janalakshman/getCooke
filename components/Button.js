@@ -57,22 +57,24 @@ export default function Button(props) {
     floatingText : {
       color : '#A13E00',
       fontSize : 19,
-      fontFamily : 'ExoSemiBold',
+      fontFamily : 'ExoMedium',
       margin : 12,
       marginVertical : 12,
       textAlign : 'center'
     },
     floating : {
         borderRadius : 8,
-        backgroundColor : '#ffc885',
+        backgroundColor : '#fff',
+        borderWidth : 1,
+        borderColor : '#a13e00',
         margin : 8,
         flexDirection : 'row',
         alignItems : 'center',
-        elevation : 3,
-        shadowRadius : 3,
+        elevation : 5,
+        shadowRadius : 5,
         shadowOpacity : 0.5,
         shadowColor : 'rgba(0, 0, 0, 0.25)',
-        shadowOffset : {width : 0, height : 4},
+        shadowOffset : {width : 0, height : 8},
     }, 
     primaryText : {
       color : '#A13E00',
@@ -95,7 +97,7 @@ export default function Button(props) {
     secondaryText : {
       color : '#A13E00',
       fontSize : 19,
-      fontFamily : 'ExoSemiBold',
+      fontFamily : 'ExoMedium',
       margin : 8,
       marginVertical : 12,
       flexGrow : 1,

@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     body : {
       fontSize : 17,
       color : '#3b3b3b',
-      fontFamily : 'Poppins_400Regular',
+      fontFamily : 'ExoMedium',
       margin : 16
     },
     text : {

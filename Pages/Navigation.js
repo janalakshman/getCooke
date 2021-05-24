@@ -12,9 +12,10 @@ import SignIn from './SignIn'
 import Welcome from './Welcome'
 import useSelector from 'react-redux'
 import AddIngredient from '../Modal/AddIngredient'
+import CalendarModal from '../Modal/CalendarModal';
 import Contact from '../Modal/Contact'
 import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
-
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Navigation() {
     const Stack = createStackNavigator();
@@ -29,17 +30,16 @@ export default function Navigation() {
             options={({ navigation }) => ({
               headerTitle : () => (
                 <View>
-                    <Text style={styles.text}>Home</Text>
+                    <Text style={styles.text}>Discover</Text>
                 </View>
               ),
               headerLeft : () => (
                 <View>
-                  <Text style={styles.text}></Text>
                 </View>
               ),
               headerStyle : {
                 backgroundColor : '#fff',
-                height : 64
+                height : 80
               },
             })} />
       <Stack.Screen 
@@ -48,7 +48,7 @@ export default function Navigation() {
               options={({ navigation }) => ({
                 headerTitle : () => (
                   <View>
-                      <Text style={styles.text}>Meal Plan</Text>
+                      <Text style={styles.text}>Calendar</Text>
                   </View>
                 ),
                 headerLeft : () => (
@@ -57,7 +57,7 @@ export default function Navigation() {
                 ),
                 headerStyle : {
                   backgroundColor : '#fff',
-                  height : 64
+                  height : 80
                 },
                })}  />
       <Stack.Screen 
@@ -75,7 +75,7 @@ export default function Navigation() {
                   ),
                   headerStyle : {
                     backgroundColor : '#fff',
-                    height : 64
+                    height : 80
                   },
                  })}  />
         <Stack.Screen 
@@ -93,7 +93,7 @@ export default function Navigation() {
                   ),
                   headerStyle : {
                     backgroundColor : '#fff',
-                    height : 64
+                    height : 80
                   },
                  })}  />
           <Stack.Screen 
@@ -103,10 +103,15 @@ export default function Navigation() {
                   headerTitle :  () => (
                     <View></View>
                   ),
+                  headerRight : () => (
+                    <View style={{flexDirection : 'row', justifyContent : 'space-around', marginRight : 4}}>
+                    </View>
+                  ),
                   headerTintColor : '#3b3b3b',
                   headerBackTitle : ' ',
                   headerStyle : {
                     backgroundColor : '#fff',
+                    height : 80
                   },
                  })}  />
            <Stack.Screen 
@@ -122,7 +127,7 @@ export default function Navigation() {
                   headerBackTitle : ' ',
                   headerStyle : {
                     backgroundColor : '#fff',
-                    height : 64
+                    height : 80
                   },
                  })}  />
           <Stack.Screen 
@@ -138,7 +143,7 @@ export default function Navigation() {
                   headerBackTitle : ' ',
                   headerStyle : {
                     backgroundColor : '#fff',
-                    height : 64
+                    height : 80
                   },
                  })}  />
           <Stack.Screen 
@@ -175,7 +180,7 @@ export default function Navigation() {
                    ),
                    headerStyle : {
                      backgroundColor : '#fff',
-                     height : 64
+                     height : 80
                    },
                   })}  />
              <Stack.Screen 
@@ -193,7 +198,7 @@ export default function Navigation() {
                    ),
                    headerStyle : {
                      backgroundColor : '#ffffff',
-                     height : 64
+                     height : 80
                    },
                   })}  />
              <Stack.Screen 
@@ -211,7 +216,7 @@ export default function Navigation() {
                    ),
                    headerStyle : {
                      backgroundColor : '#ffffff',
-                     height : 64
+                     height : 0
                    },
                   })}  />
             </>
@@ -229,11 +234,10 @@ export default function Navigation() {
       marginHorizontal : 16
   },
   icon : {
-      padding : 16,
-      color : '#fa9332',
-      fontSize : 32,
-      paddingTop : 16
-    },
+    color : '#3b3b3b',
+    fontSize : 30,
+    margin : 16,
+  },
     buttonText : {
       margin : 16,
       marginTop : 24,

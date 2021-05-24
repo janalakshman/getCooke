@@ -27,7 +27,7 @@ export default function RecipeData(props){
                         <Text style={styles.body}>{recipe.cooking_time} mins</Text>       
                 </View>  
                 
-                { recipe.image ? <Image source={{uri:config.api + recipe.image}}  style={styles.image}/> : <Image source={RecipeCardPic} style={styles.image}/>
+                { recipe.image ? <Image source={{uri : recipe.image}}  style={styles.image}/> : <Image source={RecipeCardPic} style={styles.image}/>
                       } 
         </ScrollView>
         
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   body : {
     fontSize : 14,
     color : '#3b3b3b',
-    fontFamily : 'Poppins_400Regular',
+    fontFamily : 'ExoRegular',
     marginLeft : 8,
     marginTop : 4
 },

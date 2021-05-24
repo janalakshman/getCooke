@@ -14,7 +14,11 @@ import Error from '../components/Error'
 import NavBar from '../components/NavBar'
 import { useNavigation } from '@react-navigation/native';
 import RecipeDefault from '../assets/RecipeCardDefault.png'
+import SegmentedControlTab from "react-native-segmented-control-tab";
+import toDo from '../assets/toDo.png'
 
+
+//Calendar Card component
 
 const CalendarCard = (props) => {
   const navigation = useNavigation();
@@ -114,46 +118,94 @@ const CalendarCard = (props) => {
       )    
 }
 
+//Calendar card compenent ends
+
 
 export default function MealPlan({navigation}) {
   const [events, setEvents] = useState([])
   const user = useSelector(state => state.counter.token);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [index, setIndex] = useState(0)
 
-  const getEvents = () => {
-    fetch(
-          config.api + `/v1/events`,
-          {
-            method: "GET",
-            headers: {
-              "Authorization":'Token ' + user.token,
-              "Content-Type": "application/json"
-            },
-            mode: "cors",
-          }
-        )
-        .then((res) => {
-          return Promise.all([res.status, res.json()]);        
-        })
-        .then(([status, response])=> {
-              if(status === 200) {
-                setEvents(response)
-                setLoading(false)
-                setError(false)
-              } else {
-                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+  //Get call for calendar events
+
+            const getEvents = () => {
+              fetch(
+                    config.api + `/v1/events`,
+                    {
+                      method: "GET",
+                      headers: {
+                        "Authorization":'Token ' + user.token,
+                        "Content-Type": "application/json"
+                      },
+                      mode: "cors",
+                    }
+                  )
+                  .then((res) => {
+                    return Promise.all([res.status, res.json()]);        
+                  })
+                  .then(([status, response])=> {
+                        if(status === 200) {
+                          setEvents(response)
+                          setLoading(false)
+                          setError(false)
+                        } else {
+                          Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                        }
+                        
+                    })
+                  .catch((err) => {
+                  setLoading(false)
+                  setError(true)
+                  })
+            }
+
+            useEffect(() => {
+                      getEvents();
+                    }, []);
+
+    
+    //GET call for grocery list
+          
+          const [grocery, setGrocery] = useState({})
+          const [ins, setIns] = useState([])
+         
+          
+          useEffect(() => {
+            fetch(
+              config.api + `/v1/grocery`,
+              {
+                method: "GET",
+                headers: {
+                  "Authorization":'Token ' + user.token,
+                  "Content-Type": "application/json"
+                },
+                mode: "cors",
               }
-              
-          })
-        .catch((err) => {
-         setLoading(false)
-         setError(true)
-        })
-  }
-
-   useEffect(() => {
-            getEvents();
+            )
+            .then((res) => {
+                return Promise.all([res.status, res.json()]);        
+                })
+            .then(([status, response])=> {
+                  if(status === 200) {
+                    setGrocery(response)
+                    if (response.ingredients) {
+                      const inst = Object.values(response.ingredients).map(item => {
+                          return {name : item.name, qty : item.data}
+                      })
+                      setIns(inst);
+                    }
+                    setLoading(false)
+                    setError(false)
+                  } else {
+                    Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                  }
+              })
+            .catch((err) => {
+              setLoading(false)
+              setError(true)
+            })
           }, []);
 
           
@@ -164,39 +216,82 @@ export default function MealPlan({navigation}) {
       </View>)
   };
 
+  //Return call for the Meal plan page
+
   return (
     <View style={{flex : 1}}>
       {loading ? (<LoadingScreen/>) : error ? (<Error/>) : (
           <View style={{flex : 1}}>
 
           <ScrollView style={{backgroundColor : '#fff'}}>
+          
+          <View> 
+                <SegmentedControlTab
+                    values={["Meal plan", "Grocery list"]}
+                    selectedIndex={index}
+                    onTabPress={(index) => setIndex(index)}
+                    tabStyle={styles.tabStyle}
+                    borderRadius={0}
+                    tabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
+                    activeTabStyle={styles.activeTabStyle}
+                    activeTabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : '#a13e00'}}
+                    />
+            </View>
 
-            { events.length > 0 ?
-                          <SectionList
-                              sections={events}
-                              keyExtractor={(item, index) =>index.toString()}
-                              renderItem={({ item }) => <Item title={item} />}
-                              renderSectionHeader={({ section: { title } }) => (
-                                <Title name={title}/>
-                              )}
-                              // renderSectionFooter={({ section : {nutrition}}) => (
-                              //   <View style={{marginTop : 16}}>
-                              //       <NutritionCard nutrition={nutrition} />
-                              //   </View>
-                              // )}
-                            /> :
-                            <View>
-                              <Text style={styles.heading}>Such empty!</Text>
-                              <Text style={styles.subheading}>Start adding by going to a recipe page, and clicking on the add to calendar button.</Text>
-                              <Pressable onPress={() => navigation.navigate('Home')}>
-                                <Image style={styles.image} source={Calendar} alt="Icon"/> 
-                              </Pressable>
-                            </View> 
-                            }
+        {index === 0 ? 
+                      (
+                      events.length > 0 ?
+                        <SectionList
+                            sections={events}
+                            keyExtractor={(item, index) =>index.toString()}
+                            renderItem={({ item }) => <Item title={item} />}
+                            renderSectionHeader={({ section: { title } }) => (
+                              <Title name={title}/>
+                            )}
+                            // renderSectionFooter={({ section : {nutrition}}) => (
+                            //   <View style={{marginTop : 16}}>
+                            //       <NutritionCard nutrition={nutrition} />
+                            //   </View>
+                            // )}
+                          /> :
+                          <View>
+                            <Text style={styles.heading}>Such empty!</Text>
+                            <Text style={styles.subheading}>Start adding by going to a recipe page, and clicking on the add to calendar button.</Text>
+                            <Pressable onPress={() => navigation.navigate('Home')}>
+                              <Image style={styles.image} source={Calendar} alt="Icon"/> 
+                            </Pressable>
+                          </View> )
+                   : 
+                    (
+                      ins.length > 0 ?
+                        <View>
+                            <Title name="Dates" />
+                            <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>
+                            {/* <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
+                            <Title name= "List" />
+                              <View style={{backgroundColor : '#fff', flex : 1}}>
+                                { grocery ?
+                                <ToBuy ingredients={ins}/>
+                                : <View></View>
+                                }
+                              </View> 
+                        </View>
+                        : 
+                        <View>
+                          <Text style={styles.heading}>Grocery shopping made easy</Text>
+                          <Text style={styles.subheading}>Automatically get the grocery list based on the recipes you have added in your calendar! </Text>
+                          <Pressable onPress={() => navigation.navigate('Home')}>
+                            <Image style={styles.image} source={toDo} alt="Icon"/>
+                          </Pressable> 
+                        </View> 
+                        )
+          }
+            
           </ScrollView>
 
-          <NavBar props="Meal plan"/>      
-          
+
+          <NavBar props="Meal plan"/>
+
         </View>
       )}
     </View>
@@ -289,5 +384,20 @@ recipe : {
     width : 180,
     borderTopLeftRadius : 0,
     borderRadius : 20
+},
+tabStyle : {
+  borderBottomWidth : 1,
+  height : 40,
+  marginVertical : 16,
+  backgroundColor : '#fff',
+  borderColor : '#fff',
+  borderBottomColor : 'rgba(207, 207, 207, 0.99)'
+},
+activeTabStyle : {
+  borderBottomWidth : 1,
+  height : 40,
+  marginVertical : 16,
+  backgroundColor : '#fff',
+  borderBottomColor : '#a13e00',
 },
 });

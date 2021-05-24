@@ -32,7 +32,7 @@ const DATA = [
   },
   {
     item : 'number',
-    index : 5,
+    index : 6,
   },
 ];
 
@@ -55,6 +55,8 @@ const UnitButton = (props) => {
 }
 
 export default function AddIngredient({route, navigation}) {
+  const [error, setError] = useState(false)
+
 
   const {ingredients, setIngredients} = route.params;
   const handleClick = () => {
@@ -64,12 +66,18 @@ export default function AddIngredient({route, navigation}) {
       unit_name : unit,
       isKey : isKey
     }
+    if(ing.name && ing.amount && ing.unit_name){
       setIngredients(prevState => {
-          let tempArray = [...prevState, ing]
-          return tempArray
-        })
-    navigation.navigate('AddRecipe')
+        let tempArray = [...prevState, ing]
+        return tempArray
+      })
+      navigation.navigate('AddRecipe')
+    }else{
+      setError(true)
+    }
+     
   }
+
   
   const [name, setName] = useState(null);
   const [amount, setAmount] = useState(null)
@@ -84,9 +92,9 @@ export default function AddIngredient({route, navigation}) {
 
   return (
     <View style={{backgroundColor : '#fff', flex : 1}} >
-        <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
+        {/* <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
                               keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
-                              behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                              behavior={Platform.OS === "ios" ? "padding" : "height"}> */}
             <ScrollView>
                             
             <Title name="Name of the ingredient" />
@@ -96,6 +104,8 @@ export default function AddIngredient({route, navigation}) {
                     onChangeText={name => setName(name)}
                     value={name}
                     name="name" />
+                  
+                  {error ? name ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
 
             <Title name="Amount" />
 
@@ -106,6 +116,9 @@ export default function AddIngredient({route, navigation}) {
                     keyboardType="numeric"
                     value={amount}
                     name="amount" />
+
+                  {error ? amount ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
+
                 
                 <View style={styles.group}>
                     <FlatList 
@@ -115,6 +128,9 @@ export default function AddIngredient({route, navigation}) {
                       numColumns={3}
                       />
                 </View>
+
+                  {error ? unit ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/> }
+
 
                 <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
                     <Text style={styles.text}>Is this a major ingredient?</Text>
@@ -130,7 +146,7 @@ export default function AddIngredient({route, navigation}) {
                 <Button type="primary" name="Add Ingredient" onPress={() => handleClick()} />
 
             </ScrollView>
-        </KeyboardAvoidingView>    
+        {/* </KeyboardAvoidingView>     */}
     </View>
     
         
@@ -196,4 +212,10 @@ const styles = StyleSheet.create({
       resizeMode: "cover",
       justifyContent: "center"
     },
+    error : {
+        fontFamily : 'ExoRegular',
+        fontSize : 14,
+        color : '#B00020',
+        marginLeft : 16
+    }
 });
