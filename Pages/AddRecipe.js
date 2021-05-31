@@ -103,7 +103,7 @@ const getTags = () => {
             [{ rotate: 0 }],
             { compress: 0, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
             );
-            setImage('data:image/jpeg;base64,' + manipResult.base64)
+            setImage(manipResult.base64)
     }
   }
 
@@ -379,7 +379,7 @@ const getTags = () => {
                                                                         );
                                                                         setSteps(prevState => {
                                                                             let tempArray = [...prevState]
-                                                                            tempArray[index].image = 'data:image/jpeg;base64,' + manipResult.base64
+                                                                            tempArray[index].image = manipResult.base64
                                                                             return tempArray
                                                                         })
                                                                 }

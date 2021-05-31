@@ -48,7 +48,6 @@ const CalendarCard = (props) => {
                   .then(res => res.json())
                   .then(response => {
                       props.setEvents(response)
-                      navigation.navigate('Meal plan')
                   })
                   .catch(error => console.log(error));
         //     } }
