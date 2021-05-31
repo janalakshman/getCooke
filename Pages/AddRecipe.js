@@ -10,9 +10,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from '../components/Button'
 import * as ImagePicker from 'expo-image-picker';
 import ImageInput from '../components/ImageInput';
-import background from '../assets/background.png'
 import TagModal from "../Modal/TagModal";
 import { Alert } from "react-native";
+import * as ImageManipulator from 'expo-image-manipulator';
 
 
 
@@ -78,31 +78,35 @@ const getTags = () => {
  
 
 
-    useEffect(() => {
-        (async () => {
-        if (Platform.OS !== 'web') {
-            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-            if (status !== 'granted') {
-            alert('Sorry, we need camera roll permissions to make this work!');
-            }
-        }
-        })();
-    }, []);
+    // useEffect(() => {
+    //     (async () => {
+    //     if (Platform.OS !== 'web') {
+    //         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    //         if (status !== 'granted') {
+    //         alert('Sorry, we need camera roll permissions to make this work!');
+    //         }
+    //     }
+    //     })();
+    // }, []);
 
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-      base64 : true
+      quality: 0,
+      allowsEditing : true,
     });
 
-    if (!result.cancelled) {
-        setImage("data:image/jpeg;base64," + result.base64); 
-      }
-    };
+    if(!result.cancelled) {
+            const manipResult = await ImageManipulator.manipulateAsync(
+            result.uri,
+            [{ rotate: 0 }],
+            { compress: 0, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
+            );
+            setImage('data:image/jpeg;base64,' + manipResult.base64)
+    }
+  }
+
 
     const onSubmit = () => {
         setLoading(true)
@@ -121,10 +125,10 @@ const getTags = () => {
             calories : calories ? calories : 0,
             isVeg : isVeg,
             over_night_prep : isOvernight,
-            cooking_appliance : appliancesID ? appliancesID : '',
-            course : courseID ? courseID : '',
-            cuisine : cuisineID ? cuisineID : '',
-            type_of_meals : dietID ? dietID : ''
+            cooking_appliance : appliancesID ? appliancesID : [],
+            course : courseID ? courseID : [],
+            cuisine : cuisineID ? cuisineID : [],
+            type_of_meals : dietID ? dietID : []
         }
         if((name && time && ingredients && steps)){
             return(
@@ -137,14 +141,13 @@ const getTags = () => {
                     },
                     body: JSON.stringify(recipe),
                     })
-                    .then((res) => res.json())
+                    .then((res) => res.text())
                     .then((result) => {
                         setName(null), setCarbs(null), setProtein(null), setFat(null),
                         setTime(null), setIsVeg(false), setIsOvernight(false), setAppliances(''),
                         setImage(null), setCuisine(''), setCourse(''), setDiet(''), setNotes(null), setIngredients([]), setServings(1)
                         setLoading(false);
                         setError(false)
-                        console.debug(recipe)
                         Alert.alert(
                             "Recipe Added",
                             "Thanks for adding your recipe!",
@@ -152,7 +155,6 @@ const getTags = () => {
                         )
                     })
                     .catch((err) => {
-                        console.debug(err)
                         setLoading(false);
                     })
                 )
@@ -359,6 +361,34 @@ const getTags = () => {
                                                 })}}
                                             value={step.description}
                                             name="name" />
+
+                            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin : 16, marginBottom : 0 }}>
+                                {step.image ? <View></View> : <ImageInput name="Add a photo for this step" 
+                                                            onPress={async () => {
+                                                                let result = await ImagePicker.launchImageLibraryAsync({
+                                                                  mediaTypes: ImagePicker.MediaTypeOptions.All,
+                                                                  quality: 0,
+                                                                  allowsEditing : true,
+                                                                });
+                                                            
+                                                                if(!result.cancelled) {
+                                                                        const manipResult = await ImageManipulator.manipulateAsync(
+                                                                        result.uri,
+                                                                        [{ rotate: 0 }],
+                                                                        { compress: 0, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
+                                                                        );
+                                                                        setSteps(prevState => {
+                                                                            let tempArray = [...prevState]
+                                                                            tempArray[index].image = 'data:image/jpeg;base64,' + manipResult.base64
+                                                                            return tempArray
+                                                                        })
+                                                                }
+                                                              }} /> }
+                                {step.image &&   
+                                            <View style={{width: '100%',  alignSelf : 'center'}}>
+                                                <Image source={{ uri: step.image }} style={styles.image} />
+                                            </View>}
+                            </View>
                                 
                                     <TouchableOpacity style={styles.delete} onPress={() => {
                                                                     setSteps(prevState => {
@@ -369,6 +399,9 @@ const getTags = () => {
                                         <MaterialIcons name="delete" style={styles.icon} />
                                         <Text style={styles.text}>Delete</Text>
                                     </TouchableOpacity>
+
+                                    
+
                                 </View>
                             )
                         })}

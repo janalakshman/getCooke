@@ -27,7 +27,7 @@ export default function SecondaryButton(props) {
     },
     button: {
       borderRadius : 8,
-      backgroundColor : '#fff',
+      backgroundColor : '#f1f1f1',
       borderWidth : 1,
       borderColor : '#cfcfcf',
       borderStyle : 'dashed',

@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
 import Title from '../components/Title'
 import Button from '../components/Button'
-import background from '../assets/background.png'
 
 
 const DATA = [

@@ -9,6 +9,9 @@ import config from '../config';
 import { MaterialIcons } from '@expo/vector-icons';
 import Button from '../components/Button'
 import Title from '../components/Title'
+import Navigation from '../Pages/Navigation';
+import { useNavigation } from '@react-navigation/native';
+
 
 const DATA = [
   {
@@ -82,7 +85,7 @@ export default function CalendarModal( props ) {
     const user = useSelector(state => state.counter.token);
     const [schedule, setSchedule] = useState(false)
     const toggleSchedule = () => setSchedule(previousState => !previousState);
-
+    const navigation = useNavigation()
 
     const getSelectedDates = (date) => {
       if (date in markedDates) { 
@@ -119,8 +122,18 @@ export default function CalendarModal( props ) {
             Alert.alert(
                 "Recipe added",
                 "Recipe added to your meal plan succesfully!",
-                {text : "OK"}
-                ) 
+                [
+                  {text : "Check calendar", onPress : () => {
+                                                              props.setModalVisible(false)
+                                                              navigation.navigate('Meal plan')
+                                                            }},
+                  {text : "Continue meal planning", onPress : () => {
+                                                              props.setModalVisible(false)
+                                                              navigation.navigate('Home')
+                                                            }},
+                  {text : "Go back to recipe", onPress : () => props.setModalVisible(false)},
+                ]
+                )
               setMarkedDates({})
               setCourses([])    
           })
@@ -128,6 +141,11 @@ export default function CalendarModal( props ) {
             console.log('error')
         })
       
+    }
+
+    const handleModal = () => {
+      props.setModalVisible(false)
+      navigation.navigate('Meal plan')
     }
 
     

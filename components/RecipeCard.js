@@ -32,9 +32,9 @@ export default function Header(props){
 
 const styles = StyleSheet.create({
     card : {
-        width : 196,
-        padding : 8,
-        margin : 8,
+        width : 228,
+        padding : 4,
+        margin : 0,
         borderRadius : 20,
         borderTopLeftRadius : 0,
         backgroundColor : '#fff',
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
         // shadowOffset : {width : 0, height : 4},
     },
   image : {
-      height : 180,
-      width : 180,
+      height : 220,
+      width : 220,
       marginBottom : 4,
       borderTopLeftRadius : 0,
       borderRadius : 20

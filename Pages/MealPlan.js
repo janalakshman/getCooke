@@ -25,14 +25,14 @@ const CalendarCard = (props) => {
   const user = useSelector(state => state.counter.token);
 
     const handleDelete = () => {
-      Alert.alert(
-          "Delete recipe",
-          "Are you sure you want to delete the recipe from your meal plan?",
-          [ {
-              text: "Cancel",
-              style: "cancel"
-            },
-            { text: "Delete", onPress: () => {
+      // Alert.alert(
+      //     "Delete recipe",
+      //     "Are you sure you want to delete the recipe from your meal plan?",
+      //     [ {
+      //         text: "Cancel",
+      //         style: "cancel"
+      //       },
+      //       { text: "Delete", onPress: () => {
               fetch(
                   config.api + `/v1/event/`+props.event.title.id,
                   {
@@ -51,9 +51,9 @@ const CalendarCard = (props) => {
                       navigation.navigate('Meal plan')
                   })
                   .catch(error => console.log(error));
-            } }
-          ]
-        );
+        //     } }
+        //   ]
+        // );
       
     }
 
@@ -65,7 +65,7 @@ const CalendarCard = (props) => {
                   <View>
                       <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
                         {props.event.title.recipe.image ? 
-                            <Image source={props.event.title.recipe.image} alt="Recipe" style={styles.recipe}/> :
+                            <Image source={{uri : props.event.title.recipe.image}} alt="Recipe" style={styles.recipe}/> :
                             <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/> }
                       </Pressable> 
                   </View> 
@@ -73,15 +73,16 @@ const CalendarCard = (props) => {
                   <View style={{flexDirection : 'column', justifyContent : 'center', height : 180, marginVertical : 4, margin : 16, marginBottom : 0, width : '50%'}}>
                           <Text style={styles.text}>{props.event.title.recipe.name.length > 24 ? props.event.title.recipe.name.slice(0,24)+ '...' : props.event.title.recipe.name}</Text>                       
                           <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 32 }}>
-                              <View style={{flexDirection : 'row', alignItems : 'center', justifyContent : 'flex-start'}}>
-                                  <MaterialIcons name="access-time" style={styles.icon} />
-                                  {props.event.title.course.includes(',') ? 
-                                      <Text style={styles.smalltext}>{props.event.title.course.split(',').join('  |  ')}</Text> :
-                                      <Text style={styles.smalltext}>{props.event.title.course}</Text>
-                                  }
-                                  
-                              </View>
-                              
+                          { props.event.title.course ? 
+                             <View style={{flexDirection : 'row', alignItems : 'center', justifyContent : 'flex-start'}}>
+                                 <MaterialIcons name="access-time" style={styles.icon} />
+                                 {props.event.title.course.includes(',') ? 
+                                     <Text style={styles.smalltext}>{props.event.title.course.split(',').join('  |  ')}</Text> :
+                                     <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                                 }
+                             </View>
+                           : <View></View> }
+
                               <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="food-bank" style={styles.icon} />
                                   <Text style={styles.smalltext}>{props.event.title.servings === 1 ? '1 serving' : props.event.title.servings + ' servings'}</Text>
@@ -101,12 +102,12 @@ const CalendarCard = (props) => {
                                   <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
                             </View> }
 
-                          
+                            </View>
+
                           </View>
 
                   </View>
 
-              </View>
               { props.point == 1 ? 
               <TouchableOpacity style={styles.delete} onPress={handleDelete}> 
                   <MaterialIcons name="delete" style={styles.icon} />
@@ -171,8 +172,7 @@ export default function MealPlan({navigation}) {
           const [grocery, setGrocery] = useState({})
           const [ins, setIns] = useState([])
          
-          
-          useEffect(() => {
+          const getGrocery = () => {
             fetch(
               config.api + `/v1/grocery`,
               {
@@ -189,6 +189,7 @@ export default function MealPlan({navigation}) {
                 })
             .then(([status, response])=> {
                   if(status === 200) {
+                    console.log(response)
                     setGrocery(response)
                     if (response.ingredients) {
                       const inst = Object.values(response.ingredients).map(item => {
@@ -206,6 +207,10 @@ export default function MealPlan({navigation}) {
               setLoading(false)
               setError(true)
             })
+          }
+
+          useEffect(() => {
+           getGrocery();
           }, []);
 
           
@@ -215,7 +220,6 @@ export default function MealPlan({navigation}) {
         <CalendarCard point={1} event={event} setEvents={setEvents}/>
       </View>)
   };
-
   //Return call for the Meal plan page
 
   return (
@@ -239,8 +243,7 @@ export default function MealPlan({navigation}) {
             </View>
 
         {index === 0 ? 
-                      (
-                      events.length > 0 ?
+                      (events.length > 0 ? 
                         <SectionList
                             sections={events}
                             keyExtractor={(item, index) =>index.toString()}
@@ -310,7 +313,7 @@ const styles = StyleSheet.create({
 subheading : {
   fontSize : 17,
   color : '#3b3b3b',
-  fontFamily : 'ExoRegular',
+  fontFamily : 'ExoMediumItalic',
   margin : 16,
   marginBottom : 4
 },
@@ -391,7 +394,7 @@ tabStyle : {
   marginVertical : 16,
   backgroundColor : '#fff',
   borderColor : '#fff',
-  borderBottomColor : 'rgba(207, 207, 207, 0.99)'
+  borderBottomColor : 'rgba(207, 207, 207, 0.99)',
 },
 activeTabStyle : {
   borderBottomWidth : 1,

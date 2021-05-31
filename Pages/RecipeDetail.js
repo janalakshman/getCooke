@@ -49,7 +49,6 @@ export default function RecipeFullDetail({navigation, route, props}) {
         .then(([status, response])=> {
               if(status === 200) {
                 setRecipe(response);
-                console.log(response)
                 setLoading(false)
               } else {
                 Alert.alert( "Error", "Unable to get recipe. Please try again", {text : "OK"} )
@@ -59,11 +58,9 @@ export default function RecipeFullDetail({navigation, route, props}) {
         .catch((err) => {
             Alert.alert( "Error", "Unable to get recipe. Please try again", {text : "OK"} )
         });
-  }, []);
+  }, [recipeId]);
 
-  
-
-  return (
+    return (
     <View style={{backgroundColor : '#fff', flex : 1}}>
       {loading ? (<LoadingScreen/>) : 
         (

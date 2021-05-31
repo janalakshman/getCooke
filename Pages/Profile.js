@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Pressable} from 'react-native'
+import {View, Text, StyleSheet, Image, ScrollView, ImageBackground, Pressable, FlatList} from 'react-native'
 import Title from '../components/Title'
 import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
@@ -15,6 +15,8 @@ import Button from '../components/Button'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import Cookbook from '../assets/Cookbook.png'
 import Liked from '../assets/Liked.png'
+import background from '../assets/background.png'
+
 
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
@@ -35,7 +37,7 @@ export default function Profile({navigation}){
 
       const getEvents = () => {
         fetch(
-              config.api + `/v1/events`,
+              config.api + `/v1/recipes`,
               {
                 method: "GET",
                 headers: {
@@ -50,7 +52,7 @@ export default function Profile({navigation}){
             })
             .then(([status, response])=> {
                   if(status === 200) {
-                    setEvents(response)
+                    setCookbook(response)
                     setLoading(false)
                     setError(false)
                   } else {
@@ -68,6 +70,20 @@ export default function Profile({navigation}){
                 getEvents();
               }, []);
 
+      
+    const Item = ({item}) => {
+          return(
+            item.image ? 
+              <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}>
+                <Image source={{uri : item.image}} style={styles.recipeImage} /> 
+              </Pressable> :
+              <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}>
+                <View style={styles.imageText}>
+                  <Text style={styles.recipeText}>{item.name}</Text> 
+                </View>
+              </Pressable>
+            )
+    }
              
       const dispatch = useDispatch();
     
@@ -100,7 +116,7 @@ export default function Profile({navigation}){
             
             <View style={{marginVertical : 8}}> 
                 <SegmentedControlTab
-                    values={["Cookbook"]}
+                    values={["Cookbook", "Favourites"]}
                     selectedIndex={index}
                     onTabPress={(index) => setIndex(index)}
                     tabStyle={styles.tabStyle}
@@ -112,7 +128,14 @@ export default function Profile({navigation}){
             </View>
 
                 {index === 0 ?
-                    cookbook ? <Text>Cookbook</Text> : 
+                    cookbook ? 
+                              <FlatList 
+                                data = {cookbook}
+                                renderItem = {Item}
+                                numColumns = {3}
+                                keyExtractor = {item => item.id.toString()}/>
+                               : 
+
                                 <View>
                                     <Text style={styles.heading}>Get started!</Text>
                                     <Text style={styles.subheading}>Add recipes and create your own cookbook. </Text>
@@ -210,7 +233,7 @@ const styles = StyleSheet.create({
     subheading : {
       fontSize : 17,
       color : '#3b3b3b',
-      fontFamily : 'ExoRegular',
+      fontFamily : 'ExoMediumItalic',
       margin : 16,
       marginVertical : 0
     },
@@ -220,6 +243,24 @@ const styles = StyleSheet.create({
       fontFamily : 'ExoSemiBold',
       margin : 16,
     },
+    recipeImage : {
+      height : 110,
+      margin : 1,
+      borderRadius : 0,
+    },
+    imageText : {
+      margin : 1,
+      height : 110,
+      borderRadius : 0,
+      alignItems : 'center',
+      justifyContent : 'center',
+      backgroundColor : '#fffafa'
+    },
+    recipeText : {
+      fontFamily : 'ExoBoldItalic',
+      fontSize : 17,
+      color : '#626262'
+    }
 }
 
 )

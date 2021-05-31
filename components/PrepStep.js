@@ -16,13 +16,16 @@ export default function PrepStep(props) {
             
                               <View style={{paddingLeft : 8, paddingRight : 8}}>
                                 <Text style={styles.text}>{step.step}</Text>
+                                {step.image ? 
+                                    <Image source={{uri : step.image}} alt="prep" style={styles.image} /> : <View/>
+
+                                }
                               </View>
-            
+
                             </View>
                             )}
                       </View>: 
-                      <View style={{paddingBottom : 32}}>
-                      </View>}
+                      <View style={{paddingBottom : 32}}></View>}
                 </View> 
             
     )
@@ -59,4 +62,10 @@ export default function PrepStep(props) {
         // shadowColor : 'rgba(0, 0, 0, 0.25)',
         // shadowOffset : {width : 0, height : 4},
     },
+    image : {
+      width : '100%',
+      height : 350,
+      borderRadius : 20,
+      borderTopLeftRadius : 0
+  },
   });

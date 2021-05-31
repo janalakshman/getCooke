@@ -24,36 +24,40 @@ export default function Home({navigation}) {
          navigation.navigate('LogIn')
     }
 
-  useEffect(() => {
-    fetch(
-      config.api + `/v1/dashboard`,
-      {
-        method: "GET",
-        headers: {
-          "Authorization":'Token ' +user.token,
-          "Content-Type": "application/json"
-        },
-        mode: "cors",
-      }
-    )
-    .then((res) => {
-        return Promise.all([res.status, res.json()]);        
+    const getRecipes = () => {
+      fetch(
+        config.api + `/v1/dashboard`,
+        {
+          method: "GET",
+          headers: {
+            "Authorization":'Token ' +user.token,
+            "Content-Type": "application/json"
+          },
+          mode: "cors",
+        }
+      )
+      .then((res) => {
+          return Promise.all([res.status, res.json()]);        
+          })
+      .then(([status, response])=> {
+            if(status === 200) {
+              setRecipes(response['recipes']);
+              setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
+              setLoading(false)
+              setError(false)
+            } else {
+              Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+            }
+            
         })
-    .then(([status, response])=> {
-          if(status === 200) {
-            setRecipes(response['recipes']);
-            setEvents([{'title': moment().format('Do MMMM') , 'data':response['events'], 'index':'1'}])
-            setLoading(false)
-            setError(false)
-          } else {
-            Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
-          }
-          
+      .catch((err) => {
+        setLoading(false)
+        setError(true)
       })
-    .catch((err) => {
-      setLoading(false)
-      setError(true)
-    })
+    }
+
+  useEffect(() => {
+    getRecipes();
   }, []);
 
   const Item = (event) => {
