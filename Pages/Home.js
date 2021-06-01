@@ -18,6 +18,7 @@ export default function Home({navigation}) {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState('')
   const user = useSelector(state => state.counter.token);
+
   
   let panels = []
    if(!user) {
@@ -58,7 +59,7 @@ export default function Home({navigation}) {
 
   useEffect(() => {
     getRecipes();
-  }, []);
+  }, [1]);
 
   const Item = (event) => {
     return(

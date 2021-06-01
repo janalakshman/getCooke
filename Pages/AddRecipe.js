@@ -93,17 +93,17 @@ const getTags = () => {
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: 0,
+      quality: 0.5,
       allowsEditing : true,
     });
 
     if(!result.cancelled) {
             const manipResult = await ImageManipulator.manipulateAsync(
             result.uri,
-            [{ rotate: 0 }],
+            [{resize : {width : 690, height : 690}},{ rotate: 0 }],
             { compress: 0, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
             );
-            setImage(manipResult.base64)
+            setImage('data:image/jpeg;base64,' + manipResult.base64)
     }
   }
 
@@ -143,6 +143,7 @@ const getTags = () => {
                     })
                     .then((res) => res.text())
                     .then((result) => {
+                        console.log(recipe)
                         setName(null), setCarbs(null), setProtein(null), setFat(null),
                         setTime(null), setIsVeg(false), setIsOvernight(false), setAppliances(''),
                         setImage(null), setCuisine(''), setCourse(''), setDiet(''), setNotes(null), setIngredients([]), setServings(1)
@@ -209,7 +210,7 @@ const getTags = () => {
                             {image ? <View></View> : <ImageInput name="Add a photo of your recipe" onPress={pickImage} /> }
                             {image &&   
                                         <View style={{width: '100%',  alignSelf : 'center'}}>
-                                            <Image source={{ uri: image }} style={styles.image} />
+                                            <Image source={{ uri:  image }} style={styles.image} />
                                         
                                         <View style={{margin : 4}} />
 
@@ -367,19 +368,19 @@ const getTags = () => {
                                                             onPress={async () => {
                                                                 let result = await ImagePicker.launchImageLibraryAsync({
                                                                   mediaTypes: ImagePicker.MediaTypeOptions.All,
-                                                                  quality: 0,
+                                                                  quality: 0.4,
                                                                   allowsEditing : true,
                                                                 });
                                                             
                                                                 if(!result.cancelled) {
                                                                         const manipResult = await ImageManipulator.manipulateAsync(
                                                                         result.uri,
-                                                                        [{ rotate: 0 }],
+                                                                        [{resize : {width : 690, height : 690}},{ rotate: 0 }],
                                                                         { compress: 0, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
                                                                         );
                                                                         setSteps(prevState => {
                                                                             let tempArray = [...prevState]
-                                                                            tempArray[index].image = manipResult.base64
+                                                                            tempArray[index].image = 'data:image/jpeg;base64,' + manipResult.base64
                                                                             return tempArray
                                                                         })
                                                                 }

@@ -16,7 +16,8 @@ import { useNavigation } from '@react-navigation/native';
 import RecipeDefault from '../assets/RecipeCardDefault.png'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import toDo from '../assets/toDo.png'
-
+import DatePicker from '../components/DatePicker'
+import ToBuy from '../components/ToBuy'
 
 //Calendar Card component
 
@@ -127,6 +128,7 @@ export default function MealPlan({navigation}) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [index, setIndex] = useState(0)
+  const [temp, setTemp] = useState([])
 
   //Get call for calendar events
 
@@ -212,7 +214,7 @@ export default function MealPlan({navigation}) {
            getGrocery();
           }, []);
 
-          
+
    const Item = (event) => {
     return(
       <View style={{margin : 4}}>
@@ -242,20 +244,25 @@ export default function MealPlan({navigation}) {
             </View>
 
         {index === 0 ? 
-                      (events.length > 0 ? 
+                      (events[0].data.length > 0 || events.length > 1 ?
+                        
+                        <View>                        
                         <SectionList
                             sections={events}
                             keyExtractor={(item, index) =>index.toString()}
                             renderItem={({ item }) => <Item title={item} />}
-                            renderSectionHeader={({ section: { title } }) => (
-                              <Title name={title}/>
-                            )}
+                            renderSectionHeader={({ section: { title } }) => {
+                              return(
+                                <Title name={title}/>
+                              )
+                            }}
                             // renderSectionFooter={({ section : {nutrition}}) => (
                             //   <View style={{marginTop : 16}}>
                             //       <NutritionCard nutrition={nutrition} />
                             //   </View>
                             // )}
-                          /> :
+                          />
+                          </View> :
                           <View>
                             <Text style={styles.heading}>Such empty!</Text>
                             <Text style={styles.subheading}>Start adding by going to a recipe page, and clicking on the add to calendar button.</Text>
@@ -267,11 +274,16 @@ export default function MealPlan({navigation}) {
                     (
                       ins.length > 0 ?
                         <View>
-                            <Title name="Dates" />
-                            <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>
+                            {/* {events.length < 1 ? 
+                              <View>
+                                <Title name="Dates" />
+                                <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>
+                              </View> : <View/>
+                              } */}
+                            
                             {/* <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
-                            <Title name= "List" />
                               <View style={{backgroundColor : '#fff', flex : 1}}>
+                              <Title name="Shopping list" />
                                 { grocery ?
                                 <ToBuy ingredients={ins}/>
                                 : <View></View>

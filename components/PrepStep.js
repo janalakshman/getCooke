@@ -7,18 +7,17 @@ export default function PrepStep(props) {
   let count = 0;
     return(
      
-                  <View style={{paddingBottom : 80, backgroundColor : '#fffafa'}}>
+                  <View style={{paddingBottom : 80, backgroundColor : '#fffafa', justifyContent : 'flex-start'}}>
                     {props.steps ? 
                       <View >
                           {props.steps.map(step => 
                             <View key={step.id.toString()} style={styles.container}>
                               <Text style={styles.title}>{++count}</Text>
             
-                              <View style={{paddingLeft : 8, paddingRight : 8}}>
+                              <View style={{paddingLeft : 8, paddingRight : 8, width : '100%'}}>
                                 <Text style={styles.text}>{step.step}</Text>
                                 {step.image ? 
                                     <Image source={{uri : step.image}} alt="prep" style={styles.image} /> : <View/>
-
                                 }
                               </View>
 
@@ -40,20 +39,18 @@ export default function PrepStep(props) {
       },
     title : {
         color : '#a13e00',
-        fontSize : 17,
+        fontSize : 19,
         marginHorizontal : 16,
-        marginVertical : 6,
         fontFamily : 'ExoSemiBold',
+        paddingTop : 16
     },
     container: {
         margin : 16,
         paddingRight : 16,
         backgroundColor : '#fff',
         flexGrow : 1,
-        borderTopLeftRadius : 0,
-        borderRadius : 20,
         flexDirection : 'row',
-        alignItems : 'center'
+        alignItems : 'flex-start',
         // borderWidth : 1,
         // borderColor : '#cfcfcf'
         // elevation : 3,
@@ -63,9 +60,11 @@ export default function PrepStep(props) {
         // shadowOffset : {width : 0, height : 4},
     },
     image : {
-      width : '100%',
-      height : 350,
+      width : '85%',
+      height : 300,
       borderRadius : 20,
-      borderTopLeftRadius : 0
+      borderTopLeftRadius : 0,
+      marginBottom : 32,
+      paddingHorizontal : 16
   },
   });

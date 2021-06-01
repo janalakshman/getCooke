@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
       width : '90%',
       margin : 16,
       alignSelf : 'center',
-    borderTopLeftRadius : 0,
-    borderRadius : 20
+      borderTopLeftRadius : 0,
+      borderRadius : 20
   },
   icon : {
       fontSize : 16,

@@ -21,11 +21,10 @@ import background from '../assets/background.png'
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
       const [index, setIndex] = useState(0)
-      const [events, setEvents] = useState(null)
+      const [favourites, setFavourites] = useState(null)
       const [loading, setLoading] = useState(true)
       const [error, setError] = useState(false)
       const [cookbook, setCookbook] = useState(null)
-      const [liked, setLiked] = useState(null)
 
     // if(events){
     //     events.map(event => (
@@ -65,9 +64,41 @@ export default function Profile({navigation}){
              setError(true)
             })
       }
+
+      const getFavourites = () => {
+        fetch(
+              config.api + `/v1/fav-recipes`,
+              {
+                method: "GET",
+                headers: {
+                  "Authorization":'Token ' + user.token,
+                  "Content-Type": "application/json"
+                },
+                mode: "cors",
+              }
+            )
+            .then((res) => {
+              return Promise.all([res.status, res.json()]);        
+            })
+            .then(([status, response])=> {
+                  if(status === 200) {
+                    setFavourites(response)
+                    setLoading(false)
+                    setError(false)
+                  } else {
+                    Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                  }
+                  
+              })
+            .catch((err) => {
+             setLoading(false)
+             setError(true)
+            })
+      }
     
        useEffect(() => {
                 getEvents();
+                getFavourites();
               }, []);
 
       
@@ -84,6 +115,21 @@ export default function Profile({navigation}){
               </Pressable>
             )
     }
+
+    const Item2 = ({item}) => {
+      console.log(item)
+      return(
+        item.recipe.image ? 
+          <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.recipe.id})}>
+            <Image source={{uri : item.recipe.image}} style={styles.recipeImage} /> 
+          </Pressable> :
+          <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.recipe.id})}>
+            <View style={styles.imageText}>
+              <Text style={styles.recipeText}>{item.recipe.name}</Text> 
+            </View>
+          </Pressable>
+        )
+}
              
       const dispatch = useDispatch();
     
@@ -144,7 +190,12 @@ export default function Profile({navigation}){
                                         <Image style={styles.image} source={Cookbook} alt="Icon"/> 
                                     </Pressable>
                                 </View> :
-                    liked ? <Text>Liked recipes</Text> :
+                    favourites ?       
+                                <FlatList 
+                                    data = {favourites}
+                                    renderItem = {Item2}
+                                    numColumns = {3}
+                                    keyExtractor = {item => item.id.toString()}/> :
                                 <View>
                                     <Text style={styles.heading}>Loving it!</Text>
                                     <Text style={styles.subheading}>View your cooked recipes here.</Text>

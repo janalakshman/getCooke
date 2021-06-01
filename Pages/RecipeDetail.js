@@ -11,6 +11,7 @@ import Button from '../components/Button'
 import CalendarModal from '../Modal/CalendarModal'
 import config from '../config';
 import LoadingScreen from "../components/LoadingScreen";
+import { useSelector } from "react-redux";
 
 
 export default function RecipeFullDetail({navigation, route, props}) {
@@ -20,6 +21,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
   const [recipe, setRecipe] = useState({});
   const [count, setCount] = useState(0);
   const { recipeId } = route.params;
+  const user = useSelector(state => state.counter.token);
 
   const handleReport = () => {
     Alert.alert(
@@ -30,6 +32,33 @@ export default function RecipeFullDetail({navigation, route, props}) {
           { text: "Report", onPress: () => console.log("OK Pressed") }
         ]
       );
+  }
+
+  const handleClick = () => {
+    fetch(config.api + `/v1/fav-recipe/` + recipeId + `/1`,
+       {
+        method: 'GET',
+        headers: {
+          "Authorization":'Token ' +user.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          Alert.alert(
+              "Recipe added",
+              "Recipe added to your favourites succesfully!",
+              [
+                {text : "Go to home", onPress : () => { navigation.navigate('Home')}},
+                {text : "OK"},
+              ]
+              )
+            setMarkedDates({})
+            setCourses([])    
+        })
+        .catch((err) => {
+          console.log('error')
+      })
+    
   }
 
    useEffect(() => {
@@ -94,7 +123,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   </View> : <View></View>}
 
                   
-                  <Button type="secondary" name="Add to favourites" onPress={() => setModalVisible(true)}/>
+                  <Button type="secondary" name="Add to favourites" onPress={handleClick}/>
 
                   
                   <View style={{margin : 8}}></View>

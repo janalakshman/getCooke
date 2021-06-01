@@ -17,7 +17,7 @@ const ToBuyItem = (props) => {
                       <View style={{flexGrow : 1}}></View>
                       {Object.keys(props.item.qty).map((key) => (
                         <View style={{flexDirection : 'column', width : '50%'}}>
-                          <Text style={styles.clicked}>{props.item.qty[key]} {key.length > 4 ? key.substring(0,4) : key}</Text>
+                          <Text style={styles.clicked}>{(props.item.qty[key]).toFixed(2)} {key.length > 4 ? key.substring(0,4) : key}</Text>
                         </View>
                           ))}
                   </View>
@@ -30,7 +30,7 @@ const ToBuyItem = (props) => {
                       <View style={{flexGrow : 1}}></View>
                       {Object.keys(props.item.qty).map((key) => (
                         <View style={{flexDirection : 'column', width : '50%'}}>
-                          <Text style={styles.unclicked}>{props.item.qty[key]} {key.length > 4 ? key.substring(0,4) : key}</Text>
+                          <Text style={styles.unclicked}>{(props.item.qty[key]).toFixed(2)} {key.length > 4 ? key.substring(0,4) : key}</Text>
                         </View>
                           ))}
                         
