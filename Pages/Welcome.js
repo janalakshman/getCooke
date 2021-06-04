@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import { Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native'
 import Icon from '../assets/Assistant.png'
@@ -12,6 +12,13 @@ export default function Welcome() {
 
     const user = useSelector(state => state.counter.token);
     const navigation = useNavigation();
+    console.log(user)
+
+    useEffect(
+        () => {
+            return console.log('clean up')
+        }
+    )
 
     if(user) {
         navigation.navigate('Home')
@@ -52,8 +59,9 @@ const styles = StyleSheet.create({
     body : {
         fontSize : 17,
         color : '#3b3b3b',
-        fontFamily : 'ExoMediumItalic',
-        marginHorizontal : 16,
+        fontFamily : 'ExoLightItalic',
+        marginRight : 32,
+        marginLeft : 16
     },
     text : {
         fontSize : 24,

@@ -2,10 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from "react";
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList, Image, Alert } from 'react-native';
 import Title from '../components/Title';
-import NutritionCard from '../components/NutritionCard'
 import { MaterialIcons } from '@expo/vector-icons';
 import config from '../config';
-import moment from 'moment';
 import LoadingScreen from "../components/LoadingScreen";
 import { useSelector } from 'react-redux'
 import Calendar from '../assets/Calendar.png'
@@ -16,7 +14,6 @@ import { useNavigation } from '@react-navigation/native';
 import RecipeDefault from '../assets/RecipeCardDefault.png'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import toDo from '../assets/toDo.png'
-import DatePicker from '../components/DatePicker'
 import ToBuy from '../components/ToBuy'
 
 //Calendar Card component
@@ -26,14 +23,14 @@ const CalendarCard = (props) => {
   const user = useSelector(state => state.counter.token);
 
     const handleDelete = () => {
-      // Alert.alert(
-      //     "Delete recipe",
-      //     "Are you sure you want to delete the recipe from your meal plan?",
-      //     [ {
-      //         text: "Cancel",
-      //         style: "cancel"
-      //       },
-      //       { text: "Delete", onPress: () => {
+      Alert.alert(
+          "Delete recipe",
+          "Are you sure you want to delete the recipe from your meal plan?",
+          [ {
+              text: "Cancel",
+              style: "cancel"
+            },
+            { text: "Delete", onPress: () => {
               fetch(
                   config.api + `/v1/event/`+props.event.title.id,
                   {
@@ -51,9 +48,9 @@ const CalendarCard = (props) => {
                       props.setEvents(response)
                   })
                   .catch(error => console.log(error));
-        //     } }
-        //   ]
-        // );
+            } }
+          ]
+        );
       
     }
 
@@ -128,7 +125,6 @@ export default function MealPlan({navigation}) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [index, setIndex] = useState(0)
-  const [temp, setTemp] = useState([])
 
   //Get call for calendar events
 
@@ -165,7 +161,7 @@ export default function MealPlan({navigation}) {
 
             useEffect(() => {
                       getEvents();
-                    }, []);
+                    }, [ins]);
 
     
     //GET call for grocery list
@@ -190,7 +186,6 @@ export default function MealPlan({navigation}) {
                 })
             .then(([status, response])=> {
                   if(status === 200) {
-                    console.log(response)
                     setGrocery(response)
                     if (response.ingredients) {
                       const inst = Object.values(response.ingredients).map(item => {
@@ -212,7 +207,7 @@ export default function MealPlan({navigation}) {
 
           useEffect(() => {
            getGrocery();
-          }, []);
+          }, [events]);
 
 
    const Item = (event) => {
@@ -244,7 +239,7 @@ export default function MealPlan({navigation}) {
             </View>
 
         {index === 0 ? 
-                      (events[0].data.length > 0 || events.length > 1 ?
+                      (events && events[0].data.length > 0  || events.length > 1 ?
                         
                         <View>                        
                         <SectionList
@@ -265,7 +260,7 @@ export default function MealPlan({navigation}) {
                           </View> :
                           <View>
                             <Text style={styles.heading}>Such empty!</Text>
-                            <Text style={styles.subheading}>Start adding by going to a recipe page, and clicking on the add to calendar button.</Text>
+                            <Text style={styles.subheading}>Start adding by going to a recipe page, and clicking on the add to grocery list button.</Text>
                             <Pressable onPress={() => navigation.navigate('Home')}>
                               <Image style={styles.image} source={Calendar} alt="Icon"/> 
                             </Pressable>
@@ -324,7 +319,7 @@ const styles = StyleSheet.create({
 subheading : {
   fontSize : 17,
   color : '#3b3b3b',
-  fontFamily : 'ExoMediumItalic',
+  fontFamily : 'ExoLightItalic',
   margin : 16,
   marginBottom : 4
 },

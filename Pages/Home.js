@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from "react";
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity , Modal, Pressable, SectionList, FlatList, TextInput} from 'react-native';
+import React, { useState, useEffect, useCallback} from "react";
+import { StyleSheet, ScrollView, Text, View, RefreshControl, TouchableOpacity , Modal, Pressable, SectionList, FlatList, TextInput} from 'react-native';
 import Title from '../components/Title';
 import { MaterialIcons } from '@expo/vector-icons';
 import NutritionCard from '../components/NutritionCard'
@@ -16,13 +16,22 @@ export default function Home({navigation}) {
   const [error, setError] = useState(false)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState([]);
-  const [search, setSearch] = useState('')
   const user = useSelector(state => state.counter.token);
+  const [refreshing, setRefreshing] = React.useState(false);
+  console.log(user)
+
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
 
   
-  let panels = []
-   if(!user) {
-         navigation.navigate('LogIn')
+  if(!user) {
+    navigation.navigate('Welcome')
     }
 
     const getRecipes = () => {
@@ -49,7 +58,6 @@ export default function Home({navigation}) {
             } else {
               Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
             }
-            
         })
       .catch((err) => {
         setLoading(false)
@@ -57,9 +65,10 @@ export default function Home({navigation}) {
       })
     }
 
-  useEffect(() => {
-    getRecipes();
-  }, [1]);
+    useEffect(() => {
+      getRecipes()
+    }, [refreshing])
+
 
   const Item = (event) => {
     return(
@@ -72,8 +81,7 @@ export default function Home({navigation}) {
     return (<RecipeCardHome recipe={item} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}/> )
   }
 
-  if(recipes) {
-    panels = Object.keys(recipes).map((recipe, key) => {
+   const panels = Object.keys(recipes).map((recipe, key) => {
         return (
           <ScrollView key={key.toString()} style={{backgroundColor : '#fff'}}>
             <Title name={recipe} />
@@ -88,13 +96,21 @@ export default function Home({navigation}) {
           </ScrollView>
         ) 
     })
-}
+
+
+
  return (
     <View style={{flex : 1,}}>
       {loading ? (<LoadingScreen/>) : error ? (<Error />) : (
           <View style={{flex : 1,  backgroundColor : '#fff'}}>
-                <ScrollView style={{backgroundColor : '#fff'}}>
-                {/* <TextInput  style={styles.textInput}
+                <ScrollView style={{backgroundColor : '#fff'}} 
+                refreshControl={
+                          <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                          />
+                        } >
+                    {/* <TextInput  style={styles.textInput}
                             placeholder = "Search recipes"
                             onChangeText={text => setSearch(text)}
                             value={search}

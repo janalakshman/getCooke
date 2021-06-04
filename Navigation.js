@@ -1,21 +1,17 @@
 import React from 'react';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './Home'
-import MealPlan from './MealPlan'
-import GroceryList from './GroceryList'
-import RecipeDetail from './RecipeDetail'
-import AddRecipe from './AddRecipe'
-import Profile from './Profile'
-import SignUp from './SignUp'
-import SignIn from './SignIn'
-import Welcome from './Welcome'
-import useSelector from 'react-redux'
-import AddIngredient from '../Modal/AddIngredient'
-import CalendarModal from '../Modal/CalendarModal';
-import Contact from '../Modal/Contact'
+import Home from './Pages/Home'
+import MealPlan from './Pages/MealPlan'
+import RecipeDetail from './Pages/RecipeDetail'
+import AddRecipe from './Pages/AddRecipe'
+import Profile from './Pages/Profile'
+import SignUp from './Pages/SignUp'
+import SignIn from './Pages/SignIn'
+import Welcome from './Pages/Welcome'
+import AddIngredient from './Modal/AddIngredient'
+import Contact from './Modal/Contact'
 import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Navigation() {
     const Stack = createStackNavigator();
@@ -23,7 +19,6 @@ export default function Navigation() {
     return (
       <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome">
-        <>
         <Stack.Screen 
             name="Home" 
             component={Home}
@@ -42,7 +37,8 @@ export default function Navigation() {
                 height : 80
               },
             })} />
-      <Stack.Screen 
+        
+        <Stack.Screen 
               name="Meal plan" 
               component={MealPlan}
               options={({ navigation }) => ({
@@ -60,24 +56,7 @@ export default function Navigation() {
                   height : 80
                 },
                })}  />
-      <Stack.Screen 
-                name="Grocery list" 
-                component={GroceryList}
-                options={({ navigation }) => ({
-                  headerTitle :  () => (
-                    <View>
-                      <Text style={styles.text}>Grocery List</Text>
-                    </View>
-                  ),
-                  headerLeft : () => (
-                    <View>
-                    </View>
-                  ),
-                  headerStyle : {
-                    backgroundColor : '#fff',
-                    height : 80
-                  },
-                 })}  />
+        
         <Stack.Screen 
                 name="Profile" 
                 component={Profile}
@@ -96,6 +75,7 @@ export default function Navigation() {
                     height : 80
                   },
                  })}  />
+          
           <Stack.Screen 
                 name="RecipeDetail" 
                 component={RecipeDetail}
@@ -114,7 +94,8 @@ export default function Navigation() {
                     height : 80
                   },
                  })}  />
-           <Stack.Screen 
+          
+          <Stack.Screen 
                 name="AddRecipe" 
                 component={AddRecipe}
                 options={({ navigation }) => ({
@@ -130,6 +111,7 @@ export default function Navigation() {
                     height : 80
                   },
                  })}  />
+          
           <Stack.Screen 
                 name="AddIngredient" 
                 component={AddIngredient}
@@ -146,6 +128,7 @@ export default function Navigation() {
                     height : 80
                   },
                  })}  />
+          
           <Stack.Screen 
                 name="Contact" 
                 component={Contact}
@@ -161,10 +144,6 @@ export default function Navigation() {
                     backgroundColor : '#fff',
                   },
                  })}  /> 
-                 
-              </>
-  
-              <>
                  <Stack.Screen 
                  name="SignUp" 
                  component={SignUp}
@@ -183,7 +162,8 @@ export default function Navigation() {
                      height : 80
                    },
                   })}  />
-             <Stack.Screen 
+             
+            <Stack.Screen 
                  name="SignIn" 
                  component={SignIn}
                  options={({ navigation }) => ({
@@ -201,7 +181,8 @@ export default function Navigation() {
                      height : 80
                    },
                   })}  />
-             <Stack.Screen 
+             
+            <Stack.Screen 
                  name="Welcome" 
                  component={Welcome}
                  options={({ navigation }) => ({
@@ -218,9 +199,7 @@ export default function Navigation() {
                      backgroundColor : '#ffffff',
                      height : 0
                    },
-                  })}  />
-            </>
-                   
+                  })}  />                   
     </Stack.Navigator>
     </NavigationContainer>
     )

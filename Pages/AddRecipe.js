@@ -78,22 +78,22 @@ const getTags = () => {
  
 
 
-    // useEffect(() => {
-    //     (async () => {
-    //     if (Platform.OS !== 'web') {
-    //         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    //         if (status !== 'granted') {
-    //         alert('Sorry, we need camera roll permissions to make this work!');
-    //         }
-    //     }
-    //     })();
-    // }, []);
+    useEffect(() => {
+        (async () => {
+        if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+        })();
+    }, []);
 
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: 0.5,
+      quality: 0.75,
       allowsEditing : true,
     });
 
@@ -143,7 +143,6 @@ const getTags = () => {
                     })
                     .then((res) => res.text())
                     .then((result) => {
-                        console.log(recipe)
                         setName(null), setCarbs(null), setProtein(null), setFat(null),
                         setTime(null), setIsVeg(false), setIsOvernight(false), setAppliances(''),
                         setImage(null), setCuisine(''), setCourse(''), setDiet(''), setNotes(null), setIngredients([]), setServings(1)
@@ -152,7 +151,7 @@ const getTags = () => {
                         Alert.alert(
                             "Recipe Added",
                             "Thanks for adding your recipe!",
-                            [{ text: "OK"}]
+                            [{ text: "OK", onPress : () => navigation.navigate('Home')}]
                         )
                     })
                     .catch((err) => {
@@ -178,9 +177,9 @@ const getTags = () => {
         {loading ? (<LoadingScreen />) : (
 
             <View style={{backgroundColor : '#fff', flex : 1}} >
-            {/* <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
+            <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
                                 keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
-                                behavior={Platform.OS === "ios" ? "padding" : "height"}> */}
+                                behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <ScrollView>
                                 
                 <Title name ="Recipe Info" />
@@ -368,7 +367,7 @@ const getTags = () => {
                                                             onPress={async () => {
                                                                 let result = await ImagePicker.launchImageLibraryAsync({
                                                                   mediaTypes: ImagePicker.MediaTypeOptions.All,
-                                                                  quality: 0.4,
+                                                                  quality: 0.75,
                                                                   allowsEditing : true,
                                                                 });
                                                             
@@ -499,7 +498,7 @@ const getTags = () => {
                     select={cuisineModal ? cuisine : courseModal ? course : appliancesModal ? appliances : diet}
                     setSelect={cuisineModal ? setCuisine : courseModal ? setCourse : appliancesModal ? setAppliances : setDiet}/> : <View></View>}
                 
-            {/* </KeyboardAvoidingView>     */}
+            </KeyboardAvoidingView>    
             </View>  
 
         )}

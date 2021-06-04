@@ -3,13 +3,10 @@ import { StyleSheet, Text, View, Modal, Pressable, FlatList, ScrollView, Touchab
 import {Calendar} from 'react-native-calendars';
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux';
-import { addDate, resetData, addTime } from '../redux/counterSlice'
-import LoadingScreen from '../components/LoadingScreen'
 import config from '../config';
 import { MaterialIcons } from '@expo/vector-icons';
 import Button from '../components/Button'
 import Title from '../components/Title'
-import Navigation from '../Pages/Navigation';
 import { useNavigation } from '@react-navigation/native';
 
 

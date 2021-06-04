@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const counterSlice = createSlice({
   name: 'counter',
@@ -10,7 +12,7 @@ const counterSlice = createSlice({
         state.token = action.payload
    },
    deleteToken : (state) => {
-       state.token = ''
+        state.token = ''
    },
 
   }

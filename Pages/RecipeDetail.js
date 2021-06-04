@@ -56,7 +56,6 @@ export default function RecipeFullDetail({navigation, route, props}) {
             setCourses([])    
         })
         .catch((err) => {
-          console.log('error')
       })
     
   }

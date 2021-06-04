@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import {View, Text, StyleSheet, Image, ScrollView, ImageBackground, Pressable, FlatList} from 'react-native'
-import Title from '../components/Title'
 import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
 import { MaterialIcons } from '@expo/vector-icons';
@@ -8,29 +7,25 @@ import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteToken } from '../redux/counterSlice';
 import config from '../config'
-import Welcome from './Welcome'
+import LoadingScreen from '../components/LoadingScreen'
 import NavBar from '../components/NavBar'
 import ProfileData from '../components/ProfileData'
 import Button from '../components/Button'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import Cookbook from '../assets/Cookbook.png'
 import Liked from '../assets/Liked.png'
+import Welcome from '../Pages/Welcome'
 import background from '../assets/background.png'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
       const [index, setIndex] = useState(0)
-      const [favourites, setFavourites] = useState(null)
+      const [favourites, setFavourites] = useState([])
       const [loading, setLoading] = useState(true)
       const [error, setError] = useState(false)
-      const [cookbook, setCookbook] = useState(null)
-
-    // if(events){
-    //     events.map(event => (
-    //         console.log(event.data[0].recipe.id)
-    //     ))
-    // }
+      const [cookbook, setCookbook] = useState([])
 
      
 
@@ -101,7 +96,6 @@ export default function Profile({navigation}){
                 getFavourites();
               }, []);
 
-      
     const Item = ({item}) => {
           return(
             item.image ? 
@@ -117,7 +111,6 @@ export default function Profile({navigation}){
     }
 
     const Item2 = ({item}) => {
-      console.log(item)
       return(
         item.recipe.image ? 
           <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.recipe.id})}>
@@ -138,82 +131,95 @@ export default function Profile({navigation}){
         navigation.navigate('Welcome')
       }
 
+      // const handleLogout = async(user) => {
+      //   try {
+      //     await AsyncStorage.removeItem(user);
+      //     return true;
+      // }
+      // catch(exception) {
+      //     return false;
+      // }
+      // }
+
+console.log(user)
+
     return(
             <View style={{flex : 1}}>
-              {user ? (
+              {loading ? (<LoadingScreen/>) : (
               <View style={{flex : 1}}>
-              <ScrollView style={{backgroundColor : '#ffffff'}}>
-                <View style={{flexDirection : 'row', margin : 16, marginBottom : 0}}>
-                {user.user.profile.gender === 1 ? <Image source={maleAvatar} style={styles.avatar}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
-                    <View style={styles.line}>
-                        <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
-                        <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>
-                    </View>   
+              {user ? 
+                  <ScrollView style={{backgroundColor : '#ffffff'}}>
+                    <View style={{flexDirection : 'row', margin : 16, marginBottom : 0}}>
+                    {user.user.profile.gender === 1 ? <Image source={maleAvatar} style={styles.avatar}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
+                        <View style={styles.line}>
+                            <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
+                            <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>
+                        </View>   
+                    </View>
+
+                    
+                <ProfileData user={user}/>
+
+                <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
+                    <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
+                    <Button type="profile" name="Log Out" onPress={handleLogout(user)} />
                 </View>
 
                 
-            <ProfileData user={user}/>
+                <View style={{marginVertical : 8}}> 
+                    <SegmentedControlTab
+                        values={["Cookbook", "Favourites"]}
+                        selectedIndex={index}
+                        onTabPress={(index) => setIndex(index)}
+                        tabStyle={styles.tabStyle}
+                        borderRadius={0}
+                        tabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
+                        activeTabStyle={styles.activeTabStyle}
+                        activeTabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : '#a13e00'}}
+                        />
+                </View>
 
-            <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
-                <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
-                <Button type="profile" name="Log Out" onPress={handleLogout} />
-            </View>
-
-            
-            <View style={{marginVertical : 8}}> 
-                <SegmentedControlTab
-                    values={["Cookbook", "Favourites"]}
-                    selectedIndex={index}
-                    onTabPress={(index) => setIndex(index)}
-                    tabStyle={styles.tabStyle}
-                    borderRadius={0}
-                    tabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
-                    activeTabStyle={styles.activeTabStyle}
-                    activeTabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : '#a13e00'}}
-                    />
-            </View>
-
-                {index === 0 ?
-                    cookbook ? 
-                              <FlatList 
-                                data = {cookbook}
-                                renderItem = {Item}
-                                numColumns = {3}
-                                keyExtractor = {item => item.id.toString()}/>
-                               : 
-
-                                <View>
-                                    <Text style={styles.heading}>Get started!</Text>
-                                    <Text style={styles.subheading}>Add recipes and create your own cookbook. </Text>
-                                    
-                                    <Pressable onPress={() => navigation.navigate('AddRecipe')}>
-                                        <Image style={styles.image} source={Cookbook} alt="Icon"/> 
-                                    </Pressable>
-                                </View> :
-                    favourites ?       
-                                <FlatList 
-                                    data = {favourites}
-                                    renderItem = {Item2}
+                    {index === 0 ?
+                        cookbook && cookbook.length > 0 ? 
+                                  <FlatList 
+                                    data = {cookbook}
+                                    renderItem = {Item}
                                     numColumns = {3}
-                                    keyExtractor = {item => item.id.toString()}/> :
-                                <View>
-                                    <Text style={styles.heading}>Loving it!</Text>
-                                    <Text style={styles.subheading}>View your cooked recipes here.</Text>
-                                    <Image style={styles.image} source={Liked} alt="Icon"/> 
-                                </View>
-                }
+                                    keyExtractor = {item => item.id.toString()}/>
+                                  
+                                    : 
 
-              </ScrollView>
-              <NavBar props="Profile" />
-                
+                                    <View>
+                                        <Text style={styles.heading}>Get started!</Text>
+                                        <Text style={styles.subheading}>Add recipes and create your own cookbook. </Text>
+                                        
+                                        <Pressable onPress={() => navigation.navigate('AddRecipe')}>
+                                            <Image style={styles.image} source={Cookbook} alt="Icon"/> 
+                                        </Pressable>
+                                    </View> :
+                        favourites && favourites.length > 0 ?       
+                                    <FlatList 
+                                        data = {favourites}
+                                        renderItem = {Item2}
+                                        numColumns = {3}
+                                        keyExtractor = {item => item.id.toString()}/> :
+                                    <View>
+                                        <Text style={styles.heading}>Loving it!</Text>
+                                        <Text style={styles.subheading}>View your cooked recipes here.</Text>
+                                        <Image style={styles.image} source={Liked} alt="Icon"/> 
+                                    </View>
+                    }
 
-                </View>) : (<Welcome/>)}
-              
+                  </ScrollView> : <Welcome /> }
+                  <NavBar props="Profile" />
+                    
+                  </View>)}
+                  
 
-          </View>
+              </View>
 
-    )
-}
+        )
+    }
 
 const styles = StyleSheet.create({
     para : {
@@ -284,7 +290,7 @@ const styles = StyleSheet.create({
     subheading : {
       fontSize : 17,
       color : '#3b3b3b',
-      fontFamily : 'ExoMediumItalic',
+      fontFamily : 'ExoLightItalic',
       margin : 16,
       marginVertical : 0
     },

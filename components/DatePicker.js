@@ -6,7 +6,6 @@ import LoadingScreen from './LoadingScreen'
 
 export default function DatePicker(props) {
 
-    console.log(props)
       let fromDate = props.from.split(/\s/)[0]
       let fromMonth = props.from.split(/\s/)[1]
       let fromDay = props.from.split(/\n/)

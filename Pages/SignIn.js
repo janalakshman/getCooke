@@ -87,11 +87,11 @@ export default function SignIn(props) {
                 <View style={styles.container}>
 
 
-                            <KeyboardAvoidingView
-                                //behavior={Platform.OS === "ios" ? "padding" : "height"}
+                            {/* <KeyboardAvoidingView
+                                behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}
                                 >
-                            
+                             */}
                             <Text style={styles.text}>Your mail</Text>
 
                             <TextInput style={styles.textInput}
@@ -112,7 +112,7 @@ export default function SignIn(props) {
                             
                             <Button type="primary" name="Log In" onPress={() => handleClick()}/>
 
-                            </KeyboardAvoidingView>
+                            {/* </KeyboardAvoidingView> */}
                         </View>
             )}
         </View>
