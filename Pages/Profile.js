@@ -21,13 +21,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile({navigation}){
       const user = useSelector(state => state.counter.token);
+      const dispatch = useDispatch();
+
       const [index, setIndex] = useState(0)
       const [favourites, setFavourites] = useState([])
       const [loading, setLoading] = useState(true)
       const [error, setError] = useState(false)
       const [cookbook, setCookbook] = useState([])
 
-     
+      const handleLogout = () => {
+        dispatch(deleteToken());
+        navigation.navigate('Welcome');
+      }
 
       const getEvents = () => {
         fetch(
@@ -123,26 +128,6 @@ export default function Profile({navigation}){
           </Pressable>
         )
 }
-             
-      const dispatch = useDispatch();
-    
-      const handleLogout = () => {
-        dispatch(deleteToken())
-        navigation.navigate('Welcome')
-      }
-
-      // const handleLogout = async(user) => {
-      //   try {
-      //     await AsyncStorage.removeItem(user);
-      //     return true;
-      // }
-      // catch(exception) {
-      //     return false;
-      // }
-      // }
-
-console.log(user)
-
     return(
             <View style={{flex : 1}}>
               {loading ? (<LoadingScreen/>) : (
@@ -162,7 +147,7 @@ console.log(user)
 
                 <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
                     <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
-                    <Button type="profile" name="Log Out" onPress={handleLogout(user)} />
+                    <Button type="profile" name="Log Out" onPress={ () =>handleLogout()} />
                 </View>
 
                 

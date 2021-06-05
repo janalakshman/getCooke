@@ -18,7 +18,6 @@ export default function Home({navigation}) {
   const [events, setEvents] = useState([]);
   const user = useSelector(state => state.counter.token);
   const [refreshing, setRefreshing] = React.useState(false);
-  console.log(user)
 
   const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));

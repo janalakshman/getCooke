@@ -10,19 +10,7 @@ import Button from '../components/Button'
 
 export default function Welcome() {
 
-    const user = useSelector(state => state.counter.token);
     const navigation = useNavigation();
-    console.log(user)
-
-    useEffect(
-        () => {
-            return console.log('clean up')
-        }
-    )
-
-    if(user) {
-        navigation.navigate('Home')
-    }
     
     return(
 

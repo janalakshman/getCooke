@@ -12,13 +12,18 @@ import Welcome from './Pages/Welcome'
 import AddIngredient from './Modal/AddIngredient'
 import Contact from './Modal/Contact'
 import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Navigation() {
     const Stack = createStackNavigator();
+    const user = useSelector(state => state.counter.token);
+
+    // It will resolve most of the redirect 
+    const  defaultlandingPage = user ? 'Home' : 'Welcome';
 
     return (
       <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator initialRouteName={defaultlandingPage}>
         <Stack.Screen 
             name="Home" 
             component={Home}
