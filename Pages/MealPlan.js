@@ -121,6 +121,7 @@ const CalendarCard = (props) => {
 
 export default function MealPlan({navigation}) {
   const [events, setEvents] = useState([])
+  const [cards, setCards] = useState([])
   const user = useSelector(state => state.counter.token);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -209,7 +210,6 @@ export default function MealPlan({navigation}) {
            getGrocery();
           }, [events]);
 
-
    const Item = (event) => {
     return(
       <View style={{margin : 4}}>
@@ -239,10 +239,10 @@ export default function MealPlan({navigation}) {
             </View>
 
         {index === 0 ? 
-                      (events && events[0].data.length > 0  || events.length > 1 ?
+                      (events.length > 0 ?
                         
-                        <View>                        
-                        <SectionList
+                        <View>
+                          <SectionList
                             sections={events}
                             keyExtractor={(item, index) =>index.toString()}
                             renderItem={({ item }) => <Item title={item} />}

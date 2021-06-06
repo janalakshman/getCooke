@@ -1,16 +1,56 @@
-import React, { useState, useEffect} from "react";
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch, FlatList} from 'react-native';
+import React, { useState, useEffect, useReducer} from "react";
+import { StyleSheet, ScrollView, Text, View, KeyboardAvoidingView, Alert} from 'react-native';
 import { TextInput } from "react-native-gesture-handler";
-import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native';
 import Title from '../components/Title'
 import Button from '../components/Button'
-
+import config from '../config';
+import LoadingScreen from "../components/LoadingScreen";
 
 export default function AddIngredient({navigation}) {
-    const [problem, setProblem] = useState();
-    const [suggestions, setSuggestions] = useState();
+    const [problem, setProblem] = useState(null);
+    const [suggestions, setSuggestions] = useState(null);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const user = useSelector(state => state.counter.token)
+
+    const handleClick = () => {
+        if(problem || suggestions){
+            const payload = { issues : problem, likes : suggestions, user : user.user.id}
+            setLoading(true)
+
+            return(
+                fetch(config.api + `/v1/feedback`,
+                {
+                    method: 'POST',
+                    headers: {
+                    "Authorization":'Token ' +user.token,
+                    "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload),
+                })
+                    .then((res) => res.json())
+                    .then((result) => {
+                    setLoading(false)
+                    Alert.alert(
+                        "Feedback submitted",
+                        "Thank you for your feedback. We will address them as soon as possible!",
+                        [
+                            {text : "Ok"},
+                        ]
+                        )
+                        setMarkedDates({})
+                        setCourses([])    
+                    })
+                    .catch((err) => {
+                    console.log('error')
+                })
+                    )
+                }
+                else 
+                    setError(true)
+
+            }
 
  
 
@@ -19,6 +59,7 @@ export default function AddIngredient({navigation}) {
         <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
                               keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
                               behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        {loading ? (<LoadingScreen/>) : (
             <ScrollView>
                             
             <Title name="Problems faced on the app" />
@@ -29,6 +70,8 @@ export default function AddIngredient({navigation}) {
                     onChangeText={name => setProblem(name)}
                     value={problem}
                     name="problem" />
+                {error ?  <Text style={styles.error}>*Both fields cannot be empty</Text> : <View/>}
+
 
             <Title name="Recipes you would like" />
 
@@ -38,7 +81,8 @@ export default function AddIngredient({navigation}) {
                     onChangeText={amount => setSuggestions(amount)}
                     value={suggestions}
                     name="suggestions" />
-                
+                {error ?  <Text style={styles.error}>*Both fields cannot be empty</Text> : <View/>}
+
 
                 <View style={{flexGrow : 1}} />
 
@@ -50,6 +94,8 @@ export default function AddIngredient({navigation}) {
                 <Button type="primary" name="Send Feedback" onPress={() => handleClick()} />
 
             </ScrollView>
+        )}
+            
         </KeyboardAvoidingView>    
     </View>
   );
@@ -74,5 +120,11 @@ const styles = StyleSheet.create({
         margin : 16,
         color : '#3b3b3b',
         fontSize : 17
+    },
+    error : {
+        fontFamily : 'ExoRegular',
+        fontSize : 14,
+        color : '#B00020',
+        marginLeft : 16
     }
 });

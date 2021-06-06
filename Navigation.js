@@ -24,51 +24,15 @@ export default function Navigation() {
     return (
       <NavigationContainer>
       <Stack.Navigator initialRouteName={defaultlandingPage}>
-        <Stack.Screen 
-            name="Home" 
-            component={Home}
-            options={({ navigation }) => ({
-              headerTitle : () => (
-                <View>
-                    <Text style={styles.text}>Discover</Text>
-                </View>
-              ),
-              headerLeft : () => (
-                <View>
-                </View>
-              ),
-              headerStyle : {
-                backgroundColor : '#fff',
-                height : 80
-              },
-            })} />
-        
-        <Stack.Screen 
-              name="Meal plan" 
-              component={MealPlan}
-              options={({ navigation }) => ({
-                headerTitle : () => (
-                  <View>
-                      <Text style={styles.text}>Calendar</Text>
-                  </View>
-                ),
-                headerLeft : () => (
-                  <View>
-                  </View>
-                ),
-                headerStyle : {
-                  backgroundColor : '#fff',
-                  height : 80
-                },
-               })}  />
-        
-        <Stack.Screen 
-                name="Profile" 
-                component={Profile}
+        {user ? (
+          <>
+              <Stack.Screen 
+                name="Home" 
+                component={Home}
                 options={({ navigation }) => ({
-                  headerTitle :  () => (
+                  headerTitle : () => (
                     <View>
-                      <Text style={styles.text}>Profile</Text>
+                        <Text style={styles.text}>Discover</Text>
                     </View>
                   ),
                   headerLeft : () => (
@@ -79,77 +43,119 @@ export default function Navigation() {
                     backgroundColor : '#fff',
                     height : 80
                   },
-                 })}  />
-          
-          <Stack.Screen 
-                name="RecipeDetail" 
-                component={RecipeDetail}
-                options={({ navigation }) => ({
-                  headerTitle :  () => (
-                    <View></View>
-                  ),
-                  headerRight : () => (
-                    <View style={{flexDirection : 'row', justifyContent : 'space-around', marginRight : 4}}>
-                    </View>
-                  ),
-                  headerTintColor : '#3b3b3b',
-                  headerBackTitle : ' ',
-                  headerStyle : {
-                    backgroundColor : '#fff',
-                    height : 80
-                  },
-                 })}  />
-          
-          <Stack.Screen 
-                name="AddRecipe" 
-                component={AddRecipe}
-                options={({ navigation }) => ({
-                  headerTitle :  () => (
-                    <View>
-                      <Text style={styles.text}>Add Recipe</Text>
-                    </View>
-                  ),
-                  headerTintColor : '#3b3b3b',
-                  headerBackTitle : ' ',
-                  headerStyle : {
-                    backgroundColor : '#fff',
-                    height : 80
-                  },
-                 })}  />
-          
-          <Stack.Screen 
-                name="AddIngredient" 
-                component={AddIngredient}
-                options={({ navigation }) => ({
-                  headerTitle :  () => (
-                    <View>
-                      <Text style={styles.text}>Add Ingredient</Text>
-                    </View>
-                  ),
-                  headerTintColor : '#3b3b3b',
-                  headerBackTitle : ' ',
-                  headerStyle : {
-                    backgroundColor : '#fff',
-                    height : 80
-                  },
-                 })}  />
-          
-          <Stack.Screen 
-                name="Contact" 
-                component={Contact}
-                options={({ navigation }) => ({
-                  headerTitle :  () => (
-                    <View>
-                      <Text style={styles.text}>Contact</Text>
-                    </View>
-                  ),
-                  headerTintColor : '#3b3b3b',
-                  headerBackTitle : ' ',
-                  headerStyle : {
-                    backgroundColor : '#fff',
-                  },
-                 })}  /> 
-                 <Stack.Screen 
+                })} />
+            
+              <Stack.Screen 
+                  name="Meal plan" 
+                  component={MealPlan}
+                  options={({ navigation }) => ({
+                    headerTitle : () => (
+                      <View>
+                          <Text style={styles.text}>Calendar</Text>
+                      </View>
+                    ),
+                    headerLeft : () => (
+                      <View>
+                      </View>
+                    ),
+                    headerStyle : {
+                      backgroundColor : '#fff',
+                      height : 80
+                    },
+                  })}  />
+            
+            <Stack.Screen 
+                    name="Profile" 
+                    component={Profile}
+                    options={({ navigation }) => ({
+                      headerTitle :  () => (
+                        <View>
+                          <Text style={styles.text}>Profile</Text>
+                        </View>
+                      ),
+                      headerLeft : () => (
+                        <View>
+                        </View>
+                      ),
+                      headerStyle : {
+                        backgroundColor : '#fff',
+                        height : 80
+                      },
+                    })}  />
+              
+              <Stack.Screen 
+                    name="RecipeDetail" 
+                    component={RecipeDetail}
+                    options={({ navigation }) => ({
+                      headerTitle :  () => (
+                        <View></View>
+                      ),
+                      headerRight : () => (
+                        <View style={{flexDirection : 'row', justifyContent : 'space-around', marginRight : 4}}>
+                        </View>
+                      ),
+                      headerTintColor : '#3b3b3b',
+                      headerBackTitle : ' ',
+                      headerStyle : {
+                        backgroundColor : '#fff',
+                        height : 80
+                      },
+                    })}  />
+              
+              <Stack.Screen 
+                    name="AddRecipe" 
+                    component={AddRecipe}
+                    options={({ navigation }) => ({
+                      headerTitle :  () => (
+                        <View>
+                          <Text style={styles.text}>Add Recipe</Text>
+                        </View>
+                      ),
+                      headerTintColor : '#3b3b3b',
+                      headerBackTitle : ' ',
+                      headerStyle : {
+                        backgroundColor : '#fff',
+                        height : 80
+                      },
+                    })}  />
+              
+              <Stack.Screen 
+                    name="AddIngredient" 
+                    component={AddIngredient}
+                    options={({ navigation }) => ({
+                      headerTitle :  () => (
+                        <View>
+                          <Text style={styles.text}>Add Ingredient</Text>
+                        </View>
+                      ),
+                      headerTintColor : '#3b3b3b',
+                      headerBackTitle : ' ',
+                      headerStyle : {
+                        backgroundColor : '#fff',
+                        height : 80
+                      },
+                    })}  />
+              
+              <Stack.Screen 
+                    name="Contact" 
+                    component={Contact}
+                    options={({ navigation }) => ({
+                      headerTitle :  () => (
+                        <View>
+                          <Text style={styles.text}>Contact</Text>
+                        </View>
+                      ),
+                      headerTintColor : '#3b3b3b',
+                      headerBackTitle : ' ',
+                      headerStyle : {
+                        backgroundColor : '#fff',
+                      },
+                    })}  /> 
+          </>
+        ) : (
+          <>
+            
+            <Stack.Screen 
                  name="SignUp" 
                  component={SignUp}
                  options={({ navigation }) => ({
@@ -204,7 +210,10 @@ export default function Navigation() {
                      backgroundColor : '#ffffff',
                      height : 0
                    },
-                  })}  />                   
+                  })}  />           
+          </>
+        )}
+                
     </Stack.Navigator>
     </NavigationContainer>
     )
