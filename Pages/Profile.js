@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {View, Text, StyleSheet, Image, ScrollView, ImageBackground, Pressable, FlatList} from 'react-native'
 import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
+import Cooke from '../assets/CookeLogo.png'
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
@@ -135,7 +136,7 @@ export default function Profile({navigation}){
               {user ? 
                   <ScrollView style={{backgroundColor : '#ffffff'}}>
                     <View style={{flexDirection : 'row', margin : 16, marginBottom : 0}}>
-                    {user.user.profile.gender === 1 ? <Image source={maleAvatar} style={styles.avatar}/> : user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.image} /> : <View></View>} 
+                    {user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.avatar}/> : user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image} /> : <Image source={Cooke} style={styles.image} />} 
                         <View style={styles.line}>
                             <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                             <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>

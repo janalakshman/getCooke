@@ -208,7 +208,7 @@ export default function Navigation() {
                    ),
                    headerStyle : {
                      backgroundColor : '#ffffff',
-                     height : 0
+                     height : 80
                    },
                   })}  />           
           </>
