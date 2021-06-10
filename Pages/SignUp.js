@@ -91,10 +91,10 @@ async function signup() {
                 <View style={styles.container}>
 
 
-                            {/* <KeyboardAvoidingView
+                            <KeyboardAvoidingView
                                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}
-                                > */}
+                                >
                             
                             <Text style={styles.text}>Your mail</Text>
 
@@ -127,7 +127,7 @@ async function signup() {
                                 
                             <Button type="primary" name="Sign Up" onPress={() => handleClick()} />
 
-                            {/* </KeyboardAvoidingView> */}
+                            </KeyboardAvoidingView>
                         </View>
             )}
         </View>

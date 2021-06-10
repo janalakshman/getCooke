@@ -47,7 +47,9 @@ const styles = StyleSheet.create({
         // shadowOffset : {width : 0, height : 4},
     },
   image : {
-      height : 180,
+      flex : 1,
+      resizeMode : 'contain',
+      aspectRatio : 1,
       width : 180,
       marginBottom : 4,
       borderTopLeftRadius : 0,

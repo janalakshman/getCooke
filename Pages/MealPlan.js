@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from "react";
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList, Image, Alert } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, SectionList, Image, Alert, RefreshControl } from 'react-native';
 import Title from '../components/Title';
 import { MaterialIcons } from '@expo/vector-icons';
 import config from '../config';
@@ -59,13 +59,11 @@ const CalendarCard = (props) => {
           <View style={{marginBottom : 16}}>
               <View style={styles.card}> 
 
-                  <View>
                       <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
                         {props.event.title.recipe.image ? 
                             <Image source={{uri : props.event.title.recipe.image}} alt="Recipe" style={styles.recipe}/> :
                             <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/> }
                       </Pressable> 
-                  </View> 
                   
                   <View style={{flexDirection : 'column', justifyContent : 'center', height : 180, marginVertical : 4, margin : 16, marginBottom : 0, width : '50%'}}>
                           <Text style={styles.text}>{props.event.title.recipe.name.length > 24 ? props.event.title.recipe.name.slice(0,24)+ '...' : props.event.title.recipe.name}</Text>                       
@@ -80,7 +78,7 @@ const CalendarCard = (props) => {
                              </View>
                            : <View></View> }
 
-                              <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
+                              <View style={{flexDirection : 'row', justify : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="food-bank" style={styles.icon} />
                                   <Text style={styles.smalltext}>{props.event.title.servings === 1 ? '1 serving' : props.event.title.servings + ' servings'}</Text>
                               </View>
@@ -126,6 +124,16 @@ export default function MealPlan({navigation}) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [index, setIndex] = useState(0)
+  const [refreshing, setRefreshing] = React.useState(false);
+
+      const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
+
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []);
 
   //Get call for calendar events
 
@@ -223,7 +231,11 @@ export default function MealPlan({navigation}) {
       {loading ? (<LoadingScreen/>) : error ? (<Error/>) : (
           <View style={{flex : 1}}>
 
-          <ScrollView style={{backgroundColor : '#fff'}}>
+          <ScrollView style={{backgroundColor : '#fff'}} refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />}>
           
           <View> 
                 <SegmentedControlTab
@@ -389,7 +401,9 @@ delete : {
   marginBottom : 4
   },
 recipe : {
-    height : 180,
+    flex : 1,
+    aspectRatio : 1,
+    resizeMode : 'contain',
     width : 180,
     borderTopLeftRadius : 0,
     borderRadius : 20

@@ -102,7 +102,7 @@ export default function Home({navigation}) {
     <View style={{flex : 1,}}>
       {loading ? (<LoadingScreen/>) : error ? (<Error />) : (
           <View style={{flex : 1,  backgroundColor : '#fff'}}>
-                <ScrollView style={{backgroundColor : '#fff'}} 
+                <ScrollView style={{backgroundColor : '#fffafa'}} 
                 refreshControl={
                           <RefreshControl
                             refreshing={refreshing}

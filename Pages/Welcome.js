@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
-import { Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native'
+import { Text, StyleSheet, Image, KeyboardAvoidingView, ScrollView} from 'react-native'
 import Icon from '../assets/Assistant.png'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -15,6 +15,10 @@ export default function Welcome() {
     return(
 
         <View style={{backgroundColor : '#ffffff', flex : 1, flexDirection : 'column'}}>
+            <KeyboardAvoidingView
+                                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                                style={styles.container}
+                                >
 
             <View style={{flexGrow : 1}}></View>
             
@@ -31,6 +35,10 @@ export default function Welcome() {
             <Button type="primary" name="Sign Up" onPress={() => navigation.navigate('SignUp')} />
 
             <Button type="secondary" name="Log In" onPress={() => navigation.navigate('SignIn')} />
+
+            <View style={{flexGrow : 1}}></View>
+
+            </KeyboardAvoidingView>
 
         </View>
 

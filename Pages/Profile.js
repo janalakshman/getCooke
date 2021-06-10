@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {View, Text, StyleSheet, Image, ScrollView, ImageBackground, Pressable, FlatList} from 'react-native'
+import {View, Text, StyleSheet, Image, ScrollView, ImageBackground, Pressable, FlatList, RefreshControl} from 'react-native'
 import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
 import Cooke from '../assets/CookeLogo.png'
@@ -29,6 +29,16 @@ export default function Profile({navigation}){
       const [loading, setLoading] = useState(true)
       const [error, setError] = useState(false)
       const [cookbook, setCookbook] = useState([])
+      const [refreshing, setRefreshing] = React.useState(false);
+
+      const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
+
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []);
 
       const handleLogout = () => {
         dispatch(deleteToken());
@@ -100,7 +110,7 @@ export default function Profile({navigation}){
        useEffect(() => {
                 getEvents();
                 getFavourites();
-              }, []);
+              }, [refreshing]);
 
     const Item = ({item}) => {
           return(
@@ -134,7 +144,11 @@ export default function Profile({navigation}){
               {loading ? (<LoadingScreen/>) : (
               <View style={{flex : 1}}>
               {user ? 
-                  <ScrollView style={{backgroundColor : '#ffffff'}}>
+                  <ScrollView style={{backgroundColor : '#ffffff'}} refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />}>
                     <View style={{flexDirection : 'row', margin : 16, marginBottom : 0}}>
                     {user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.avatar}/> : user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image} /> : <Image source={Cooke} style={styles.image} />} 
                         <View style={styles.line}>
@@ -287,9 +301,11 @@ const styles = StyleSheet.create({
       margin : 16,
     },
     recipeImage : {
-      height : 110,
+      flex : 1,
+      aspectRatio : 1,
+      resizeMode : 'contain',
       margin : 1,
-      borderRadius : 0,
+      borderRadius : 2,
     },
     imageText : {
       margin : 1,

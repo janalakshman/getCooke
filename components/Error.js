@@ -15,6 +15,7 @@ export default function Error(){
     console.log(typeof(user))
 
     const handleError = () => {
+        dispatch(deleteToken())
         navigation.navigate('Welcome')
     }
 

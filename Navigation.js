@@ -199,7 +199,6 @@ export default function Navigation() {
                  options={({ navigation }) => ({
                    headerTitle : () => (
                      <View>
-                        <Text style={styles.text}>Cook-e</Text>
                      </View>
                    ),
                    headerLeft : () => (
@@ -208,7 +207,6 @@ export default function Navigation() {
                    ),
                    headerStyle : {
                      backgroundColor : '#ffffff',
-                     height : 80
                    },
                   })}  />           
           </>

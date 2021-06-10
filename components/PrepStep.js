@@ -61,9 +61,12 @@ export default function PrepStep(props) {
     },
     image : {
       width : '85%',
-      height : 300,
-      borderRadius : 20,
+      flex: 1,
+      aspectRatio: 1,
+      alignSelf : 'center', 
+      resizeMode: 'contain',
       borderTopLeftRadius : 0,
+      borderRadius : 20,
       marginBottom : 32,
       paddingHorizontal : 16
   },

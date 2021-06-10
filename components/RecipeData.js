@@ -36,10 +36,12 @@ export default function RecipeData(props){
 
 const styles = StyleSheet.create({
   image : {
-      height : 343,
-      width : '90%',
+    flex: 1,
+    aspectRatio: 1,
+    width : '90%',
+    alignSelf : 'center', 
+    resizeMode: 'contain',
       margin : 16,
-      alignSelf : 'center',
       borderTopLeftRadius : 0,
       borderRadius : 20
   },
