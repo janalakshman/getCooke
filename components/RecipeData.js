@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     width : '90%',
     alignSelf : 'center', 
     resizeMode: 'contain',
-      margin : 16,
-      borderTopLeftRadius : 0,
-      borderRadius : 20
+    margin : 16,
+    borderTopLeftRadius : 0,
+    borderRadius : 20
   },
   icon : {
       fontSize : 16,

@@ -147,7 +147,7 @@ const getTags = () => {
                         setName(null), setCarbs(null), setProtein(null), setFat(null),
                         setTime(null), setIsVeg(false), setIsOvernight(false), setAppliances(''),
                         setImage(null), setCuisine(''), setCourse(''), setDiet(''), setNotes(null), setIngredients([]), setServings(1)
-                        setLoading(false);
+                        setLoading(false), setSteps([]);
                         setError(false)
                         Alert.alert(
                             "Recipe Added",

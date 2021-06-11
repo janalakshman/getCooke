@@ -102,8 +102,6 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   
                   <Title name="Author Info" />
                     <RecipeDescription recipe = {recipe}/>
-                  
-               
 
                     <View style={{margin : 16}}></View>
 
