@@ -239,7 +239,7 @@ export default function MealPlan({navigation}) {
           
           <View> 
                 <SegmentedControlTab
-                    values={["Meal plan", "Grocery list"]}
+                    values={["Calendar", "Grocery list"]}
                     selectedIndex={index}
                     onTabPress={(index) => setIndex(index)}
                     tabStyle={styles.tabStyle}

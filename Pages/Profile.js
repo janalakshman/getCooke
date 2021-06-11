@@ -197,6 +197,7 @@ export default function Profile({navigation}){
                                             <Image style={styles.image} source={Cookbook} alt="Icon"/> 
                                         </Pressable>
                                     </View> :
+                        
                         favourites && favourites.length > 0 ?       
                                     <FlatList 
                                         data = {favourites}

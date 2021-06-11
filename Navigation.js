@@ -51,7 +51,7 @@ export default function Navigation() {
                   options={({ navigation }) => ({
                     headerTitle : () => (
                       <View>
-                          <Text style={styles.text}>Calendar</Text>
+                          <Text style={styles.text}>Meal plan</Text>
                       </View>
                     ),
                     headerLeft : () => (
