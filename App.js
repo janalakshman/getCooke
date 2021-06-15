@@ -14,6 +14,7 @@ export default function App() {
     'ExoBoldItalic' : require('./assets/fonts/Exo/Exo-BoldItalic.ttf'),
     'ExoBold' : require('./assets/fonts/Exo/Exo-Bold.ttf'),
     'ExoSemiBold' : require('./assets/fonts/Exo/Exo-SemiBold.ttf'),
+    'ExoSemiBoldItalic' : require('./assets/fonts/Exo/Exo-SemiBoldItalic.ttf'),
     'ExoMedium' : require('./assets/fonts/Exo/Exo-Medium.ttf'),
     'ExoRegular' : require('./assets/fonts/Exo/Exo-Regular.ttf'),
     'ExoMediumItalic' : require('./assets/fonts/Exo/Exo-MediumItalic.ttf'),

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {View, Text, StyleSheet, Image, ScrollView, ImageBackground, Pressable, FlatList, RefreshControl} from 'react-native'
+import {View, Text, StyleSheet, Image, ScrollView, Alert, Pressable, FlatList, RefreshControl} from 'react-native'
 import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
 import Cooke from '../assets/CookeLogo.png'
@@ -41,8 +41,21 @@ export default function Profile({navigation}){
       }, []);
 
       const handleLogout = () => {
-        dispatch(deleteToken());
-        navigation.navigate('Welcome');
+        Alert.alert(
+          "DANGER!",
+          "Are you sure you want to log out?",
+          [ 
+            { text: "Log out", onPress: () => {
+              dispatch(deleteToken());
+              navigation.navigate('Welcome');
+            } },
+            {
+              text: "Cancel",
+              style: "cancel"
+            }            
+          ]
+        );
+        
       }
 
       const getEvents = () => {
@@ -138,7 +151,8 @@ export default function Profile({navigation}){
             </View>
           </Pressable>
         )
-}
+    }
+
     return(
             <View style={{flex : 1}}>
               {loading ? (<LoadingScreen/>) : (
@@ -158,15 +172,26 @@ export default function Profile({navigation}){
                     </View>
 
                     
-                <ProfileData user={user}/>
+                {/* <ProfileData user={user}/> */}
+                        <View style={{flex : 1, margin : 16, marginBottom : 8, marginTop : 32}}>
+                          <Button type="profile" name="A better meal plan awaits you!" onPress={() => navigation.navigate('editProfile')}/>
+                        </View>
 
-                <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
-                    <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
-                    <Button type="profile" name="Log Out" onPress={ () =>handleLogout()} />
-                </View>
+                    <View style={{flexDirection : 'row', justifyContent : 'space-evenly', flex : 1, marginTop : 0, margin : 16, marginBottom : 32}} >
+                        
+
+                        <View style={{flex : 1, marginRight : 2}}>
+                          <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
+                        </View>
+
+                        <View style={{flex :1, marginLeft : 2}}>
+                          <Button type="profile" name="Log Out" onPress={ () =>handleLogout()} />
+                        </View>
+                    </View>
+
 
                 
-                <View style={{marginVertical : 8}}> 
+                <View> 
                     <SegmentedControlTab
                         values={["Cookbook", "Favourites"]}
                         selectedIndex={index}
@@ -190,12 +215,9 @@ export default function Profile({navigation}){
                                     : 
 
                                     <View>
-                                        <Text style={styles.heading}>Get started!</Text>
-                                        <Text style={styles.subheading}>Add recipes and create your own cookbook. </Text>
-                                        
-                                        <Pressable onPress={() => navigation.navigate('AddRecipe')}>
-                                            <Image style={styles.image} source={Cookbook} alt="Icon"/> 
-                                        </Pressable>
+                                        <Text style={styles.heading}>Empty?</Text>
+                                        <Text style={styles.subheading}>Ask your nutritionist to fill up some amazing recipes</Text>
+                                        <Image style={styles.image} source={Cookbook} alt="Icon"/> 
                                     </View> :
                         
                         favourites && favourites.length > 0 ?       
@@ -206,7 +228,7 @@ export default function Profile({navigation}){
                                         keyExtractor = {item => item.id.toString()}/> :
                                     <View>
                                         <Text style={styles.heading}>Loving it!</Text>
-                                        <Text style={styles.subheading}>View your cooked recipes here.</Text>
+                                        <Text style={styles.subheading}>Let your nutritionist know what recipes you love</Text>
                                         <Image style={styles.image} source={Liked} alt="Icon"/> 
                                     </View>
                     }
@@ -234,7 +256,7 @@ const styles = StyleSheet.create({
         resizeMode : 'contain',
     },
     text : {
-        fontSize : 17,
+        fontSize : 19,
         color : '#3b3b3b',
         fontFamily : 'ExoSemiBold',
         marginLeft : 16,
@@ -291,14 +313,14 @@ const styles = StyleSheet.create({
     subheading : {
       fontSize : 17,
       color : '#3b3b3b',
-      fontFamily : 'ExoLightItalic',
+      fontFamily : 'ExoRegular',
       margin : 16,
       marginVertical : 0
     },
     heading : {
       fontSize : 24,
       color : '#3b3b3b',
-      fontFamily : 'ExoSemiBold',
+      fontFamily : 'ExoSemiBoldItalic',
       margin : 16,
     },
     recipeImage : {

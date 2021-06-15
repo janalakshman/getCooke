@@ -7,6 +7,7 @@ import config from '../config';
 import LoadingScreen from "../components/LoadingScreen";
 import { useSelector } from 'react-redux'
 import Calendar from '../assets/Calendar.png'
+import NutritionCard from '../components/NutritionCard'
 import { Pressable } from 'react-native';
 import Error from '../components/Error'
 import NavBar from '../components/NavBar'
@@ -103,12 +104,12 @@ const CalendarCard = (props) => {
 
                   </View>
 
-              { props.point == 1 ? 
+              {/* { props.point == 1 ? 
               <TouchableOpacity style={styles.delete} onPress={handleDelete}> 
                   <MaterialIcons name="delete" style={styles.icon} />
                   <Text style={styles.smalltext}>Delete</Text>
               </TouchableOpacity>
-              : <View></View> }
+              : <View></View> } */}
           </View>
 
       )    
@@ -139,7 +140,7 @@ export default function MealPlan({navigation}) {
 
             const getEvents = () => {
               fetch(
-                    config.api + `/v1/events`,
+                    config.api + `/v1/meal-plan`,
                     {
                       method: "GET",
                       headers: {
@@ -154,6 +155,7 @@ export default function MealPlan({navigation}) {
                   })
                   .then(([status, response])=> {
                         if(status === 200) {
+                          console.log(response)
                           setEvents(response)
                           setLoading(false)
                           setError(false)
@@ -172,7 +174,6 @@ export default function MealPlan({navigation}) {
                       getEvents();
                     }, [ins]);
 
-    
     //GET call for grocery list
           
           const [grocery, setGrocery] = useState({})
@@ -254,21 +255,19 @@ export default function MealPlan({navigation}) {
                       (events.length > 0 ?
                         
                         <View>
-                          <SectionList
-                            sections={events}
-                            keyExtractor={(item, index) =>index.toString()}
-                            renderItem={({ item }) => <Item title={item} />}
-                            renderSectionHeader={({ section: { title } }) => {
-                              return(
-                                <Title name={title}/>
-                              )
-                            }}
-                            // renderSectionFooter={({ section : {nutrition}}) => (
-                            //   <View style={{marginTop : 16}}>
-                            //       <NutritionCard nutrition={nutrition} />
-                            //   </View>
-                            // )}
-                          />
+                          {events.map(response => {
+                              <Title name={response.date}/>
+                              
+                                // response.meal.map(meal => {
+                                //   <View>
+                                //     <Text>{meal.meal}</Text>
+                                //   </View>
+                                // })
+                                  
+                              
+                          }
+                          )}
+                          
                           </View> :
                           <View>
                             <Text style={styles.heading}>Such empty!</Text>
@@ -331,7 +330,7 @@ const styles = StyleSheet.create({
 subheading : {
   fontSize : 17,
   color : '#3b3b3b',
-  fontFamily : 'ExoLightItalic',
+  fontFamily : 'ExoRegular',
   margin : 16,
   marginBottom : 4
 },
@@ -345,7 +344,7 @@ body1 : {
 heading : {
   fontSize : 24,
   color : '#3b3b3b',
-  fontFamily : 'ExoSemiBold',
+  fontFamily : 'ExoSemiBoldItalic',
   marginTop : 32,
   marginHorizontal : 16
 },
@@ -356,23 +355,6 @@ card : {
   paddingBottom : 0, 
   alignSelf : 'center',
   flexGrow : 1,
-},
-snackscard : {
-  backgroundColor : '#9ed2ea',
-  flexDirection : 'column',
-  width : '88%',
-  padding : 16, 
-  margin : 8,
-  borderRadius : 4,
-  alignSelf : 'center',
-  flexGrow : 1,
-  borderTopLeftRadius : 0,
-  borderRadius : 20,
-  elevation : 3,
-  shadowRadius : 2,
-  shadowOpacity : 0.5,
-  shadowColor : 'rgba(0, 0, 0, 0.25)',
-  shadowOffset : {width : 0, height : 4},
 },
 imageIcon : {
   height : 16,

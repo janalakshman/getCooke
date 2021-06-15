@@ -26,7 +26,6 @@ export default function SecondaryButton(props) {
         textAlign : 'center'
     },
     button: {
-      borderRadius : 8,
       backgroundColor : '#f1f1f1',
       borderWidth : 1,
       borderColor : '#cfcfcf',
@@ -37,7 +36,8 @@ export default function SecondaryButton(props) {
       paddingVertical : 120,
       alignItems : 'center',
       width : '100%',
-      justifyContent : 'center'
+      justifyContent : 'center',
+      borderRadius : 8
       },
 
   });

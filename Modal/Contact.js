@@ -62,7 +62,7 @@ export default function AddIngredient({navigation}) {
         {loading ? (<LoadingScreen/>) : (
             <ScrollView>
                             
-            <Title name="Problems faced on the app" />
+            <Title name="Feedback" />
 
                 <TextInput style={styles.name}
                     multiline
@@ -73,11 +73,11 @@ export default function AddIngredient({navigation}) {
                 {error ?  <Text style={styles.error}>*Both fields cannot be empty</Text> : <View/>}
 
 
-            <Title name="Recipes you would like" />
+            <Title name="Emotional state" />
 
                 <TextInput style={styles.name}
                     multiline
-                    placeholder = "Vegan dishes like..."
+                    placeholder = "Are you angry/upset/happy/confused?"
                     onChangeText={amount => setSuggestions(amount)}
                     value={suggestions}
                     name="suggestions" />
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius : 0,
         borderColor : '#cfcfcf',
         borderWidth : 1,
-        height : 100,
+        height : 108,
         width : '90%',
         margin : 16,
         padding : 16,
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     contact : {
         fontFamily : 'ExoRegular',
         margin : 16,
+        marginBottom : 32,
         color : '#3b3b3b',
         fontSize : 17
     },

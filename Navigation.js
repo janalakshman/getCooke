@@ -1,15 +1,12 @@
 import React from 'react';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './Pages/Home'
 import MealPlan from './Pages/MealPlan'
 import RecipeDetail from './Pages/RecipeDetail'
-import AddRecipe from './Pages/AddRecipe'
+import EditProfile from './Pages/EditProfile'
 import Profile from './Pages/Profile'
-import SignUp from './Pages/SignUp'
 import SignIn from './Pages/SignIn'
 import Welcome from './Pages/Welcome'
-import AddIngredient from './Modal/AddIngredient'
 import Contact from './Modal/Contact'
 import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,48 +16,29 @@ export default function Navigation() {
     const user = useSelector(state => state.counter.token);
 
     // It will resolve most of the redirect 
-    const  defaultlandingPage = user ? 'Home' : 'Welcome';
+    const  defaultlandingPage = user ? 'Meal plan' : 'Welcome';
 
     return (
       <NavigationContainer>
       <Stack.Navigator initialRouteName={defaultlandingPage}>
         {user ? (
-          <>
-              <Stack.Screen 
-                name="Home" 
-                component={Home}
-                options={({ navigation }) => ({
-                  headerTitle : () => (
-                    <View>
-                        <Text style={styles.text}>Discover</Text>
-                    </View>
-                  ),
-                  headerLeft : () => (
-                    <View>
-                    </View>
-                  ),
-                  headerStyle : {
-                    backgroundColor : '#fff',
-                    height : 80
-                  },
-                })} />
-            
+          <>            
               <Stack.Screen 
                   name="Meal plan" 
                   component={MealPlan}
                   options={({ navigation }) => ({
                     headerTitle : () => (
                       <View>
-                          <Text style={styles.text}>Meal plan</Text>
                       </View>
                     ),
                     headerLeft : () => (
                       <View>
+                          <Text style={styles.text}>Meal plan</Text>
                       </View>
                     ),
                     headerStyle : {
                       backgroundColor : '#fff',
-                      height : 80
+                      height : 104
                     },
                   })}  />
             
@@ -70,16 +48,16 @@ export default function Navigation() {
                     options={({ navigation }) => ({
                       headerTitle :  () => (
                         <View>
-                          <Text style={styles.text}>Profile</Text>
                         </View>
                       ),
                       headerLeft : () => (
                         <View>
+                            <Text style={styles.text}>Profile</Text>
                         </View>
                       ),
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 80
+                        height : 104
                       },
                     })}  />
               
@@ -103,36 +81,19 @@ export default function Navigation() {
                     })}  />
               
               <Stack.Screen 
-                    name="AddRecipe" 
-                    component={AddRecipe}
+                    name="editProfile" 
+                    component={EditProfile}
                     options={({ navigation }) => ({
                       headerTitle :  () => (
                         <View>
-                          <Text style={styles.text}>Add Recipe</Text>
+                            <Text style={styles.text}>Edit Profile</Text>
                         </View>
                       ),
                       headerTintColor : '#3b3b3b',
                       headerBackTitle : ' ',
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 80
-                      },
-                    })}  />
-              
-              <Stack.Screen 
-                    name="AddIngredient" 
-                    component={AddIngredient}
-                    options={({ navigation }) => ({
-                      headerTitle :  () => (
-                        <View>
-                          <Text style={styles.text}>Add Ingredient</Text>
-                        </View>
-                      ),
-                      headerTintColor : '#3b3b3b',
-                      headerBackTitle : ' ',
-                      headerStyle : {
-                        backgroundColor : '#fff',
-                        height : 80
+                        height : 104
                       },
                     })}  />
               
@@ -142,49 +103,32 @@ export default function Navigation() {
                     options={({ navigation }) => ({
                       headerTitle :  () => (
                         <View>
-                          <Text style={styles.text}>Contact</Text>
+                            <Text style={styles.text}>Contact</Text>
                         </View>
                       ),
                       headerTintColor : '#3b3b3b',
                       headerBackTitle : ' ',
                       headerStyle : {
                         backgroundColor : '#fff',
+                        height : 104
                       },
                     })}  /> 
           </>
         ) : (
           <>
-            
-            <Stack.Screen 
-                 name="SignUp" 
-                 component={SignUp}
-                 options={({ navigation }) => ({
-                   headerTitle : () => (
-                     <View>
-                        <Text style={styles.text}>Sign Up</Text>
-                     </View>
-                   ),
-                   headerLeft : () => (
-                     <View>
-                     </View>
-                   ),
-                   headerStyle : {
-                     backgroundColor : '#fff',
-                     height : 80
-                   },
-                  })}  />
-             
+                       
             <Stack.Screen 
                  name="SignIn" 
                  component={SignIn}
                  options={({ navigation }) => ({
                    headerTitle : () => (
                      <View>
-                        <Text style={styles.text}>Log In</Text>
+                        
                      </View>
                    ),
                    headerLeft : () => (
                      <View>
+                       <Text style={styles.text}>Log In</Text>
                      </View>
                    ),
                    headerStyle : {
@@ -219,8 +163,8 @@ export default function Navigation() {
 
   const styles = StyleSheet.create({
     text : {
-      color : '#626262',
-      fontSize : 19,
+      color : '#333333',
+      fontSize : 24,
       fontFamily : 'ExoBoldItalic',
       marginHorizontal : 16
   },

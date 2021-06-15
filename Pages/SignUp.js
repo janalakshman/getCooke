@@ -33,7 +33,7 @@ export default function SignUp() {
     const user = useSelector(state => state.counter.token);
 
     if(user) {
-        navigation.navigate('Home')
+        navigation.navigate('Meal plan')
     }
 
 async function signup() {
@@ -74,7 +74,7 @@ async function signup() {
         .then(([status, result])=> {
               if(status === 200) {
                 dispatch(setToken(result))
-                return navigation.navigate('Home')
+                return navigation.navigate('Meal plan')
               } else {
                 Alert.alert( "Incorrect credentials", "Username or password is incorrect", {text : "OK"} )
               }

@@ -10,8 +10,6 @@ export default function Header(props){
             <View style={styles.line}>
                 <Text style={styles.heading}>{props.recipe.servings}</Text>
                 <Text style={styles.heading}>{props.recipe.servings === 1 ? 'serving' : 'servings'}</Text>
-                    {/* <MaterialIcons name="remove" style={styles.icon} onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)}/> */}
-                    {/* <MaterialIcons name="add" style={styles.icon}  onPress={(count) => setServings(count + 1)}/> */}
             </View>
             
             <View style={{margin : 8}}/>

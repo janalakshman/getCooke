@@ -41,18 +41,20 @@ export default function Button(props) {
     profileText : {
         color : '#3b3b3b',
         fontSize : 14,
-        fontFamily : 'ExoMedium',
+        fontFamily : 'ExoSemiBold',
         margin : 4,
         textAlign : 'center',
-        width : '50%'
+        flexGrow : 1
     },
     profile: {
       borderRadius : 4,
       backgroundColor : '#fff',
       borderWidth : 1,
-      borderColor : '#626262',
+      borderColor : '#cfcfcf',
       alignSelf : 'center',
       flexDirection : 'row',
+      padding : 2,
+      flexGrow : 1
     },
     floatingText : {
       color : '#A13E00',
@@ -133,14 +135,14 @@ export default function Button(props) {
     },
   delete : {
       fontSize : 14,
-      color : '#626262',
+      color : '#a13e00',
       paddingTop : 10,
       paddingBottom : 10,
   },
   deleteText : {
-    color : '#626262',
+    color : '#a13e00',
     fontSize : 14,
-    fontFamily : 'ExoMedium',
+    fontFamily : 'ExoRegular',
     margin : 8,
     marginHorizontal : 16
   },

@@ -108,7 +108,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   <Title name="Ingredients for" />
                     <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings}/>
                   
-                  <Button type="secondary" name="Add to grocery list" onPress={() => setModalVisible(true)}/>
+                  {/* <Button type="secondary" name="Add to grocery list" onPress={() => setModalVisible(true)}/> */}
 
                     <View style={{margin : 8}}></View>
 
@@ -118,9 +118,8 @@ export default function RecipeFullDetail({navigation, route, props}) {
                     <Title name="Nutrition info for" />
                     <NutritionCard recipe={recipe}/> 
                   </View> : <View></View>}
-
                   
-                  <Button type="secondary" name="Add to favourites" onPress={handleClick}/>
+                  {/* <Button type="secondary" name="Add to favourites" onPress={handleClick}/> */}
 
                   
                   <View style={{margin : 8}}></View>

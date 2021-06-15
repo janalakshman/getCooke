@@ -38,7 +38,7 @@ export default function SignIn(props) {
     const dispatch = useDispatch();
 
     if(user) {
-        navigation.navigate('Home')
+        navigation.navigate('Meal plan')
     }
 
     async function LogIn() {
@@ -68,7 +68,7 @@ export default function SignIn(props) {
           .then(([status, result])=> {
               if(status === 200) {
                 dispatch(setToken(result))
-                return navigation.navigate('Home')
+                return navigation.navigate('Meal plan')
               } else {
                 Alert.alert( "Incorrect credentials", "Username or password is incorrect", 
                                 {text : "OK", onPress : () => console.log("")} )
@@ -82,39 +82,38 @@ export default function SignIn(props) {
 
     return(
         <View style={{flex : 1, backgroundColor : '#fff', flexDirection : 'column'}}>
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+
             {loading ? (<LoadingScreen />) :
             (
-                <View style={styles.container}>
+                <ScrollView style={styles.container}>
+                    
+                    <Text style={styles.body}>We are on beta! Only users subscribed to nutritionists on our platform can login.</Text>
 
+                    <Text style={styles.text}>Your mail</Text>
 
-                            <KeyboardAvoidingView
-                                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                                style={styles.container}
-                                >
-                            
-                            <Text style={styles.text}>Your mail</Text>
+                    <TextInput style={styles.textInput}
+                                placeholder = "Your mail"
+                                onChangeText={text => onChangeUserID(text)}
+                                value={userID}
+                                autoFocus={true}/>
 
-                            <TextInput style={styles.textInput}
-                                        placeholder = "Your mail"
-                                        onChangeText={text => onChangeUserID(text)}
-                                        value={userID}
-                                        autoFocus={true}/>
+                    <Text style={styles.text}>Password</Text>
 
-                            <Text style={styles.text}>Password</Text>
+                    <TextInput style={styles.textInput}
+                                placeholder = "Password"
+                                secureTextEntry={true}
+                                onChangeText={text => onChangePassword(text)}
+                                value={password}/>
 
-                            <TextInput style={styles.textInput}
-                                        placeholder = "Password"
-                                        secureTextEntry={true}
-                                        onChangeText={text => onChangePassword(text)}
-                                        value={password}/>
+                    <View style={{flexGrow : 1}}></View>
+                    
 
-                            <View style={{flexGrow : 1}}></View>
-                            
-                            <Button type="primary" name="Log In" onPress={() => handleClick()}/>
-
-                            </KeyboardAvoidingView>
-                        </View>
+                </ScrollView>
             )}
+            <Button type="primary" name="Log In" onPress={() => handleClick()}/>
+
+            </KeyboardAvoidingView>
         </View>
        
     )
@@ -123,7 +122,7 @@ export default function SignIn(props) {
 const styles = StyleSheet.create({
     container : {
         backgroundColor : '#fff',
-        flexGrow : 1,
+        flex : 1,
         flexDirection : 'column'
     },
     subtitle : {
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
         alignSelf : 'center'
             },
     text : {
-        fontSize : 17,
+        fontSize : 19,
         color : '#3b3b3b',
         margin : 16,
         fontFamily : 'ExoMedium'
@@ -167,6 +166,12 @@ const styles = StyleSheet.create({
         margin : 16,
         fontFamily : 'ExoRegular',
         fontSize : 17
+    },
+    body : {
+        fontSize : 17,
+        color : '#626262',
+        fontFamily : 'ExoRegular',
+        margin : 16,
     },
 }
 

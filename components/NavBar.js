@@ -11,17 +11,18 @@ export default function Home(props) {
  return (
      
             <View style={styles.navigation}>
-                    <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
+                    {/* <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
                       <MaterialIcons name="search" style={props.props === 'Home' ? styles.selectedIcon : styles.icon}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
                         <MaterialIcons name="event-note" style={props.props === 'Meal plan' ? styles.selectedIcon : styles.icon}/>
                     </TouchableOpacity>
-
+                    
+                    {/* 
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('AddRecipe')} >
                         <MaterialIcons name="create" style={props.props === 'AddRecipe' ? styles.selectedIcon : styles.icon}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
                       <MaterialIcons name="account-box" style={props.props === 'Profile' ? styles.selectedIcon : styles.icon}/>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
 },
 tab : {
   alignItems : 'center',
-  width : '25%',
+  width : '50%',
 },
 icon : {
   color : 'rgba(207, 207, 207, 0.99)',
