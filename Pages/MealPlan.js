@@ -158,6 +158,7 @@ export default function MealPlan({navigation}) {
                       {events.length > 0 ?
                           <View>
 
+                        {/* Date header */}
                               <View style={styles.line}>
                                   <MaterialIcons name="arrow-back-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
                                   <View style={{flexGrow : 1}}></View>
@@ -166,24 +167,19 @@ export default function MealPlan({navigation}) {
                                   <MaterialIcons name="arrow-forward-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
                               </View>
 
-
-
+                          {/* Course name */}
                               <Title name="Breakfast" />
 
-
+                          {/* Recipe component */}
                               <CalendarCard event={dummy}/>
-                              <CalendarCard event={dummy}/>
 
+                          {/* Ingredient component */}
                               <View style={styles.box}>
                                 <Text style={styles.ing}>Milk</Text>
                                 <View style={{flexGrow : 1}}></View>
                                 <Text style={styles.unit}>100 ml </Text>
                               </View>
-                              <View style={styles.box}>
-                                <Text style={styles.ing}>Whole egg whites</Text>
-                                <View style={{flexGrow : 1}}></View>
-                                <Text style={styles.unit}>2 numb</Text>
-                              </View>
+
 
                           </View>
                           
