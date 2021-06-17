@@ -8,6 +8,7 @@ import Profile from './Pages/Profile'
 import SignIn from './Pages/SignIn'
 import Welcome from './Pages/Welcome'
 import Contact from './Modal/Contact'
+import GroceryList from './Pages/GroceryList'
 import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -38,9 +39,28 @@ export default function Navigation() {
                     ),
                     headerStyle : {
                       backgroundColor : '#fff',
-                      height : 104
                     },
                   })}  />
+            
+            <Stack.Screen 
+                    name="GroceryList" 
+                    component={GroceryList}
+                    options={({ navigation }) => ({
+                      headerTitle :  () => (
+                        <View>
+                        </View>
+                      ),
+                      headerLeft : () => (
+                        <View>
+                            <Text style={styles.text}>Grocery list</Text>
+                        </View>
+                      ),
+                      headerTintColor : '#3b3b3b',
+                      headerBackTitle : ' ',
+                      headerStyle : {
+                        backgroundColor : '#fff',
+                      },
+                    })}  /> 
             
             <Stack.Screen 
                     name="Profile" 
@@ -57,7 +77,6 @@ export default function Navigation() {
                       ),
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 104
                       },
                     })}  />
               
@@ -76,7 +95,6 @@ export default function Navigation() {
                       headerBackTitle : ' ',
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 80
                       },
                     })}  />
               
@@ -93,7 +111,6 @@ export default function Navigation() {
                       headerBackTitle : ' ',
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 104
                       },
                     })}  />
               
@@ -110,7 +127,6 @@ export default function Navigation() {
                       headerBackTitle : ' ',
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 104
                       },
                     })}  /> 
           </>
@@ -132,8 +148,7 @@ export default function Navigation() {
                      </View>
                    ),
                    headerStyle : {
-                     backgroundColor : '#ffffff',
-                     height : 80
+                     backgroundColor : '#fff',
                    },
                   })}  />
              
@@ -150,7 +165,7 @@ export default function Navigation() {
                      </View>
                    ),
                    headerStyle : {
-                     backgroundColor : '#ffffff',
+                     backgroundColor : '#fff',
                    },
                   })}  />           
           </>
@@ -164,9 +179,9 @@ export default function Navigation() {
   const styles = StyleSheet.create({
     text : {
       color : '#333333',
-      fontSize : 24,
+      fontSize : 19,
       fontFamily : 'ExoBoldItalic',
-      marginHorizontal : 16
+      marginHorizontal : 16,
   },
   icon : {
     color : '#3b3b3b',

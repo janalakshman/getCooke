@@ -16,6 +16,7 @@ import SegmentedControlTab from "react-native-segmented-control-tab";
 import Cookbook from '../assets/Cookbook.png'
 import Liked from '../assets/Liked.png'
 import Welcome from '../Pages/Welcome'
+import Avatar from '../assets/avatar.png'
 import background from '../assets/background.png'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -60,11 +61,10 @@ export default function Profile({navigation}){
 
       const getEvents = () => {
         fetch(
-              config.api + `/v1/recipes`,
+              config.api + `/v1/master-recipes?username=` + user.client.nutrition.username,
               {
                 method: "GET",
                 headers: {
-                  "Authorization":'Token ' + user.token,
                   "Content-Type": "application/json"
                 },
                 mode: "cors",
@@ -112,7 +112,6 @@ export default function Profile({navigation}){
                   } else {
                     Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
                   }
-                  
               })
             .catch((err) => {
              setLoading(false)
@@ -128,7 +127,7 @@ export default function Profile({navigation}){
     const Item = ({item}) => {
           return(
             item.image ? 
-              <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}>
+              <Pressable style={{flex : 1/3, marginHorizontal : 0.5}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}>
                 <Image source={{uri : item.image}} style={styles.recipeImage} /> 
               </Pressable> :
               <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}>
@@ -164,7 +163,7 @@ export default function Profile({navigation}){
                       onRefresh={onRefresh}
                     />}>
                     <View style={{flexDirection : 'row', margin : 16, marginBottom : 0}}>
-                    {user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.avatar}/> : user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image} /> : <Image source={Cooke} style={styles.image} />} 
+                    {user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.avatar}/> : user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image} /> : <Image source={Avatar} style={styles.image} />} 
                         <View style={styles.line}>
                             <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                             <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>
@@ -174,7 +173,7 @@ export default function Profile({navigation}){
                     
                 {/* <ProfileData user={user}/> */}
                         <View style={{flex : 1, margin : 16, marginBottom : 8, marginTop : 32}}>
-                          <Button type="profile" name="A better meal plan awaits you!" onPress={() => navigation.navigate('editProfile')}/>
+                          <Button type="profile" name="Improve meal plan" onPress={() => navigation.navigate('editProfile')}/>
                         </View>
 
                     <View style={{flexDirection : 'row', justifyContent : 'space-evenly', flex : 1, marginTop : 0, margin : 16, marginBottom : 32}} >
@@ -205,14 +204,16 @@ export default function Profile({navigation}){
                 </View>
 
                     {index === 0 ?
-                        cookbook && cookbook.length > 0 ? 
-                                  <FlatList 
-                                    data = {cookbook}
-                                    renderItem = {Item}
-                                    numColumns = {3}
-                                    keyExtractor = {item => item.id.toString()}/>
+                        cookbook ? 
+                                <View style={{paddingBottom : 16}}>
+                                    <FlatList 
+                                      data = {cookbook.recipes}
+                                      renderItem = {Item}
+                                      numColumns = {3}
+                                      keyExtractor = {item => item.id.toString()}/>
+                                </View>
                                   
-                                    : 
+                                  : 
 
                                     <View>
                                         <Text style={styles.heading}>Empty?</Text>
@@ -293,6 +294,7 @@ const styles = StyleSheet.create({
         borderBottomWidth : 1,
         height : 40,
         marginVertical : 16,
+        marginTop : 8,
         backgroundColor : '#fff',
         borderColor : '#fff',
         borderBottomColor : 'rgba(207, 207, 207, 0.99)'
@@ -300,6 +302,7 @@ const styles = StyleSheet.create({
     activeTabStyle : {
         borderBottomWidth : 1,
         height : 40,
+        marginTop : 8,
         marginVertical : 16,
         backgroundColor : '#fff',
         borderBottomColor : '#a13e00',
@@ -327,13 +330,15 @@ const styles = StyleSheet.create({
       flex : 1,
       aspectRatio : 1,
       resizeMode : 'contain',
-      margin : 1,
-      borderRadius : 2,
+      borderRadius : 4,
+      borderTopLeftRadius : 0,
+      marginVertical : 1
     },
     imageText : {
       margin : 1,
       height : 110,
-      borderRadius : 0,
+      borderRadius : 4,
+      borderTopLeftRadius : 0,
       alignItems : 'center',
       justifyContent : 'center',
       backgroundColor : '#fffafa'

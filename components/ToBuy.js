@@ -4,11 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const ToBuyItem = (props) => {
-    var [ isPress, setIsPress ] = useState(false);
+    // var [ isPress, setIsPress ] = useState(false);
   
       return(
           <View style={{padding : 0}}>
-            {
+            {/* {
             isPress ? 
               <Pressable style={styles.box}  onPress={() => setIsPress(!isPress)} >
                   <MaterialIcons name="check-box" size={24} color="black" />
@@ -22,9 +22,9 @@ const ToBuyItem = (props) => {
                           ))}
                   </View>
               </Pressable> 
-            :
-              <Pressable style={styles.box}  onPress={() => setIsPress(!isPress)} >
-                  <MaterialIcons name="check-box-outline-blank" size={24} color="black" />
+            : */}
+              <View style={styles.box} >
+                  {/* <MaterialIcons name="check-box-outline-blank" size={24} color="black" /> */}
                   <View style={{flexDirection : 'row', alignItems : 'center'}}>
                       <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
                       <View style={{flexGrow : 1}}></View>
@@ -35,8 +35,8 @@ const ToBuyItem = (props) => {
                           ))}
                         
                   </View>
-            </Pressable>  
-            }
+            </View>  
+            {/* } */}
             <View style={{margin : 8}}></View>
               
           </View>

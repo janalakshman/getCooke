@@ -19,16 +19,6 @@ Amplify.configure({
 });
 
 
-const data = [
-    {
-      label: 'Male'
-     },
-     {
-      label: 'Female'
-     }
-    ];
-
-
 export default function SignIn(props) {
     const [userID, onChangeUserID] = useState('');
     const [password, onChangePassword] = useState('');

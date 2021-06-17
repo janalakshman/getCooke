@@ -1,19 +1,13 @@
 import React, { useState, useEffect} from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, Switch, Image, ImageBackground} from 'react-native';
-import Title from '../components/Title';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, KeyboardAvoidingView, RefreshControl, Image, ImageBackground} from 'react-native';
 import config from '../config';
 import LoadingScreen from "../components/LoadingScreen";
 import { TextInput } from "react-native-gesture-handler";
-import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '../components/Button'
-import * as ImagePicker from 'expo-image-picker';
-import ImageInput from '../components/ImageInput';
 import TagModal from "../Modal/TagModal";
 import { Alert } from "react-native";
-import * as ImageManipulator from 'expo-image-manipulator';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import RadioForm from 'react-native-simple-radio-button';
 
 var radio_props = [
     {label: 'Male', value: 0 },
@@ -22,44 +16,48 @@ var radio_props = [
   ];
   
 
-export default function AddRecipe({navigation}) {
+export default function EditProfile({navigation}) {
 
 const user = useSelector(state => state.counter.token)
 
-const [name, setName] = useState(null)
+const [refreshing, setRefreshing] = React.useState(false);
+
+      const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
+
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []);
+
+const [name, setName] = useState(name ? name : null)
+const [gender, setGender ] = useState(gender ? gender : null);
+const [weight, setWeight] = useState(weight ? weight : null)
+const [height, setHeight] = useState(height ? height : null)
+const [age, setAge] = useState(null)
+const [history, setHistory] = useState(null)
+const [workout, setWorkout] = useState(null)
+const [love, setLove] = useState(null)
+const [hate, setHate] = useState(null)
 const [time, setTime] = useState(null)
-const [image, setImage] = useState(null)
-const [notes, setNotes] = useState(null)
-const [steps, setSteps] = useState([])
-const [servings, setServings] = useState(1)
-const [ingredients, setIngredients] = useState([])
-const [carbs, setCarbs] = useState(null)
-const [protein, setProtein] = useState(null)
-const [fat, setFat] = useState(null)
-const [isVeg, setIsVeg] = useState(false)
-const [isOvernight, setIsOvernight] = useState(false)
+const [goals, setGoals] = useState(null)
+const [special, setSpecial] = useState(null)
 const [appliances, setAppliances] = useState('')
 const [appliancesModal, setAppliancesModal] = useState(false)
 const [cuisine, setCuisine] = useState('')
 const [cuisineModal, setCuisineModal] = useState(false)
-const [course, setCourse] = useState('')
-const [courseModal, setCourseModal] = useState(false)
 const [diet, setDiet] = useState('')
 const [dietModal, setDietModal] = useState(false)
 const [tags, setTags] = useState(null)
 const [loading, setLoading] = useState(false)
-const [error, setError] = useState(false)
-const toggleVeg = () => setIsVeg(previousState => !previousState);
-const toggleOvernight = () => setIsOvernight(previousState => !previousState);
-let calories = carbs*4 + protein*4 + fat*9
-let courseID, cuisineID, appliancesID, dietID
+let cuisineID, appliancesID, dietID
+let bmi = Math.round(weight*10000/(height*height), 2)
 
-if(course) {courseID = course.map(c => c.id)}
 if(cuisine) {cuisineID = cuisine.map(c => c.id)}
 if(appliances) {appliancesID = appliances.map(c => c.id)}
 if(diet) {dietID = diet.map(c=>c.id)}
 
-const [radioGender, setRadioGender ] = useState(0);
 
 useEffect(() => {
     getTags();
@@ -83,66 +81,7 @@ const getTags = () => {
 
     const onSubmit = () => {
         setLoading(true)
-        const recipe = {
-            user : user.user.id,
-            name : name ? name : '',
-            servings : servings ? servings : 1,
-            cooking_time : time ? time : 0,
-            image_url : image,
-            notes : notes ? notes : '',
-            steps : steps,
-            ingredients : ingredients,
-            carbs : carbs ? carbs : 0,
-            protein : protein ? protein : 0,
-            fat : fat ? fat : 0,
-            calories : calories ? calories : 0,
-            isVeg : isVeg,
-            over_night_prep : isOvernight,
-            cooking_appliance : appliancesID ? appliancesID : [],
-            course : courseID ? courseID : [],
-            cuisine : cuisineID ? cuisineID : [],
-            type_of_meals : dietID ? dietID : []
-        }
-        if((name && time && ingredients && steps)){
-            return(
-                fetch(config.api + `/v1/recipes`,
-                    {
-                    method: 'POST',
-                    headers: {
-                        "Authorization":'Token ' +user.token,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(recipe),
-                    })
-                    .then((res) => res.text())
-                    .then((result) => {
-                        setName(null), setCarbs(null), setProtein(null), setFat(null),
-                        setTime(null), setIsVeg(false), setIsOvernight(false), setAppliances(''),
-                        setImage(null), setCuisine(''), setCourse(''), setDiet(''), setNotes(null), setIngredients([]), setServings(1)
-                        setLoading(false), setSteps([]);
-                        setError(false)
-                        Alert.alert(
-                            "Recipe Added",
-                            "Thanks for adding your recipe!",
-                            [{ text: "OK", onPress : () => navigation.navigate('Home')}]
-                        )
-                    })
-                    .catch((err) => {
-                        setLoading(false);
-                    })
-                )
-            }else{
-                setLoading(false)
-                setError(true)
-                return(
-                    Alert.alert(
-                        "Input fields missing!",
-                        "Please add all the required fields and try again.",
-                        [{ text: "OK"}]
-                    )
-                )
-            } 
-    };
+        } 
 
 
   return (
@@ -150,10 +89,16 @@ const getTags = () => {
         {loading ? (<LoadingScreen />) : (
 
             <View style={{backgroundColor : '#fff', flex : 1}} >
-            <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
-                                keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
-                                behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                <ScrollView>
+                <KeyboardAvoidingView 
+                        style={{backgroundColor : '#fff', flex : 1}} 
+                        keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}>
+
+                <ScrollView  refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />}>
 
                     <View style={{margin : 8}} />
 
@@ -161,7 +106,7 @@ const getTags = () => {
 
                         <TextInput style={styles.name}
                             placeholder = "Or the name you have always wanted"
-                            onChangeText={name => setName(name)}
+                            onChangeText={note => setName(note)}
                             value={name}
                             name="name" />
 
@@ -174,12 +119,13 @@ const getTags = () => {
                         <View style={{marginHorizontal : 32, margin : 16}}>
                             <RadioForm
                                 radio_props={radio_props}
-                                initial={radioGender}
+                                initial={gender}
                                 animation={true}
-                                onPress={(value) => {setRadioGender(value)}}
+                                onPress={(value) => setGender(value)}
                                 labelStyle={{fontFamily : 'ExoRegular', color : '#3b3b3b'}}
                                 />
                         </View>
+
 
                     <View style={{margin : 8}} />        
                     
@@ -191,40 +137,41 @@ const getTags = () => {
                                 <View style={styles.line}>
                                     <Text style={styles.body}>Weight</Text>     
                                     <TextInput style={styles.nutrition}
-                                                    placeholder = "kg"
-                                                    onChangeText={carbs => setCarbs(carbs)}
-                                                    value={carbs}
-                                                    keyboardType="numeric"
-                                                    name="carbs" />
+                                        placeholder = "kg"
+                                        onChangeText={weight => setWeight(weight)}
+                                        value={weight}
+                                        keyboardType="numeric"
+                                        name="weight" />
                                 </View>
 
                                 <View style={styles.line}>
                                     <Text style={styles.body}>Height</Text>     
                                     <TextInput style={styles.nutrition}
-                                                    placeholder = "cm"
-                                                    onChangeText={protein => setProtein(protein)}
-                                                    value={protein}
-                                                    keyboardType="numeric"
-                                                    name="protein" />
+                                        placeholder = "cm"
+                                        onChangeText={height => setHeight(height)}
+                                        value={height}
+                                        keyboardType="numeric"
+                                        name="height" />
                                 </View>
 
                                 <View style={styles.line}>
                                     <Text style={styles.body}>Age</Text>     
                                     <TextInput style={styles.nutrition}
-                                                    placeholder = "years"
-                                                    onChangeText={fat => setFat(fat)}
-                                                    value={fat}
-                                                    keyboardType="numeric"
-                                                    name="fat" />
+                                        placeholder = "years"
+                                        onChangeText={age => setAge(age)}
+                                        value={age}
+                                        keyboardType="numeric"
+                                        name="age" />
                                 </View>
                             </View>
                                 
-                                    <View style={styles.calories}>
-                                        <Text style={styles.subheading}>Body Mass Index : {protein ? carbs ? Math.round(carbs*10000/(protein*protein), 2) : 0 : 0}</Text>
-                                    </View>     
+                                <View style={styles.calories}>
+                                    <Text style={styles.subheading}>Body Mass Index : {height ? weight ? Math.round(weight*10000/(height*height), 2) : 0 : 0}</Text>
+                                </View>     
 
-                                </View>
+                    </View>
                     
+
                     <View style={{margin : 8}} />
 
                             <Text style={styles.text}>Medical history</Text>
@@ -232,9 +179,9 @@ const getTags = () => {
                             <TextInput style={styles.notes}
                                     multiline
                                     placeholder = "We care about this a lot. Spare no details!"
-                                    onChangeText={notes => setNotes(notes)}
-                                    value={notes}
-                                    name="notes" />
+                                    onChangeText={notes => setHistory(notes)}
+                                    value={history}
+                                    name="history" />
 
                     <View style={{margin : 8}} />
 
@@ -246,11 +193,12 @@ const getTags = () => {
                             <TextInput style={styles.notes}
                                     multiline
                                     placeholder = "Couch potato / Gym freak / In between?"
-                                    onChangeText={notes => setNotes(notes)}
-                                    value={notes}
-                                    name="notes" />
+                                    onChangeText={notes => setWorkout(notes)}
+                                    value={workout}
+                                    name="workout" />
 
                     <View style={{margin : 8}} />
+
 
                     <View style={{margin : 8}} />
 
@@ -259,9 +207,9 @@ const getTags = () => {
                             <TextInput style={styles.notes}
                                     multiline
                                     placeholder = "The dishes you can't help but salivate"
-                                    onChangeText={notes => setNotes(notes)}
-                                    value={notes}
-                                    name="notes" />
+                                    onChangeText={notes => setLove(notes)}
+                                    value={love}
+                                    name="love" />
 
                     <View style={{margin : 8}} /> 
 
@@ -273,25 +221,38 @@ const getTags = () => {
                             <TextInput style={styles.notes}
                                     multiline
                                     placeholder = "You will rather fast than eat this"
-                                    onChangeText={notes => setNotes(notes)}
-                                    value={notes}
-                                    name="notes" />
+                                    onChangeText={notes => setHate(notes)}
+                                    value={hate}
+                                    name="hate" />
 
                     <View style={{margin : 8}} />
 
-                     <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Time per day</Text>
+                    <View style={{margin : 8}} />
+
+                            <Text style={styles.text}>Time available to cook per day</Text>
 
                             <TextInput style={styles.notes}
                                     multiline
                                     placeholder = "Describe your cooking schedule/ arrangement"
-                                    onChangeText={notes => setNotes(notes)}
-                                    value={notes}
-                                    name="notes" />
+                                    onChangeText={notes => setTime(notes)}
+                                    value={time}
+                                    name="time" />
+
+                    <View style={{margin : 8}} />
+
+                    <View style={{margin : 8}} />
+
+                            <Text style={styles.text}>Your fitness goals</Text>
+
+                            <TextInput style={styles.notes}
+                                    multiline
+                                    placeholder = "It's okay to be ambitious!"
+                                    onChangeText={notes => setGoals(notes)}
+                                    value={goals}
+                                    name="goals" />
 
                     <View style={{margin : 8}} />  
-
 
 
                     <View style={{margin : 8}} />
@@ -301,11 +262,12 @@ const getTags = () => {
                             <TextInput style={styles.notes}
                                     multiline
                                     placeholder = "Ooooh! More information. We love it!"
-                                    onChangeText={notes => setNotes(notes)}
-                                    value={notes}
-                                    name="notes" />
+                                    onChangeText={notes => setSpecial(notes)}
+                                    value={special}
+                                    name="special" />
 
                     <View style={{margin : 8}} />
+
 
                     <View style={{margin : 8}} />
 
@@ -322,6 +284,7 @@ const getTags = () => {
                                             <Text style={styles.placeholder}>Cuisine</Text>
                                         </TouchableOpacity>
                                 }
+                            
                             {cuisine ? 
                                 <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
                                 : <View/>}
@@ -344,12 +307,14 @@ const getTags = () => {
                                             <Text style={styles.placeholder}>Cooking Appliances</Text>
                                         </TouchableOpacity>
                                 }
+                            
                             {appliances ? 
                                 <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
                                 : <View/>}
 
 
                     <View style={{margin : 8}} />
+
 
                     <View style={{margin : 8}} />
 
@@ -366,6 +331,7 @@ const getTags = () => {
                                             <Text style={styles.placeholder}>Diet</Text>
                                         </TouchableOpacity>
                                 }
+                            
                             {diet ? 
                                 <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
                                 : <View/>}
@@ -373,17 +339,27 @@ const getTags = () => {
 
                     <View style={{margin : 16}} />            
 
+
                     <Button type="primary" name="Save Profile" onPress={() => onSubmit()} />
                     
 
                 </ScrollView>
 
-                {cuisineModal || courseModal || appliancesModal || dietModal ? 
-                    <TagModal tags={tags} modalVisible={cuisineModal ? cuisineModal : courseModal ? courseModal : appliancesModal ? appliancesModal : dietModal}
-                    setModalVisible={cuisineModal ? setCuisineModal : courseModal ? setCourseModal : appliancesModal ? setAppliancesModal : setDietModal}
-                    name={cuisineModal ? 'Cuisine' : courseModal ? 'Course' : appliancesModal ? 'Cooking Appliances' : 'Diet'}
-                    select={cuisineModal ? cuisine : courseModal ? course : appliancesModal ? appliances : diet}
-                    setSelect={cuisineModal ? setCuisine : courseModal ? setCourse : appliancesModal ? setAppliances : setDiet}/> : <View></View>}
+                        {cuisineModal || appliancesModal || dietModal ? 
+                            
+                                <TagModal   
+                                    tags={tags} modalVisible={cuisineModal ? cuisineModal : appliancesModal ? appliancesModal : dietModal}
+                                    setModalVisible={cuisineModal ? setCuisineModal : appliancesModal ? setAppliancesModal : setDietModal}
+                                    name={cuisineModal ? 'Cuisine' : appliancesModal ? 'Cooking Appliances' : 'Diet'}
+                                    select={cuisineModal ? cuisine : appliancesModal ? appliances : diet}
+                                    setSelect={cuisineModal ? setCuisine : appliancesModal ? setAppliances : setDiet}
+                                /> 
+                                    
+                                    : 
+                            
+                                <View></View>
+
+                        }
                 
             </KeyboardAvoidingView>    
             </View>  
@@ -404,8 +380,9 @@ const styles = StyleSheet.create({
         width : '90%',
         margin : 16,
         padding : 16,
-        fontFamily : 'ExoMedium',
-        fontSize : 14,
+        fontFamily : 'ExoRegular',
+        fontSize : 17,
+        color : '#626262',
         alignContent : 'flex-start',
         backgroundColor : '#fff',
     },
@@ -470,7 +447,6 @@ const styles = StyleSheet.create({
         margin : 32,
         borderColor : '#a13e00',
         borderWidth : 1,
-        marginBottom : 16
     },
     body : {
         fontSize : 16,
@@ -478,90 +454,6 @@ const styles = StyleSheet.create({
         margin : 4,
         fontFamily : 'ExoRegular',
     },
-    heading : {
-        fontFamily : 'ExoSemiBold',
-        fontSize : 17,
-        margin : 16
-    },
-    subheading : {
-        fontFamily : 'ExoMedium',
-        fontSize : 17,
-        color : '#a13e00',
-        margin : 8,
-        textAlign : 'center'
-    },
-    main : {
-        color : '#3b3b3b',
-        fontSize : 32,
-        fontFamily : 'Lora',
-        margin : 16
-    },
-    smalltext : {
-        fontSize : 16,
-        color : '#3b3b3b',
-        margin : 8,
-        fontFamily : 'ExoRegular'
-    },
-    delete : {
-      flexDirection : 'row', 
-      alignItems : 'center', 
-      justifyContent : 'flex-start', 
-      marginBottom : 8,
-      marginHorizontal : 16
-    },
-    icon : {
-        fontSize : 16,
-        color : '#626262',
-    },
-    buttonText : {
-        color : '#A13E00',
-        fontSize : 19,
-        fontFamily : 'ExoSemiBold',
-        margin : 8,
-        flexGrow : 1,
-        textAlign : 'center'
-    },
-      button: {
-          borderRadius : 4,
-          backgroundColor : '#ffc885',
-          margin : 16,
-          flexDirection : 'row',
-          alignSelf : 'center'
-        } ,
-    servings : {
-        fontFamily : 'ExoRegular',
-        fontSize : 17,
-        marginHorizontal : 16,
-        marginVertical : 8,
-        width : '40%',
-        color : '#3b3b3b'
-    },
-    servingsUnit : {
-        fontFamily : 'ExoRegular',
-        fontSize : 17,
-        marginHorizontal : 16,
-        marginVertical : 8,
-        color : '#3b3b3b'
-    },
-    box : {
-        margin : 16,
-        marginTop : 0,
-        justifyContent : 'flex-start',
-        alignItems : 'flex-start',
-        borderColor : '#cfcfcf',
-    },
-    image : {
-        flex : 1,
-        aspectRatio : 1,
-        borderRadius : 20,
-        borderTopLeftRadius : 0,
-        resizeMode : 'contain'
-    },
-    background: {
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center"
-      },
     placeholder : {
         fontFamily : 'ExoRegular',
         fontSize : 17,
@@ -602,12 +494,13 @@ const styles = StyleSheet.create({
         paddingVertical : 8,
         color : '#a13e00',
     },
-    error : {
-        fontFamily : 'ExoRegular',
-        fontSize : 14,
-        color : '#3b3b3b',
-        margin : 16,
-        alignSelf : 'center'
+    subheading : {
+        fontFamily : 'ExoMedium',
+        fontSize : 17,
+        color : '#a13e00',
+        alignSelf : 'center',
+        margin : 8,
+        marginHorizontal : 16,
     }
 
 });

@@ -48,7 +48,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
               "Recipe added",
               "Recipe added to your favourites succesfully!",
               [
-                {text : "Go to home", onPress : () => { navigation.navigate('Home')}},
+                {text : "Go to profile", onPress : () => { navigation.navigate('Profile')}},
                 {text : "OK"},
               ]
               )
@@ -97,13 +97,13 @@ export default function RecipeFullDetail({navigation, route, props}) {
                 <ScrollView key={recipe.id.toString()}>
                   <RecipeData recipe = {recipe} />
 
-                    <View style={{margin : 16}}></View>
+                    <View style={{margin : 8}}></View>
 
                   
-                  <Title name="Author Info" />
+                  <Title name="Author info" />
                     <RecipeDescription recipe = {recipe}/>
 
-                    <View style={{margin : 16}}></View>
+                    <View style={{margin : 8}}></View>
 
                   <Title name="Ingredients for" />
                     <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings}/>
@@ -119,7 +119,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
                     <NutritionCard recipe={recipe}/> 
                   </View> : <View></View>}
                   
-                  {/* <Button type="secondary" name="Add to favourites" onPress={handleClick}/> */}
+                  <Button type="secondary" name="Add to favourites" onPress={handleClick}/>
 
                   
                   <View style={{margin : 8}}></View>

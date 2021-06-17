@@ -11,7 +11,9 @@ export default function RecipeData(props){
     
     return(
         <ScrollView>
-                
+                { recipe.image ? <Image source={{uri : recipe.image}}  style={styles.image}/> : <Image source={RecipeCardPic} style={styles.image}/>
+                      } 
+
                 <Text style={{fontFamily : 'ExoSemiBold', fontSize : 24, margin : 16, marginBottom : 4}}>{recipe.name}</Text>
 
                 { recipe.over_night_prep ? ( 
@@ -26,9 +28,6 @@ export default function RecipeData(props){
                         <MaterialIcons name="access-time" style={styles.icon} />
                         <Text style={styles.body}>{recipe.cooking_time} mins</Text>       
                 </View>  
-                
-                { recipe.image ? <Image source={{uri : recipe.image}}  style={styles.image}/> : <Image source={RecipeCardPic} style={styles.image}/>
-                      } 
         </ScrollView>
         
     )
@@ -38,12 +37,8 @@ const styles = StyleSheet.create({
   image : {
     flex: 1,
     aspectRatio: 1,
-    width : '90%',
-    alignSelf : 'center', 
+    width : '100%',
     resizeMode: 'contain',
-    margin : 16,
-    borderTopLeftRadius : 0,
-    borderRadius : 20
   },
   icon : {
       fontSize : 16,
