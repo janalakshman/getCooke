@@ -70,7 +70,7 @@ const CalendarCard = (props) => {
 
 //Calendar card compenent ends
 export default function MealPlan({navigation}) {
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState({})
   const [event, setEvent] = useState({})
   const [active, setActive] = useState(0)
 
@@ -112,9 +112,12 @@ export default function MealPlan({navigation}) {
                 //Filter logic
                 const today = moment(new Date()).format("YYYY-MM-DD")
                 const obj = Object.assign({}, response);
+                console.log("obj" + obj)
+                setEvents(obj)
                 const current = getKeyByValue(obj, today)
                 setActive(current)
-                setEvents(response)
+                
+                console.log(events)
                 setEvent(obj[current])  
                 setLoading(false)
                 setError(false)
@@ -135,20 +138,22 @@ export default function MealPlan({navigation}) {
 
   const pagePrev = () => {
     if(active > 0) {
-      setActive(active-1)
-      setEvent(events[active-1])
+      setActive(parseInt(active)-1)
+      return setEvent(events[parseInt(active)-1])
+      
     } else{
       setActive(0)
-      setEvent(events[0])
+      return setEvent(events[0])
     }  
   }     
    const pageNext= () => {
-      if(active < events.length-1 ){
-        setActive(active+1)
-        setEvent(events[active+1])
+      if(active < Object.keys(events).length-1 ){
+        setActive(parseInt(active)+1)
+        return setEvent(events[parseInt(active)+1])
+        
       } else { 
-        setActive(active) 
-        setEvent(events[active])
+        setActive(parseInt(active)) 
+        return setEvent(events[parseInt(active)])
       }
    }         
 
@@ -163,18 +168,16 @@ export default function MealPlan({navigation}) {
                       onRefresh={onRefresh}
                     />}>
           
-
+                      <View style={styles.line}>
+                          <MaterialIcons onPress={pagePrev} name="arrow-back-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
+                          <View style={{flexGrow : 1}}></View>
+                          <Text style={styles.header}>{ moment(event?.date).format('MMM DD, YYYY') }</Text>
+                          <View style={{flexGrow : 1}}></View>
+                          <MaterialIcons onPress={pageNext} name="arrow-forward-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
+                      </View>
                       {event?.meals?
                           <View>
-
-                        {/* Date header */}
-                              <View style={styles.line}>
-                                  <MaterialIcons onClick={pagePrev} name="arrow-back-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
-                                  <View style={{flexGrow : 1}}></View>
-                                  <Text style={styles.header}>{ moment(event.date).format('MMM DD, YYYY') }</Text>
-                                  <View style={{flexGrow : 1}}></View>
-                                  <MaterialIcons onClick={pageNext} name="arrow-forward-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
-                              </View>
+                              
 
                               { event.meals.map((m, i) =>(
                                 <View key={i}>
