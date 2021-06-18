@@ -112,12 +112,9 @@ export default function MealPlan({navigation}) {
                 //Filter logic
                 const today = moment(new Date()).format("YYYY-MM-DD")
                 const obj = Object.assign({}, response);
-                console.log("obj" + obj)
-                setEvents(obj)
                 const current = getKeyByValue(obj, today)
+                setEvents(obj)
                 setActive(current)
-                
-                console.log(events)
                 setEvent(obj[current])  
                 setLoading(false)
                 setError(false)
@@ -177,7 +174,6 @@ export default function MealPlan({navigation}) {
                       </View>
                       {event?.meals?
                           <View>
-                              
 
                               { event.meals.map((m, i) =>(
                                 <View key={i}>
