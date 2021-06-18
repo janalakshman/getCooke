@@ -41,7 +41,7 @@ export default function MealPlan({navigation}) {
          
           const getGrocery = () => {
             fetch(
-              config.api + `/v1/grocery`,
+              config.api + `/v1/grocery-for-week`,
               {
                 method: "GET",
                 headers: {
