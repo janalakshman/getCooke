@@ -17,7 +17,8 @@ import SegmentedControlTab from "react-native-segmented-control-tab";
 import toDo from '../assets/toDo.png'
 import ToBuy from '../components/ToBuy'
 import { FlatList } from 'react-native-gesture-handler';
-
+import moment from 'moment';
+import get from 'lodash/get';
 //Calendar Card component
 
 const CalendarCard = (props) => {
@@ -28,22 +29,22 @@ const CalendarCard = (props) => {
           <View>
               <View style={styles.card}> 
 
-                      <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
-                        {props.event.title.recipe.image ? 
-                            <Image source={{uri : props.event.title.recipe.image}} alt="Recipe" style={styles.recipe}/> :
+                      <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.recipe.recipe.id})}>
+                        {props.recipe.recipe.image ? 
+                            <Image source={{uri : props.recipe.recipe.image}} alt="Recipe" style={styles.recipe}/> :
                             <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/> }
                       </Pressable> 
                   
                   <View style={{flexDirection : 'column', justifyContent : 'center', height : 120, marginVertical : 4, margin : 16, marginBottom : 0, width : '50%'}}>
-                          <Text style={styles.text}>{props.event.title.recipe.name.length > 32 ? props.event.title.recipe.name.slice(0,32)+ '...' : props.event.title.recipe.name}</Text>                       
+                          <Text style={styles.text}>{props.recipe.recipe.name}</Text>                       
                           <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 32 }}>
 
                               <View style={{flexDirection : 'row', justify : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="food-bank" style={styles.icon} />
-                                  <Text style={styles.smalltext}>{props.event.title.servings === 1 ? '1 serving' : props.event.title.servings + ' servings'}</Text>
+                                  <Text style={styles.smalltext}>{props.recipe.servings === 1 ? '1 serving' : props.recipe.servings + ' servings'}</Text>
                               </View>
                               
-                              {props.event.title.recipe.over_night_prep ? 
+                              {props.recipe.recipe.over_night_prep ? 
 
                               <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="nights-stay" style={styles.icon} />
@@ -54,7 +55,7 @@ const CalendarCard = (props) => {
 
                             <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="timelapse" style={styles.icon} />
-                                  <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
+                                  <Text style={styles.smalltext}>{props.recipe.recipe.cooking_time} mins</Text> 
                             </View> }
 
                             </View>
@@ -68,80 +69,88 @@ const CalendarCard = (props) => {
 }
 
 //Calendar card compenent ends
-
-
 export default function MealPlan({navigation}) {
   const [events, setEvents] = useState([])
+  const [event, setEvent] = useState({})
+  const [active, setActive] = useState(0)
+
   const user = useSelector(state => state.counter.token);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [refreshing, setRefreshing] = React.useState(false);
 
-  let dummy = {
-      title : {
-        course : 'Breakfast',
-        servings : 1,
-        recipe : {
-          image : "https://s3.ap-south-1.amazonaws.com/cooke-2021/cooke/Omelette.jpeg",
-          name : 'Whey banana protein milk shake',
-          cooking_time : 15,
-        }
-      }
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
   }
 
-      const wait = (timeout) => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-      }
-
-      const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        wait(1000).then(() => setRefreshing(false));
-      }, []);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
 
   //Get call for calendar events
+  function getKeyByValue(object, value) {
+      return Object.keys(object).find(key => object[key].date === value);
+  }
+  const getEvents = () => {
+    fetch(
+          config.api + `/v1/meal-plan`,
+          {
+            method: "GET",
+            headers: {
+              "Authorization":'Token ' + user.token,
+              "Content-Type": "application/json"
+            },
+            mode: "cors",
+          }
+        )
+        .then((res) => {
+          return Promise.all([res.status, res.json()]);        
+        })
+        .then(([status, response])=> {
+              if(status === 200) {
+                //Filter logic
+                const today = moment(new Date()).format("YYYY-MM-DD")
+                const obj = Object.assign({}, response);
+                const current = getKeyByValue(obj, today)
+                setActive(current)
+                setEvents(response)
+                setEvent(obj[current])  
+                setLoading(false)
+                setError(false)
+              } else {
+                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+              }
+              
+          })
+        .catch((err) => {
+        setLoading(false)
+        setError(true)
+        })
+  }
 
-            const getEvents = () => {
-              fetch(
-                    config.api + `/v1/meal-plan`,
-                    {
-                      method: "GET",
-                      headers: {
-                        "Authorization":'Token ' + user.token,
-                        "Content-Type": "application/json"
-                      },
-                      mode: "cors",
-                    }
-                  )
-                  .then((res) => {
-                    return Promise.all([res.status, res.json()]);        
-                  })
-                  .then(([status, response])=> {
-                        if(status === 200) {
-                          setEvents(response)
-                          setLoading(false)
-                          setError(false)
-                        } else {
-                          Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
-                        }
-                        
-                    })
-                  .catch((err) => {
-                  setLoading(false)
-                  setError(true)
-                  })
-            }
+  useEffect(() => {
+      getEvents();
+    }, [refreshing]);
 
-            useEffect(() => {
-                      getEvents();
-                    }, [refreshing]);
-
-   const Item = (event) => {
-    return(
-      <View style={{margin : 4}}>
-        <CalendarCard point={1} event={event} setEvents={setEvents}/>
-      </View>)
-  };
-  //Return call for the Meal plan page
+  const pagePrev = () => {
+    if(active > 0) {
+      setActive(active-1)
+      setEvent(events[active-1])
+    } else{
+      setActive(0)
+      setEvent(events[0])
+    }  
+  }     
+   const pageNext= () => {
+      if(active < events.length-1 ){
+        setActive(active+1)
+        setEvent(events[active+1])
+      } else { 
+        setActive(active) 
+        setEvent(events[active])
+      }
+   }         
 
   return (
     <View style={{flex : 1}}>
@@ -155,32 +164,33 @@ export default function MealPlan({navigation}) {
                     />}>
           
 
-                      {events.length > 0 ?
+                      {event?.meals?
                           <View>
 
                         {/* Date header */}
                               <View style={styles.line}>
-                                  <MaterialIcons name="arrow-back-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
+                                  <MaterialIcons onClick={pagePrev} name="arrow-back-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
                                   <View style={{flexGrow : 1}}></View>
-                                  <Text style={styles.header}>27 June</Text>
+                                  <Text style={styles.header}>{ moment(event.date).format('MMM DD, YYYY') }</Text>
                                   <View style={{flexGrow : 1}}></View>
-                                  <MaterialIcons name="arrow-forward-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
+                                  <MaterialIcons onClick={pageNext} name="arrow-forward-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
                               </View>
 
-                          {/* Course name */}
-                              <Title name="Breakfast" />
-
-                          {/* Recipe component */}
-                              <CalendarCard event={dummy}/>
-
-                          {/* Ingredient component */}
-                              <View style={styles.box}>
-                                <Text style={styles.ing}>Milk</Text>
-                                <View style={{flexGrow : 1}}></View>
-                                <Text style={styles.unit}>100 ml </Text>
-                              </View>
-
-
+                              { event.meals.map((m, i) =>(
+                                <View key={i}>
+                                  <Title name={m.meal} />
+                                  { m.recipe_for_meal.map((r, j) =>(
+                                    <CalendarCard key={j} recipe={r}/>
+                                  ))}
+                                  { m.ingredient_for_meal.map((ig, k) =>(
+                                    <View key={k} style={styles.box}>
+                                      <Text style={styles.ing}>{ig.ingredient.name}</Text>
+                                      <View style={{flexGrow : 1}}></View>
+                                      <Text style={styles.unit}>{ig.qty} {ig.unit.name}</Text>
+                                    </View>
+                                  ))}
+                                </View>  
+                                ))}
                           </View>
                           
                           :
