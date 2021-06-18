@@ -19,22 +19,19 @@ import ToBuy from '../components/ToBuy'
 
 
 export default function MealPlan({navigation}) {
-  const [events, setEvents] = useState([])
-  const [cards, setCards] = useState([])
   const user = useSelector(state => state.counter.token);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [index, setIndex] = useState(0)
   const [refreshing, setRefreshing] = React.useState(false);
 
-      const wait = (timeout) => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-      }
+        const wait = (timeout) => {
+            return new Promise(resolve => setTimeout(resolve, timeout));
+        }
 
-      const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        wait(1000).then(() => setRefreshing(false));
-      }, []);
+        const onRefresh = React.useCallback(() => {
+            setRefreshing(true);
+            wait(1000).then(() => setRefreshing(false));
+        }, []);
 
 
     //GET call for grocery list

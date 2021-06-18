@@ -114,7 +114,7 @@ export default function MealPlan({navigation}) {
                 const obj = Object.assign({}, response);
                 const current = getKeyByValue(obj, today)
                 setActive(current)
-                setEvents(response)
+                setEvents(obj)
                 setEvent(obj[current])  
                 setLoading(false)
                 setError(false)
@@ -169,11 +169,11 @@ export default function MealPlan({navigation}) {
 
                         {/* Date header */}
                               <View style={styles.line}>
-                                  <MaterialIcons onClick={pagePrev} name="arrow-back-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
+                                  <MaterialIcons onPress={pagePrev} name="arrow-back-ios" style={{fontSize : 24, color : '#626262', marginTop : 16, marginHorizontal : 32, paddingHorizontal : 16}}/>
                                   <View style={{flexGrow : 1}}></View>
                                   <Text style={styles.header}>{ moment(event.date).format('MMM DD, YYYY') }</Text>
                                   <View style={{flexGrow : 1}}></View>
-                                  <MaterialIcons onClick={pageNext} name="arrow-forward-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
+                                  <MaterialIcons onPress={pageNext} name="arrow-forward-ios" style={{fontSize : 24, color : '#626262', marginTop : 16, marginHorizontal : 32, paddingHorizontal : 16}}/>
                               </View>
 
                               { event.meals.map((m, i) =>(
