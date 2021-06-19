@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         marginLeft : 16,
     },
     body : {
-      fontSize : 14,
+      fontSize : 12,
       color : '#626262',
       marginLeft : 16,
       fontFamily : 'ExoRegular'

@@ -100,12 +100,11 @@ export default function RecipeFullDetail({navigation, route, props}) {
                     <View style={{margin : 8}}></View>
 
                   
-                  <Title name="Author info" />
                     <RecipeDescription recipe = {recipe}/>
 
                     <View style={{margin : 8}}></View>
 
-                  <Title name="Ingredients for" />
+                  <Title name="Ingredients" />
                     <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings}/>
                   
                   {/* <Button type="secondary" name="Add to grocery list" onPress={() => setModalVisible(true)}/> */}
@@ -115,7 +114,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
 
                   {recipe.calories ? 
                   <View style={{marginVertical : 8}}>
-                    <Title name="Nutrition info for" />
+                    <Title name="Nutrition info" />
                     <NutritionCard recipe={recipe}/> 
                   </View> : <View></View>}
                   

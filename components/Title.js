@@ -15,10 +15,11 @@ export default function Title(props) {
   
   const styles = StyleSheet.create({
     heading : {
-      color : '#3b3b3b',
+      color : '#000000',
       fontSize : 19,
       fontFamily : 'ExoSemiBoldItalic',
-      margin : 16
+      margin : 16,
+      marginBottom : 8
     },
     border : {
         borderBottomColor : '#ffcd4c',

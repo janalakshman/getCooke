@@ -35,9 +35,9 @@ const CalendarCard = (props) => {
                             <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/> }
                       </Pressable> 
                   
-                  <View style={{flexDirection : 'column', justifyContent : 'center', height : 120, marginVertical : 4, margin : 16, marginBottom : 0, width : '50%'}}>
+                  <View style={{flexDirection : 'column', justifyContent : 'center', height : 130, marginTop : 0, margin : 16, marginBottom : 2, width : '50%'}}>
                           <Text style={styles.text}>{props.recipe.recipe.name}</Text>                       
-                          <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 32 }}>
+                          <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 16 }}>
 
                               <View style={{flexDirection : 'row', justify : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="food-bank" style={styles.icon} />
@@ -46,14 +46,14 @@ const CalendarCard = (props) => {
                               
                               {props.recipe.recipe.over_night_prep ? 
 
-                              <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
+                              <View style={{flexDirection : 'row', justify : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="nights-stay" style={styles.icon} />
                                   <Text style={styles.smalltext}>Overnight prep</Text> 
                               </View> 
                               
                               :
 
-                            <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
+                            <View style={{flexDirection : 'row', justify : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="timelapse" style={styles.icon} />
                                   <Text style={styles.smalltext}>{props.recipe.recipe.cooking_time} mins</Text> 
                             </View> }
@@ -166,17 +166,17 @@ export default function MealPlan({navigation}) {
                     />}>
           
                       <View style={styles.line}>
-                          <MaterialIcons onPress={pagePrev} name="arrow-back-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
+                          <MaterialIcons onPress={pagePrev} name="arrow-back-ios" style={{fontSize : 24, color : '#000', marginTop : 16, paddingHorizontal : 32}}/>
                           <View style={{flexGrow : 1}}></View>
-                          <Text style={styles.header}>{ moment(event?.date).format('MMM DD, YYYY') }</Text>
+                          <Text style={styles.header}>{moment(event?.date).format('MMM DD, YYYY')}</Text>
                           <View style={{flexGrow : 1}}></View>
-                          <MaterialIcons onPress={pageNext} name="arrow-forward-ios" style={{fontSize : 20, color : '#626262', marginTop : 16, marginHorizontal : 32}}/>
+                          <MaterialIcons onPress={pageNext} name="arrow-forward-ios" style={{fontSize : 24, color : '#000', marginTop : 16, paddingHorizontal : 32}}/>
                       </View>
                       {event?.meals?
-                          <View>
+                          <View style={{marginBottom : 16}}>
 
                               { event.meals.map((m, i) =>(
-                                <View key={i}>
+                                <View key={i} style={{marginBottom : 8}}>
                                   <Title name={m.meal} />
                                   { m.recipe_for_meal.map((r, j) =>(
                                     <CalendarCard key={j} recipe={r}/>
@@ -184,8 +184,10 @@ export default function MealPlan({navigation}) {
                                   { m.ingredient_for_meal.map((ig, k) =>(
                                     <View key={k} style={styles.box}>
                                       <Text style={styles.ing}>{ig.ingredient.name}</Text>
-                                      <View style={{flexGrow : 1}}></View>
-                                      <Text style={styles.unit}>{ig.qty} {ig.unit.name}</Text>
+                                      <View style={{flexDirection : 'row', alignItems : 'center', width : '50%'}}>
+                                          <MaterialIcons name="food-bank" style={styles.icon} />
+                                          <Text style={styles.unit}>{Number.isInteger((ig.qty*100)) ? Math.round(ig.qty) : ig.qty}  {ig.unit.name}</Text>
+                                      </View>
                                     </View>
                                   ))}
                                 </View>  
@@ -246,7 +248,7 @@ card : {
   width : '100%',
   padding : 16,
   alignSelf : 'center',
-  marginBottom : 8
+  marginBottom : 16
 },
 imageIcon : {
   height : 16,
@@ -255,6 +257,8 @@ imageIcon : {
 icon : {
   fontSize : 16,
   color : '#626262',
+  margin : 4,
+  alignSelf : 'center'
   },
 text : {
   fontSize : 17,
@@ -264,8 +268,8 @@ text : {
   },
   header : {
     fontSize : 19,
-    color : '#626262',
-    fontFamily : 'ExoBold',
+    color : '#000',
+    fontFamily : 'ExoSemiBoldItalic',
     marginTop : 16,
     paddingVertical : 8
     },
@@ -273,6 +277,7 @@ smalltext : {
   fontSize : 14,
   color : '#626262',
   margin : 8,
+  marginVertical : 4,
   fontFamily : 'ExoRegular',
   },
 delete : {
@@ -305,27 +310,30 @@ activeTabStyle : {
   borderBottomColor : '#a13e00',
 },
 ing : {
-    color : '#626262',
+    color : '#3b3b3b',
     fontSize : 17,
-    fontFamily : 'ExoRegular',
-    marginHorizontal : 16,
-    textAlign : 'left',
-    width : '50%',
+    fontFamily : 'ExoMedium',
+    marginHorizontal : 8,
+    textAlign : 'center',
+    width : '50%'
   },
   unit : {
     color : '#626262',
-    fontSize : 17,
+    fontSize : 14,
     fontFamily : 'ExoRegular',
-    marginHorizontal : 16,
-    textAlign : 'right',
+    marginHorizontal : 8,
+    textAlign : 'center',
+
   },
   box : {
-      flexDirection : 'row',
-      justifyContent : 'flex-start',
-      alignItems : 'flex-end',
-      borderColor : '#cfcfcf',
-      borderBottomWidth : 0.5,
-      padding : 8
+    flexDirection : 'row',
+    justifyContent : 'flex-start',
+    alignItems : 'center',
+    borderColor : '#cfcfcf',
+    borderBottomWidth : 0.5,
+    padding : 8,
+    paddingHorizontal : 16,
+    marginTop : 8
   },
   line : {
     flexDirection : "row",
@@ -333,6 +341,6 @@ ing : {
     alignItems : 'center',
     paddingBottom : 8,
     marginBottom : 8,
-    backgroundColor : '#fffafa'
+    backgroundColor : '#fff'
 },
 });

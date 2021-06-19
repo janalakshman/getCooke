@@ -57,8 +57,8 @@ export default function MealPlan({navigation}) {
             .then(([status, response])=> {
                   if(status === 200) {
                     setGrocery(response)
-                    if (response.ingredients) {
-                      const inst = Object.values(response.ingredients).map(item => {
+                    if (response) {
+                      const inst = Object.values(response).map(item => {
                           return {name : item.name, qty : item.data}
                       })
                       setIns(inst);
@@ -78,7 +78,6 @@ export default function MealPlan({navigation}) {
           useEffect(() => {
            getGrocery();
           }, [refreshing]);
-
 
   return (
     <View style={{flex : 1}}>

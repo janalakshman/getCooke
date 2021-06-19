@@ -163,7 +163,7 @@ export default function Profile({navigation}){
                       onRefresh={onRefresh}
                     />}>
                     <View style={{flexDirection : 'row', margin : 16, marginBottom : 0}}>
-                    {user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.avatar}/> : user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.image} /> : <Image source={Avatar} style={styles.image} />} 
+                    {user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.avatar}/> : user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.avatar} /> : <Image source={Avatar} style={styles.avatar} />} 
                         <View style={styles.line}>
                             <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                             <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>

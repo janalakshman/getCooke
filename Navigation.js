@@ -94,7 +94,7 @@ export default function Navigation() {
                       headerTintColor : '#3b3b3b',
                       headerBackTitle : ' ',
                       headerStyle : {
-                        backgroundColor : '#fff',
+                        backgroundColor : '#f1f1f1',
                       },
                     })}  />
               

@@ -8,6 +8,8 @@ import Button from '../components/Button'
 import TagModal from "../Modal/TagModal";
 import { Alert } from "react-native";
 import RadioForm from 'react-native-simple-radio-button';
+import Title from '../components/Title'
+import { setToken } from "../redux/counterSlice";
 
 var radio_props = [
     {label: 'Male', value: 0 },
@@ -18,6 +20,7 @@ var radio_props = [
 
 export default function EditProfile({navigation}) {
 
+const dispatch = useDispatch()
 const user = useSelector(state => state.counter.token)
 
 const [refreshing, setRefreshing] = React.useState(false);
@@ -31,28 +34,29 @@ const [refreshing, setRefreshing] = React.useState(false);
         wait(1000).then(() => setRefreshing(false));
       }, []);
 
-const [name, setName] = useState(name ? name : null)
-const [gender, setGender ] = useState(gender ? gender : null);
-const [weight, setWeight] = useState(weight ? weight : null)
-const [height, setHeight] = useState(height ? height : null)
-const [age, setAge] = useState(null)
-const [history, setHistory] = useState(null)
-const [workout, setWorkout] = useState(null)
-const [love, setLove] = useState(null)
-const [hate, setHate] = useState(null)
-const [time, setTime] = useState(null)
-const [goals, setGoals] = useState(null)
-const [special, setSpecial] = useState(null)
-const [appliances, setAppliances] = useState('')
+const [name, setName] = useState(user.user.first_name ? user.user.first_name : null)
+const [gender, setGender ] = useState(user.user.profile.gender ? user.user.profile.gender : 0);
+const [weight, setWeight] = useState(user.user.profile.weight ? user.user.profile.weight : null)
+const [height, setHeight] = useState(user.user.profile.height ? user.user.profile.height : null)
+const [age, setAge] = useState(user.user.profile.age ? user.user.profile.age : 0)
+const [history, setHistory] = useState(user.user.profile.medical_history ? user.user.profile.medical_history : null)
+const [workout, setWorkout] = useState(user.user.profile.workout_schedule ? user.user.profile.workout_schedule : null)
+const [love, setLove] = useState(user.user.profile.food_you_love ? user.user.profile.food_you_love : null)
+const [hate, setHate] = useState(user.user.profile.food_you_hate ? user.user.profile.food_you_hate : null)
+const [time, setTime] = useState(user.user.profile.time_availability ? user.user.profile.time_availability : null)
+const [goals, setGoals] = useState(user.user.profile.fitness_goal ? user.user.profile.fitness_goal : null)
+const [special, setSpecial] = useState(user.user.profile.special_note ? user.user.profile.special_note : null)
+const [appliances, setAppliances] = useState(user.user.profile.cooking_appliance ? user.user.profile.cooking_appliance : '')
 const [appliancesModal, setAppliancesModal] = useState(false)
-const [cuisine, setCuisine] = useState('')
+const [cuisine, setCuisine] = useState(user.user.profile.preferred_cuisine ? user.user.profile.preferred_cuisine : '')
 const [cuisineModal, setCuisineModal] = useState(false)
-const [diet, setDiet] = useState('')
+const [diet, setDiet] = useState(user.user.profile.type_of_meal ? user.user.profile.type_of_meal : '')
 const [dietModal, setDietModal] = useState(false)
 const [tags, setTags] = useState(null)
 const [loading, setLoading] = useState(false)
 let cuisineID, appliancesID, dietID
-let bmi = Math.round(weight*10000/(height*height), 2)
+let w = weight, h = height
+let bmi = Math.round(w*10000/(h*h), 2)
 
 if(cuisine) {cuisineID = cuisine.map(c => c.id)}
 if(appliances) {appliancesID = appliances.map(c => c.id)}
@@ -81,6 +85,48 @@ const getTags = () => {
 
     const onSubmit = () => {
         setLoading(true)
+        const payload = {
+            "first_name" : name,
+            "gender": gender,
+            "type_of_meal": dietID,
+            "cooking_appliance": appliancesID,
+            "preferred_cuisine": cuisineID,
+            "special_note": special,
+            "fitness_goal": goals,
+            "time_availability": time,
+            "food_you_hate": hate,
+            "food_you_love": love,
+            "workout_schedule": workout,
+            "medical_history": history,
+            "bmi": bmi,
+            "age": age,
+            "height": height,
+            "weight": weight
+        }
+        fetch(config.api + `/v1/profile`,
+             {  
+              method: 'POST',
+              headers: {
+                "Authorization":'Token ' +user.token,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(payload),
+            })
+            .then((res) => res.json())
+            .then((result) => {
+                dispatch(setToken(result))
+                setLoading(false)
+              Alert.alert(
+                  "Saved!",
+                  "Thank you. We will pass this on to your nutritionist.",
+                  [
+                    {text : "OK"},
+                  ]
+                  )
+            })
+            .catch((err) => {
+              console.log(err)
+          })
         } 
 
 
@@ -102,7 +148,7 @@ const getTags = () => {
 
                     <View style={{margin : 8}} />
 
-                        <Text style={styles.text}>Name</Text>
+                        <Title name="Name"/>
 
                         <TextInput style={styles.name}
                             placeholder = "Or the name you have always wanted"
@@ -113,7 +159,7 @@ const getTags = () => {
                     <View style={{margin : 8}} />
 
                     
-                        <Text style={styles.text}>Gender</Text>
+                        <Title name="Gender"/>
 
 
                         <View style={{marginHorizontal : 32, margin : 16}}>
@@ -129,19 +175,19 @@ const getTags = () => {
 
                     <View style={{margin : 8}} />        
                     
-                        <Text style={styles.text}>Physical info</Text>
+                        <Title name="Physical info"/>
 
-                            <View style={styles.card}>
-
+                         <View style={{margin : 8}} /> 
                                 <View style={{flexDirection : 'row', marginHorizontal : 16}}>
                                 <View style={styles.line}>
                                     <Text style={styles.body}>Weight</Text>     
                                     <TextInput style={styles.nutrition}
                                         placeholder = "kg"
-                                        onChangeText={weight => setWeight(weight)}
-                                        value={weight}
+                                        onChangeText={notes => setWeight(notes)}
+                                        value={weight ? weight.toString() : null}
                                         keyboardType="numeric"
-                                        name="weight" />
+                                        name="weight"
+                                         />
                                 </View>
 
                                 <View style={styles.line}>
@@ -149,7 +195,7 @@ const getTags = () => {
                                     <TextInput style={styles.nutrition}
                                         placeholder = "cm"
                                         onChangeText={height => setHeight(height)}
-                                        value={height}
+                                        value={height ? height.toString() : null}
                                         keyboardType="numeric"
                                         name="height" />
                                 </View>
@@ -159,22 +205,21 @@ const getTags = () => {
                                     <TextInput style={styles.nutrition}
                                         placeholder = "years"
                                         onChangeText={age => setAge(age)}
-                                        value={age}
+                                        value={age ? age.toString() : null}
                                         keyboardType="numeric"
                                         name="age" />
                                 </View>
                             </View>
                                 
                                 <View style={styles.calories}>
-                                    <Text style={styles.subheading}>Body Mass Index : {height ? weight ? Math.round(weight*10000/(height*height), 2) : 0 : 0}</Text>
+                                    <Text style={styles.subheading}>Body Mass Index : {bmi ? bmi : 0}</Text>
                                 </View>     
 
-                    </View>
                     
 
                     <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Medical history</Text>
+                    <Title name="Medical history"/>
 
                             <TextInput style={styles.notes}
                                     multiline
@@ -186,9 +231,8 @@ const getTags = () => {
                     <View style={{margin : 8}} />
 
 
-                    <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Workout schedule</Text>
+                    <Title name="Fitness goals"/>
 
                             <TextInput style={styles.notes}
                                     multiline
@@ -200,9 +244,8 @@ const getTags = () => {
                     <View style={{margin : 8}} />
 
 
-                    <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Food you love</Text>
+                    <Title name="Food you love"/>
 
                             <TextInput style={styles.notes}
                                     multiline
@@ -214,9 +257,8 @@ const getTags = () => {
                     <View style={{margin : 8}} /> 
 
 
-                    <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Food you hate</Text>
+                    <Title name="Food you hate"/>
 
                             <TextInput style={styles.notes}
                                     multiline
@@ -228,9 +270,8 @@ const getTags = () => {
                     <View style={{margin : 8}} />
 
 
-                    <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Time available to cook per day</Text>
+                    <Title name="Time available to cook"/>
 
                             <TextInput style={styles.notes}
                                     multiline
@@ -241,9 +282,8 @@ const getTags = () => {
 
                     <View style={{margin : 8}} />
 
-                    <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Your fitness goals</Text>
+                        <Title name="Fitness goals"/>
 
                             <TextInput style={styles.notes}
                                     multiline
@@ -252,12 +292,11 @@ const getTags = () => {
                                     value={goals}
                                     name="goals" />
 
-                    <View style={{margin : 8}} />  
 
 
                     <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Special note</Text>
+                    <Title name="Special notes"/>
 
                             <TextInput style={styles.notes}
                                     multiline
@@ -266,14 +305,13 @@ const getTags = () => {
                                     value={special}
                                     name="special" />
 
-                    <View style={{margin : 8}} />
 
 
                     <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Preferred cuisine</Text>
+                    <Title name="Preferred cuisine"/>
 
-                            {cuisine ? 
+                            {cuisine.length > 0 ? 
                                     <View style={styles.selectedTags}>
                                         {cuisine.map((c, index) =>
                                             <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
@@ -285,18 +323,17 @@ const getTags = () => {
                                         </TouchableOpacity>
                                 }
                             
-                            {cuisine ? 
+                            {cuisine.length > 0 ? 
                                 <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
                                 : <View/>}
 
-                    <View style={{margin : 8}} />
 
 
                     <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Cooking appliances you have</Text>
+                    <Title name="Cooking appliances you have"/>
 
-                            {appliances ? 
+                            {appliances.length > 0 ? 
                                     <View style={styles.selectedTags}>
                                         {appliances.map((c, index) =>
                                             <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
@@ -308,19 +345,18 @@ const getTags = () => {
                                         </TouchableOpacity>
                                 }
                             
-                            {appliances ? 
+                            {appliances.length > 0 ? 
                                 <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
                                 : <View/>}
 
 
-                    <View style={{margin : 8}} />
 
 
                     <View style={{margin : 8}} />
 
-                            <Text style={styles.text}>Preferred diet</Text>
+                            <Title name="Dietary restrictions"/>
 
-                            {diet ? 
+                            {diet.length > 0 ? 
                                     <View style={styles.selectedTags}>
                                         {diet.map((c, index) =>
                                             <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
@@ -332,7 +368,7 @@ const getTags = () => {
                                         </TouchableOpacity>
                                 }
                             
-                            {diet ? 
+                            {diet.length > 0 ? 
                                 <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
                                 : <View/>}
 
@@ -409,32 +445,26 @@ const styles = StyleSheet.create({
         alignContent : 'flex-start',
         backgroundColor : '#fff'
     },
-    card : {
-        width : '100%',
-        borderRadius : 4,
-        backgroundColor : '#ffffff',
-        flexDirection : 'column',
-        marginTop : 16
-    },
     line : {
-        flexDirection : 'column',
         flex : 1,
-        alignItems : 'flex-start',
         width : '30%',
-        marginHorizontal : '2.5%'
+        marginHorizontal : '2.5%',
+        backgroundColor : '#fff'
     },
     nutrition : {
         borderRadius : 8,
         borderColor : '#cfcfcf',
         borderWidth : 1,
+        borderTopLeftRadius : 0,
         height : 48,
         width : '100%',
         paddingHorizontal : 16,
-        fontFamily : 'ExoRegular',
-        fontSize : 16,
-        alignContent : 'flex-start',
+        fontFamily : 'ExoMedium',
+        fontSize : 14,
+        color : '#626262',
         backgroundColor : '#fff',
-        borderTopLeftRadius : 0,
+        flex : 1,
+        alignContent : 'flex-start',
     },
     calories : {
         borderRadius : 8,
@@ -455,10 +485,12 @@ const styles = StyleSheet.create({
         fontFamily : 'ExoRegular',
     },
     placeholder : {
-        fontFamily : 'ExoRegular',
-        fontSize : 17,
+        fontFamily : 'ExoMedium',
+        fontSize : 14,
         paddingHorizontal : 16,
         color : '#626262',
+        paddingVertical : 2,
+
     },
     tags : {
         borderRadius : 8,
@@ -488,15 +520,15 @@ const styles = StyleSheet.create({
         flexWrap : 'wrap'
     },
     selectedTagsText : {
-        fontFamily : 'ExoRegular',
-        fontSize : 17,
+        fontFamily : 'ExoMedium',
+        fontSize : 14,
         paddingHorizontal : 16,
-        paddingVertical : 8,
+        paddingVertical : 2,
         color : '#a13e00',
     },
     subheading : {
         fontFamily : 'ExoMedium',
-        fontSize : 17,
+        fontSize : 14,
         color : '#a13e00',
         alignSelf : 'center',
         margin : 8,

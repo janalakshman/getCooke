@@ -112,15 +112,15 @@ const styles = StyleSheet.create({
         margin : 16,
         padding : 16,
         fontFamily : 'ExoRegular',
-        fontSize : 17,
+        fontSize : 14,
         alignContent : 'flex-start'
     },
     contact : {
-        fontFamily : 'ExoRegular',
+        fontFamily : 'ExoMedium',
         margin : 16,
         marginBottom : 32,
         color : '#3b3b3b',
-        fontSize : 17
+        fontSize : 14
     },
     error : {
         fontFamily : 'ExoRegular',
