@@ -130,7 +130,7 @@ export default function Profile({navigation}){
               <Pressable style={{flex : 1/3, marginHorizontal : 0.5}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}>
                 <Image source={{uri : item.image}} style={styles.recipeImage} /> 
               </Pressable> :
-              <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}>
+              <Pressable style={{flex : 1/3, marginHorizontal : 0.5}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.id})}>
                 <View style={styles.imageText}>
                   <Text style={styles.recipeText}>{item.name}</Text> 
                 </View>
@@ -141,10 +141,10 @@ export default function Profile({navigation}){
     const Item2 = ({item}) => {
       return(
         item.recipe.image ? 
-          <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.recipe.id})}>
+          <Pressable style={{flex : 1/3, marginHorizontal : 0.5}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.recipe.id})}>
             <Image source={{uri : item.recipe.image}} style={styles.recipeImage} /> 
           </Pressable> :
-          <Pressable style={{flex : 1/3}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.recipe.id})}>
+          <Pressable style={{flex : 1/3, marginHorizontal : 0.5}} onPress={() => navigation.navigate('RecipeDetail', {recipeId: item.recipe.id})}>
             <View style={styles.imageText}>
               <Text style={styles.recipeText}>{item.recipe.name}</Text> 
             </View>
@@ -172,13 +172,21 @@ export default function Profile({navigation}){
 
                     
                 {/* <ProfileData user={user}/> */}
-                        <View style={{flex : 1, margin : 16, marginBottom : 8, marginTop : 32}}>
+                        {/* <View style={{flex : 1, margin : 16, marginBottom : 8, marginTop : 32}}>
                           <Button type="profile" name="Improve meal plan" onPress={() => navigation.navigate('editProfile')}/>
+                        </View> */}
+
+                      <View style={{flexDirection : 'row', justifyContent : 'space-evenly', flex : 1, marginTop : 32, margin : 16, marginBottom : 8}} >
+                        <View style={{flex : 1, marginRight : 2}}>
+                          <Button type="profile" name="Edit profile" onPress={() => navigation.navigate('editProfile')}/>
                         </View>
 
-                    <View style={{flexDirection : 'row', justifyContent : 'space-evenly', flex : 1, marginTop : 0, margin : 16, marginBottom : 32}} >
-                        
+                        <View style={{flex :1, marginLeft : 2}}>
+                          <Button type="profile" name="Payments" onPress={ () =>handleLogout()} />
+                        </View>
+                    </View>
 
+                    <View style={{flexDirection : 'row', justifyContent : 'space-evenly', flex : 1, marginTop : 0, margin : 16, marginBottom : 32}} >
                         <View style={{flex : 1, marginRight : 2}}>
                           <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
                         </View>
@@ -339,14 +347,16 @@ const styles = StyleSheet.create({
       height : 110,
       borderRadius : 4,
       borderTopLeftRadius : 0,
+      borderWidth : 0.5,
       alignItems : 'center',
       justifyContent : 'center',
-      backgroundColor : '#fffafa'
+      backgroundColor : '#fff'
     },
     recipeText : {
-      fontFamily : 'ExoBoldItalic',
-      fontSize : 17,
-      color : '#626262'
+      fontFamily : 'ExoSemiBoldItalic',
+      fontSize : 14,
+      color : '#333',
+      margin : 16
     }
 }
 

@@ -11,8 +11,7 @@ export default function RecipeData(props){
     
     return(
         <ScrollView>
-                { recipe.image ? <Image source={{uri : recipe.image}}  style={styles.image}/> : <Image source={RecipeCardPic} style={styles.image}/>
-                      } 
+                { recipe.image ? <Image source={{uri : recipe.image}}  style={styles.image}/> : <View/>   } 
 
                 <Text style={{fontFamily : 'ExoSemiBold', fontSize : 24, margin : 16, marginBottom : 4}}>{recipe.name}</Text>
 
@@ -37,8 +36,8 @@ const styles = StyleSheet.create({
   image : {
     flex: 1,
     aspectRatio: 1,
-    width : '100%',
     resizeMode: 'contain',
+    resizeMode : 'center'
   },
   icon : {
       fontSize : 16,

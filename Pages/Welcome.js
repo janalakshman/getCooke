@@ -17,7 +17,7 @@ export default function Welcome() {
         <ScrollView style={{backgroundColor : '#ffffff', flex : 1, flexDirection : 'column', height : '100%'}}>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
             
-                <Text style={styles.text}>Your personal dietitian!</Text>
+                <Text style={styles.text}>Your personal nutritionist!</Text>
 
                 <Text style={styles.body}>Get your meal plan, nutritional info and a grocery list from your nutritionist!</Text>
                 
