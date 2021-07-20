@@ -97,13 +97,6 @@ export default function RecipeFullDetail({navigation, route, props}) {
                 <ScrollView key={recipe.id.toString()}>
                   <RecipeData recipe = {recipe} />
 
-                    <View style={{margin : 8}}></View>
-
-                  
-                    <RecipeDescription recipe = {recipe}/>
-
-                    <View style={{margin : 8}}></View>
-
                   <Title name="Ingredients" />
                     <IngredientCard ingredients = {recipe.ingredients} servings={recipe.servings}/>
                   
@@ -115,7 +108,7 @@ export default function RecipeFullDetail({navigation, route, props}) {
                   {recipe.calories ? 
                   <View style={{marginVertical : 8}}>
                     <Title name="Nutrition info" />
-                    <NutritionCard recipe={recipe}/> 
+                    {/* <NutritionCard recipe={recipe}/>  */}
                   </View> : <View></View>}
                   
                   <Button type="secondary" name="Add to favourites" onPress={handleClick}/>

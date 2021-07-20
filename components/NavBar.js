@@ -11,25 +11,27 @@ export default function Home(props) {
  return (
      
             <View style={styles.navigation}>
-                    {/* <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
-                      <MaterialIcons name="search" style={props.props === 'Home' ? styles.selectedIcon : styles.icon}/>
-                    </TouchableOpacity> */}
+
+                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Home')} >
+                      <MaterialIcons name="home-filled" style={props.props === 'Home' ? styles.selectedIcon : styles.icon}/>
+                      <Text style={props.props === 'Home' ? styles.selectedText : styles.text}>Home</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Discover')}>
+                      <MaterialIcons name="search" style={props.props === 'Discover' ? styles.selectedIcon : styles.icon}/>
+                      <Text style={props.props === 'Discover' ? styles.selectedText : styles.text}>Discover</Text>
+                    </TouchableOpacity>
 
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
                         <MaterialIcons name="event-note" style={props.props === 'Meal plan' ? styles.selectedIcon : styles.icon}/>
                         <Text style={props.props === 'Meal plan' ? styles.selectedText : styles.text}>Meal plan</Text>
                     </TouchableOpacity>
                     
-                    
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('GroceryList')} >
-                        <MaterialIcons name="format-list-bulleted" style={props.props === 'GroceryList' ? styles.selectedIcon : styles.icon}/>
-                        <Text style={props.props === 'GroceryList' ? styles.selectedText : styles.text}>Grocery list</Text>
+                    <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Profile')} >
+                        <MaterialIcons name="account-box" style={props.props === 'Profile' ? styles.selectedIcon : styles.icon}/>
+                        <Text style={props.props === 'Profile' ? styles.selectedText : styles.text}>Profile</Text>
                     </TouchableOpacity>
-                    
-                    <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
-                      <MaterialIcons name="account-box" style={props.props === 'Profile' ? styles.selectedIcon : styles.icon}/>
-                      <Text style={props.props === 'Profile' ? styles.selectedText : styles.text}>Profile</Text>
-                    </TouchableOpacity>
+                
             </View>
 
   );
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
 },
 tab : {
   alignItems : 'center',
-  width : '33.33%',
+  width : '25%',
 },
 icon : {
   color : 'rgba(207, 207, 207, 0.99)',

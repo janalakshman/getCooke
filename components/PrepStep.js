@@ -33,15 +33,15 @@ export default function PrepStep(props) {
   const styles = StyleSheet.create({
     text : {
       color : '#3b3b3b',
-      fontSize : 14,
-      fontFamily : 'ExoMedium',
+      fontSize : 17,
+      fontFamily : 'ExoRegular',
       margin : 16,
       },
     title : {
         color : '#a13e00',
         fontSize : 19,
         marginHorizontal : 16,
-        fontFamily : 'ExoSemiBold',
+        fontFamily : 'ExoMedium',
         paddingTop : 16
     },
     container: {

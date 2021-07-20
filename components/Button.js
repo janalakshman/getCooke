@@ -41,7 +41,7 @@ export default function Button(props) {
     profileText : {
         color : '#3b3b3b',
         fontSize : 14,
-        fontFamily : 'ExoSemiBold',
+        fontFamily : 'ExoMedium',
         margin : 4,
         textAlign : 'center',
         flexGrow : 1
@@ -50,7 +50,7 @@ export default function Button(props) {
       borderRadius : 4,
       backgroundColor : '#fff',
       borderWidth : 1,
-      borderColor : '#cfcfcf',
+      borderColor : '#999999',
       alignSelf : 'center',
       flexDirection : 'row',
       padding : 2,
@@ -88,7 +88,7 @@ export default function Button(props) {
       textAlign : 'center'
     },
     primary : {
-      borderRadius : 8,
+      borderRadius : 4,
       backgroundColor : '#ffc885',
       alignSelf : 'center',
       margin : 8,
@@ -106,7 +106,7 @@ export default function Button(props) {
       textAlign : 'center'
     },
     secondary : {
-      borderRadius : 8,
+      borderRadius : 4,
       backgroundColor : '#fff',
       borderWidth : 1,
       borderColor : '#a13e00',
@@ -135,12 +135,12 @@ export default function Button(props) {
     },
   delete : {
       fontSize : 14,
-      color : '#a13e00',
+      color : '#3b3b3b',
       paddingTop : 10,
       paddingBottom : 10,
   },
   deleteText : {
-    color : '#a13e00',
+    color : '#3b3b3b',
     fontSize : 14,
     fontFamily : 'ExoRegular',
     margin : 8,

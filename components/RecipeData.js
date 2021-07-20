@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 1,
     resizeMode: 'contain',
-    resizeMode : 'center'
+    width : '100%'
   },
   icon : {
       fontSize : 16,

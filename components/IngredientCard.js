@@ -11,7 +11,7 @@ export default function Header(props){
     return(
         <View style={styles.card}>
         {props.ingredients  ?
-        <View  >
+        <View>
             <View style={styles.line}>
                 <Text style={styles.heading}>{props.servings}</Text>
                 <Text style={styles.heading}>{props.servings === 1 ? 'serving' : 'servings'}</Text>
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     },
     heading : {
         fontSize : 17,
-        color : '#3b3b3b',
-        fontFamily : 'ExoBold',
+        color : '#333333',
+        fontFamily : 'ExoRegular',
         textAlign : 'center',
         marginHorizontal : 4,
         margin : 0
@@ -82,16 +82,16 @@ const styles = StyleSheet.create({
     },
     text : {
         color : '#3b3b3b',
-        fontSize : 14,
-        fontFamily : 'ExoMedium',
+        fontSize : 17,
+        fontFamily : 'ExoRegular',
         marginHorizontal : 16,
         textAlign : 'left',
         width : '50%',
       },
       unit : {
         color : '#3b3b3b',
-        fontSize : 14,
-        fontFamily : 'ExoMedium',
+        fontSize : 17,
+        fontFamily : 'ExoRegular',
         marginHorizontal : 16,
         textAlign : 'right',
         marginVertical : 4

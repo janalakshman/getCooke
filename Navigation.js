@@ -1,16 +1,18 @@
 import React from 'react';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Home from './Pages/Home'
+import Discover from './Pages/Discover'
 import MealPlan from './Pages/MealPlan'
 import RecipeDetail from './Pages/RecipeDetail'
-import EditProfile from './Pages/EditProfile'
+import UpdateInfo from './Pages/UpdateInfo'
 import Profile from './Pages/Profile'
 import SignIn from './Pages/SignIn'
 import Welcome from './Pages/Welcome'
 import Contact from './Modal/Contact'
-import GroceryList from './Pages/GroceryList'
-import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Navigation() {
     const Stack = createStackNavigator();
@@ -34,7 +36,42 @@ export default function Navigation() {
                     ),
                     headerLeft : () => (
                       <View>
-                          <Text style={styles.text}>Meal plan</Text>
+                        <Text style={styles.text}>Meal plan</Text>
+                      </View>
+                    ),
+                    headerStyle : {
+                      backgroundColor : '#fff',
+                    },
+                  })}  />
+
+              <Stack.Screen 
+                  name="Home" 
+                  component={Home}
+                  options={({ navigation }) => ({
+                    headerTitle : () => (
+                      <View>
+                      </View>
+                    ),
+                    headerLeft : () => (
+                      <View>
+                      </View>
+                    ),
+                    headerStyle : {
+                      backgroundColor : '#fff',
+                    },
+                  })}  />
+
+              <Stack.Screen 
+                  name="Discover" 
+                  component={Discover}
+                  options={({ navigation }) => ({
+                    headerTitle : () => (
+                      <View>
+                      </View>
+                    ),
+                    headerLeft : () => (
+                      <View>
+                        <Text style={styles.text}>Discover</Text>
                       </View>
                     ),
                     headerStyle : {
@@ -43,36 +80,16 @@ export default function Navigation() {
                   })}  />
             
             <Stack.Screen 
-                    name="GroceryList" 
-                    component={GroceryList}
-                    options={({ navigation }) => ({
-                      headerTitle :  () => (
-                        <View>
-                        </View>
-                      ),
-                      headerLeft : () => (
-                        <View>
-                            <Text style={styles.text}>Grocery list</Text>
-                        </View>
-                      ),
-                      headerTintColor : '#3b3b3b',
-                      headerBackTitle : ' ',
-                      headerStyle : {
-                        backgroundColor : '#fff',
-                      },
-                    })}  /> 
-            
-            <Stack.Screen 
                     name="Profile" 
                     component={Profile}
                     options={({ navigation }) => ({
-                      headerTitle :  () => (
+                      headerTitle : () => (
                         <View>
                         </View>
                       ),
                       headerLeft : () => (
                         <View>
-                            <Text style={styles.text}>Profile</Text>
+                          <Text style={styles.text}>Profile</Text>
                         </View>
                       ),
                       headerStyle : {
@@ -99,12 +116,12 @@ export default function Navigation() {
                     })}  />
               
               <Stack.Screen 
-                    name="editProfile" 
-                    component={EditProfile}
+                    name="UpdateInfo" 
+                    component={UpdateInfo}
                     options={({ navigation }) => ({
                       headerTitle :  () => (
                         <View>
-                            <Text style={styles.text}>Edit Profile</Text>
+                            <Text style={styles.text}>Update info</Text>
                         </View>
                       ),
                       headerTintColor : '#3b3b3b',
@@ -139,13 +156,12 @@ export default function Navigation() {
                  options={({ navigation }) => ({
                    headerTitle : () => (
                      <View>
-                        
                      </View>
                    ),
                    headerLeft : () => (
-                     <View>
-                       <Text style={styles.text}>Log In</Text>
-                     </View>
+                    <View>
+                      <Text style={styles.text}>Log In</Text>
+                    </View>
                    ),
                    headerStyle : {
                      backgroundColor : '#fff',
@@ -179,20 +195,20 @@ export default function Navigation() {
   const styles = StyleSheet.create({
     text : {
       color : '#333333',
-      fontSize : 19,
-      fontFamily : 'ExoBoldItalic',
-      marginHorizontal : 16,
+      fontSize : 24,
+      fontFamily : 'ExoSemiBold',
+      paddingHorizontal : 16,
   },
   icon : {
     color : '#3b3b3b',
     fontSize : 30,
-    margin : 16,
+    margin : 8,
+    marginHorizontal : 16
   },
     buttonText : {
-      margin : 16,
-      marginTop : 24,
       fontFamily : 'ExoSemiBold',
       fontSize : 14,
       color : '#3b3b3b',
+      marginHorizontal : 16
     },
   });

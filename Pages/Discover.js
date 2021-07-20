@@ -178,16 +178,11 @@ export default function Profile({navigation}){
 
                       <View style={{flexDirection : 'row', justifyContent : 'space-evenly', flex : 1, marginTop : 8, margin : 16, marginBottom : 8}} >
                         <View style={{flex : 1, marginRight : 2}}>
-                          <Button type="profile" name="Subscriptions" onPress={() => navigation.navigate('UpdateInfo')}/>
+                          <Button type="profile" name="Manage payments" onPress={() => navigation.navigate('UpdateInfo')}/>
                         </View>
 
-                        <View style={{flex :1, marginHorizontal : 2}}>
-                          <Button type="profile" name="Contact" onPress={ () => navigation.navigate('Contact')} />
-                        </View>
-
-                        
                         <View style={{flex :1, marginLeft : 2}}>
-                          <Button type="profile" name="Log out" onPress={ () => navigation.navigate('Contact')} />
+                          <Button type="profile" name="Contact" onPress={ () => navigation.navigate('Contact')} />
                         </View>
                     </View>
 
@@ -203,7 +198,7 @@ export default function Profile({navigation}){
                         borderRadius={0}
                         tabTextStyle = {{fontFamily : 'ExoMedium', fontSize : 19, color : 'rgba(207, 207, 207, 0.99)'}}
                         activeTabStyle={styles.activeTabStyle}
-                        activeTabTextStyle = {{fontFamily : 'ExoRegular', fontSize : 14, color : '#a13e00'}}
+                        activeTabTextStyle = {{fontFamily : 'ExoMedium', fontSize : 19, color : '#a13e00'}}
                         />
                 </View>
 
@@ -241,7 +236,7 @@ export default function Profile({navigation}){
                     }
 
                   </ScrollView> : <Welcome /> }
-                  <NavBar props="Profile" />
+                  <NavBar props="Discover"/>
                     
                   </View>)}
                   

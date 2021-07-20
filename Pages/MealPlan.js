@@ -7,7 +7,6 @@ import config from '../config';
 import LoadingScreen from "../components/LoadingScreen";
 import { useSelector } from 'react-redux'
 import Calendar from '../assets/Calendar.png'
-import NutritionCard from '../components/NutritionCard'
 import { Pressable } from 'react-native';
 import Error from '../components/Error'
 import NavBar from '../components/NavBar'
@@ -16,46 +15,86 @@ import RecipeDefault from '../assets/RecipeCardDefault.png'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import toDo from '../assets/toDo.png'
 import ToBuy from '../components/ToBuy'
-import { FlatList } from 'react-native-gesture-handler';
-import moment from 'moment';
-import get from 'lodash/get';
+
 //Calendar Card component
 
 const CalendarCard = (props) => {
   const navigation = useNavigation();
   const user = useSelector(state => state.counter.token);
 
+    const handleDelete = () => {
+      Alert.alert(
+          "Delete recipe",
+          "Are you sure you want to delete the recipe from your meal plan?",
+          [ {
+              text: "Cancel",
+              style: "cancel"
+            },
+            { text: "Delete", onPress: () => {
+              fetch(
+                  config.api + `/v1/event/`+props.event.title.id,
+                  {
+                    method: "DELETE",
+                    headers: {
+                      "Authorization":'Token ' +user.token,
+                      "Content-Type": "application/json"
+                    },
+                    mode: "cors",
+    
+                  }
+                )
+                  .then(res => res.json())
+                  .then(response => {
+                      props.setEvents(response)
+                  })
+                  .catch(error => console.log(error));
+            } }
+          ]
+        );
+      
+    }
+
+
     return (
-          <View>
+          <View style={{marginBottom : 16}}>
               <View style={styles.card}> 
 
-                      <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.recipe.recipe.id})}>
-                        {props.recipe.recipe.image ? 
-                            <Image source={{uri : props.recipe.recipe.image}} alt="Recipe" style={styles.recipe}/> :
+                      <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
+                        {props.event.title.recipe.image ? 
+                            <Image source={{uri : props.event.title.recipe.image}} alt="Recipe" style={styles.recipe}/> :
                             <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/> }
                       </Pressable> 
                   
-                  <View style={{flexDirection : 'column', justifyContent : 'center', height : 130, marginTop : 0, margin : 16, marginBottom : 2, width : '50%'}}>
-                          <Text style={styles.text}>{props.recipe.recipe.name}</Text>                       
-                          <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 16 }}>
+                  <View style={{flexDirection : 'column', justifyContent : 'center', height : 180, marginVertical : 4, margin : 16, marginBottom : 0, width : '50%'}}>
+                          <Text style={styles.text}>{props.event.title.recipe.name.length > 24 ? props.event.title.recipe.name.slice(0,24)+ '...' : props.event.title.recipe.name}</Text>                       
+                          <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 32 }}>
+                          { props.event.title.course ? 
+                             <View style={{flexDirection : 'row', alignItems : 'center', justifyContent : 'flex-start'}}>
+                                 <MaterialIcons name="access-time" style={styles.icon} />
+                                 {props.event.title.course.includes(',') ? 
+                                     <Text style={styles.smalltext}>{props.event.title.course.split(',').join('  |  ')}</Text> :
+                                     <Text style={styles.smalltext}>{props.event.title.course}</Text>
+                                 }
+                             </View>
+                           : <View></View> }
 
                               <View style={{flexDirection : 'row', justify : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="food-bank" style={styles.icon} />
-                                  <Text style={styles.smalltext}>{props.recipe.servings === 1 ? '1 serving' : props.recipe.servings + ' servings'}</Text>
+                                  <Text style={styles.smalltext}>{props.event.title.servings === 1 ? '1 serving' : props.event.title.servings + ' servings'}</Text>
                               </View>
                               
-                              {props.recipe.recipe.over_night_prep ? 
+                              {props.event.title.recipe.over_night_prep ? 
 
-                              <View style={{flexDirection : 'row', justify : 'center', alignItems : 'center', marginRight : 32 }}>
+                              <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="nights-stay" style={styles.icon} />
                                   <Text style={styles.smalltext}>Overnight prep</Text> 
                               </View> 
                               
                               :
 
-                            <View style={{flexDirection : 'row', justify : 'center', alignItems : 'center', marginRight : 32 }}>
+                            <View style={{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginRight : 32 }}>
                                   <MaterialIcons name="timelapse" style={styles.icon} />
-                                  <Text style={styles.smalltext}>{props.recipe.recipe.cooking_time} mins</Text> 
+                                  <Text style={styles.smalltext}>{props.event.title.recipe.cooking_time} mins</Text> 
                             </View> }
 
                             </View>
@@ -63,96 +102,129 @@ const CalendarCard = (props) => {
                           </View>
 
                   </View>
+
+              { props.point == 1 ? 
+              <TouchableOpacity style={styles.delete} onPress={handleDelete}> 
+                  <MaterialIcons name="delete" style={styles.icon} />
+                  <Text style={styles.smalltext}>Delete</Text>
+              </TouchableOpacity>
+              : <View></View> }
           </View>
 
       )    
 }
 
 //Calendar card compenent ends
-export default function MealPlan({navigation}) {
-  const [events, setEvents] = useState({})
-  const [event, setEvent] = useState({})
-  const [active, setActive] = useState(0)
 
+
+export default function MealPlan({navigation}) {
+  const [events, setEvents] = useState([])
+  const [cards, setCards] = useState([])
   const user = useSelector(state => state.counter.token);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [index, setIndex] = useState(0)
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  }
+      const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
-  }, []);
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []);
 
   //Get call for calendar events
-  function getKeyByValue(object, value) {
-      return Object.keys(object).find(key => object[key].date === value);
-  }
-  const getEvents = () => {
-    fetch(
-          config.api + `/v1/meal-plan`,
-          {
-            method: "GET",
-            headers: {
-              "Authorization":'Token ' + user.token,
-              "Content-Type": "application/json"
-            },
-            mode: "cors",
-          }
-        )
-        .then((res) => {
-          return Promise.all([res.status, res.json()]);        
-        })
-        .then(([status, response])=> {
-              if(status === 200) {
-                //Filter logic
-                const today = moment(new Date()).format("YYYY-MM-DD")
-                const obj = Object.assign({}, response);
-                const current = getKeyByValue(obj, today)
-                setEvents(obj)
-                setActive(current)
-                setEvent(obj[current])  
-                setLoading(false)
-                setError(false)
-              } else {
-                Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+
+            const getEvents = () => {
+              fetch(
+                    config.api + `/v1/events`,
+                    {
+                      method: "GET",
+                      headers: {
+                        "Authorization":'Token ' + user.token,
+                        "Content-Type": "application/json"
+                      },
+                      mode: "cors",
+                    }
+                  )
+                  .then((res) => {
+                    return Promise.all([res.status, res.json()]);        
+                  })
+                  .then(([status, response])=> {
+                        if(status === 200) {
+                          setEvents(response)
+                          setLoading(false)
+                          setError(false)
+                        } else {
+                          Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                        }
+                        
+                    })
+                  .catch((err) => {
+                  setLoading(false)
+                  setError(true)
+                  })
+            }
+
+            useEffect(() => {
+                      getEvents();
+                    }, [ins]);
+
+    
+    //GET call for grocery list
+          
+          const [grocery, setGrocery] = useState({})
+          const [ins, setIns] = useState([])
+         
+          const getGrocery = () => {
+            fetch(
+              config.api + `/v1/grocery`,
+              {
+                method: "GET",
+                headers: {
+                  "Authorization":'Token ' + user.token,
+                  "Content-Type": "application/json"
+                },
+                mode: "cors",
               }
-              
-          })
-        .catch((err) => {
-        setLoading(false)
-        setError(true)
-        })
-  }
+            )
+            .then((res) => {
+                return Promise.all([res.status, res.json()]);        
+                })
+            .then(([status, response])=> {
+                  if(status === 200) {
+                    setGrocery(response)
+                    if (response.ingredients) {
+                      const inst = Object.values(response.ingredients).map(item => {
+                          return {name : item.name, qty : item.data}
+                      })
+                      setIns(inst);
+                    }
+                    setLoading(false)
+                    setError(false)
+                  } else {
+                    Alert.alert( "Error", "Username/password is incorrect", {text : "OK"} )
+                  }
+              })
+            .catch((err) => {
+              setLoading(false)
+              setError(true)
+            })
+          }
 
-  useEffect(() => {
-      getEvents();
-    }, [refreshing]);
+          useEffect(() => {
+           getGrocery();
+          }, [events]);
 
-  const pagePrev = () => {
-    if(active > 0) {
-      setActive(parseInt(active)-1)
-      return setEvent(events[parseInt(active)-1])
-      
-    } else{
-      setActive(0)
-      return setEvent(events[0])
-    }  
-  }     
-   const pageNext= () => {
-      if(active < Object.keys(events).length-1 ){
-        setActive(parseInt(active)+1)
-        return setEvent(events[parseInt(active)+1])
-        
-      } else { 
-        setActive(parseInt(active)) 
-        return setEvent(events[parseInt(active)])
-      }
-   }         
+   const Item = (event) => {
+    return(
+      <View style={{margin : 4}}>
+        <CalendarCard point={1} event={event} setEvents={setEvents}/>
+      </View>)
+  };
+  //Return call for the Meal plan page
 
   return (
     <View style={{flex : 1}}>
@@ -165,42 +237,76 @@ export default function MealPlan({navigation}) {
                       onRefresh={onRefresh}
                     />}>
           
-                      <View style={styles.line}>
-                          <MaterialIcons onPress={pagePrev} name="arrow-back-ios" style={{fontSize : 24, color : '#000', marginTop : 16, paddingHorizontal : 32}}/>
-                          <View style={{flexGrow : 1}}></View>
-                          <Text style={styles.header}>{moment(event?.date).format('MMM DD, YYYY')}</Text>
-                          <View style={{flexGrow : 1}}></View>
-                          <MaterialIcons onPress={pageNext} name="arrow-forward-ios" style={{fontSize : 24, color : '#000', marginTop : 16, paddingHorizontal : 32}}/>
-                      </View>
-                      {event?.meals?
-                          <View style={{marginBottom : 16}}>
+          <View> 
+                <SegmentedControlTab
+                    values={["Calendar", "Grocery list"]}
+                    selectedIndex={index}
+                    onTabPress={(index) => setIndex(index)}
+                    tabStyle={styles.tabStyle}
+                    borderRadius={0}
+                    tabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
+                    activeTabStyle={styles.activeTabStyle}
+                    activeTabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : '#a13e00'}}
+                    />
+            </View>
 
-                              { event.meals.map((m, i) =>(
-                                <View key={i} style={{marginBottom : 8}}>
-                                  <Title name={m.meal} />
-                                  { m.recipe_for_meal.map((r, j) =>(
-                                    <CalendarCard key={j} recipe={r}/>
-                                  ))}
-                                  { m.ingredient_for_meal.map((ig, k) =>(
-                                    <View key={k} style={styles.box}>
-                                      <Text style={styles.ing}>{ig.ingredient.name}</Text>
-                                      <View style={{flexDirection : 'row', alignItems : 'center', width : '50%'}}>
-                                          <MaterialIcons name="food-bank" style={styles.icon} />
-                                          <Text style={styles.unit}>{Number.isInteger((ig.qty*100)) ? Math.round(ig.qty) : ig.qty}  {ig.unit.name}</Text>
-                                      </View>
-                                    </View>
-                                  ))}
-                                </View>  
-                                ))}
-                          </View>
-                          
-                          :
+        {index === 0 ? 
+                      (events.length > 0 ?
+                        
+                        <View>
+                          <SectionList
+                            sections={events}
+                            keyExtractor={(item, index) =>index.toString()}
+                            renderItem={({ item }) => <Item title={item} />}
+                            renderSectionHeader={({ section: { title } }) => {
+                              return(
+                                <Title name={title}/>
+                              )
+                            }}
+                            // renderSectionFooter={({ section : {nutrition}}) => (
+                            //   <View style={{marginTop : 16}}>
+                            //       <NutritionCard nutrition={nutrition} />
+                            //   </View>
+                            // )}
+                          />
+                          </View> :
                           <View>
-                            <Text style={styles.heading}>Such empty!</Text>
-                            <Text style={styles.subheading}>Get your nutritionist to fill up your personal meal plan</Text>
-                            <Image style={styles.image} source={Calendar} alt="Icon"/> 
-                          </View> }
-                   
+                            <Text style={styles.heading}>Meal prep done right</Text>
+                            <Text style={styles.subheading}>Create your meal plan by adding recipes to your calendar.</Text>
+                            <Pressable onPress={() => navigation.navigate('Home')}>
+                              <Image style={styles.image} source={Calendar} alt="Icon"/> 
+                            </Pressable>
+                          </View> )
+                   : 
+                    (
+                      ins.length > 0 ?
+                        <View>
+                            {/* {events.length < 1 ? 
+                              <View>
+                                <Title name="Dates" />
+                                <DatePicker DatePicker from={grocery.from_date} to={grocery.to_date}/>
+                              </View> : <View/>
+                              } */}
+                            
+                            {/* <TertiaryButton name="Add ingredient" modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
+                              <View style={{backgroundColor : '#fff', flex : 1}}>
+                              <Title name="Shopping list" />
+                                { grocery ?
+                                <ToBuy ingredients={ins}/>
+                                : <View></View>
+                                }
+                              </View> 
+                        </View>
+                        : 
+                        <View>
+                          <Text style={styles.heading}>Grocery shopping made easy</Text>
+                          <Text style={styles.subheading}>Automatically get the grocery list based on your calendar! </Text>
+                          <Pressable onPress={() => navigation.navigate('Home')}>
+                            <Image style={styles.image} source={toDo} alt="Icon"/>
+                          </Pressable> 
+                        </View> 
+                        )
+          }
             
           </ScrollView>
 
@@ -247,8 +353,26 @@ card : {
   flexDirection : 'row',
   width : '100%',
   padding : 16,
+  paddingBottom : 0, 
   alignSelf : 'center',
-  marginBottom : 16
+  flexGrow : 1,
+},
+snackscard : {
+  backgroundColor : '#9ed2ea',
+  flexDirection : 'column',
+  width : '88%',
+  padding : 16, 
+  margin : 8,
+  borderRadius : 4,
+  alignSelf : 'center',
+  flexGrow : 1,
+  borderTopLeftRadius : 0,
+  borderRadius : 20,
+  elevation : 3,
+  shadowRadius : 2,
+  shadowOpacity : 0.5,
+  shadowColor : 'rgba(0, 0, 0, 0.25)',
+  shadowOffset : {width : 0, height : 4},
 },
 imageIcon : {
   height : 16,
@@ -257,27 +381,16 @@ imageIcon : {
 icon : {
   fontSize : 16,
   color : '#626262',
-  margin : 4,
-  alignSelf : 'center'
   },
 text : {
-  fontSize : 17,
+  fontSize : 19,
   color : '#3b3b3b',
-  fontFamily : 'ExoMedium',
-  marginVertical : 8
+  fontFamily : 'ExoSemiBold'
   },
-  header : {
-    fontSize : 19,
-    color : '#000',
-    fontFamily : 'ExoSemiBoldItalic',
-    marginTop : 16,
-    paddingVertical : 8
-    },
 smalltext : {
   fontSize : 14,
   color : '#626262',
   margin : 8,
-  marginVertical : 4,
   fontFamily : 'ExoRegular',
   },
 delete : {
@@ -291,6 +404,7 @@ recipe : {
     flex : 1,
     aspectRatio : 1,
     resizeMode : 'contain',
+    width : 180,
     borderTopLeftRadius : 0,
     borderRadius : 20
 },
@@ -308,39 +422,5 @@ activeTabStyle : {
   marginVertical : 16,
   backgroundColor : '#fff',
   borderBottomColor : '#a13e00',
-},
-ing : {
-    color : '#3b3b3b',
-    fontSize : 17,
-    fontFamily : 'ExoMedium',
-    marginHorizontal : 8,
-    textAlign : 'center',
-    width : '50%'
-  },
-  unit : {
-    color : '#626262',
-    fontSize : 14,
-    fontFamily : 'ExoRegular',
-    marginHorizontal : 8,
-    textAlign : 'center',
-
-  },
-  box : {
-    flexDirection : 'row',
-    justifyContent : 'flex-start',
-    alignItems : 'center',
-    borderColor : '#cfcfcf',
-    borderBottomWidth : 0.5,
-    padding : 8,
-    paddingHorizontal : 16,
-    marginTop : 8
-  },
-  line : {
-    flexDirection : "row",
-    justifyContent : 'center',
-    alignItems : 'center',
-    paddingBottom : 8,
-    marginBottom : 8,
-    backgroundColor : '#fff'
 },
 });

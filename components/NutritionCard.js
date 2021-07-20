@@ -3,14 +3,15 @@ import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 import LoadingScreen from './LoadingScreen'
 
 
-export default function Header(props){
+export default function NutritionCard(props){
 
     return(
         <View style={styles.card}>
-            <View style={styles.line}>
+
+            {/* <View style={styles.line}>
                 <Text style={styles.heading}>{props.recipe.servings}</Text>
                 <Text style={styles.heading}>{props.recipe.servings === 1 ? 'serving' : 'servings'}</Text>
-            </View>
+            </View>             */}
             
             <View style={{margin : 8}}/>
 
@@ -18,25 +19,29 @@ export default function Header(props){
                         <View style={styles.box}>
                             <Text style={styles.text}>Calories</Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{props.recipe.calories} calories</Text>
+                            {/* <Text style={styles.unit}>{props.recipe.calories} kcals</Text> */}
+                            <Text style={styles.unit}>1920 kcals</Text>
                         </View>
 
                         <View style={styles.box}>
                             <Text style={styles.text}>Carbohydrates</Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{props.recipe.carbohydrate} g</Text>
+                            {/* <Text style={styles.unit}>{props.recipe.carbohydrate} g</Text> */}
+                            <Text style={styles.unit}>58 g</Text>
                         </View>
 
                         <View style={styles.box}>
                             <Text style={styles.text}>Proteins</Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{props.recipe.proteins} g</Text>
+                            {/* <Text style={styles.unit}>{props.recipe.proteins} g</Text> */}
+                            <Text style={styles.unit}>32 g</Text>
                         </View>
 
                         <View style={styles.box}>
                             <Text style={styles.text}>Fat</Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{props.recipe.fat} g</Text>
+                            {/* <Text style={styles.unit}>{props.recipe.fat} g</Text> */}
+                            <Text style={styles.unit}>28 g</Text>
                         </View>
             </View>
      </View>
@@ -72,9 +77,9 @@ const styles = StyleSheet.create({
         margin : 16,
     },
     heading : {
-        fontSize : 17,
+        fontSize : 14,
         color : '#3b3b3b',
-        fontFamily : 'ExoSemiBold',
+        fontFamily : 'ExoRegular',
         textAlign : 'center',
         marginHorizontal : 4,
         margin : 0
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     text : {
         color : '#3b3b3b',
         fontSize : 14,
-        fontFamily : 'ExoMedium',
+        fontFamily : 'ExoRegular',
         marginHorizontal : 16,
         textAlign : 'left',
         width : '50%',
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
       unit : {
         color : '#3b3b3b',
         fontSize : 14,
-        fontFamily : 'ExoMedium',
+        fontFamily : 'ExoRegular',
         marginHorizontal : 16,
         textAlign : 'right',
         marginVertical : 4

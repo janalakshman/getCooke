@@ -10,18 +10,34 @@ import { Alert } from "react-native";
 import RadioForm from 'react-native-simple-radio-button';
 import Title from '../components/Title'
 import { setToken } from "../redux/counterSlice";
+import SegmentedControlTab from "react-native-segmented-control-tab";
 
-var radio_props = [
+var genderTypes = [
     {label: 'Male', value: 0 },
     {label: 'Female', value: 1 },
     {label : "Don't want to say", value: 2 }
   ];
-  
+
+  var fitnessGoal = [
+    {label: 'Lose weight', value: 0 },
+    {label: 'Gain muscle mass', value: 1 },
+    {label : 'Maintain weight', value: 2 }
+  ];
+
+  var activityLevel = [
+      {label : 'Sedantary : little or no exercise', value : 0},
+      {label : 'Light : exercise 1-3 times/week', value : 1},
+      {label : 'Moderate : exercise 4-5 times/week', value : 2},
+      {label : 'Active : daily exercise or intense exercise 3-4 times/week', value : 3},
+      {label : 'Very Active : intense exercise 6-7 times/week', value : 4},
+      {label : 'Extra Active : very intense exercise daily, or physical job', value : 5}
+  ];
 
 export default function EditProfile({navigation}) {
 
 const dispatch = useDispatch()
 const user = useSelector(state => state.counter.token)
+const [index, setIndex] = useState(0)
 
 const [refreshing, setRefreshing] = React.useState(false);
 
@@ -40,11 +56,11 @@ const [weight, setWeight] = useState(user.user.profile.weight ? user.user.profil
 const [height, setHeight] = useState(user.user.profile.height ? user.user.profile.height : null)
 const [age, setAge] = useState(user.user.profile.age ? user.user.profile.age : 0)
 const [history, setHistory] = useState(user.user.profile.medical_history ? user.user.profile.medical_history : null)
-const [workout, setWorkout] = useState(user.user.profile.workout_schedule ? user.user.profile.workout_schedule : null)
+const [workout, setWorkout] = useState(user.user.profile.workout_schedule ? user.user.profile.workout_schedule : 0)
 const [love, setLove] = useState(user.user.profile.food_you_love ? user.user.profile.food_you_love : null)
 const [hate, setHate] = useState(user.user.profile.food_you_hate ? user.user.profile.food_you_hate : null)
 const [time, setTime] = useState(user.user.profile.time_availability ? user.user.profile.time_availability : null)
-const [goals, setGoals] = useState(user.user.profile.fitness_goal ? user.user.profile.fitness_goal : null)
+const [goals, setGoals] = useState(user.user.profile.fitness_goal ? user.user.profile.fitness_goal : 0)
 const [special, setSpecial] = useState(user.user.profile.special_note ? user.user.profile.special_note : null)
 const [appliances, setAppliances] = useState(user.user.profile.cooking_appliance ? user.user.profile.cooking_appliance : '')
 const [appliancesModal, setAppliancesModal] = useState(false)
@@ -146,8 +162,19 @@ const getTags = () => {
                       onRefresh={onRefresh}
                     />}>
 
-                    <View style={{margin : 8}} />
+                    <SegmentedControlTab
+                        values={["Personal info", "Food preferences"]}
+                        selectedIndex={index}
+                        onTabPress={(index) => setIndex(index)}
+                        tabStyle={styles.tabStyle}
+                        borderRadius={0}
+                        tabTextStyle = {{fontFamily : 'ExoMedium', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
+                        activeTabStyle={styles.activeTabStyle}
+                        activeTabTextStyle = {{fontFamily : 'ExoMedium', fontSize : 17, color : '#a13e00'}}
+                        />
 
+                {index === 0 ? 
+                    <View>
                         <Title name="Name"/>
 
                         <TextInput style={styles.name}
@@ -156,28 +183,25 @@ const getTags = () => {
                             value={name}
                             name="name" />
 
-                    <View style={{margin : 8}} />
 
-                    
+
                         <Title name="Gender"/>
 
 
                         <View style={{marginHorizontal : 32, margin : 16}}>
                             <RadioForm
-                                radio_props={radio_props}
+                                radio_props={genderTypes}
                                 initial={gender}
                                 animation={true}
                                 onPress={(value) => setGender(value)}
-                                labelStyle={{fontFamily : 'ExoRegular', color : '#3b3b3b'}}
+                                labelStyle={{fontFamily : 'ExoRegular', fontSize : 17, margin : 8, color : '#3b3b3b'}}
                                 />
                         </View>
 
 
-                    <View style={{margin : 8}} />        
-                    
                         <Title name="Physical info"/>
 
-                         <View style={{margin : 8}} /> 
+                        <View style={{margin : 8}} /> 
                                 <View style={{flexDirection : 'row', marginHorizontal : 16}}>
                                 <View style={styles.line}>
                                     <Text style={styles.body}>Weight</Text>     
@@ -187,7 +211,7 @@ const getTags = () => {
                                         value={weight ? weight.toString() : null}
                                         keyboardType="numeric"
                                         name="weight"
-                                         />
+                                        />
                                 </View>
 
                                 <View style={styles.line}>
@@ -215,163 +239,158 @@ const getTags = () => {
                                     <Text style={styles.subheading}>Body Mass Index : {bmi ? bmi : 0}</Text>
                                 </View>     
 
-                    
-
-                    <View style={{margin : 8}} />
-
-                    <Title name="Medical history"/>
-
-                            <TextInput style={styles.notes}
-                                    multiline
-                                    placeholder = "We care about this a lot. Spare no details!"
-                                    onChangeText={notes => setHistory(notes)}
-                                    value={history}
-                                    name="history" />
-
-                    <View style={{margin : 8}} />
-
-
-
-                    <Title name="Fitness goals"/>
-
-                            <TextInput style={styles.notes}
-                                    multiline
-                                    placeholder = "Couch potato / Gym freak / In between?"
-                                    onChangeText={notes => setWorkout(notes)}
-                                    value={workout}
-                                    name="workout" />
-
-                    <View style={{margin : 8}} />
-
-
-
-                    <Title name="Food you love"/>
-
-                            <TextInput style={styles.notes}
-                                    multiline
-                                    placeholder = "The dishes you can't help but salivate"
-                                    onChangeText={notes => setLove(notes)}
-                                    value={love}
-                                    name="love" />
-
-                    <View style={{margin : 8}} /> 
-
-
-
-                    <Title name="Food you hate"/>
-
-                            <TextInput style={styles.notes}
-                                    multiline
-                                    placeholder = "You will rather fast than eat this"
-                                    onChangeText={notes => setHate(notes)}
-                                    value={hate}
-                                    name="hate" />
-
-                    <View style={{margin : 8}} />
-
-
-
-                    <Title name="Time available to cook"/>
-
-                            <TextInput style={styles.notes}
-                                    multiline
-                                    placeholder = "Describe your cooking schedule/ arrangement"
-                                    onChangeText={notes => setTime(notes)}
-                                    value={time}
-                                    name="time" />
-
-                    <View style={{margin : 8}} />
-
 
                         <Title name="Fitness goals"/>
 
-                            <TextInput style={styles.notes}
-                                    multiline
-                                    placeholder = "It's okay to be ambitious!"
-                                    onChangeText={notes => setGoals(notes)}
-                                    value={goals}
-                                    name="goals" />
+                            <View style={{marginHorizontal : 32, margin : 16}}>
+                                <RadioForm
+                                    radio_props={fitnessGoal}
+                                    initial={goals}
+                                    animation={true}
+                                    onPress={(value) => setGoals(value)}
+                                    labelStyle={{fontFamily : 'ExoRegular', fontSize : 17, margin : 8, color : '#3b3b3b'}}
+                                    />
+                            </View>
+                        
+                            <Title name="Activity level"/>
+
+                                <View style={{marginHorizontal : 32, margin : 16}}>
+                                    <RadioForm
+                                        radio_props={activityLevel}
+                                        initial={workout}
+                                        animation={true}
+                                        onPress={(value) => setWorkout(value)}
+                                        labelStyle={{fontFamily : 'ExoRegular', fontSize : 17, margin : 8, color : '#3b3b3b'}}
+                                        />
+                                </View>
+                                                        
+                            <Title name="Medical history"/>
+
+                                <TextInput style={styles.notes}
+                                        multiline
+                                        placeholder = "Spare no details!"
+                                        onChangeText={notes => setHistory(notes)}
+                                        value={history}
+                                        name="history" />
+
+                    </View>
+                :
+
+                <View>
+
+
+                    <Title name="Number of meals per day"/>
+
+                    <TextInput style={styles.name}
+                            keyboardType = "numeric"
+                            onChangeText={notes => setTime(notes)}
+                            value={time}
+                            name="time" />
+
+
+                {/* <Title name="Preferred cuisine"/>
+
+                {cuisine.length > 0 ? 
+                        <View style={styles.selectedTags}>
+                            {cuisine.map((c, index) =>
+                                <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                            )}
+                        </View>
+                                :
+                            <TouchableOpacity style={styles.tags}  onPress = {() => setCuisineModal(true)}>
+                                <Text style={styles.placeholder}>Cuisine</Text>
+                            </TouchableOpacity>
+                    }
+
+                {cuisine.length > 0 ? 
+                    <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
+                    : <View/>} */}
+
+
+                    <Title name="Protein sources"/>
+
+                    {appliances.length > 0 ? 
+                            <View style={styles.selectedTags}>
+                                {appliances.map((c, index) =>
+                                    <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                )}
+                            </View>
+                                    :
+                                <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
+                                    <Text style={styles.placeholder}>Appliances</Text>
+                                </TouchableOpacity>
+                        }
+
+                    {appliances.length > 0 ? 
+                        <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
+                        : <View/>}
+
+                    <Title name="Allergens"/>
+
+                        {appliances.length > 0 ? 
+                                <View style={styles.selectedTags}>
+                                    {appliances.map((c, index) =>
+                                        <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                        :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
+                                        <Text style={styles.placeholder}>Appliances</Text>
+                                    </TouchableOpacity>
+                            }
+
+                        {appliances.length > 0 ? 
+                            <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
+                            : <View/>}
 
 
 
-                    <View style={{margin : 8}} />
+                    <Title name="Diet"/>
 
-                    <Title name="Special notes"/>
+                    {diet.length > 0 ? 
+                            <View style={styles.selectedTags}>
+                                {diet.map((c, index) =>
+                                    <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                )}
+                            </View>
+                                    :
+                                <TouchableOpacity style={styles.tags}  onPress = {() => setDietModal(true)}>
+                                    <Text style={styles.placeholder}>Diet</Text>
+                                </TouchableOpacity>
+                        }
 
-                            <TextInput style={styles.notes}
-                                    multiline
-                                    placeholder = "Ooooh! More information. We love it!"
-                                    onChangeText={notes => setSpecial(notes)}
-                                    value={special}
-                                    name="special" />
+                    {diet.length > 0 ? 
+                        <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
+                        : <View/>}
+
+                    
+                    <Title name="Cooking appliances"/>
+
+                    {appliances.length > 0 ? 
+                            <View style={styles.selectedTags}>
+                                {appliances.map((c, index) =>
+                                    <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                )}
+                            </View>
+                                    :
+                                <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
+                                    <Text style={styles.placeholder}>Appliances</Text>
+                                </TouchableOpacity>
+                        }
+
+                    {appliances.length > 0 ? 
+                        <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
+                        : <View/>}
 
 
-
-                    <View style={{margin : 8}} />
-
-                    <Title name="Preferred cuisine"/>
-
-                            {cuisine.length > 0 ? 
-                                    <View style={styles.selectedTags}>
-                                        {cuisine.map((c, index) =>
-                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
-                                        )}
-                                    </View>
-                                            :
-                                        <TouchableOpacity style={styles.tags}  onPress = {() => setCuisineModal(true)}>
-                                            <Text style={styles.placeholder}>Cuisine</Text>
-                                        </TouchableOpacity>
-                                }
-                            
-                            {cuisine.length > 0 ? 
-                                <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
-                                : <View/>}
-
-
-
-                    <View style={{margin : 8}} />
-
-                    <Title name="Cooking appliances you have"/>
-
-                            {appliances.length > 0 ? 
-                                    <View style={styles.selectedTags}>
-                                        {appliances.map((c, index) =>
-                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
-                                        )}
-                                    </View>
-                                            :
-                                        <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
-                                            <Text style={styles.placeholder}>Cooking Appliances</Text>
-                                        </TouchableOpacity>
-                                }
-                            
-                            {appliances.length > 0 ? 
-                                <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
-                                : <View/>}
+                                        
 
 
 
-
-                    <View style={{margin : 8}} />
-
-                            <Title name="Dietary restrictions"/>
-
-                            {diet.length > 0 ? 
-                                    <View style={styles.selectedTags}>
-                                        {diet.map((c, index) =>
-                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
-                                        )}
-                                    </View>
-                                            :
-                                        <TouchableOpacity style={styles.tags}  onPress = {() => setDietModal(true)}>
-                                            <Text style={styles.placeholder}>Diet</Text>
-                                        </TouchableOpacity>
-                                }
-                            
-                            {diet.length > 0 ? 
-                                <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
-                                : <View/>}
-
+                </View>
+                 
+                }
+                    
 
                     <View style={{margin : 16}} />            
 
@@ -408,19 +427,17 @@ const getTags = () => {
 
 const styles = StyleSheet.create({
     name : {
-        borderRadius : 8,
+        borderRadius : 4,
         borderTopLeftRadius : 0,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
-        height : 60,
+        height : 48,
         width : '90%',
         margin : 16,
         padding : 16,
         fontFamily : 'ExoRegular',
         fontSize : 17,
-        color : '#626262',
+        color : '#000',
         alignContent : 'flex-start',
-        backgroundColor : '#fff',
+        backgroundColor : '#f1f1f1',
     },
     text : {
         fontFamily : 'ExoSemiBold',
@@ -431,19 +448,17 @@ const styles = StyleSheet.create({
         color : '#3b3b3b'
     },
     notes : {
-        borderRadius : 8,
+        borderRadius : 4,
         borderTopLeftRadius : 0,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
-        height : 108,
+        height : 96,
         width : '90%',
         margin : 16,
         padding : 16,
         paddingTop : 8,
-        fontFamily : 'ExoMedium',
-        fontSize : 14,
+        fontFamily : 'ExoRegular',
+        fontSize : 17,
         alignContent : 'flex-start',
-        backgroundColor : '#fff'
+        backgroundColor : '#f1f1f1'
     },
     line : {
         flex : 1,
@@ -452,53 +467,46 @@ const styles = StyleSheet.create({
         backgroundColor : '#fff'
     },
     nutrition : {
-        borderRadius : 8,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
+        borderRadius : 4,
         borderTopLeftRadius : 0,
         height : 48,
         width : '100%',
         paddingHorizontal : 16,
-        fontFamily : 'ExoMedium',
-        fontSize : 14,
-        color : '#626262',
-        backgroundColor : '#fff',
+        fontFamily : 'ExoRegular',
+        fontSize : 17,
+        backgroundColor : '#f1f1f1',
         flex : 1,
         alignContent : 'flex-start',
     },
     calories : {
-        borderRadius : 8,
-        width : '75%',
+        borderRadius : 4,
+        width : '90%',
         borderTopLeftRadius : 0,
         paddingHorizontal : 16,
         paddingVertical : 8,
-        alignContent : 'center',
         alignSelf : 'center',
         margin : 32,
         borderColor : '#a13e00',
         borderWidth : 1,
     },
     body : {
-        fontSize : 16,
+        fontSize : 17,
         color : '#3b3b3b',
         margin : 4,
         fontFamily : 'ExoRegular',
     },
     placeholder : {
-        fontFamily : 'ExoMedium',
-        fontSize : 14,
+        fontFamily : 'ExoRegular',
+        fontSize : 17,
         paddingHorizontal : 16,
         color : '#626262',
         paddingVertical : 2,
-
     },
     tags : {
-        borderRadius : 8,
+        borderRadius : 4,
         borderTopLeftRadius : 0,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
         alignItems : 'center',
-        backgroundColor : '#fff',
+        backgroundColor : '#f1f1f1',
         marginVertical : 8,
         paddingVertical : 16,
         marginHorizontal : 16,
@@ -507,32 +515,48 @@ const styles = StyleSheet.create({
         flexWrap : 'wrap'
     },
     selectedTags : {
-        borderRadius : 8,
+        borderRadius : 4,
         borderTopLeftRadius : 0,
-        borderWidth : 1,
-        borderColor : '#a13e00',
-        alignItems : 'center',
+        alignItems : 'flex-start',
         marginVertical : 8,
         paddingVertical : 16,
         marginHorizontal : 16,
         justifyContent : 'flex-start',
-        flexDirection : 'row',
-        flexWrap : 'wrap'
+        flexDirection : 'column',
+        flexWrap : 'wrap',
+        backgroundColor : '#f1f1f1'
     },
     selectedTagsText : {
-        fontFamily : 'ExoMedium',
-        fontSize : 14,
+        fontFamily : 'ExoRegular',
+        fontSize : 17,
         paddingHorizontal : 16,
-        paddingVertical : 2,
-        color : '#a13e00',
+        paddingVertical : 8,
+        color : '#000',
     },
     subheading : {
-        fontFamily : 'ExoMedium',
-        fontSize : 14,
+        fontFamily : 'ExoRegular',
+        fontSize : 17,
         color : '#a13e00',
         alignSelf : 'center',
         margin : 8,
         marginHorizontal : 16,
-    }
+    },
+    tabStyle : {
+        borderBottomWidth : 1,
+        height : 40,
+        marginVertical : 8,
+        marginTop : 8,
+        backgroundColor : '#fff',
+        borderColor : '#fff',
+        borderBottomColor : 'rgba(207, 207, 207, 0.99)'
+    },
+    activeTabStyle : {
+        borderBottomWidth : 1,
+        height : 40,
+        marginTop : 8,
+        marginVertical : 8,
+        backgroundColor : '#fff',
+        borderBottomColor : '#a13e00',
+    },
 
 });

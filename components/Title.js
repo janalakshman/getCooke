@@ -5,9 +5,7 @@ export default function Title(props) {
 
     return(
       <View style={styles.container}>
-          {/* <View style={styles.border}>  */}
             <Text style={styles.heading}>{props.name}</Text>
-          {/* </View> */}
       </View>
         
     )
@@ -15,16 +13,11 @@ export default function Title(props) {
   
   const styles = StyleSheet.create({
     heading : {
-      color : '#000000',
+      color : '#333',
       fontSize : 19,
-      fontFamily : 'ExoSemiBoldItalic',
+      fontFamily : 'ExoMedium',
       margin : 16,
       marginBottom : 8
-    },
-    border : {
-        borderBottomColor : '#ffcd4c',
-        borderBottomWidth : 8,
-        borderRadius : 8,
     },
     container: {
       flex: 1,

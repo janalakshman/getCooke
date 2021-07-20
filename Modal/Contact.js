@@ -86,9 +86,9 @@ export default function AddIngredient({navigation}) {
 
                 <View style={{flexGrow : 1}} />
 
-            <Title name="For everything else" />
+            <Title name="Want to chat?" />
 
-                <Text style={styles.contact}>Send a mail to jana@getcooke.com</Text>
+                <Text style={styles.contact}>Mail us at hello@getcooke.com</Text>
 
 
                 <Button type="primary" name="Send Feedback" onPress={() => handleClick()} />
@@ -103,24 +103,23 @@ export default function AddIngredient({navigation}) {
 
 const styles = StyleSheet.create({
     name : {
-        borderRadius : 8,
+        borderRadius : 4,
         borderTopLeftRadius : 0,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
-        height : 108,
+        height : 96,
         width : '90%',
         margin : 16,
         padding : 16,
         fontFamily : 'ExoRegular',
-        fontSize : 14,
-        alignContent : 'flex-start'
+        fontSize : 17,
+        alignContent : 'flex-start',
+        backgroundColor : '#f1f1f1'
     },
     contact : {
-        fontFamily : 'ExoMedium',
+        fontFamily : 'ExoRegular',
         margin : 16,
         marginBottom : 32,
         color : '#3b3b3b',
-        fontSize : 14
+        fontSize : 17
     },
     error : {
         fontFamily : 'ExoRegular',

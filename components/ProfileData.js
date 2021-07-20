@@ -7,18 +7,13 @@ export default function ProfileData(props){
     return(
                 <View style={styles.card}>
                     <View style={styles.line}>
-                        <Text style={styles.text}>{props.user.cooked ? props.user.cooked : 0}</Text>
-                        <Text style={styles.body}>Cooked meals</Text>     
+                        <Text style={styles.text}>76 kg</Text>
+                        <Text style={styles.body}>Second week</Text>     
                     </View>
 
                     <View style={styles.line}>
-                        <Text style={styles.text}>{props.user.total}</Text>
-                        <Text style={styles.body}>Recipes</Text>     
-                    </View>
-
-                    <View style={styles.line}>
-                        <Text style={styles.text}>{props.user.events}</Text>
-                        <Text style={styles.body}>Calendar Adds</Text>     
+                        <Text style={styles.text}>75 kg</Text>
+                        <Text style={styles.body}>Fourth week</Text>     
                     </View>
                 </View>
         
@@ -28,7 +23,6 @@ export default function ProfileData(props){
 const styles = StyleSheet.create({
     card : {
         width : '100%',
-        borderRadius : 4,
         alignContent : 'center',
         justifyContent : 'space-around',
         backgroundColor : '#ffffff',
@@ -44,10 +38,10 @@ const styles = StyleSheet.create({
         padding : 8,
     },
   text : {
-      fontSize : 17,
-      color : '#3b3b3b',
+      fontSize : 19,
+      color : '#333',
       margin : 8,
-      fontFamily : 'ExoSemiBold',
+      fontFamily : 'ExoMedium',
   },
   body : {
       fontSize : 14,
@@ -55,5 +49,4 @@ const styles = StyleSheet.create({
       margin : 4,
       fontFamily : 'ExoRegular'
   },
-  
   });
