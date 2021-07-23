@@ -182,6 +182,8 @@ const getTags = () => {
                                 keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
                                 behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <ScrollView>
+
+                <View style={{margin : 16}} />
                                 
                 <Title name ="Recipe Info" />
 

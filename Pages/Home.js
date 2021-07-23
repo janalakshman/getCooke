@@ -12,7 +12,7 @@ import Error from '../components/Error'
 import NavBar from '../components/NavBar'
 
 export default function Home({navigation}) {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [recipes, setRecipes] = useState({});
   const [events, setEvents] = useState([]);
@@ -102,13 +102,15 @@ export default function Home({navigation}) {
     <View style={{flex : 1,}}>
       {loading ? (<LoadingScreen/>) : error ? (<Error />) : (
           <View style={{flex : 1,  backgroundColor : '#fff'}}>
-                <ScrollView style={{backgroundColor : '#fffafa'}} 
+                <ScrollView style={{backgroundColor : '#fff'}} 
                 refreshControl={
                           <RefreshControl
                             refreshing={refreshing}
                             onRefresh={onRefresh}
                           />
                         } >
+
+                    <View style={{margin : 16}} />
                     {/* <TextInput  style={styles.textInput}
                             placeholder = "Search recipes"
                             onChangeText={text => setSearch(text)}
@@ -128,7 +130,7 @@ export default function Home({navigation}) {
                             </View>
                           )}
                         /> : ''} */}
-
+                    
               {panels}
 
           </ScrollView>
@@ -173,5 +175,5 @@ const styles = StyleSheet.create({
       padding : 16,
       margin : 16,
       fontFamily : 'ExoSemiBold'
-  },
+    },
 });

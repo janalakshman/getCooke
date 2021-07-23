@@ -79,7 +79,7 @@ export default function Button(props) {
     primaryText : {
       color : '#A13E00',
       fontSize : 19,
-      fontFamily : 'ExoSemiBold',
+      fontFamily : 'ExoMedium',
       margin : 8,
       marginVertical : 12,
       flexGrow : 1,

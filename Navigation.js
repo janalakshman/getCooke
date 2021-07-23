@@ -19,7 +19,7 @@ export default function Navigation() {
     const user = useSelector(state => state.counter.token);
 
     // It will resolve most of the redirect 
-    const  defaultlandingPage = user ? 'Home' : 'Welcome';
+    const  defaultlandingPage = user ? 'Meal plan' : 'Welcome';
 
     return (
       <NavigationContainer>
@@ -41,7 +41,7 @@ export default function Navigation() {
                   ),
                   headerStyle : {
                     backgroundColor : '#fff',
-                    height : 80
+                    height : 0
                   },
                 })} />
             
@@ -60,7 +60,7 @@ export default function Navigation() {
                     ),
                     headerStyle : {
                       backgroundColor : '#fff',
-                      height : 80
+                      height : 0
                     },
                   })}  />
             
@@ -79,7 +79,7 @@ export default function Navigation() {
                       ),
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 80
+                        height : 0
                       },
                     })}  />
               
@@ -108,14 +108,12 @@ export default function Navigation() {
                     options={({ navigation }) => ({
                       headerTitle :  () => (
                         <View>
-                          <Text style={styles.text}>Add Recipe</Text>
                         </View>
                       ),
                       headerTintColor : '#3b3b3b',
                       headerBackTitle : ' ',
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 80
                       },
                     })}  />
               
@@ -161,11 +159,11 @@ export default function Navigation() {
                  options={({ navigation }) => ({
                    headerTitle : () => (
                      <View>
-                        <Text style={styles.text}>Sign Up</Text>
                      </View>
                    ),
                    headerLeft : () => (
                      <View>
+                        <Text style={styles.text}>Sign Up</Text>
                      </View>
                    ),
                    headerStyle : {
@@ -180,15 +178,15 @@ export default function Navigation() {
                  options={({ navigation }) => ({
                    headerTitle : () => (
                      <View>
-                        <Text style={styles.text}>Log In</Text>
                      </View>
                    ),
                    headerLeft : () => (
                      <View>
+                        <Text style={styles.text}>Log In</Text>
                      </View>
                    ),
                    headerStyle : {
-                     backgroundColor : '#ffffff',
+                     backgroundColor : '#fff',
                      height : 80
                    },
                   })}  />
@@ -207,6 +205,7 @@ export default function Navigation() {
                    ),
                    headerStyle : {
                      backgroundColor : '#ffffff',
+                     height : 0
                    },
                   })}  />           
           </>
@@ -219,21 +218,14 @@ export default function Navigation() {
 
   const styles = StyleSheet.create({
     text : {
-      color : '#626262',
-      fontSize : 19,
-      fontFamily : 'ExoBoldItalic',
-      marginHorizontal : 16
-  },
-  icon : {
-    color : '#3b3b3b',
-    fontSize : 30,
-    margin : 16,
-  },
-    buttonText : {
-      margin : 16,
-      marginTop : 24,
+      color : '#333',
+      fontSize : 24,
       fontFamily : 'ExoSemiBold',
-      fontSize : 14,
-      color : '#3b3b3b',
+      marginHorizontal : 16
     },
+    icon : {
+      color : '#3b3b3b',
+      fontSize : 30,
+      margin : 16,
+    }
   });

@@ -121,7 +121,7 @@ export default function MealPlan({navigation}) {
   const [events, setEvents] = useState([])
   const [cards, setCards] = useState([])
   const user = useSelector(state => state.counter.token);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [index, setIndex] = useState(0)
   const [refreshing, setRefreshing] = React.useState(false);
@@ -236,6 +236,8 @@ export default function MealPlan({navigation}) {
                       refreshing={refreshing}
                       onRefresh={onRefresh}
                     />}>
+
+          <View style={{margin : 16}} />
           
           <View> 
                 <SegmentedControlTab

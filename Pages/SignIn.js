@@ -87,10 +87,12 @@ export default function SignIn(props) {
                 <View style={styles.container}>
 
 
-                            <KeyboardAvoidingView
+                            {/* <KeyboardAvoidingView
                                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}
-                                >
+                                > */}
+                            
+                            <View style={{margin : 16}} />
                             
                             <Text style={styles.text}>Your mail</Text>
 
@@ -112,7 +114,7 @@ export default function SignIn(props) {
                             
                             <Button type="primary" name="Log In" onPress={() => handleClick()}/>
 
-                            </KeyboardAvoidingView>
+                            {/* </KeyboardAvoidingView> */}
                         </View>
             )}
         </View>
@@ -126,33 +128,9 @@ const styles = StyleSheet.create({
         flexGrow : 1,
         flexDirection : 'column'
     },
-    subtitle : {
-        fontFamily : 'ExoSemiBold',
-        textAlign : 'center',
-        color : '#3b3b3b',
-        fontSize : 24,
-        margin : 24
-    },
-    buttonText : {
-        color : '#A13E00',
-        fontSize : 17,
-        margin : 16,
-        marginVertical : 8,
-        flexGrow : 1,
-        textAlign : 'center',
-        fontFamily : 'ExoSemiBold'
-    },
-    button: {
-        borderRadius : 8,
-        backgroundColor : '#ffc885',
-        alignSelf : 'flex-start',
-        margin : 12,
-        flexDirection : 'row',
-        alignSelf : 'center'
-            },
     text : {
-        fontSize : 17,
-        color : '#3b3b3b',
+        fontSize : 19,
+        color : '#333',
         margin : 16,
         fontFamily : 'ExoMedium'
     },

@@ -15,30 +15,26 @@ export default function Welcome() {
     return(
 
         <View style={{backgroundColor : '#ffffff', flex : 1, flexDirection : 'column'}}>
-            <KeyboardAvoidingView
+            {/* <KeyboardAvoidingView
                                 behavior={Platform.OS === "ios" ? "padding" : "height"}
-                                style={styles.container}
-                                >
+                                style={{backgroundColor : '#ffffff', flex : 1, flexDirection : 'column'}}
+                                > */}
 
-            <View style={{flexGrow : 1}}></View>
+            <View style={{margin : 16}} />
             
-            <Text style={styles.text}>Your personal kitchen assistant.</Text>
+            <Text style={styles.text}>Your personal kitchen assistant</Text>
+
+            <Image style={styles.image} source={Icon} alt="Icon"/>
             
             <Text style={styles.body}>Find recipes, add them to an inbuilt calendar that automatically generates a grocery list</Text>
 
             <View style={{flexGrow : 1}}></View>
             
-            <Image style={styles.image} source={Icon} alt="Icon"/>
-
-            <View style={{flexGrow : 1}}></View>
-
             <Button type="primary" name="Sign Up" onPress={() => navigation.navigate('SignUp')} />
 
             <Button type="secondary" name="Log In" onPress={() => navigation.navigate('SignIn')} />
 
-            <View style={{flexGrow : 1}}></View>
-
-            </KeyboardAvoidingView>
+            {/* </KeyboardAvoidingView> */}
 
         </View>
 
@@ -54,21 +50,17 @@ const styles = StyleSheet.create({
     },
     body : {
         fontSize : 17,
-        color : '#3b3b3b',
-        fontFamily : 'ExoLightItalic',
-        marginRight : 32,
-        marginLeft : 16
+        color : '#626262',
+        fontFamily : 'ExoRegular',
+        marginHorizontal : 32,
+        textAlign : 'center'
     },
     text : {
-        fontSize : 24,
-        color : '#3b3b3b',
+        fontSize : 32,
+        color : '#333',
         fontFamily : 'ExoSemiBold',
-        margin : 16,
+        margin : 32,
+        marginVertical : 8,
+        textAlign : 'center'
     },
-    heading : {
-        color : '#3b3b3b',
-        fontSize : 24,
-        fontFamily : 'ExoBold',
-        marginHorizontal : 16
-    },
-        })
+    })
