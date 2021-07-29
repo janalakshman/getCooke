@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         resizeMode : 'contain',
     },
     text : {
-        fontSize : 17,
+        fontSize : 14,
         color : '#3b3b3b',
         marginLeft : 16,
         fontFamily : 'ExoRegular'

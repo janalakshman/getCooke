@@ -33,7 +33,7 @@ export default function PrepStep(props) {
   const styles = StyleSheet.create({
     text : {
       color : '#3b3b3b',
-      fontSize : 17,
+      fontSize : 14,
       fontFamily : 'ExoRegular',
       margin : 16,
       },
@@ -50,7 +50,8 @@ export default function PrepStep(props) {
         backgroundColor : '#fff',
         flexGrow : 1,
         flexDirection : 'row',
-        alignItems : 'flex-start',
+        alignContent : 'flex-start',
+
         // borderWidth : 1,
         // borderColor : '#cfcfcf'
         // elevation : 3,
@@ -66,6 +67,7 @@ export default function PrepStep(props) {
       alignSelf : 'center', 
       resizeMode: 'contain',
       borderTopLeftRadius : 0,
+      borderTopRightRadius : 0,
       borderRadius : 20,
       marginBottom : 32,
       paddingHorizontal : 16

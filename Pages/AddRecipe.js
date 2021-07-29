@@ -13,8 +13,8 @@ import ImageInput from '../components/ImageInput';
 import TagModal from "../Modal/TagModal";
 import { Alert } from "react-native";
 import * as ImageManipulator from 'expo-image-manipulator';
-
-
+import NavBar from '../components/NavBar'
+import SegmentedControlTab from "react-native-segmented-control-tab";
 
 
 export default function AddRecipe({navigation}) {
@@ -44,6 +44,7 @@ const [dietModal, setDietModal] = useState(false)
 const [tags, setTags] = useState(null)
 const [loading, setLoading] = useState(false)
 const [error, setError] = useState(false)
+const [index, setIndex] = useState(0)
 const toggleVeg = () => setIsVeg(previousState => !previousState);
 const toggleOvernight = () => setIsOvernight(previousState => !previousState);
 let calories = carbs*4 + protein*4 + fat*9
@@ -93,7 +94,7 @@ const getTags = () => {
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: Platform.OS === 'ios' ? 0.75 : 1,
+      quality: 1,
       allowsEditing : true,
       aspect : [1,1]
     });
@@ -182,10 +183,12 @@ const getTags = () => {
                                 keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
                                 behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <ScrollView>
+                
+                {
+                    index === 0 ? 
+                    <View>
 
-                <View style={{margin : 16}} />
-                                
-                <Title name ="Recipe Info" />
+                    <Title name ="Recipe name" />
 
                     <TextInput style={styles.name}
                         placeholder = "Name of the recipe"
@@ -194,21 +197,20 @@ const getTags = () => {
                         name="name" />
                     {error ? name ?  <View /> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
 
-                    <View style={{flexDirection : 'column'}}>
-                        <View style={{width : '85%', flexDirection : 'row', alignContent : 'center'}}>
-                            <TextInput style={styles.name}
-                                placeholder = "Cooking time"
-                                onChangeText={time => setTime(time)}
-                                value={time}
-                                keyboardType="numeric"
-                                name="time" />
-                            <Text style={styles.text}>mins</Text>
+                    <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
+                        <Text style={styles.text}>Is your recipe vegetarian?</Text>
+                        <Switch trackColor={{ false: "#f7f7f7", true: "#5BC236" }}
+                                thumbColor={isVeg ? "#ffffff" : "#ffffff"}
+                                ios_backgroundColor="#f7f7f7"
+                                onValueChange={toggleVeg}
+                                value={isVeg}/>
                     </View>
 
-                    {error ? time ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
+                    <View style={{margin : 8}} />
 
+                    <Title name="Recipe photo" />
 
-                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin : 16, marginBottom : 0 }}>
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin : 16, marginBottom : 0 }}>
                             {image ? <View></View> : <ImageInput name="Add a photo of your recipe" onPress={pickImage} /> }
                             {image &&   
                                         <View style={{width: '100%',  alignSelf : 'center'}}>
@@ -216,23 +218,37 @@ const getTags = () => {
                                         
                                         <View style={{margin : 4}} />
 
-                                        <TouchableOpacity style={styles.delete} onPress={() => setImage(null)}>
-                                            <MaterialIcons name="delete" style={styles.icon} />
-                                            <Text style={styles.text}>Delete</Text>
-                                        </TouchableOpacity>
+                                            <TouchableOpacity style={styles.delete} onPress={() => setImage(null)}>
+                                                <MaterialIcons name="delete" style={styles.icon} />
+                                                <Text style={styles.text}>Delete</Text>
+                                            </TouchableOpacity>
                                         </View>}
                         </View>
+                
+                    <View style={{margin : 16}}></View>
 
-                        <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
-                            <Text style={styles.text}>Is your recipe vegetarian?</Text>
-                            <Switch trackColor={{ false: "#f7f7f7", true: "#5BC236" }}
-                                    thumbColor={isVeg ? "#ffffff" : "#ffffff"}
-                                    ios_backgroundColor="#f7f7f7"
-                                    onValueChange={toggleVeg}
-                                    value={isVeg}/>
+                    <View style={styles.navigation}>
+                        <View style={{flexGrow : 1}}>
+                            <Button type="primary" name="Next" onPress={() => setIndex(1)} />
                         </View>
                     </View>
-                    
+
+            </View>
+                
+                : index === 1 ? 
+
+                <View>
+                
+                <Title name ="Cooking time" />
+
+                    <TextInput style={styles.name}
+                        placeholder = "In mins"
+                        onChangeText={time => setTime(time)}
+                        value={time}
+                        keyboardType="numeric"
+                        name="time" />
+
+                    {error ? time ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
 
                     <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
                         <Text style={styles.text}>Is overnight prep required?</Text>
@@ -243,39 +259,79 @@ const getTags = () => {
                                 value={isOvernight}/>
                     </View>
 
-                    <TextInput style={styles.notes}
-                        multiline
-                        placeholder = "Tell us more about your recipe."
-                        onChangeText={notes => setNotes(notes)}
-                        value={notes}
-                        name="notes" />
+                    <View style={{margin : 8}}></View>
+                    
+                    <Title name="Number of servings" />
 
-            <View style={{margin : 8}}></View>
-
-                    <Title name="Portion Size" />
-
-                    <View style={{flexDirection : 'column'}}>
-                        <View style={{width : '75%', flexDirection : 'row', alignContent : 'center', margin : 32, marginVertical : 16}}>
-                            <TextInput style={styles.nutrition}
-                                placeholder = "Number of servings"
-                                onChangeText={servings => setServings(servings)}
-                                value={servings}
-                                keyboardType="numeric"
-                                name="servings" />
-                                <View style={{flexGrow : 1}} />
-                            <Text style={styles.text}>Servings</Text>
-                        </View>
-                    </View>
+                    <TextInput style={styles.name}
+                        placeholder = "Number of servings"
+                        onChangeText={servings => setServings(servings)}
+                        value={servings}
+                        keyboardType="numeric"
+                        name="servings" />
+                        <View style={{flexGrow : 1}} />
 
                     {error ? servings ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
 
-                
-                <View style={{margin : 8}}></View>
+
+            <View style={{margin : 16}}></View>
+
+                <Title name="Nutrition Info" />
+
+                <View style={styles.card}>
 
 
-                    <Title name="Ingredients" />
+                    <View style={{flexDirection : 'row', marginHorizontal : 16}}>
+                    <View style={styles.line}>
+                        <Text style={styles.body}>Carbs</Text>     
+                        <TextInput style={styles.nutrition}
+                                        placeholder = "Grams"
+                                        onChangeText={carbs => setCarbs(carbs)}
+                                        value={carbs}
+                                        keyboardType="numeric"
+                                        name="carbs" />
+                    </View>
 
+                    <View style={styles.line}>
+                        <Text style={styles.body}>Protein</Text>     
+                        <TextInput style={styles.nutrition}
+                                        placeholder = "Grams"
+                                        onChangeText={protein => setProtein(protein)}
+                                        value={protein}
+                                        keyboardType="numeric"
+                                        name="protein" />
+                    </View>
+
+                    <View style={styles.line}>
+                        <Text style={styles.body}>Fat</Text>     
+                        <TextInput style={styles.nutrition}
+                                        placeholder = "Grams"
+                                        onChangeText={fat => setFat(fat)}
+                                        value={fat}
+                                        keyboardType="numeric"
+                                        name="fat" />
+                    </View>
+                </View>
                     
+                </View>
+
+                <View style={{margin : 16}} />
+                
+                <View style={styles.navigation}>
+                    <View style={{flexGrow : 1}}>
+                        <Button type="secondary" name="Back" onPress={() => setIndex(0)} />
+                    </View>
+                    <View style={{flexGrow : 1}}>
+                        <Button type="primary" name="Next" onPress={() => setIndex(2)} />
+                    </View>
+                </View>
+                    
+                
+                </View> : index === 2 ?
+
+                <View>
+                    <Title name="Ingredients" />
+  
                     {ingredients ? ingredients.map((ingredient, index) => {
                             return (
                                 <View key={index.toString()} style={styles.box}>
@@ -294,62 +350,18 @@ const getTags = () => {
                                 </View>
                             )})
 
-                : <View></View>}
+                    : <View></View>}
 
+                    <View style={{margin : 8}} />
 
                     <Button type="tertiary" name="Add ingredient" onPress={() => navigation.navigate('AddIngredient',{ingredients: ingredients, setIngredients : setIngredients })}/>
-                    
+
                     {error ? ingredients.length > 0 ? <View /> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
-
-                    <View style={{margin : 8}}></View>
-
-                    <Title name="Nutrition Info" />
-
-                    <View style={styles.card}>
-
-
-                        <View style={{flexDirection : 'row', marginHorizontal : 16}}>
-                        <View style={styles.line}>
-                            <Text style={styles.body}>Carbs</Text>     
-                            <TextInput style={styles.nutrition}
-                                            placeholder = "Grams"
-                                            onChangeText={carbs => setCarbs(carbs)}
-                                            value={carbs}
-                                            keyboardType="numeric"
-                                            name="carbs" />
-                        </View>
-
-                        <View style={styles.line}>
-                            <Text style={styles.body}>Protein</Text>     
-                            <TextInput style={styles.nutrition}
-                                            placeholder = "Grams"
-                                            onChangeText={protein => setProtein(protein)}
-                                            value={protein}
-                                            keyboardType="numeric"
-                                            name="protein" />
-                        </View>
-
-                        <View style={styles.line}>
-                            <Text style={styles.body}>Fat</Text>     
-                            <TextInput style={styles.nutrition}
-                                            placeholder = "Grams"
-                                            onChangeText={fat => setFat(fat)}
-                                            value={fat}
-                                            keyboardType="numeric"
-                                            name="fat" />
-                        </View>
-                    </View>
-                        
-                            <View style={styles.calories}>
-                                <Text style={styles.subheading}>Total Calories: {carbs*4 + protein*4 + fat*9} calories</Text>
-                            </View>     
-
-                        </View>
                     
-                        <View style={{margin : 8}}></View>
+                    <View style={{margin : 8}} />
 
 
-                        <Title name="Preparation" />
+                     <Title name="Preparation" />
                         {steps.map((step, index) => {
                             return (
                                 <View key={index.toString()}>
@@ -409,88 +421,124 @@ const getTags = () => {
                                 </View>
                             )
                         })}
+
+                        <View style={{margin : 8}}/>
                         
                         <Button type="tertiary" name="Add step" onPress={() => setSteps([...steps, {}])} />
-
                         {error ? steps.length > 0 ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
+
+
+                        <View style={{margin : 16}}/>
                         
-                        <View style={{margin : 8}}></View>
+                        <View style={styles.navigation}>
+                            <View style={{flexGrow : 1}}>
+                                <Button type="secondary" name="Back" onPress={() => setIndex(1)} />
+                            </View>
+                            <View style={{flexGrow : 1}}>
+                                <Button type="primary" name="Next" onPress={() => setIndex(3)} />
+                            </View>
+                        </View>
+                        
+                
+                </View> :
+
+                <View>
+
+                    <Title name="Author notes" />
+
+                    <TextInput style={styles.notes}
+                        multiline
+                        placeholder = "Tips and insights"
+                        onChangeText={notes => setNotes(notes)}
+                        value={notes}
+                        name="notes" />
 
 
                     <Title name="Tags" />
                     
-                        <View style={{justifyContent : 'center', margin : 16, marginTop : 0}}>
-                                {course ? 
-                                    <View style={styles.selectedTags}>
-                                        {course.map((c, index) =>
-                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
-                                        )}
-                                    </View>
-                                            :
-                                        <TouchableOpacity style={styles.tags}  onPress = {() => setCourseModal(true)}>
-                                            <Text style={styles.placeholder}>Courses</Text>
-                                        </TouchableOpacity>
-                                }
+                    <View style={{justifyContent : 'center', margin : 16, marginTop : 0}}>
                             {course ? 
-                                <Button type="delete" name="Delete" onPress={() => setCourse('')}/>
-                                : <View/>}
+                                <View style={styles.selectedTags}>
+                                    {course.map((c, index) =>
+                                        <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                        :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setCourseModal(true)}>
+                                        <Text style={styles.placeholder}>Courses</Text>
+                                    </TouchableOpacity>
+                            }
+                        {course ? 
+                            <Button type="delete" name="Delete" onPress={() => setCourse('')}/>
+                            : <View/>}
 
-                        {error ? course ?  <View /> : <Text style={styles.error}>*This is a required field</Text> : <View/> }
-
-
-                            
-                            {cuisine ? 
-                                    <View style={styles.selectedTags}>
-                                        {cuisine.map((c, index) =>
-                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
-                                        )}
-                                    </View>
-                                            :
-                                        <TouchableOpacity style={styles.tags}  onPress = {() => setCuisineModal(true)}>
-                                            <Text style={styles.placeholder}>Cuisine</Text>
-                                        </TouchableOpacity>
-                                }
-                            {cuisine ? 
-                                <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
-                                : <View/>}
+                    {error ? course ?  <View /> : <Text style={styles.error}>*This is a required field</Text> : <View/> }
 
 
-                                
-                            {appliances ? 
-                                    <View style={styles.selectedTags}>
-                                        {appliances.map((c, index) =>
-                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
-                                        )}
-                                    </View>
-                                            :
-                                        <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
-                                            <Text style={styles.placeholder}>Cooking Appliances</Text>
-                                        </TouchableOpacity>
-                                }
-                            {appliances ? 
-                                <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
-                                : <View/>}
-
-                            
-                            {diet ? 
-                                    <View style={styles.selectedTags}>
-                                        {diet.map((c, index) =>
-                                            <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
-                                        )}
-                                    </View>
-                                            :
-                                        <TouchableOpacity style={styles.tags}  onPress = {() => setDietModal(true)}>
-                                            <Text style={styles.placeholder}>Diet</Text>
-                                        </TouchableOpacity>
-                                }
-                            {diet ? 
-                                <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
-                                : <View/>}
-
-                        </View>
                         
+                        {cuisine ? 
+                                <View style={styles.selectedTags}>
+                                    {cuisine.map((c, index) =>
+                                        <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                        :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setCuisineModal(true)}>
+                                        <Text style={styles.placeholder}>Cuisine</Text>
+                                    </TouchableOpacity>
+                            }
+                        {cuisine ? 
+                            <Button type="delete" name="Delete" onPress={() => setCuisine('')}/>
+                            : <View/>}
 
-                    <Button type="primary" name="Submit recipe" onPress={() => onSubmit()} />
+
+                            
+                        {appliances ? 
+                                <View style={styles.selectedTags}>
+                                    {appliances.map((c, index) =>
+                                        <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                        :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setAppliancesModal(true)}>
+                                        <Text style={styles.placeholder}>Cooking Appliances</Text>
+                                    </TouchableOpacity>
+                            }
+                        {appliances ? 
+                            <Button type="delete" name="Delete" onPress={() => setAppliances('')}/>
+                            : <View/>}
+
+                        
+                        {diet ? 
+                                <View style={styles.selectedTags}>
+                                    {diet.map((c, index) =>
+                                        <Text key={index.toString()} style={styles.selectedTagsText}>{c.name}</Text>
+                                    )}
+                                </View>
+                                        :
+                                    <TouchableOpacity style={styles.tags}  onPress = {() => setDietModal(true)}>
+                                        <Text style={styles.placeholder}>Diet</Text>
+                                    </TouchableOpacity>
+                            }
+                        {diet ? 
+                            <Button type="delete" name="Delete" onPress={() => setDiet('')}/>
+                            : <View/>}
+
+                    </View>
+
+                        <View style={styles.navigation}>
+                            <View style={{flexGrow : 1}}>
+                                <Button type="secondary" name="Back" onPress={() => setIndex(2)} />
+                            </View>
+                            <View style={{flexGrow : 1}}>
+                                <Button type="primary" name="Submit" onPress={() => onSubmit()} />
+                            </View>
+                        </View>
+                            
+                </View>
+
+                }
+                                
                     
 
                 </ScrollView>
@@ -513,17 +561,17 @@ const getTags = () => {
 
 const styles = StyleSheet.create({
     name : {
-        borderRadius : 8,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
-        height : 60,
+        borderRadius : 4,
+        borderTopLeftRadius : 0,
+        height : 56,
         width : '90%',
         margin : 16,
+        marginVertical : 8,
         padding : 16,
         fontFamily : 'ExoRegular',
-        fontSize : 16,
+        fontSize : 14,
         alignContent : 'flex-start',
-        backgroundColor : '#fff',
+        backgroundColor : '#f1f1f1',
     },
     text : {
         fontFamily : 'ExoRegular',
@@ -533,18 +581,17 @@ const styles = StyleSheet.create({
         color : '#626262'
     },
     notes : {
-        borderRadius : 8,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
-        height : 108,
+        borderRadius : 4,
+        borderTopLeftRadius : 0,
+        height : 88,
         width : '90%',
         margin : 16,
         padding : 16,
         paddingTop : 8,
         fontFamily : 'ExoRegular',
-        fontSize : 16,
+        fontSize : 14,
         alignContent : 'flex-start',
-        backgroundColor : '#fff'
+        backgroundColor : '#f1f1f1'
     },
     card : {
         width : '100%',
@@ -560,27 +607,26 @@ const styles = StyleSheet.create({
         marginHorizontal : '2.5%'
     },
     nutrition : {
-        borderRadius : 8,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
+        borderRadius : 4,
+        borderTopLeftRadius : 0,
         height : 48,
         width : '90%',
         paddingHorizontal : 16,
         fontFamily : 'ExoRegular',
         fontSize : 16,
         alignContent : 'flex-start',
-        backgroundColor : '#fff'
+        backgroundColor : '#f1f1f1'
     },
     calories : {
-        borderRadius : 20,
-        width : '75%',
+        borderRadius : 4,
+        width : '90%',
         borderTopLeftRadius : 0,
         paddingHorizontal : 16,
         paddingVertical : 8,
         alignContent : 'center',
         alignSelf : 'center',
         margin : 32,
-        backgroundColor : '#f1f1f1'
+        backgroundColor : '#fff'
     },
     body : {
         fontSize : 16,
@@ -590,13 +636,15 @@ const styles = StyleSheet.create({
     },
     heading : {
         fontFamily : 'ExoSemiBold',
-        fontSize : 17,
-        margin : 16
+        fontSize : 24,
+        margin : 16,
+        marginTop : 0,
+        textAlign : 'center'
     },
     subheading : {
-        fontFamily : 'ExoSemiBold',
-        fontSize : 16,
-        margin : 8,
+        fontFamily : 'ExoRegular',
+        fontSize : 17,
+        margin : 32,
         textAlign : 'center'
     },
     main : {
@@ -657,12 +705,12 @@ const styles = StyleSheet.create({
         marginTop : 0,
         justifyContent : 'flex-start',
         alignItems : 'flex-start',
-        borderColor : '#cfcfcf',
+        borderTopLeftRadius : 0,
     },
     image : {
         flex : 1,
         aspectRatio : 1,
-        borderRadius : 20,
+        borderRadius : 8,
         borderTopLeftRadius : 0,
         resizeMode : 'contain'
     },
@@ -673,17 +721,16 @@ const styles = StyleSheet.create({
       },
     placeholder : {
         fontFamily : 'ExoRegular',
-        fontSize : 16,
+        fontSize : 17,
         paddingHorizontal : 16,
         color : '#626262',
     },
     tags : {
-        borderRadius : 8,
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
+        borderRadius : 4,
+        borderTopLeftRadius : 0,
         width : '100%',
         alignItems : 'center',
-        backgroundColor : '#fff',
+        backgroundColor : '#f1f1f1',
         marginVertical : 8,
         paddingVertical : 12,
         justifyContent : 'flex-start',
@@ -691,27 +738,38 @@ const styles = StyleSheet.create({
         flexWrap : 'wrap'
     },
     selectedTags : {
-        borderRadius : 8,
-        backgroundColor : '#f1f1f1',
+        borderRadius : 4,
+        borderTopLeftRadius : 0,
+        backgroundColor : '#fff',
+        borderWidth : 1,
+        borderColor : '#cfcfcf',
         width : '100%',
-        alignItems : 'center',
+        alignItems : 'flex-start',
         marginVertical : 8,
         paddingVertical : 12,
         justifyContent : 'flex-start',
-        flexDirection : 'row',
-        flexWrap : 'wrap'
+        flexDirection : 'column',
+        flexWrap : 'wrap',
     },
     selectedTagsText : {
-        fontFamily : 'ExoMedium',
-        fontSize : 16,
+        fontFamily : 'ExoRegular',
+        fontSize : 17,
         paddingHorizontal : 16,
-        color : '#3b3b3b',
+        paddingVertical : 4,
+        color : '#333',
     },
     error : {
         fontFamily : 'ExoRegular',
         fontSize : 14,
         color : '#B00020',
         marginLeft : 16
-    }
+    },
+    navigation : {
+        backgroundColor : '#fff',
+        flexDirection : 'row',
+        justifyContent : 'center',
+        alignItems : 'center',
+        paddingVertical : 4,
+      },
 
 });

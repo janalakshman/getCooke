@@ -19,7 +19,7 @@ export default function Navigation() {
     const user = useSelector(state => state.counter.token);
 
     // It will resolve most of the redirect 
-    const  defaultlandingPage = user ? 'Meal plan' : 'Welcome';
+    const  defaultlandingPage = user ? 'Home' : 'Welcome';
 
     return (
       <NavigationContainer>
@@ -32,7 +32,6 @@ export default function Navigation() {
                 options={({ navigation }) => ({
                   headerTitle : () => (
                     <View>
-                        <Text style={styles.text}>Discover</Text>
                     </View>
                   ),
                   headerLeft : () => (
@@ -41,7 +40,7 @@ export default function Navigation() {
                   ),
                   headerStyle : {
                     backgroundColor : '#fff',
-                    height : 0
+                    height : 32
                   },
                 })} />
             
@@ -51,7 +50,6 @@ export default function Navigation() {
                   options={({ navigation }) => ({
                     headerTitle : () => (
                       <View>
-                          <Text style={styles.text}>Calendar</Text>
                       </View>
                     ),
                     headerLeft : () => (
@@ -60,7 +58,7 @@ export default function Navigation() {
                     ),
                     headerStyle : {
                       backgroundColor : '#fff',
-                      height : 0
+                      height : 32
                     },
                   })}  />
             
@@ -70,7 +68,6 @@ export default function Navigation() {
                     options={({ navigation }) => ({
                       headerTitle :  () => (
                         <View>
-                          <Text style={styles.text}>Profile</Text>
                         </View>
                       ),
                       headerLeft : () => (
@@ -79,7 +76,7 @@ export default function Navigation() {
                       ),
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 0
+                        height : 32
                       },
                     })}  />
               
@@ -98,7 +95,6 @@ export default function Navigation() {
                       headerBackTitle : ' ',
                       headerStyle : {
                         backgroundColor : '#fff',
-                        height : 80
                       },
                     })}  />
               
@@ -108,12 +104,14 @@ export default function Navigation() {
                     options={({ navigation }) => ({
                       headerTitle :  () => (
                         <View>
+                            <Text style={styles.text}>Create Recipe</Text>
                         </View>
                       ),
                       headerTintColor : '#3b3b3b',
                       headerBackTitle : ' ',
                       headerStyle : {
                         backgroundColor : '#fff',
+                        height : 80
                       },
                     })}  />
               
@@ -159,10 +157,6 @@ export default function Navigation() {
                  options={({ navigation }) => ({
                    headerTitle : () => (
                      <View>
-                     </View>
-                   ),
-                   headerLeft : () => (
-                     <View>
                         <Text style={styles.text}>Sign Up</Text>
                      </View>
                    ),
@@ -177,10 +171,6 @@ export default function Navigation() {
                  component={SignIn}
                  options={({ navigation }) => ({
                    headerTitle : () => (
-                     <View>
-                     </View>
-                   ),
-                   headerLeft : () => (
                      <View>
                         <Text style={styles.text}>Log In</Text>
                      </View>
@@ -205,7 +195,7 @@ export default function Navigation() {
                    ),
                    headerStyle : {
                      backgroundColor : '#ffffff',
-                     height : 0
+                     height : 32
                    },
                   })}  />           
           </>
@@ -219,8 +209,8 @@ export default function Navigation() {
   const styles = StyleSheet.create({
     text : {
       color : '#333',
-      fontSize : 24,
-      fontFamily : 'ExoSemiBold',
+      fontSize : 19,
+      fontFamily : 'ExoMedium',
       marginHorizontal : 16
     },
     icon : {

@@ -115,12 +115,12 @@ async function signup() {
                             <Text style={styles.text}>Gender</Text>
                                 <View style={{marginHorizontal : 32, margin : 16}}>
                                     <RadioForm
-                                    radio_props={radio_props}
-                                    initial={radioGender}
-                                    animation={true}
-                                    onPress={(value) => {setRadioGender(value)}}
-                                    labelStyle={{fontFamily : 'ExoRegular', color : '#3b3b3b'}}
-                                    />
+                                        radio_props={radio_props}
+                                        initial={radioGender}
+                                        animation={true}
+                                        onPress={(value) => {setRadioGender(value)}}
+                                        labelStyle={{fontFamily : 'ExoRegular', color : '#3b3b3b'}}
+                                        />
                                 </View>
                             
                             <View style={{flexGrow : 1}}></View>

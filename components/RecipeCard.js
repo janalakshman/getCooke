@@ -1,12 +1,10 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import RecipeCardPic from '../assets/RecipeCardDefault.png';
 import veg from '../assets/veg.png'
 import nonVeg from '../assets/nonVeg.png'
 import { Pressable } from 'react-native';
-import config from '../config';
-import LoadingScreen from './LoadingScreen'
+
 
 export default function Header(props){
 
@@ -14,17 +12,22 @@ export default function Header(props){
     return(
         <Pressable onPress={props.onPress}>
             <View style={styles.card}>
-                <View>
-                {props.recipe.image ? <Image source={{uri : props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
-                {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> } 
 
+                {props.recipe.image ? <Image source={{uri : props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
+                
                 <Text style={styles.text}>{props.recipe.name.length > 28 ? props.recipe.name.slice(0,28)+'...' : props.recipe.name}</Text>
-                {props.recipe.user.first_name ? 
-                                <Text style={styles.body}>{props.recipe.user.first_name.length > 20 ? (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).slice(0, 20) + '...' : (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1))}</Text>
-                                : <Text style={styles.body}>{props.recipe.user.username.length > 20 ? (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).slice(0, 20) + '...' : (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1))}</Text>
-                                }
+
+                    {/* {props.recipe.user.first_name ? 
+                        <Text style={styles.body}>{props.recipe.user.first_name.length > 20 ? (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1)).slice(0, 20) + '...' : (props.recipe.user.first_name.charAt(0).toUpperCase() + props.recipe.user.first_name.slice(1))}</Text>
+                        : <Text style={styles.body}>{props.recipe.user.username.length > 20 ? (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1)).slice(0, 20) + '...' : (props.recipe.user.username.charAt(0).toUpperCase() + props.recipe.user.username.slice(1))}</Text>
+                        } */}
+
+                <View style={{flexDirection : 'row', alignItems : 'center'}}>
+                    {props.recipe.isVeg ? <Image source={veg} style={styles.icon} /> : <Image source={nonVeg} style={styles.icon} /> }
+                    <Text style={styles.body}>{props.recipe.cooking_time} mins</Text> 
+                </View>
+
                 </View>       
-        </View>
         </Pressable>
         
     )
@@ -32,7 +35,7 @@ export default function Header(props){
 
 const styles = StyleSheet.create({
     card : {
-        width : 196,
+        width : 166,
         padding : 4,
         margin : 4,
         borderRadius : 20,
@@ -50,10 +53,10 @@ const styles = StyleSheet.create({
       flex : 1,
       resizeMode : 'contain',
       aspectRatio : 1,
-      width : 180,
+      width : 150,
       marginBottom : 4,
       borderTopLeftRadius : 0,
-      borderRadius : 20
+      borderRadius : 8
   },
   icon : {
       height : 16,
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
   },
   text : {
       fontSize : 14,
-      color : '#3b3b3b',
+      color : '#a13e00',
       margin : 4,
       fontFamily : 'ExoSemiBold'
   },

@@ -15,6 +15,7 @@ import RecipeDefault from '../assets/RecipeCardDefault.png'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import toDo from '../assets/toDo.png'
 import ToBuy from '../components/ToBuy'
+import NutritionCard from '../components/NutritionCard'
 
 //Calendar Card component
 
@@ -56,16 +57,18 @@ const CalendarCard = (props) => {
 
 
     return (
-          <View style={{marginBottom : 16}}>
+          <View style={{marginBottom : 16, justifyContent :'center'}}>
               <View style={styles.card}> 
 
+                  <View style={{width : '40%'}}>
                       <Pressable onPressIn ={() => navigation.navigate('RecipeDetail',{recipeId : props.event.title.recipe.id})}>
                         {props.event.title.recipe.image ? 
                             <Image source={{uri : props.event.title.recipe.image}} alt="Recipe" style={styles.recipe}/> :
                             <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/> }
-                      </Pressable> 
+                      </Pressable>
+                  </View> 
                   
-                  <View style={{flexDirection : 'column', justifyContent : 'center', height : 180, marginVertical : 4, margin : 16, marginBottom : 0, width : '50%'}}>
+                  <View style={{flexDirection : 'column', justifyContent : 'flex-start', alignContent : 'flex-start', alignSelf : 'flex-start', marginVertical : 4, margin : 16, width : '60%'}}>
                           <Text style={styles.text}>{props.event.title.recipe.name.length > 24 ? props.event.title.recipe.name.slice(0,24)+ '...' : props.event.title.recipe.name}</Text>                       
                           <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 32 }}>
                           { props.event.title.course ? 
@@ -170,7 +173,7 @@ export default function MealPlan({navigation}) {
 
             useEffect(() => {
                       getEvents();
-                    }, [ins]);
+                    }, [refreshing]);
 
     
     //GET call for grocery list
@@ -216,7 +219,7 @@ export default function MealPlan({navigation}) {
 
           useEffect(() => {
            getGrocery();
-          }, [events]);
+          }, [refreshing]);
 
    const Item = (event) => {
     return(
@@ -237,24 +240,22 @@ export default function MealPlan({navigation}) {
                       onRefresh={onRefresh}
                     />}>
 
-          <View style={{margin : 16}} />
           
           <View> 
                 <SegmentedControlTab
-                    values={["Meal plan", "Grocery list"]}
+                    values={["Calendar", "Grocery list"]}
                     selectedIndex={index}
                     onTabPress={(index) => setIndex(index)}
                     tabStyle={styles.tabStyle}
                     borderRadius={0}
-                    tabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
+                    tabTextStyle = {{fontFamily : 'ExoMedium', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
                     activeTabStyle={styles.activeTabStyle}
-                    activeTabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : '#a13e00'}}
+                    activeTabTextStyle = {{fontFamily : 'ExoMedium', fontSize : 17, color : '#a13e00'}}
                     />
             </View>
 
         {index === 0 ? 
                       (events.length > 0 ?
-                        
                         <View>
                           <SectionList
                             sections={events}
@@ -274,10 +275,13 @@ export default function MealPlan({navigation}) {
                           </View> :
                           <View>
                             <Text style={styles.heading}>Such empty!</Text>
-                            <Text style={styles.subheading}>Start adding by going to a recipe page, and clicking on the add to grocery list button.</Text>
+                            
                             <Pressable onPress={() => navigation.navigate('Home')}>
                               <Image style={styles.image} source={Calendar} alt="Icon"/> 
                             </Pressable>
+                            
+                            <Text style={styles.subheading}>Start adding by going to a recipe page, and clicking on the add to grocery list button.</Text>
+                            
                           </View> )
                    : 
                     (
@@ -302,10 +306,12 @@ export default function MealPlan({navigation}) {
                         : 
                         <View>
                           <Text style={styles.heading}>Grocery shopping made easy</Text>
-                          <Text style={styles.subheading}>Automatically get the grocery list based on the recipes you have added in your calendar! </Text>
+
                           <Pressable onPress={() => navigation.navigate('Home')}>
                             <Image style={styles.image} source={toDo} alt="Icon"/>
-                          </Pressable> 
+                          </Pressable>
+                           
+                          <Text style={styles.subheading}>Automatically get the grocery list based on the recipes you have added in your calendar! </Text>
                         </View> 
                         )
           }
@@ -324,18 +330,17 @@ export default function MealPlan({navigation}) {
 
 const styles = StyleSheet.create({
   image : {
-    height : 350,
-    width : 350,
+    height : '90%',
+    width : '100%',
     resizeMode : 'contain',
     alignSelf : 'center',
-    margin : 32
 },
 subheading : {
   fontSize : 17,
-  color : '#3b3b3b',
-  fontFamily : 'ExoLightItalic',
-  margin : 16,
-  marginBottom : 4
+  color : '#626262',
+  fontFamily : 'ExoRegular',
+  marginHorizontal : 32,
+  textAlign : 'center'
 },
 body1 : {
   fontSize : 17,
@@ -346,35 +351,17 @@ body1 : {
 },
 heading : {
   fontSize : 24,
-  color : '#3b3b3b',
+  color : '#333',
   fontFamily : 'ExoSemiBold',
-  marginTop : 32,
-  marginHorizontal : 16
+  margin : 32,
+  marginVertical : 8,
+  textAlign : 'center'
 },
 card : {
   flexDirection : 'row',
   width : '100%',
-  padding : 16,
-  paddingBottom : 0, 
+  paddingHorizontal : 16,
   alignSelf : 'center',
-  flexGrow : 1,
-},
-snackscard : {
-  backgroundColor : '#9ed2ea',
-  flexDirection : 'column',
-  width : '88%',
-  padding : 16, 
-  margin : 8,
-  borderRadius : 4,
-  alignSelf : 'center',
-  flexGrow : 1,
-  borderTopLeftRadius : 0,
-  borderRadius : 20,
-  elevation : 3,
-  shadowRadius : 2,
-  shadowOpacity : 0.5,
-  shadowColor : 'rgba(0, 0, 0, 0.25)',
-  shadowOffset : {width : 0, height : 4},
 },
 imageIcon : {
   height : 16,
@@ -387,28 +374,30 @@ icon : {
 text : {
   fontSize : 19,
   color : '#3b3b3b',
-  fontFamily : 'ExoSemiBold'
+  fontFamily : 'ExoMedium',
+  marginVertical : 8
   },
 smalltext : {
   fontSize : 14,
   color : '#626262',
   margin : 8,
   fontFamily : 'ExoRegular',
+  marginVertical : 4
   },
 delete : {
   flexDirection : 'row', 
   alignItems : 'center', 
   justifyContent : 'flex-start', 
   marginHorizontal : 16,
-  marginBottom : 4
+  marginVertical : 4
   },
 recipe : {
     flex : 1,
     aspectRatio : 1,
     resizeMode : 'contain',
-    width : 180,
+    width : '100%',
     borderTopLeftRadius : 0,
-    borderRadius : 20
+    borderRadius : 8,
 },
 tabStyle : {
   borderBottomWidth : 1,

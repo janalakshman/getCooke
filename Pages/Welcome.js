@@ -15,12 +15,12 @@ export default function Welcome() {
     return(
 
         <View style={{backgroundColor : '#ffffff', flex : 1, flexDirection : 'column'}}>
-            {/* <KeyboardAvoidingView
+            <KeyboardAvoidingView
                                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={{backgroundColor : '#ffffff', flex : 1, flexDirection : 'column'}}
-                                > */}
+                                >
 
-            <View style={{margin : 16}} />
+            <View style={{margin : 8}} />
             
             <Text style={styles.text}>Your personal kitchen assistant</Text>
 
@@ -34,7 +34,7 @@ export default function Welcome() {
 
             <Button type="secondary" name="Log In" onPress={() => navigation.navigate('SignIn')} />
 
-            {/* </KeyboardAvoidingView> */}
+            </KeyboardAvoidingView>
 
         </View>
 
@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
         alignSelf : 'center'
     },
     body : {
-        fontSize : 17,
+        fontSize : 14,
         color : '#626262',
         fontFamily : 'ExoRegular',
-        marginHorizontal : 32,
+        marginHorizontal : 16,
         textAlign : 'center'
     },
     text : {
-        fontSize : 32,
+        fontSize : 24,
         color : '#333',
         fontFamily : 'ExoSemiBold',
         margin : 32,

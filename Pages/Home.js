@@ -110,7 +110,6 @@ export default function Home({navigation}) {
                           />
                         } >
 
-                    <View style={{margin : 16}} />
                     {/* <TextInput  style={styles.textInput}
                             placeholder = "Search recipes"
                             onChangeText={text => setSearch(text)}

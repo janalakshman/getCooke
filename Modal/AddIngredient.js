@@ -106,6 +106,16 @@ export default function AddIngredient({route, navigation}) {
                   
                   {error ? name ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
 
+            
+                  <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
+                    <Text style={styles.text}>Is this a major ingredient?</Text>
+                    <Switch trackColor={{ false: "#f7f7f7", true: "#5BC236" }}
+                            thumbColor={isKey ? "#ffffff" : "#ffffff"}
+                            ios_backgroundColor="#f7f7f7"
+                            onValueChange={toggleisKey}
+                            value={isKey}/>
+                  </View>
+            
             <Title name="Amount" />
 
                 <TextInput style={styles.name}
@@ -131,16 +141,8 @@ export default function AddIngredient({route, navigation}) {
                   {error ? unit ? <View/> : <Text style={styles.error}>*This is a required field</Text> : <View/> }
 
 
-                <View style={{flexDirection : 'row', margin : 16, justifyContent : 'space-around'}}>
-                    <Text style={styles.text}>Is this a major ingredient?</Text>
-                    <Switch trackColor={{ false: "#f7f7f7", true: "#5BC236" }}
-                            thumbColor={isKey ? "#ffffff" : "#ffffff"}
-                            ios_backgroundColor="#f7f7f7"
-                            onValueChange={toggleisKey}
-                            value={isKey}/>
-                </View>
 
-                <View style={{flexGrow : 1}} />
+                <View style={{margin : 16}} />
 
                 <Button type="primary" name="Add Ingredient" onPress={() => handleClick()} />
 
@@ -154,16 +156,15 @@ export default function AddIngredient({route, navigation}) {
 
 const styles = StyleSheet.create({
     name : {
-        borderRadius : 8,
-        backgroundColor : '#fff',
-        borderColor : '#cfcfcf',
-        borderWidth : 1,
+        borderRadius : 4,
+        borderTopLeftRadius : 0,
+        backgroundColor : '#f1f1f1',
         height : 56,
         width : '90%',
         margin : 16,
         padding : 16,
         fontFamily : 'ExoRegular',
-        fontSize : 16,
+        fontSize : 14,
         alignContent : 'flex-start'
     },
     text : {
@@ -172,12 +173,12 @@ const styles = StyleSheet.create({
         alignSelf : 'center'
     },
     heading : {
-        fontFamily : 'ExoSemiBold',
+        fontFamily : 'ExoRegular',
         fontSize : 17,
         margin : 16
     },
     unit : {
-      fontFamily : 'ExoSemiBold',
+      fontFamily : 'ExoRegular',
       fontSize : 14,
       margin : 8,
       color : '#626262',
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
       backgroundColor : '#54b8ec'
     },
     unitOnPress : {
-      fontFamily : 'ExoSemiBold',
+      fontFamily : 'ExoRegular',
       fontSize : 14,
       margin : 8,
       color : '#ffffff',

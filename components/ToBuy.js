@@ -79,14 +79,14 @@ const styles = StyleSheet.create({
       },
       unclicked : {
         color : '#3b3b3b',
-        fontSize : 17,
+        fontSize : 14,
         marginHorizontal : 12,
         fontFamily : 'ExoRegular',
         width : '50%'
       },
       clicked : {
         color : '#3b3b3b',
-        fontSize : 17,
+        fontSize : 14,
         fontFamily : 'ExoRegular',
         marginHorizontal : 12,
         textDecorationLine : 'line-through',

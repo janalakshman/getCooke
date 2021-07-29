@@ -81,7 +81,7 @@ export default function Button(props) {
       fontSize : 19,
       fontFamily : 'ExoMedium',
       margin : 8,
-      marginVertical : 12,
+      marginVertical : 10,
       flexGrow : 1,
       textAlign : 'center'
     },
@@ -99,7 +99,7 @@ export default function Button(props) {
       fontSize : 19,
       fontFamily : 'ExoMedium',
       margin : 8,
-      marginVertical : 12,
+      marginVertical : 10,
       flexGrow : 1,
       textAlign : 'center'
     },
@@ -115,32 +115,31 @@ export default function Button(props) {
     buttonText : {
       color : '#A13E00',
       fontSize : 14,
-      fontFamily : 'ExoMedium',
+      fontFamily : 'ExoRegular',
       margin : 8,
       marginHorizontal : 16
     },
     button: {
         alignSelf : 'flex-start',
+        alignItems : 'center',
         marginTop : 0,
         flexDirection : 'row',
         margin : 16,
       },
     icon : {
-        fontSize : 14,
+        fontSize : 20,
         color : '#a13e00',
-        paddingTop : 10,
-        paddingBottom : 10,
     },
   delete : {
-      fontSize : 14,
-      color : '#626262',
-      paddingTop : 10,
-      paddingBottom : 10,
+      fontSize : 17,
+      color : '#3b3b3b',
+      paddingTop : 8,
+      paddingBottom : 8,
   },
   deleteText : {
-    color : '#626262',
+    color : '#3b3b3b',
     fontSize : 14,
-    fontFamily : 'ExoMedium',
+    fontFamily : 'ExoRegular',
     margin : 8,
     marginHorizontal : 16
   },

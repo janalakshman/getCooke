@@ -88,7 +88,7 @@ export default function AddIngredient({navigation}) {
  
             <Title name="Want to chat?" />
 
-                <Text style={styles.contact}>Mail us at hello@getcooke.com</Text>
+                <Text style={styles.contact}>Mail us at jana@getcooke.com</Text>
 
 
                 <Button type="primary" name="Send Feedback" onPress={() => handleClick()} />

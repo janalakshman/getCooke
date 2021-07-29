@@ -26,11 +26,11 @@ export default function SecondaryButton(props) {
         textAlign : 'center'
     },
     button: {
-      borderRadius : 8,
-      backgroundColor : '#f1f1f1',
+      borderRadius : 4,
+      borderTopLeftRadius : 0,
+      backgroundColor : '#fff',
       borderWidth : 1,
       borderColor : '#cfcfcf',
-      borderStyle : 'dashed',
       margin : 8,
       flexDirection : 'row',
       paddingHorizontal : 16,

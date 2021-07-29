@@ -12,23 +12,23 @@ export default function Home(props) {
      
             <View style={styles.navigation}>
                     <TouchableOpacity style={styles.tab}   onPress={() => navigation.navigate('Home')}>
-                      <MaterialIcons name="search" style={props.props === 'Home' ? styles.selectedIcon : styles.icon}/>
-                      <Text name="search" style={props.props === 'Home' ? styles.selectedText : styles.text}>Search</Text>
+                      <MaterialIcons name="home-filled" style={props.props === 'Home' ? styles.selectedIcon : styles.icon}/>
+                      <Text style={props.props === 'Home' ? styles.selectedText : styles.text}>Home</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity  style={styles.tab} onPress={() => navigation.navigate('Meal plan')} >
                         <MaterialIcons name="event-note" style={props.props === 'Meal plan' ? styles.selectedIcon : styles.icon}/>
-                        <Text name="Meal plan" style={props.props === 'Meal plan' ? styles.selectedText : styles.text}>Meal plan</Text>
+                        <Text style={props.props === 'Meal plan' ? styles.selectedText : styles.text}>Meal plan</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('AddRecipe')} >
                         <MaterialIcons name="create" style={props.props === 'AddRecipe' ? styles.selectedIcon : styles.icon}/>
-                        <Text name="create" style={props.props === 'AddRecipe' ? styles.selectedText : styles.text}>Create</Text>
+                        <Text style={props.props === 'AddRecipe' ? styles.selectedText : styles.text}>Create</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate('Profile')} >
                       <MaterialIcons name="account-box" style={props.props === 'Profile' ? styles.selectedIcon : styles.icon}/>
-                      <Text name="account-box" style={props.props === 'Profile' ? styles.selectedText : styles.text}>Profile</Text>
+                      <Text style={props.props === 'Profile' ? styles.selectedText : styles.text}>Profile</Text>
                     </TouchableOpacity>
             </View>
 
@@ -61,13 +61,13 @@ icon : {
   paddingBottom : 4
 },
 selectedIcon : {
-  color : '#3b3b3b',
+  color : '#333',
   fontSize : 30,
   paddingVertical : 8,
   paddingBottom : 4
 },
 selectedText : {
-  color : '#3b3b3b',
+  color : '#333',
   fontSize : 10,
   paddingVertical : 2,
   fontFamily : 'ExoSemiBold'

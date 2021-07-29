@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import {View, Text, StyleSheet, Image, ScrollView, ImageBackground, Pressable, FlatList, RefreshControl} from 'react-native'
+import {View, Text, StyleSheet, Image, ScrollView, Alert, Pressable, FlatList, RefreshControl} from 'react-native'
 import maleAvatar from '../assets/maleAvatar.png'
 import femaleAvatar from '../assets/femaleAvatar.png'
-import Cooke from '../assets/CookeLogo.png'
+import Cooke from '../assets/Avatar.png'
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
@@ -41,9 +41,15 @@ export default function Profile({navigation}){
       }, []);
 
       const handleLogout = () => {
-        dispatch(deleteToken());
-        navigation.navigate('Welcome');
-      }
+        Alert.alert(
+          "DANGER",
+          "Are you sure you want to logout?",
+          [
+            {text : "Cancel"},
+            {text : "Yes", onPress : () => {dispatch(deleteToken()); navigation.navigate('Welcome')}},
+          ]
+          )
+        }
 
       const getEvents = () => {
         fetch(
@@ -150,10 +156,10 @@ export default function Profile({navigation}){
                       onRefresh={onRefresh}
                     />}>
                     
-                    <View style={{margin : 16}} />
+                    <View style={{margin : 4}} />
                     
                     <View style={{flexDirection : 'row', margin : 16, marginBottom : 0}}>
-                    {user.user.profile.gender === 1 ? <Image source={femaleAvatar} style={styles.avatar}/> : user.user.profile.gender === 0 ? <Image source={maleAvatar} style={styles.avatar} /> : <Image source={Cooke} style={styles.avatar} />} 
+                    {user.user.profile.gender === 0 ? <Image source={femaleAvatar} style={styles.avatar}/> : user.user.profile.gender === 1 ? <Image source={maleAvatar} style={styles.avatar} /> : <Image source={Cooke} style={styles.avatar} />} 
                         <View style={styles.line}>
                             <Text style={styles.text}>{user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)}</Text>
                             <Text style={styles.body}>Member since {moment(user.user.date_joined).format('DD/MM/YYYY')}</Text>
@@ -161,13 +167,9 @@ export default function Profile({navigation}){
                     </View>
 
                     
-                <ProfileData user={user}/>
+                {/* <ProfileData user={user}/> */}
 
-                <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
-                    <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
-                    <Button type="profile" name="Log Out" onPress={ () =>handleLogout()} />
-                </View>
-
+              
                 
                 <View style={{marginVertical : 8}}> 
                     <SegmentedControlTab
@@ -176,9 +178,9 @@ export default function Profile({navigation}){
                         onTabPress={(index) => setIndex(index)}
                         tabStyle={styles.tabStyle}
                         borderRadius={0}
-                        tabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
+                        tabTextStyle = {{fontFamily : 'ExoMedium', fontSize : 17, color : 'rgba(207, 207, 207, 0.99)'}}
                         activeTabStyle={styles.activeTabStyle}
-                        activeTabTextStyle = {{fontFamily : 'ExoSemiBold', fontSize : 17, color : '#a13e00'}}
+                        activeTabTextStyle = {{fontFamily : 'ExoMedium', fontSize : 17, color : '#a13e00'}}
                         />
                 </View>
 
@@ -214,6 +216,13 @@ export default function Profile({navigation}){
                     }
 
                   </ScrollView> : <Welcome /> }
+
+                  <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
+                    <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
+                    <Button type="profile" name="Log Out" onPress={ () =>handleLogout()} />
+                </View>
+
+
                   <NavBar props="Profile" />
                     
                   </View>)}
@@ -236,22 +245,22 @@ const styles = StyleSheet.create({
         resizeMode : 'contain',
     },
     text : {
-        fontSize : 17,
-        color : '#3b3b3b',
-        fontFamily : 'ExoSemiBold',
+        fontSize : 19,
+        color : '#333',
+        fontFamily : 'ExoMedium',
         marginLeft : 16,
     },
     body : {
       fontSize : 14,
-      color : '#3b3b3b',
+      color : '#626262',
       marginLeft : 16,
       marginTop : 4,
       fontFamily : 'ExoRegular'
     },
     line : {
-        flexDirection : "column",
-        marginLeft : 16,
-        justifyContent : 'center'
+      flexDirection : "column",
+      marginLeft : 16,
+      justifyContent : 'center'
     },
     card : {
         flexDirection : 'row',
@@ -292,28 +301,32 @@ const styles = StyleSheet.create({
     },
     subheading : {
       fontSize : 17,
-      color : '#3b3b3b',
-      fontFamily : 'ExoLightItalic',
-      margin : 16,
-      marginVertical : 0
+      color : '#626262',
+      fontFamily : 'ExoRegular',
+      marginHorizontal : 32,
+      textAlign : 'center'
     },
     heading : {
       fontSize : 24,
-      color : '#3b3b3b',
+      color : '#333',
       fontFamily : 'ExoSemiBold',
-      margin : 16,
+      margin : 32,
+      marginVertical : 16,
+      textAlign : 'center'
     },
     recipeImage : {
       flex : 1,
       aspectRatio : 1,
       resizeMode : 'contain',
       margin : 1,
-      borderRadius : 2,
+      borderRadius : 8,
+      borderTopLeftRadius : 0
     },
     imageText : {
       margin : 1,
       height : 110,
-      borderRadius : 0,
+      borderRadius : 8,
+      borderTopLeftRadius : 0,
       alignItems : 'center',
       justifyContent : 'center',
       backgroundColor : '#fffafa'

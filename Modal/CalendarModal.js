@@ -213,14 +213,14 @@ export default function CalendarModal( props ) {
                 <View style={{margin : 8}}/>
   
               
-                <Title name="Choose course"/>
+                {/* <Title name="Choose course"/>
   
                   <FlatList 
                       data={DATA}
                       renderItem={Item}
                       keyExtractor={item => item.index.toString()}
                       numColumns={1}
-                      />
+                      /> */}
             </View>
  
             ) : <View></View>}
@@ -271,16 +271,16 @@ export default function CalendarModal( props ) {
     text : {
       fontSize : 17,
       color : '#3b3b3b',
-      fontWeight : '500',
       margin : 16,
+      fontFamily : 'ExoRegular'
   },
   heading : {
     color : '#3b3b3b',
-    fontSize : 21,
+    fontSize : 19,
     margin : 16,
     marginTop : 32,
     flexGrow : 1,
-    fontFamily : 'ExoSemiBold'
+    fontFamily : 'ExoMedium'
   },
   header : {
       backgroundColor : '#fff5e6',
