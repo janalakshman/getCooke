@@ -128,6 +128,7 @@ export default function MealPlan({navigation}) {
   const [error, setError] = useState(false)
   const [index, setIndex] = useState(0)
   const [refreshing, setRefreshing] = React.useState(false);
+  const [hide, setHide] = useState(true)
 
       const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
@@ -266,17 +267,27 @@ export default function MealPlan({navigation}) {
                                 <Title name={title}/>
                               )
                             }}
-                            // renderSectionFooter={({ section : {nutrition}}) => (
-                            //   <View style={{marginTop : 16}}>
-                            //       <NutritionCard nutrition={nutrition} />
-                            //   </View>
-                            // )}
+                            renderSectionFooter={({ section : {nutritions}}) => (
+                              Object.keys(nutritions).length > 0 ? (
+                                <View>
+                                  <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginBottom : 16, alignItems : 'center'}}>
+                                    <Text style={styles.nutrition}>Nutrition info for the day</Text>
+                                    <MaterialIcons name={hide ? "arrow-drop-down-circle" : "keyboard-arrow-up"}  onPress={() => setHide(prevState => !prevState)} size={24} color="#a13e00" />
+                                  </View>
+                                  {!hide ? 
+                                      <NutritionCard nutrition={nutritions} /> :
+                                      <View />
+                                  }
+                              </View>
+                              ) : <View />
+                              
+                            )}
                           />
                           </View> :
                           <View>
-                            <Text style={styles.heading}>Such empty!</Text>
+                            <Text style={styles.heading}>Plan your cooking in minutes!</Text>
                             
-                            <Pressable onPress={() => navigation.navigate('Home')}>
+                            <Pressable style={{flexGrow : 1}} onPress={() => navigation.navigate('Home')}>
                               <Image style={styles.image} source={Calendar} alt="Icon"/> 
                             </Pressable>
                             
@@ -330,17 +341,18 @@ export default function MealPlan({navigation}) {
 
 const styles = StyleSheet.create({
   image : {
-    height : '90%',
+    height : 300,
     width : '100%',
     resizeMode : 'contain',
     alignSelf : 'center',
 },
 subheading : {
-  fontSize : 17,
+  fontSize : 14,
   color : '#626262',
   fontFamily : 'ExoRegular',
   marginHorizontal : 32,
-  textAlign : 'center'
+  textAlign : 'center',
+  margin : 16
 },
 body1 : {
   fontSize : 17,
@@ -372,8 +384,8 @@ icon : {
   color : '#626262',
   },
 text : {
-  fontSize : 19,
-  color : '#3b3b3b',
+  fontSize : 17,
+  color : '#333',
   fontFamily : 'ExoMedium',
   marginVertical : 8
   },
@@ -414,4 +426,10 @@ activeTabStyle : {
   backgroundColor : '#fff',
   borderBottomColor : '#a13e00',
 },
+nutrition : {
+  fontSize : 14,
+  color : '#a13e00',
+  margin : 4,
+  fontFamily : 'ExoRegular',
+}
 });

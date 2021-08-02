@@ -12,7 +12,6 @@ export default function Error(){
     const user = useSelector(state => state.counter.token)
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    console.log(typeof(user))
 
     const handleError = () => {
         dispatch(deleteToken())

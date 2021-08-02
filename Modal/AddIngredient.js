@@ -91,9 +91,9 @@ export default function AddIngredient({route, navigation}) {
 
   return (
     <View style={{backgroundColor : '#fff', flex : 1}} >
-        {/* <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
+        <KeyboardAvoidingView style={{backgroundColor : '#fff', flex : 1}}
                               keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} 
-                              behavior={Platform.OS === "ios" ? "padding" : "height"}> */}
+                              behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ScrollView>
                             
             <Title name="Name of the ingredient" />
@@ -147,7 +147,7 @@ export default function AddIngredient({route, navigation}) {
                 <Button type="primary" name="Add Ingredient" onPress={() => handleClick()} />
 
             </ScrollView>
-        {/* </KeyboardAvoidingView>     */}
+        </KeyboardAvoidingView>    
     </View>
     
         

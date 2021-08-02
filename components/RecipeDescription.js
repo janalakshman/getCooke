@@ -28,7 +28,7 @@ export default function RecipeDescription(props){
                                 <Text style={styles.title}>{recipe.user.first_name}</Text>
                                 : <Text style={styles.title}>{recipe.user.username}</Text>
                                 }
-                                <Text style={styles.body}>Community member</Text>
+                                <Text style={styles.body}>Community</Text>
                         </View>
                     </View>
                 
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         marginLeft : 16,
     },
     body : {
-      fontSize : 14,
+      fontSize : 12,
       color : '#626262',
       marginLeft : 16,
       fontFamily : 'ExoRegular'

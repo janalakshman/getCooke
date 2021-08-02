@@ -78,7 +78,7 @@ export default function Button(props) {
     }, 
     primaryText : {
       color : '#A13E00',
-      fontSize : 19,
+      fontSize : 17,
       fontFamily : 'ExoMedium',
       margin : 8,
       marginVertical : 10,
@@ -96,8 +96,8 @@ export default function Button(props) {
     },
     secondaryText : {
       color : '#A13E00',
-      fontSize : 19,
-      fontFamily : 'ExoMedium',
+      fontSize : 17,
+      fontFamily : 'ExoRegular',
       margin : 8,
       marginVertical : 10,
       flexGrow : 1,

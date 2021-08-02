@@ -7,38 +7,39 @@ export default function Header(props){
 
     return(
         <View style={styles.card}>
+            {props.recipe ?  
             <View style={styles.line}>
                 <Text style={styles.heading}>{props.recipe.servings}</Text>
                 <Text style={styles.heading}>{props.recipe.servings === 1 ? 'serving' : 'servings'}</Text>
                     {/* <MaterialIcons name="remove" style={styles.icon} onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)}/> */}
                     {/* <MaterialIcons name="add" style={styles.icon}  onPress={(count) => setServings(count + 1)}/> */}
             </View>
+            : <View/>}
             
-            <View style={{margin : 8}}/>
 
             <View style={styles.container}>
                         <View style={styles.box}>
                             <Text style={styles.text}>Calories</Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{props.recipe.calories} calories</Text>
+                            <Text style={styles.unit}>{props.recipe ? props.recipe.calories : props.nutrition.calories} calories</Text>
                         </View>
 
                         <View style={styles.box}>
                             <Text style={styles.text}>Carbohydrates</Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{props.recipe.carbohydrate} g</Text>
+                            <Text style={styles.unit}>{props.recipe ? props.recipe.carbohydrate : props.nutrition.carbohydrate} g</Text>
                         </View>
 
                         <View style={styles.box}>
                             <Text style={styles.text}>Proteins</Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{props.recipe.proteins} g</Text>
+                            <Text style={styles.unit}>{props.recipe ? props.recipe.proteins : props.nutrition.proteins} g</Text>
                         </View>
 
                         <View style={styles.box}>
                             <Text style={styles.text}>Fat</Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{props.recipe.fat} g</Text>
+                            <Text style={styles.unit}>{props.recipe ? props.recipe.fat : props.nutrition.fat} g</Text>
                         </View>
             </View>
      </View>
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         flexDirection : "row",
         justifyContent : 'flex-end',
         marginHorizontal : 16,
-        marginTop : 0,
+        marginBottom : 16,
     },
     text : {
         color : '#3b3b3b',

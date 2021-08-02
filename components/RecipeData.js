@@ -47,17 +47,19 @@ const styles = StyleSheet.create({
   icon : {
       fontSize : 16,
       margin : 4,
+      marginHorizontal : 0
   },
   body : {
     fontSize : 14,
     color : '#3b3b3b',
     fontFamily : 'ExoRegular',
     marginLeft : 8,
-    marginTop : 4
+    margin : 4
 },
 line : {
     flexDirection : "row",
     marginLeft : 16,
-    margin : 4
+    margin : 4,
+    alignContent :'center'
 }
   });

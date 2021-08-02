@@ -121,8 +121,8 @@ const getTags = () => {
             notes : notes ? notes : '',
             steps : steps,
             ingredients : ingredients,
-            carbs : carbs ? carbs : 0,
-            protein : protein ? protein : 0,
+            carbohydrate : carbs ? carbs : 0,
+            proteins : protein ? protein : 0,
             fat : fat ? fat : 0,
             calories : calories ? calories : 0,
             isVeg : isVeg,
@@ -132,7 +132,7 @@ const getTags = () => {
             cuisine : cuisineID ? cuisineID : [],
             type_of_meals : dietID ? dietID : []
         }
-        if((name && time && ingredients && steps)){
+        if((name && time && ingredients && steps && carbs && protein && fat)){
             return(
                 fetch(config.api + `/v1/recipes`,
                     {
@@ -312,6 +312,9 @@ const getTags = () => {
                                         name="fat" />
                     </View>
                 </View>
+                <View style={{marginVertical : 8, margin : 16}} />
+                {error ? fat && carbs && protein ?  <View /> : <Text style={styles.error}>*This is a required field</Text> : <View/>}
+
                     
                 </View>
 
@@ -609,11 +612,11 @@ const styles = StyleSheet.create({
     nutrition : {
         borderRadius : 4,
         borderTopLeftRadius : 0,
-        height : 48,
+        height : 56,
         width : '90%',
         paddingHorizontal : 16,
         fontFamily : 'ExoRegular',
-        fontSize : 16,
+        fontSize : 14,
         alignContent : 'flex-start',
         backgroundColor : '#f1f1f1'
     },
@@ -687,7 +690,7 @@ const styles = StyleSheet.create({
         } ,
     servings : {
         fontFamily : 'ExoRegular',
-        fontSize : 17,
+        fontSize : 14,
         marginHorizontal : 16,
         marginVertical : 8,
         width : '40%',
@@ -695,7 +698,7 @@ const styles = StyleSheet.create({
     },
     servingsUnit : {
         fontFamily : 'ExoRegular',
-        fontSize : 17,
+        fontSize : 14,
         marginHorizontal : 16,
         marginVertical : 8,
         color : '#3b3b3b'

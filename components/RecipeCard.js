@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
       borderRadius : 8
   },
   icon : {
-      height : 16,
-      width : 16,
+      height : 12,
+      width : 12,
       margin : 4,
   },
   text : {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
       fontFamily : 'ExoSemiBold'
   },
 body : {
-    fontSize : 14,
+    fontSize : 12,
     color : '#626262',
     margin : 4,
     fontFamily : 'ExoRegular'
