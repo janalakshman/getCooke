@@ -26,7 +26,7 @@ export default function Header(props){
                         <View key={ingredient.id.toString()} style={styles.box}>
                             <Text style={styles.text}>{ingredient.name.charAt(0).toUpperCase() + ingredient.name.slice(1)} </Text>
                             <View style={{flexGrow : 1}}></View>
-                            <Text style={styles.unit}>{Math.round(ingredient.qty)} {ingredient.unit_name ? (ingredient.unit_name.length > 4 ? ingredient.unit_name.substring(0,4) : ingredient.unit_name) : ''} </Text>
+                            <Text style={styles.unit}>{(ingredient.qty*100)%100 === 0 ? Math.round(ingredient.qty) : ingredient.qty } {ingredient.unit_name === 'number' ? 'numb' : ingredient.unit_name} </Text>
                         </View>
                     )}
             </View>

@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     },
     recipeImage : {
       flex : 1,
-      aspectRatio : 1,
+      aspectRatio : 0.75,
       resizeMode : 'stretch',
       margin : 1,
       borderRadius : 8,
@@ -328,12 +328,12 @@ const styles = StyleSheet.create({
     },
     imageText : {
       margin : 1,
-      height : 110,
+      height : 160,
       borderRadius : 8,
       borderTopLeftRadius : 0,
       alignItems : 'center',
       justifyContent : 'center',
-      backgroundColor : '#fffafa'
+      backgroundColor : '#fff'
     },
     recipeText : {
       fontFamily : 'ExoBoldItalic',
