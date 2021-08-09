@@ -171,9 +171,9 @@ export default function CalendarModal( props ) {
 
           <Title name="Number of servings" />
             <View style={{flexDirection : 'row', alignItems : 'center', marginHorizontal : 64}}>
-              <MaterialIcons name="remove" size={24} color="black" onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)} />
+              <MaterialIcons style={styles.icon} name="remove" onPress={() => servings === 1 ? setServings(1) : setServings(servings - 1)} />
               <Text style={styles.unpressedText}>{servings}</Text>
-              <MaterialIcons name="add" size={24} color="black" onPress={() => setServings(servings + 1)} />
+              <MaterialIcons style={styles.icon} name="add" onPress={() => setServings(servings + 1)} />
             </View>
 
             <View style={{margin : 8}}/>
@@ -240,6 +240,12 @@ export default function CalendarModal( props ) {
   }
   
   const styles = StyleSheet.create({
+    icon : {
+      fontSize : 24,
+      color : '#333',
+      marginHorizontal : 16,
+      marginVertical : 8
+    },
     centeredView: {
       flex: 1,
       justifyContent: "center",
@@ -268,12 +274,6 @@ export default function CalendarModal( props ) {
     shadowRadius: 4,
     elevation: 5
     },
-    text : {
-      fontSize : 17,
-      color : '#3b3b3b',
-      margin : 16,
-      fontFamily : 'ExoRegular'
-  },
   heading : {
     color : '#3b3b3b',
     fontSize : 19,

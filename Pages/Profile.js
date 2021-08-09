@@ -169,9 +169,16 @@ export default function Profile({navigation}){
                     
                 {/* <ProfileData user={user}/> */}
 
+                <View style={{margin : 8}} />
+
+                <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
+                    <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
+                    <Button type="profile" name="Log Out" onPress={ () =>handleLogout()} />
+                </View>
+
               
                 
-                <View style={{marginVertical : 8}}> 
+                <View> 
                     <SegmentedControlTab
                         values={["Cookbook", "Favourites"]}
                         selectedIndex={index}
@@ -217,10 +224,7 @@ export default function Profile({navigation}){
 
                   </ScrollView> : <Welcome /> }
 
-                  <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginVertical : 16}} >
-                    <Button type="profile" name="Contact" onPress={() => navigation.navigate('Contact')}/>
-                    <Button type="profile" name="Log Out" onPress={ () =>handleLogout()} />
-                </View>
+                 
 
 
                   <NavBar props="Profile" />
@@ -317,7 +321,7 @@ const styles = StyleSheet.create({
     recipeImage : {
       flex : 1,
       aspectRatio : 1,
-      resizeMode : 'contain',
+      resizeMode : 'stretch',
       margin : 1,
       borderRadius : 8,
       borderTopLeftRadius : 0

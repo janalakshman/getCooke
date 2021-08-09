@@ -66,9 +66,10 @@ const CalendarCard = (props) => {
                             <Image source={{uri : props.event.title.recipe.image}} alt="Recipe" style={styles.recipe}/> :
                             <Image source={RecipeDefault} alt="Recipe" style={styles.recipe}/> }
                       </Pressable>
-                  </View> 
-                  
-                  <View style={{flexDirection : 'column', justifyContent : 'flex-start', alignContent : 'flex-start', alignSelf : 'flex-start', marginVertical : 4, margin : 16, width : '60%'}}>
+                  </View>
+
+
+                  <View style={{flexDirection : 'column', justifyContent : 'center', alignContent : 'flex-start', marginVertical : 4, margin : 16, width : '60%'}}>
                           <Text style={styles.text}>{props.event.title.recipe.name.length > 24 ? props.event.title.recipe.name.slice(0,24)+ '...' : props.event.title.recipe.name}</Text>                       
                           <View style={{flexDirection : 'column', alignContent : 'center', alignItems : 'flex-start', marginRight : 32 }}>
                           { props.event.title.course ? 
@@ -222,6 +223,7 @@ export default function MealPlan({navigation}) {
            getGrocery();
           }, [refreshing]);
 
+
    const Item = (event) => {
     return(
       <View style={{margin : 4}}>
@@ -268,7 +270,7 @@ export default function MealPlan({navigation}) {
                               )
                             }}
                             renderSectionFooter={({ section : {nutritions}}) => (
-                              Object.keys(nutritions).length > 0 ? (
+                              nutritions ? (
                                 <View>
                                   <View style={{flexDirection : 'row', justifyContent : 'space-evenly', marginBottom : 16, alignItems : 'center'}}>
                                     <Text style={styles.nutrition}>Nutrition info for the day</Text>
@@ -399,15 +401,16 @@ smalltext : {
 delete : {
   flexDirection : 'row', 
   alignItems : 'center', 
+  alignContent : 'center',
   justifyContent : 'flex-start', 
   marginHorizontal : 16,
   marginVertical : 4
   },
 recipe : {
-    flex : 1,
-    aspectRatio : 1,
-    resizeMode : 'contain',
-    width : '100%',
+    aspectRatio : 0.75,
+    resizeMode : 'stretch',
+    width : '75%',
+    alignSelf : 'center',
     borderTopLeftRadius : 0,
     borderRadius : 8,
 },

@@ -96,14 +96,14 @@ const getTags = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 1,
       allowsEditing : true,
-      aspect : [1,1]
+      aspect : [3,4]
     });
 
     if(!result.cancelled) {
             const manipResult = await ImageManipulator.manipulateAsync(
             result.uri,
-            [{resize : {width : 690, height : 690}},{ rotate: 0 }],
-            { compress: Platform.OS === 'ios' ? 0 : 1, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
+            [{resize : {width : 517.5, height : 690}},{ rotate: 0 }],
+            { compress: 1, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
             );
             setImage('data:image/jpeg;base64,' + manipResult.base64)
     }
@@ -385,15 +385,15 @@ const getTags = () => {
                                                             onPress={async () => {
                                                                 let result = await ImagePicker.launchImageLibraryAsync({
                                                                   mediaTypes: ImagePicker.MediaTypeOptions.All,
-                                                                  quality: Platform.OS === 'ios' ? 0.75 : 1,
+                                                                  quality: 1,
                                                                   allowsEditing : true,
-                                                                  aspect : [1,1]
+                                                                  aspect : [3,4]
                                                                 });
                                                             
                                                                 if(!result.cancelled) {
                                                                         const manipResult = await ImageManipulator.manipulateAsync(
                                                                         result.uri,
-                                                                        [{resize : {width : 690, height : 690}},{ rotate: 0 }],
+                                                                        [{resize : {width : 517.5, height : 690}},{ rotate: 0 }],
                                                                         { compress: Platform.OS === 'ios' ? 0 : 1, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
                                                                         );
                                                                         setSteps(prevState => {
@@ -711,11 +711,12 @@ const styles = StyleSheet.create({
         borderTopLeftRadius : 0,
     },
     image : {
-        flex : 1,
-        aspectRatio : 1,
+        aspectRatio : 0.75,
+        width : '75%',
         borderRadius : 8,
         borderTopLeftRadius : 0,
-        resizeMode : 'contain'
+        resizeMode : 'contain',
+        alignSelf : 'center'
     },
     background: {
         flex: 1,

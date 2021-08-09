@@ -13,7 +13,7 @@ export default function Header(props){
         <Pressable onPress={props.onPress}>
             <View style={styles.card}>
 
-                {props.recipe.image ? <Image source={{uri : props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.image} /> }
+                {props.recipe.image ? <Image source={{uri : props.recipe.image}} style={styles.image} />: <Image source={RecipeCardPic} style={styles.default} /> }
                 
                 <Text style={styles.text}>{props.recipe.name.length > 28 ? props.recipe.name.slice(0,28)+'...' : props.recipe.name}</Text>
 
@@ -37,10 +37,11 @@ const styles = StyleSheet.create({
     card : {
         width : 166,
         padding : 4,
-        margin : 4,
+        margin : 8,
         borderRadius : 20,
         borderTopLeftRadius : 0,
         backgroundColor : '#fff',
+        marginHorizontal : 2
         // borderWidth : 1,
         // borderColor : '#cfcfcf'
         // elevation : 3,
@@ -50,14 +51,21 @@ const styles = StyleSheet.create({
         // shadowOffset : {width : 0, height : 4},
     },
   image : {
-      flex : 1,
-      resizeMode : 'contain',
-      aspectRatio : 1,
+      resizeMode : 'stretch',
+      aspectRatio : 0.75,
       width : 150,
       marginBottom : 4,
       borderTopLeftRadius : 0,
       borderRadius : 8
   },
+  default : {
+    resizeMode : 'stretch',
+    width : 150,
+    height : 200,
+    marginBottom : 4,
+    borderTopLeftRadius : 0,
+    borderRadius : 8
+},
   icon : {
       height : 12,
       width : 12,

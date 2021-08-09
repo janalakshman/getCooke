@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cook-e",
     "slug": "Cook-e",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,7 +24,7 @@
       "bundleIdentifier": "Cook-e"
     },
     "android": {
-      "versionCode" : 10,
+      "versionCode" : 12,
       "adaptiveIcon": {
         "foregroundImage": "./assets/CookeLogo.png",
         "backgroundColor": "#FFFFFF"

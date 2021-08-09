@@ -14,7 +14,7 @@ export default function PrepStep(props) {
                             <View key={step.id.toString()} style={styles.container}>
                               <Text style={styles.title}>{++count}</Text>
             
-                              <View style={{paddingLeft : 8, paddingRight : 8, width : '100%'}}>
+                              <View style={{paddingLeft : 8, paddingRight : 8, width : '90%'}}>
                                 <Text style={styles.text}>{step.step}</Text>
                                 {step.image ? 
                                     <Image source={{uri : step.image}} alt="prep" style={styles.image} /> : <View/>
@@ -63,9 +63,9 @@ export default function PrepStep(props) {
     image : {
       width : '85%',
       flex: 1,
-      aspectRatio: 1,
+      aspectRatio: 0.75,
       alignSelf : 'center', 
-      resizeMode: 'contain',
+      resizeMode: 'stretch',
       borderTopLeftRadius : 0,
       borderTopRightRadius : 0,
       borderRadius : 20,

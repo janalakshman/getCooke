@@ -28,12 +28,13 @@ const ToBuyItem = (props) => {
                   <View style={{flexDirection : 'row', alignItems : 'center'}}>
                       <Text style={styles.unclicked}>{props.item.name.charAt(0).toUpperCase() + props.item.name.slice(1)}</Text>
                       <View style={{flexGrow : 1}}></View>
-                      {Object.keys(props.item.qty).map((key) => (
-                        <View style={{flexDirection : 'column', width : '50%'}}>
-                          <Text style={styles.unclicked}>{(props.item.qty[key]).toFixed(2)} {key.length > 4 ? key.substring(0,4) : key}</Text>
-                        </View>
-                          ))}
-                        
+                      
+                      <View style={{flexDirection : 'column', width : '50%'}}>
+                        {Object.keys(props.item.qty).map((key) => (
+                            <Text style={styles.unclicked}>{(props.item.qty[key]).toFixed(2)} {key === 'number' ? 'numb' : key}</Text>
+                            ))}
+                      </View>
+  
                   </View>
             </Pressable>  
             }
